@@ -1,0 +1,188 @@
+
+
+\documentclass[12pt]{report}           %one-sided, university requirement
+%\documentclass[12pt,twoside,authordate1-4]{book}      %two-sided, book format to save paper
+
+%\documentclass[12pt,letterpaper,twoside,singlespace]{thesis} % DRAFT
+%\documentclass[12pt,letterpaper,truedoublespace]{thesis}     % FINAL
+
+\usepackage{revsymb}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyheadings}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{natbib}
+\usepackage{aas_macros}
+\usepackage{hyperref}
+
+%\usepackage{caption2}
+\usepackage[table]{xcolor}
+\usepackage[top=1.5in, bottom=1.5in, left=1.25in, right=1.25in]{geometry}
+
+\definecolor{U}{rgb}{1,.7,.1}
+
+\doublespacing
+
+
+
+%\bibliography{authordate1}
+\begin{document}
+
+\bibliographystyle{unsrt}
+%\bibliography{authordate1}
+
+%\setlength{\topmargin}{0.5in} \setlength{\textheight}{8in}
+%\setlength{\oddsidemargin}{0.7in} \setlength{\textwidth}{5.7in}
+
+
+
+\include{macro_layout}
+
+
+\thispagestyle{empty}
+
+
+\def\thesistitle{Title}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% cover
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{empty}
+
+\begin{center}
+
+{\Large \bf \thesistitle}
+
+%\vskip1.3in
+\vskip1.5in
+
+{\Large  Andrea Petri } %\vskip0.8in
+\vskip0.5in
+{\Large  Advisors: Prof. Morgan May, Prof. Zolt\`an Haiman } 
+
+
+
+%\vskip0.5in
+\vskip1.1in
+
+
+\large
+Submitted in partial fulfillment of the               \\
+requirements for the degree                           \\
+of Doctor of Philosophy                               \\
+in the Graduate School of Arts and Sciences           \\
+
+\vskip0.5in
+
+COLUMBIA UNIVERSITY                                   \\
+2017                                                  \\
+
+\end{center}
+
+
+\clearpage
+
+
+\begin{center}
+\ \\
+\vskip5.5in
+\copyright 2017 \\[3mm]
+Andrea Petri\\
+All Rights Reserved
+\end{center}
+\clearpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Prefatory pages                                                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{abstract} 
+
+
+\end{abstract}
+
+
+\setcounter{secnumdepth}{3}
+ \setcounter{tocdepth}{2}       %    LEVEL    : An entry is produced only if LEVEL < or = value of
+                                %               'tocdepth' counter.  Note, \chapter is level 0, \section
+                                %               is level 1, etc.
+
+
+
+\pagestyle{plain} \pagenumbering{roman} \setcounter{page}{1}
+
+
+
+\tableofcontents
+\clearpage
+
+%\listoftables %only if needed
+ %\clearpage
+
+\listoffigures 
+\clearpage
+
+\include{Acknowledgements}
+\clearpage
+
+
+\thispagestyle{plain}
+\par\vspace*{.35\textheight}{\centering \textit{Dedicated to }\par}
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%acknowledgements%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Real stuff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{arabic}
+ \setcounter{page}{1}
+
+
+
+%%%%%%%%%%%%%%%%%for two-sided book%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancyplain}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+
+
+
+\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
+\rhead[\fancyplain{}{\leftmark}]{\fancyplain{\thepage}{\thepage}}
+\cfoot{\empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%for one-sided university deposit%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55555
+%\pagestyle{fancyplain}
+%\renewcommand{\chaptermark}[1]{\markboth{\chaptername~\thechapter.\ #1}{}}
+
+
+%\lhead{\fancyplain{}{\leftmark}}
+%\rhead{\fancyplain{\thepage}{\thepage}} \cfoot{\empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{Chapter1}
+%\include{Chapter2}
+%%only include if needed
+\citep{DodelsonSchneider13,Taylor12}
+
+\bibliography{ref}
+
+%\include{Glossary}
+
+%\appendix
+%\include{Davydov}
+%\include{abbreviations}
+
+
+\end{document}
