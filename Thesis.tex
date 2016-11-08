@@ -17,6 +17,7 @@
 \usepackage{natbib}
 \usepackage{aas_macros}
 \usepackage{hyperref}
+\usepackage{nomencl}
 
 %\usepackage{caption2}
 \usepackage[table]{xcolor}
@@ -30,6 +31,10 @@
 \newcommand{\bbh}[1]{\mathbf{\hat{#1}}}
 \newcommand{\h}[1]{\hat{#1}}
 \newcommand{\Tr}{{\rm Tr}}
+\newcommand{\pt}{\pmb{\theta}}
+\newcommand{\xp}{\bb{x}_\perp}
+
+\renewcommand{\nomname}{List of symbols and abbreviations}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -41,7 +46,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\includeonly{Chapter2}
+\includeonly{Symbols,Chapter2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -125,7 +130,7 @@ This dissertation analyzes...
 
 
 \setcounter{secnumdepth}{3}
- \setcounter{tocdepth}{1}       %    LEVEL    : An entry is produced only if LEVEL < or = value of
+ \setcounter{tocdepth}{2}       %    LEVEL    : An entry is produced only if LEVEL < or = value of
                                 %               'tocdepth' counter.  Note, \chapter is level 0, \section
                                 %               is level 1, etc.
 
@@ -141,8 +146,12 @@ This dissertation analyzes...
 %\listoftables %only if needed
  %\clearpage
 
-\listoffigures 
-\clearpage
+%\listoffigures 
+%\clearpage
+
+\makenomenclature
+\include{Symbols}
+\printnomenclature
 
 \include{Acknowledgements}
 \clearpage
@@ -197,7 +206,7 @@ This dissertation analyzes...
 \include{Chapter8}
 %%only include if needed
 
-\bibliography{ref}
+%\bibliography{ref}
 
 %\include{Glossary}
 

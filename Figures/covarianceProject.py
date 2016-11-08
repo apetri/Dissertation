@@ -158,4 +158,4 @@ def curving_nb(cmd_args,db_filename="variance_scaling_nb_expected.sqlite",parame
 	ax1.set_xlabel(r"$N_r$",fontsize=fontsize)
 
 	#Save the figure
-	fig.savefig(".".join([figname,cmd_args.type]))
+	fig.savefig("eps/{0}.{1}".format(figname,cmd_args.type))
