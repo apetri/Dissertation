@@ -4,9 +4,10 @@ sys.modules["mpi4py"] = None
 
 #Pretty plotting
 import seaborn as sns
-sns.set(palette="muted")
+sns.set(palette="muted",font_scale=2)
 
 #Projects I worked on
+import miscellaneous
 import covarianceProject
 
 #Options
@@ -18,7 +19,7 @@ parser.add_argument("fig",nargs="*")
 
 #Method dictionary
 method = dict()
-method["1"] = covarianceProject.curving_nb
+method["2-dist"] = miscellaneous.distortion
 
 #Main
 def main():
