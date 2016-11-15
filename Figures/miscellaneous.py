@@ -42,3 +42,23 @@ def distortion(cmd_args,fontsize=22):
 
 	#Save 
 	fig.savefig("{0}/distortion.{0}".format(cmd_args.type))
+
+def EMode(cmd_args,fontsize=22):
+
+	#Set up plot
+	fig,ax = plt.subplots()
+
+	#Set up image
+	b = np.arange(512.)
+	g = np.array(np.meshgrid(b,b,indexing="xy"))
+	kappa = lt.ConvergenceMap(0.1*np.exp(-((g[0]-128)**2+(g[1]-256)**2)/(50.**2))-0.1*np.exp(-((g[0]-384)**2+(g[1]-256)**2)/(50.**2)),angle=50*u.arcsec)
+
+	#KS inversion for shear
+	gamma = lt.ShearMap.fromConvergence(kappa)
+
+	#Visualize
+	kappa.visualize(colorbar=True,fig=fig,ax=ax,cbar_label=r"$\kappa$")
+	gamma.sticks(fig=fig,ax=ax,pixel_step=15)
+
+	#Save
+	fig.savefig("{0}/emode.{0}".format(cmd_args.type))

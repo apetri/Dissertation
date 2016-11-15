@@ -32,7 +32,7 @@ Where the affine connection $\Gamma_{\alpha\beta}^\mu$ for the metric (\ref{eq:2
 \label{eq:2:connection}
 \begin{matrix}
 \Gamma_{00}^0 = \frac{1}{c}\partial_t\Psi & ; & \Gamma_{0i}^0=\Gamma_{i0}^0 = \partial_i\Psi \\  
-\Gamma_{ij}^0 = \frac{\delta_{ij}a^2}{c}(H+2H(\Phi-\Psi)+\partial_t\Phi) & ; & \Gamma_{00}^i = \frac{\partial_i \Psi}{a^2} \\
+\Gamma_{ij}^0 = \frac{\delta_{ij}a^2}{c}[H+2H(\Phi-\Psi)+\partial_t\Phi] & ; & \Gamma_{00}^i = \frac{\partial_i \Psi}{a^2} \\
 \Gamma^i_{j0} = \Gamma^i_{0j} = \frac{\delta_{ij}}{c}(H+\partial_t\Phi) & ; & \Gamma_{jk}^i = (\delta_{ij}\partial_k+\delta_{ik}\partial_j-\delta_{jk}\partial_i)\Phi\\
 \end{matrix}
 \end{equation}
@@ -44,17 +44,7 @@ Where the space--time dependency of the quantities has been omitted for notation
 x^{\mu} = (ct,\chi,\xp)
 \end{equation}
 %
-Where we indicated the transverse coordinates (with respect of the observer) corresponding to an angle on the sky $\pt$ as $\xp=\chi\pt$. We will adopt the so called flat sky approximation, in which the angles $\pt$ are small. 
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.75]{Figures/pdf/rayscheme.pdf}
-\end{center}
-\caption{Coordinate system centered on a fundamental observer on Earth}
-\label{fig:2:scheme}
-\end{figure}
-%
-Since photons travel along null geodesics, their 4-momentum $P^\mu=dx^\mu/d\tau=(p^0,\bb{p})$ must satisfy $g_{\mu\nu}P^{\mu}P^{\nu}=0$, which gives the constraint (at first order in $\Psi$)
+Where we indicated the transverse coordinates (with respect of the observer) corresponding to an angle on the sky $\pt$ as $\xp=\chi\pt$. We will adopt the so called flat sky approximation, in which the angles $\pt$ are small. Since photons travel along null geodesics, their 4-momentum $P^\mu=dx^\mu/d\tau=(p^0,\bb{p})$ must satisfy $g_{\mu\nu}P^{\mu}P^{\nu}=0$, which gives the constraint (at first order in $\Psi$)
 
 \begin{equation}
 \label{eq:2:nullconstr}
@@ -102,6 +92,14 @@ After a few simplifications this assumes the form
 \label{eq:2:geodesic-fo-2}
 \frac{d^2\xp(\chi)}{d\chi^2} = \nabla_\perp(\Phi(\chi,\xp)-\Psi(\chi,\xp))
 \end{equation}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.75]{Figures/pdf/rayscheme.pdf}
+\end{center}
+\caption{Coordinate system centered on a fundamental observer on Earth}
+\label{fig:2:scheme}
+\end{figure}
 
 \subsection{Einstein equation}
 The potentials $\Phi,\Psi$, as they appear in the metric (\ref{eq:2:confnewt}), must satisfy Einstein equation. Since we limit our study to scalar perturbations, there are only two independent components of the Einstein equation that we need to consider. Since WL physics is dominated by the late time behavior of density perturbations, we will ignore relativistic particles as contribution to the energy momentum tensor and focus on cold matter only. We parametrize the matter density as 
@@ -232,10 +230,10 @@ Relating observable WL quantities such as the source ellipticity $\pmb{\epsilon}
 And by differentiating (\ref{eq:2:geosol-beta}) with respect to $\pt$ we can obtain a similar relation for the Jacobian $\bb{A}$
 \begin{equation}
 \label{eq:2:geosol-jac}
-A_{ij}(\chi,\pt) = \delta_{ij} + 2\int_0^\chi d\chi'\chi'\left(1-\frac{\chi'}{\chi}\right)\partial_i\partial_k\Phi(\chi',\chi'\pmb{\beta}(\chi',\pt))A_{kj}(\chi',\pt)
+A_{ij}(\chi,\pt) = \delta_{ij} + 2\int_0^\chi d\chi'\chi'\left(1-\frac{\chi'}{\chi}\right)T^{\Phi}_{ik}(\chi',\chi'\pmb{\beta}(\chi',\pt))A_{kj}(\chi',\pt)
 \end{equation}
 %
-Like (\ref{eq:2:geosol-2}), equation (\ref{eq:2:geosol-jac}) is an implicit relation that allows to calculate $\bb{A}(\chi_s,\pt)$ at some $\chi_s$ once all $\bb{A}(\chi,\pt)$ are known for $\chi<\chi_s$. A numerical solution to this problem that makes use of the multi--lens--plane algorithm \citep{RayTracingJain,RayTracingHartlap} will be explored in the next Chapter. 
+Where we defined the tidal tensor $T^{\Phi}_{ij}=\partial_i\partial_j\Phi$. Like (\ref{eq:2:geosol-2}), equation (\ref{eq:2:geosol-jac}) is an implicit relation that allows to calculate $\bb{A}(\chi_s,\pt)$ at some $\chi_s$ once all $\bb{A}(\chi,\pt)$ are known for $\chi<\chi_s$. A numerical solution to this problem that makes use of the multi--lens--plane algorithm \citep{RayTracingJain,RayTracingHartlap} will be explored in the next Chapter. 
 The fact that the potential $\Phi$ appears on the RHS of (\ref{eq:2:geosol-jac}) suggests the possibility of a perturbative expansion of $\bb{A}$ in powers of $\Phi$. Confidence in the validity of the perturbative approach comes from the fact that in the WL limit $\Phi$ is small. If we focus in at most quadratic contributions in $\Phi$, we can write
 
 \begin{equation}
@@ -247,10 +245,10 @@ To obtain an expression at linear order in $\Phi$, we can replace Jacobian of th
 
 \begin{equation}
 \label{eq:2:jacobian-fo}
-A_{ij}^{(1)}(\chi,\pt) = 2\int_0^\chi d\chi'\chi'\left(1-\frac{\chi'}{\chi}\right)\partial_i\partial_j\Phi(\chi',\chi'\pt)
+A_{ij}^{(1)}(\chi,\pt) = 2\int_0^\chi d\chi'\chi'\left(1-\frac{\chi'}{\chi}\right)T^{\Phi}_{ij}(\chi',\chi'\pt)
 \end{equation}
 %
-Equation (\ref{eq:2:jacobian-fo}) essentially says that, at lowest perturbative order, the lensing Jacobian is the projection of the tidal field $\partial_i\partial_j\Phi$ on the unperturbed geodesic trajectory $\chi\pt$, weighted with a lensing kernel
+Equation (\ref{eq:2:jacobian-fo}) essentially says that, at lowest perturbative order, the lensing Jacobian is the projection of the tidal field $T^{\Phi}_{ij}$ on the unperturbed geodesic trajectory $\chi\pt$, weighted with a lensing kernel
 
 \begin{equation}
 W(\chi',\chi) = \chi'\left(1-\frac{\chi'}{\chi}\right) 
@@ -259,7 +257,7 @@ W(\chi',\chi) = \chi'\left(1-\frac{\chi'}{\chi}\right)
 With the use of (\ref{eq:2:dfl-inverse}) we can express the convergence at first order in the lensing potential
 \begin{equation}
 \label{eq:2:kappa-1}
-\kappa^{(1)}(\chi_s,\pt) = \int_0^{\chi_s}d\chi W(\chi,\chi_s)\delta_L(\chi,\chi\pt)
+\kappa^{(1)}(\chi,\pt) = \int_0^{\chi}d\chi' W(\chi',\chi)\delta_L(\chi',\chi'\pt)
 \end{equation}
 %
 Where we defined the lensing density $\delta_L$ as 
@@ -268,32 +266,124 @@ Where we defined the lensing density $\delta_L$ as
 \delta_L(\chi,\xp) = -\nabla^2_\perp \Phi(\chi,\xp)
 \end{equation}
 %
-Equation (\ref{eq:2:kappa-1}) essentially means that the WL convergence is the integrated column density fluctuations on the line of sight between the observer and the source. Quadratic corrections to the linear relation (\ref{eq:2:jacobian-fo}) between $\bb{A}$ and $\Phi$ come from two different sources in equation (\ref{eq:2:geosol-jac}): one term is generated by replacing the Jacobian in the RHS of (\ref{eq:2:geosol-jac}) with its first order approximation $A_{ij}^{(1)}$, the other comes from the transverse argument of the tidal field $\partial_i\partial_j\Phi$, which contains the geodesic perturbations. Using the approximation
+Equation (\ref{eq:2:kappa-1}) essentially means that the WL convergence is the integrated column density fluctuations on the line of sight between the observer and the source. Note that because the first order WL quantities are proportional to the integrated tidal field, which is symmetric, the WL rotation $\omega$ vanishes as can be seen in equation (\ref{eq:2:dfl-inverse}). 
+Quadratic corrections to the linear relation (\ref{eq:2:jacobian-fo}) between $\bb{A}$ and $\Phi$ come from two different sources in equation (\ref{eq:2:geosol-jac}): one term is generated by replacing the Jacobian in the RHS of (\ref{eq:2:geosol-jac}) with its first order approximation $A_{ij}^{(1)}$, the other comes from the transverse argument of the tidal field $T^{\Phi}_{ij}$, which contains the geodesic perturbations. Using the approximation
 
 \begin{equation}
 \label{eq:2:tidalapprox}
-\partial_i\partial_j\Phi(\chi,\chi\pmb{\beta}(\chi,\pt)) = \partial_i\partial_j\Phi(\chi,\chi\pt) + \partial_i\partial_j\partial_k\Phi(\chi,\chi\pt)\chi[\beta_k^{(1)}(\chi,\pt)-\theta_k] + O(\Phi^3) 
+T^{\Phi}_{ij}(\chi,\chi\pmb{\beta}(\chi,\pt)) = T^{\Phi}_{ij}(\chi,\chi\pt) + \chi\partial_kT^{\Phi}_{ij}(\chi,\chi\pt)[\beta_k^{(1)}(\chi,\pt)-\theta_k] + O(\Phi^3) 
 \end{equation}
 %
 we can write a second order expression for $\bb{A}$ 
 
 \begin{equation}
 \label{eq:2:jacobian-so}
-\bb{A}^{(2)}(\chi,\pt) = \bb{A}^{(2-ll)}(\chi,\pt) + \bb{A}^{(2-gp)}(\chi,\pt) 
+\bb{A}^{(2)}(\chi,\pt) = \bb{A}^{(2-{\rm ll})}(\chi,\pt) + \bb{A}^{(2-{\rm gp})}(\chi,\pt) 
 \end{equation}
 %
 \begin{equation}
 \label{eq:2:jacobian-so-ll}
-A_{ij}^{(2-ll)}(\chi,\pt) = 4\int_0^\chi d\chi'\int_0^{\chi'}d\chi'' W(\chi'',\chi')W(\chi',\chi)\partial_i\partial_k\Phi(\chi',\chi'\pt)\partial_k\partial_j\Phi(\chi'',\chi''\pt)
+A_{ij}^{(2-{\rm ll})}(\chi,\pt) = 4\int_0^\chi d\chi'\int_0^{\chi'}d\chi'' W_2(\chi'',\chi',\chi)T^{\Phi}_{ik}(\chi',\chi'\pt)T^{\Phi}_{kj}(\chi'',\chi''\pt)
 \end{equation} 
 %
 \begin{equation}
 \label{eq:2:jacobian-so-gp}
-A_{ij}^{(2-gp)}(\chi,\pt) = 4\int_0^\chi d\chi'\int_0^{\chi'}d\chi'' W(\chi'',\chi')W(\chi',\chi)\frac{\chi'}{\chi''}\partial_i\partial_j\partial_k\Phi(\chi',\chi'\pt)\partial_k\Phi(\chi'',\chi''\pt)
+A_{ij}^{(2-{\rm gp})}(\chi,\pt) = 4\int_0^\chi d\chi'\int_0^{\chi'}d\chi'' W_2(\chi'',\chi',\chi)\frac{\chi'}{\chi''}\partial_kT^{\Phi}_{ij}(\chi',\chi'\pt)\partial_k\Phi(\chi'',\chi''\pt)
 \end{equation} 
 %
+With $W_2(t,u,v)=W(t,u)W(u,v)$. The term in (\ref{eq:2:jacobian-so-ll}) originates from the lens--lens coupling between the tidal field at different $\chi$, while the term in (\ref{eq:2:jacobian-so-gp}) has to do with the first order perturbations in the light ray geodesic due to matter density fluctuations. Equations (\ref{eq:2:jacobian-so-ll}),(\ref{eq:2:jacobian-so-gp}) can be easily translated into second order expressions for $\kappa$
+
+\begin{equation}
+\label{eq:2:kappa-2-ll}
+\kappa^{(2-{\rm ll})}(\chi,\pt) = -2\int_0^\chi d\chi'\int_0^{\chi'}d\chi'' W_2(\chi'',\chi',\chi)\Tr [\bb{T}^{\Phi}(\chi',\chi'\pt)\bb{T}^{\Phi}(\chi'',\chi''\pt)]
+\end{equation} 
+%
+\begin{equation}
+\label{eq:2:kappa-2-gp}
+\kappa^{(2-{\rm gp})}(\chi,\pt) = -2\int_0^\chi d\chi'\int_0^{\chi'}d\chi'' W_2(\chi'',\chi',\chi)\frac{\chi'}{\chi''}\nabla_\perp \delta_L(\chi',\chi'\pt)\cdot\nabla_\perp\Phi(\chi'',\chi''\pt)
+\end{equation} 
+%
+For completeness we should note that the quadratic terms (\ref{eq:2:kappa-2-ll}),(\ref{eq:2:kappa-2-gp}) are not the only ones that contribute to the WL convergence, as at the beginning of the Chapter we derived an approximate form for the light deflection (\ref{eq:2:geodesic-fo-3}) from the geodesic equation (\ref{eq:2:geodesic}). If one includes the PN corrections to (\ref{eq:2:geodesic-fo-3}), as shown in \citep{PNLensing}, additional quadratic terms $\kappa^{(2-{\rm PN})}$ arise
+
+\begin{equation}
+\label{eq:2:kappa-2-pn}
+\kappa^{(2-{\rm PN})}(\chi,\pt) = \int_0^\chi d\chi' W(\chi',\chi)\left[\vert\nabla_\perp\Phi(\chi',\chi'\pt)\vert^2+\Phi(\chi',\chi'\pt)\nabla_\perp^2\Phi(\chi',\chi'\pt)\right]
+\end{equation}
+%
+Comparing (\ref{eq:2:kappa-2-pn}) with (\ref{eq:2:kappa-2-ll}),(\ref{eq:2:kappa-2-gp}) we can easily see that the former PN corrections to $\kappa$ are suppressed by a factor of order $\lambda_m H/c$, with $\lambda_m$ being a characteristic coherence scale for the matter density perturbations. \citep{PNLensing} suggest that this suppression factor can be safely estimated to be of the order of $\sim 10^{-2}$ at the location where the lensing kernel $W$ usually peaks, making the PN corrections suppressed by a factor of order of $\sim 10^{-4}$. We will neglect these PN corrections to $\kappa$ throughout this work.  
+
+We can also derive an expression for the dominant contribution to the rotation $\omega$ by taking the antisymmetric part of $\bb{A}$, which comes from lens-lens couplings
+
+\begin{equation}
+\label{eq:2:omega-2-ll}
+\omega^{(2)}(\chi,\pt) = 2\int_0^\chi d\chi'\int_0^{\chi'}d\chi'' W_2(\chi'',\chi',\chi)\Tr[\bb{T}^{\Phi}(\chi',\chi'\pt)\pmb{\varepsilon}\bb{T}^{\Phi}(\chi'',\chi''\pt)]
+\end{equation} 
+%
+In the remainder of the Chapter we will explore an approximate relation between the WL convergence and shear that proves particularly useful when analyzing survey data.
+
+\subsection{$E/B$ mode shear decomposition}
+The convergence $\kappa$ and cosmic shear $\pmb{\gamma}$ can be approximately related to each other if one focuses on their $O(\Phi)$ expressions. This will prove useful in reconstructing the non observable $\kappa$ profile from ellipticity observations which directly probe the shear field. Equation (\ref{eq:2:jacobian-fo}) clearly states that, at linear order in the potential $\Phi$, the differential distortion $\bb{A}$ is the second derivative of the projected potential 
+
+\begin{equation}
+\label{eq:2:projection-fo-1}
+A^{(1)}_{ij}(\chi,\pt) = \partial_i\partial_j \Phi_2(\chi,\pt) \\ \\
+\end{equation}
+%
+\begin{equation}
+\label{eq:2:projection-fo-2}
+\Phi_2(\chi,\pt) = \int_0^\chi \frac{d\chi'}{\chi'^2} W(\chi',\chi)\Phi(\chi',\chi'\pt)
+\end{equation}
+%
+From the first order expression for the convergence
+
+\begin{equation}
+\label{eq:2:kappa-1-lapl}
+\kappa^{(1)}(\chi,\pt) = -\frac{1}{2}\nabla_\perp^2 \Phi_2(\chi,\pt)
+\end{equation}
+%
+We can roll back the laplacian and get an approximate relation between convergence and shear, which is exact at first order
+
+\begin{equation}
+\label{eq:2:gamma-1-lapl}
+\begin{matrix}
+\gamma^1(\chi,\pt) = \nabla_\perp^{-2} (\partial_x^2-\partial_y^2) \kappa(\chi,\pt) + O(\Phi^2) \\ \\
+\gamma^2(\chi,\pt) = 2\nabla_\perp^{-2} \partial_x\partial_y \kappa(\chi,\pt) + O(\Phi^2)
+\end{matrix}
+\end{equation}
+%
+This relation can be written more compactly in Fourier space using the complex shear $\gamma^c=\gamma^1+i\gamma^2$  
+
+\begin{equation}
+\label{eq:2:gamma-c-ks}
+\tilde{\gamma}^c_{KS}(\chi,\pell) = \left(\frac{\ell_x^2-\ell_y^2+2i\ell_x\ell_y}{\ell_x^2+\ell_y^2}\right) \tilde{\kappa}(\chi,\pell) = e^{2i\phi_{\pell}} \tilde{\kappa}(\chi,\pell)
+\end{equation}
+%
+Where we introduced the Fourier angle $\phi_{\pell}$ defined by $\cos \phi_{\pell} = \ell_x/\ell$, $\sin\phi_{\pell}=\ell_y/\ell$. Equation (\ref{eq:2:gamma-c-ks}) takes the name of Kaiser-Squires (KS) relation between convergence and shear \citep{KaiserSquires}, and can be inverted to reconstruct the convergence from the shear at first order in $\Phi$
+
+\begin{equation}
+\label{eq:2:kappa-ks}
+\tilde{\kappa}_{KS}(\chi,\pell) = e^{-2i\phi_{\pell}} \tilde{\gamma}^c(\chi,\pell) = \tilde{\gamma}^E(\chi,\pell) + i\tilde{\gamma}^B(\chi,\pell)
+\end{equation}
+%
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{Figures/eps/emode.eps}
+\end{center}
+\caption{$E$-mode shear pattern for positive and negative $\kappa$ peaks}
+\label{fig:2:emode}
+\end{figure}
+%
+Where the shear Fourier $E$ and $B$ modes are defined by
+\begin{equation}
+\label{eq:2:shear-eb}
+\begin{matrix}
+\tilde{\gamma}^E(\chi,\pell) =  \tilde{\gamma}^1(\chi,\pell)\cos 2\phi_{\pell} +  \tilde{\gamma}^2(\chi,\pell) \sin 2\phi_{\pell}\\ \\ 
+\tilde{\gamma}^B(\chi,\pell) = - \tilde{\gamma}^1(\chi,\pell)\sin 2\phi_{\pell} + \tilde{\gamma}^2(\chi,\pell) \cos 2\phi_{\pell}
+\end{matrix}
+\end{equation}
+%
+Note that, because of (\ref{eq:2:gamma-1-lapl}) and (\ref{eq:2:shear-eb}) we have that $\tilde{\gamma}^E=\tilde{\kappa}+O(\Phi^2)$ and $\tilde{\gamma}^B=O(\Phi^2)$. In practice one can estimate the convergence $\kappa$ as the $E$-mode of the shear in the WL limit, and use the detection of a large $B$-mode as an indication of systematic effects \citep{PetriSpShear}. Figure \ref{fig:2:emode} shows the KS reconstructed shear pattern corresponding to positive and negative $\kappa$ peaks. In a real observation, the convergence profile is estimated using (\ref{eq:2:kappa-ks}) on the shear field estimated from the observed source ellipticity.    
 
 
-\subsection{$E/B$ mode decomposition of the shear}   
 
 \bibliography{ref}

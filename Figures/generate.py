@@ -20,6 +20,7 @@ parser.add_argument("fig",nargs="*")
 #Method dictionary
 method = dict()
 method["2-dist"] = miscellaneous.distortion
+method["2-emode"] = miscellaneous.EMode
 
 #Main
 def main():
