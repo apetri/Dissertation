@@ -158,7 +158,7 @@ We expressed the solution (\ref{eq:2:geosol-2}) to (\ref{eq:2:geodesic-fo-3}) in
 \section{Weak Gravitational Lensing}
 
 \subsection{Weak Lensing observables}
-Gravitational Lensing produces apparent distortions in observed background sources shapes due to light ray deflections. Following the notation in Figure \ref{fig:2:scheme}, a light ray captured by the observer at position $\pt$, in reality originated from a point that on the sky corresponds to an angular position $\pmb{\beta}$. Overall shifts in the relation $\pmb{\beta}(\pt)$ do not alter the source shape (that we assume distributed on a plane at $\chi=\chi_s$), but simply cause unobservable image displacements. The lowest order image distortions come from the differential ray shift $\partial \beta_i/\partial \theta_j$, which alter the observed ellipticity of the sources. Higher order flexion corrections to source shapes have been investigated in the literature \citep{BornFlexion}, but will not be treated in this work. Elliptical deformations in the shape of background sources are parametrized in terms of deflection Jacobian $\bb{A}$
+Gravitational Lensing produces apparent distortions in observed background sources shapes due to light ray deflections. Following the notation in Figure \ref{fig:2:scheme}, a light ray captured by the observer at position $\pt$, in reality originated from a point that on the sky corresponds to an angular position $\pbeta$. Overall shifts in the relation $\pbeta(\pt)$ do not alter the source shape (that we assume distributed on a plane at $\chi=\chi_s$), but simply cause unobservable image displacements. The lowest order image distortions come from the differential ray shift $\partial \beta_i/\partial \theta_j$, which alter the observed ellipticity of the sources. Higher order flexion corrections to source shapes have been investigated in the literature \citep{BornFlexion}, but will not be treated in this work. Elliptical deformations in the shape of background sources are parametrized in terms of deflection Jacobian $\bb{A}$
 
 \begin{equation}
 \label{eq:2:dfl-jacobian}
@@ -187,7 +187,7 @@ In this parametrization, $\kappa$ is called the WL convergence, $\pmb{\gamma}=(\
 \end{matrix}
 \end{equation}
 % 
-Figure \ref{fig:2:distortion} shows the physical interpretation of these different types of distortions, for an un--lensed circular image. The convergence has to do with the background source apparent magnifications, and is not directly observable unless the un--lensed size of the source is known in advance. The cosmic shear $\pmb{\gamma}$ encodes the ellipticity of the distortion, while the rotation $\omega$ is the angular tilt in the distorted image shape. Calling $I(\pmb{\beta})$ and $I_{\rm obs}(\pt)$ the emitted and observed source intensity profiles respectively, we can define the observable ellipticity $\pmb{\epsilon}$ of the distorted image in terms of the quadratic moments of the intensity 
+Figure \ref{fig:2:distortion} shows the physical interpretation of these different types of distortions, for an un--lensed circular image. The convergence has to do with the background source apparent magnifications, and is not directly observable unless the un--lensed size of the source is known in advance. The cosmic shear $\pmb{\gamma}$ encodes the ellipticity of the distortion, while the rotation $\omega$ is the angular tilt in the distorted image shape. Calling $I(\pbeta)$ and $I_{\rm obs}(\pt)$ the emitted and observed source intensity profiles respectively, we can define the observable ellipticity $\pmb{\epsilon}$ of the distorted image in terms of the quadratic moments of the intensity 
 
 \begin{equation}
 \label{eq:2:ellipticity-1}
@@ -199,7 +199,7 @@ Figure \ref{fig:2:distortion} shows the physical interpretation of these differe
 Where the quadrupole moments $q_{ij}$ are defined by 
 \begin{equation}
 \label{eq:2:quadrupole}
-q_{ij} = \int d\pt \theta_i\theta_j I_{\rm obs}(\pt) = \int d\pmb{\beta} (\bb{A}^{-1}\pmb{\beta})_i(\bb{A}^{-1}\pmb{\beta})_j I(\pmb{\beta})
+q_{ij} = \int d\pt \theta_i\theta_j I_{\rm obs}(\pt) = \int d\pbeta (\bb{A}^{-1}\pbeta)_i(\bb{A}^{-1}\pbeta)_j I(\pbeta)
 \end{equation}
 %
 In the last equality flexion corrections have been ignored. If the un--lensed image is a circle and the image is small enough so that $\kappa,\pmb{\gamma}$ are constant over its profile, the integral can be computed explicitly in terms of the inverse of $\bb{A}$
@@ -220,17 +220,17 @@ If we express the numerator and denominator at lowest order in $\kappa,\pmb{\gam
 which shows that the ellipticity is proportional to the shear and can hence be used to estimate it. Even if the observable quantity is the reduced shear $\pmb{\gamma}/(1-\kappa)$, for practical purposes in WL when $\kappa\ll 1$, one can approximate $\pmb{\epsilon}\approx 2\pmb{\gamma}$. In the following paragraph we will show how to relate the WL quantities $\kappa,\pmb{\gamma},\omega$ to the gravitational lensing potential $\Phi$. 
 
 \subsection{Ray tracing}
-Relating observable WL quantities such as the source ellipticity $\pmb{\epsilon}$ and the cosmic shear $\pmb{\gamma}$ can be done using equation (\ref{eq:2:geosol-2}), which relates light geodesics to the matter density fluctuations through the lensing potential. We can convert the transverse physical coordinates $\xp$ into angles $\pmb{\beta}$ dividing by the longitudinal distance
+Relating observable WL quantities such as the source ellipticity $\pmb{\epsilon}$ and the cosmic shear $\pmb{\gamma}$ can be done using equation (\ref{eq:2:geosol-2}), which relates light geodesics to the matter density fluctuations through the lensing potential. We can convert the transverse physical coordinates $\xp$ into angles $\pbeta$ dividing by the longitudinal distance
 
 \begin{equation}
 \label{eq:2:geosol-beta}
-\pmb{\beta}(\chi,\pt) = \pt + 2\int_0^\chi d\chi'\left(1-\frac{\chi'}{\chi}\right)\nabla_\perp\Phi(\chi',\chi'\pmb{\beta}(\chi',\pt))
+\pbeta(\chi,\pt) = \pt + 2\int_0^\chi d\chi'\left(1-\frac{\chi'}{\chi}\right)\nabla_\perp\Phi(\chi',\chi'\pbeta(\chi',\pt))
 \end{equation}
 %
 And by differentiating (\ref{eq:2:geosol-beta}) with respect to $\pt$ we can obtain a similar relation for the Jacobian $\bb{A}$
 \begin{equation}
 \label{eq:2:geosol-jac}
-A_{ij}(\chi,\pt) = \delta_{ij} + 2\int_0^\chi d\chi'\chi'\left(1-\frac{\chi'}{\chi}\right)T^{\Phi}_{ik}(\chi',\chi'\pmb{\beta}(\chi',\pt))A_{kj}(\chi',\pt)
+A_{ij}(\chi,\pt) = \delta_{ij} + 2\int_0^\chi d\chi'\chi'\left(1-\frac{\chi'}{\chi}\right)T^{\Phi}_{ik}(\chi',\chi'\pbeta(\chi',\pt))A_{kj}(\chi',\pt)
 \end{equation}
 %
 Where we defined the tidal tensor $T^{\Phi}_{ij}=\partial_i\partial_j\Phi$. Like (\ref{eq:2:geosol-2}), equation (\ref{eq:2:geosol-jac}) is an implicit relation that allows to calculate $\bb{A}(\chi_s,\pt)$ at some $\chi_s$ once all $\bb{A}(\chi,\pt)$ are known for $\chi<\chi_s$. A numerical solution to this problem that makes use of the multi--lens--plane algorithm \citep{RayTracingJain,RayTracingHartlap} will be explored in the next Chapter. 
@@ -271,7 +271,7 @@ Quadratic corrections to the linear relation (\ref{eq:2:jacobian-fo}) between $\
 
 \begin{equation}
 \label{eq:2:tidalapprox}
-T^{\Phi}_{ij}(\chi,\chi\pmb{\beta}(\chi,\pt)) = T^{\Phi}_{ij}(\chi,\chi\pt) + \chi\partial_kT^{\Phi}_{ij}(\chi,\chi\pt)[\beta_k^{(1)}(\chi,\pt)-\theta_k] + O(\Phi^3) 
+T^{\Phi}_{ij}(\chi,\chi\pbeta(\chi,\pt)) = T^{\Phi}_{ij}(\chi,\chi\pt) + \chi\partial_kT^{\Phi}_{ij}(\chi,\chi\pt)[\beta_k^{(1)}(\chi,\pt)-\theta_k] + O(\Phi^3) 
 \end{equation}
 %
 we can write a second order expression for $\bb{A}$ 
@@ -384,6 +384,4 @@ Where the shear Fourier $E$ and $B$ modes are defined by
 %
 Note that, because of (\ref{eq:2:gamma-1-lapl}) and (\ref{eq:2:shear-eb}) we have that $\tilde{\gamma}^E=\tilde{\kappa}+O(\Phi^2)$ and $\tilde{\gamma}^B=O(\Phi^2)$. In practice one can estimate the convergence $\kappa$ as the $E$-mode of the shear in the WL limit, and use the detection of a large $B$-mode as an indication of systematic effects \citep{PetriSpShear}. Figure \ref{fig:2:emode} shows the KS reconstructed shear pattern corresponding to positive and negative $\kappa$ peaks. In a real observation, the convergence profile is estimated using (\ref{eq:2:kappa-ks}) on the shear field estimated from the observed source ellipticity.    
 
-
-
-\bibliography{ref}
+%\bibliography{ref}

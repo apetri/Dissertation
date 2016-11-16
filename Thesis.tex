@@ -36,6 +36,7 @@
 \newcommand{\pt}{\pmb{\theta}}
 \newcommand{\xp}{\bb{x}_\perp}
 \newcommand{\pell}{\pmb{\ell}}
+\newcommand{\pbeta}{\pmb{\beta}}
 
 \renewcommand{\nomname}{List of symbols and abbreviations}
 
@@ -47,7 +48,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\includeonly{Symbols,Chapter2}
+\includeonly{Chapter3}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -62,103 +63,29 @@
 
 \include{macro_layout}
 
-
-\thispagestyle{empty}
-
-
-\def\thesistitle{Cosmology with Non--Linear Weak Lensing: the information beyond the Power Spectrum}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % cover
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\pagestyle{empty}
-
-\begin{center}
-
-{\Large \bf \thesistitle}
-
-%\vskip1.3in
-\vskip1.5in
-
-{\Large  Andrea Petri } %\vskip0.8in
-\vskip0.5in
-{\Large  Advisors: Prof. Zolt\`an Haiman, Prof. Morgan May} 
-
-
-
-%\vskip0.5in
-\vskip1.1in
-
-
-\large
-Submitted in partial fulfillment of the               \\
-requirements for the degree                           \\
-of Doctor of Philosophy                               \\
-in the Graduate School of Arts and Sciences           \\
-
-\vskip0.5in
-
-COLUMBIA UNIVERSITY                                   \\
-2017                                                  \\
-
-\end{center}
-
-
-\clearpage
-
-
-\begin{center}
-\ \\
-\vskip5.5in
-\copyright 2017 \\[3mm]
-Andrea Petri\\
-All Rights Reserved
-\end{center}
-\clearpage
-
+\include{Cover}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Prefatory pages                                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \include{Abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\include{TOC}
 
-\setcounter{secnumdepth}{3}
- \setcounter{tocdepth}{2}       %    LEVEL    : An entry is produced only if LEVEL < or = value of
-                                %               'tocdepth' counter.  Note, \chapter is level 0, \section
-                                %               is level 1, etc.
-
-
-
-\pagestyle{plain} \pagenumbering{roman} \setcounter{page}{1}
-
-
-
-\tableofcontents
-\clearpage
-
-%\listoftables %only if needed
- %\clearpage
-
-%\listoffigures 
-%\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \makenomenclature
 \include{Symbols}
 \printnomenclature
 
 \include{Acknowledgements}
-\clearpage
-
-
-\thispagestyle{plain}
-\par\vspace*{.35\textheight}{\centering \textit{Dedicated to }\par}
-\clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%acknowledgements%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
