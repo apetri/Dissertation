@@ -9,10 +9,123 @@
 
 \section{Cosmological simulations}
 
+\subsection{Initial conditions}
+
+\subsection{Time integration}
+
 \section{The multi--lens--plane algorithm}
+
+\subsection{Geodesic solver}
+The goal of this section is to review the algorithm used to solve the light geodesic equation (\ref{eq:2:geodesic-fo-3}), and that allows to compute the integrals for $\pbeta$ (\ref{eq:2:geosol-beta}) and $\bb{A}$ (\ref{eq:2:geosol-jac}) efficiently and in a numerically stable fashion. In the remainder of the Chapter we will consider a source placed at a fixed longitudinal comoving distance $\chi_s$. The source appears to be positioned at an angle $\pt$ on the sky, but its real position is at angle $\pbeta(\chi_s,\pt)$, which can be calculated by solving (\ref{eq:2:geodesic-fo-3}). Numerical integration of (\ref{eq:2:geosol-beta}) can be done by dividing the interval $\chi\in[0,\chi_s]$ in $N_l$ comoving steps, each of size $\Delta = \chi_s/N_l$ and using a first order method
+
+\begin{equation}
+\label{eq:3:int-fo}
+\int_0^{\chi_s} f(\chi)d\chi = \Delta\sum_{i=1}^{N_l}f(\chi_k) + O\left(\frac{1}{N_l}\right)
+\end{equation} 
+
+\begin{equation}
+\label{eq:3:int-steps}
+\chi_k = k\Delta
+\end{equation}  
+%
+Where $f$ is a generic function of $\chi$ and can be either $\pbeta$ or $\bb{A}$. Before applying the numerical integration method to (\ref{eq:2:geodesic-fo-3}), it is convenient to recast the geodesic equation into an equation for $\pbeta=\xp/\chi$ 
+
+\begin{equation}
+\label{eq:3:geodesic-fo-beta-1}
+\frac{d^2}{d\chi^2}(\chi\pbeta(\chi)) = \frac{2}{\chi}\nabla_{\pbeta}\Phi(\chi,\pbeta(\chi))
+\end{equation} 
+%
+which is equivalent to 
+
+\begin{equation}
+\label{eq:3:geodesic-fo-beta-2}
+\frac{d^2\pbeta(\chi)}{d\chi^2} + \frac{2}{\chi}\frac{d\pbeta(\chi)}{d\chi} - \frac{2}{\chi^2}\nabla_{\pbeta}\Phi(\chi,\pbeta(\chi)) = 0
+\end{equation}
+%
+Now let us focus on an intermediate discrete step $k$ and introduce the compact notation 
+\begin{equation}
+\label{eq:3:compactnotation}
+\begin{matrix}
+f_k\equiv f(\chi_k) & ; & f'_k\equiv\left.\frac{df}{d\chi}\right\vert_{\chi=\chi_k} & ; & f''_k\equiv\left.\frac{d^2f}{d\chi^2}\right\vert_{\chi=\chi_k}
+\end{matrix}
+\end{equation}  
+%
+and define
+\begin{equation}
+\label{eq:3:alphak}
+\palpha_k = \frac{2\Delta}{\chi_k}\nabla_{\pbeta}\Phi(\chi_k,\pbeta_k)
+\end{equation}
+%
+Using the first order finite difference approximations for the $\pbeta$ derivatives
+
+\begin{equation}
+\label{eq:3:finitediff}
+\begin{matrix}
+\pbeta'_k = \frac{\pbeta_{k+1}-\pbeta_{k-1}}{2\Delta} + O(\Delta^2) & ; & \pbeta''_k = \frac{\pbeta_{k+1}+\pbeta_{k-1}-2\pbeta_k}{\Delta^2} + O(\Delta^2)
+\end{matrix}
+\end{equation}
+%
+we can write equation (\ref{eq:3:geodesic-fo-beta-2}) as 
+\begin{equation}
+\label{eq:3:geodesic-fo-beta-disc}
+\frac{\pbeta_{k+1}+\pbeta_{k-1}-2\pbeta_k}{\Delta^2} + \frac{\pbeta_{k+1}-\pbeta_{k-1}}{\chi_k\Delta} - \frac{\palpha_k}{\chi_k\Delta} = 0
+\end{equation} 
+%
+Once we solve (\ref{eq:3:geodesic-fo-beta-disc}) for $\pbeta_{k+1}$, we immediately find
+
+\begin{equation}
+\label{eq:3:betakp1}
+\pbeta_{k+1} = \frac{2\pbeta_k\chi_k-(\chi_k-\Delta)\pbeta_{k-1}+\Delta\palpha_k}{\chi_k+\Delta}
+\end{equation}  
+%
+The expression (\ref{eq:3:betakp1}) has a simple physical interpretation if we look at the scheme in Figure \ref{fig:3:multi-lens-plane}.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{Figures/pdf/multi_lens_plane.pdf}
+\end{center}
+\caption{Multi--lens--plane algorithm schematics}
+\label{fig:3:multi-lens-plane}
+\end{figure}
+%
+If we want to compute the angular position of a light ray at the $k+1$-th step, we need to know its position at the two previous steps $k,k-1$. Simple geometric arguments, and the fact that angles are small, tell us that 
+
+\begin{equation}
+\label{eq:3:betakp1-2}
+\pbeta_{k+1} = \frac{1}{\chi_{k+1}}\left[(\chi\pbeta)_{k} + \left(\frac{(\chi\pbeta)_{k}-(\chi\pbeta)_{k-1}}{\chi_k-\chi_{k-1}}+\palpha_k\right)(\chi_{k+1}-\chi_k) \right]
+\end{equation}
+%
+Note that equations (\ref{eq:3:betakp1}) and (\ref{eq:3:betakp1-2}) are the same if the steps are equally spaced, $\chi_k=k\Delta$. This tells us that the quantity $\palpha_k$, which is connected to the gradient of the potential as in (\ref{eq:3:alphak}), is the deflection angle that a light ray experiences upon impact with a two dimensional lens plane of thickness $\Delta$ positioned at a longitudinal distance $\chi_k$. This is why the procedure of solving (\ref{eq:3:geodesic-fo-beta-2}) in discrete $\chi$ steps takes the name of multi--lens--plane algorithm \citep{RayTracingJain,RayTracingHartlap}: the solving procedure is equivalent to considering a discrete set of trajectory deflections $\palpha_k$ caused by a discrete set of two dimensional lens planes, each described by a lensing potential which is essentially the three dimensional gravitational potential $\Phi$ projected along the longitudinal direction. We observe that equation (\ref{eq:3:alphak}) is essentially the longitudinal integral of $\Phi$ performed with one discrete step of size $\Delta$. This approximation is valid if $\Delta$ is small enough so that we can neglect the time evolution of $\Phi$ over the lens thickness. 
+
+Using the initial conditions
+
+\begin{equation}
+\label{eq:3:initcond}
+\pbeta_0 = \pbeta_1 = \pt 
+\end{equation}    
+%
+we can use the recurrence relation (\ref{eq:3:betakp1}) to compute the full light ray trajectory until the arrival point $\pbeta_s$. It turns out that, because the coefficient that multiplies $\pbeta_k$ in (\ref{eq:3:betakp1}), $2\chi_k/(\chi_k+\Delta)$ is usually bigger than 1, this explicit method of solution leads to roundoff errors which blow up exponentially in $k$. To keep the accuracy of the geodesic solver under control we recast (\ref{eq:3:betakp1}) in a slightly different form by defining $\delta\pbeta_k \equiv \pbeta_k-\pbeta_{k-1}$. It is straightforward to show
+
+\begin{equation}
+\label{eq:3:betak-sum}
+\pbeta_k = \pt + \sum_{i=1}^k\delta\pbeta_i
+\end{equation}
+%
+\begin{equation}
+\label{eq:3:betakp1-delta}
+\delta\pbeta_{k+1} = \left(\frac{\chi_k-\Delta}{\chi_k+\Delta}\right)\delta\pbeta_k + \left(\frac{\Delta}{\chi_k+\Delta}\right)\palpha_k
+\end{equation} 
+%
+It turns out that, because the coefficients that multiply $\pbeta,\palpha$ are smaller than 1, (\ref{eq:3:betak-sum}) and (\ref{eq:3:betakp1-delta}) offer a more accurate numerical solution to the geodesic equation (\ref{eq:3:geodesic-fo-beta-2}). We can solve the geodesic equation for light rays with different initial conditions $\pt$, and study how the solution varies with $\pt$. This allows to translate the recurrence relations (\ref{eq:3:betak-sum}), (\ref{eq:3:betakp1-delta}) into recurrence relations for the lensing Jacobian $\bb{A}$. Noting that 
+
+\begin{equation}
+\label{eq:3:Tk}
+\frac{\partial (\alpha_i)_k}{\partial \theta_j} = \frac{2\Delta}{\chi_k}\partial_{\beta_i}\partial_{\beta_l}\Phi(\chi_k,\pbeta_k)\frac{\partial (\beta_l)_k}{\partial\theta_j}
+\end{equation}
+
+\subsection{Poisson solver}
 
 \section{Approximate methods}
 
 \section{The \LT software package}
 
-%\bibliography{ref}
+\bibliography{ref}
