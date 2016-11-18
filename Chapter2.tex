@@ -121,7 +121,7 @@ where $\rho_m(t)$ is the spatially averaged matter density and $\delta(\bb{x},t)
 \nabla^2(\Phi+\Psi) = 0
 \end{equation}
 %
-A few considerations are in order here. First of all, the terms in (\ref{eq:2:einstein-00}) which contain powers of $aH$ are sub--dominant for the WL case of interest, as the laplacian term will always dominate for modes with wavenumber $k$ well inside the Hubble horizon $kc\gg aH$. We can hence drop these terms from (\ref{eq:2:einstein-00}), which then reduces to a Poisson--like equation. Equation (\ref{eq:2:einstein-ij}) comes from the traceless part of the spatial Einstein equation, and as such it is sourced by anisotropic stresses in the matter components. Because such stresses are proportional to the quadrupole of the distributions in momentum, which are negligible for non relativistic species, they can be safely neglected when studying WL. We will then use (\ref{eq:2:einstein-ij}) to conclude $\Psi=-\Phi$ and express the geodesic equation in terms of the gravitational potential $\Phi$
+A few considerations are in order here. First of all, the terms in (\ref{eq:2:einstein-00}) which contain powers of $aH$ are sub--dominant for the WL case of interest, as the laplacian term will always dominate for modes with wavenumber $k$ well inside the Hubble horizon $kc\gg aH$ (see \citep{PNLensing} for a discussion of the importance of PN terms). We can hence drop these terms from (\ref{eq:2:einstein-00}), which then reduces to a Poisson--like equation. Equation (\ref{eq:2:einstein-ij}) comes from the traceless part of the spatial Einstein equation, and as such it is sourced by anisotropic stresses in the matter components. Because such stresses are proportional to the quadrupole of the momentum distributions, which are negligible for non relativistic species, they can be safely neglected when studying WL. We will then use (\ref{eq:2:einstein-ij}) to conclude $\Psi=-\Phi$ and express the geodesic equation in terms of the gravitational potential $\Phi$
 
 \begin{equation}
 \label{eq:2:geodesic-fo-3}
@@ -130,10 +130,10 @@ A few considerations are in order here. First of all, the terms in (\ref{eq:2:ei
 
 \begin{equation}
 \label{eq:2:poisson}
-\nabla^2\Phi(\chi,\xp) = -\frac{4\pi G}{c^2}\rho_m(\chi)\delta(\chi,\xp)
+\nabla^2\Phi(\chi,\xp) = -\frac{4\pi Ga(\chi)^2}{c^2}\rho_m(\chi)\delta(\chi,\xp)
 \end{equation}  
 %
-We substituted the time dependency with $\chi$ dependencies using the distance--redshift relation. 
+We substituted the time dependency with a $\chi$ dependency using the distance--redshift relation. 
 
 \subsection{Solution to the geodesic equation}
 The geodesic equation (\ref{eq:2:geodesic-fo-3}) is a second order differential equation which can be solved exactly once suitable initial conditions are specified. If we indicate with $\pt$ the angular position of the light ray as it is received by the observer we have $\xp(0)=0$ and $d\xp /d\chi(0)=\pt$. Equation (\ref{eq:2:geodesic-fo-3}) can hence be solved by double integration
@@ -183,7 +183,7 @@ In this parametrization, $\kappa$ is called the WL convergence, $\pmb{\gamma}=(\
 \label{eq:2:dfl-inverse}
 \begin{matrix}
 \kappa = 1-\frac{1}{2}\Tr \bb{A} & ; & \gamma^1 = \frac{1}{2}(A_{yy} - A_{xx}) \\
-\gamma^2 = -\frac{1}{2}(A_{xy}+A_{yx}) & ; & \omega = \frac{1}{2}(A_{xy} - A_{yx})
+\gamma^2 = -\frac{1}{2}(A_{xy}+A_{yx}) & ; & \omega = \frac{1}{2}\Tr (\bb{A}\pmb{\varepsilon})
 \end{matrix}
 \end{equation}
 % 
@@ -382,6 +382,6 @@ Where the shear Fourier $E$ and $B$ modes are defined by
 \end{matrix}
 \end{equation}
 %
-Note that, because of (\ref{eq:2:gamma-1-lapl}) and (\ref{eq:2:shear-eb}) we have that $\tilde{\gamma}^E=\tilde{\kappa}+O(\Phi^2)$ and $\tilde{\gamma}^B=O(\Phi^2)$. In practice one can estimate the convergence $\kappa$ as the $E$-mode of the shear in the WL limit, and use the detection of a large $B$-mode as an indication of systematic effects \citep{PetriSpShear}. Figure \ref{fig:2:emode} shows the KS reconstructed shear pattern corresponding to positive and negative $\kappa$ peaks. In a real observation, the convergence profile is estimated using (\ref{eq:2:kappa-ks}) on the shear field estimated from the observed source ellipticity.    
+Note that, because of (\ref{eq:2:gamma-1-lapl}) and (\ref{eq:2:shear-eb}) we have that $\tilde{\gamma}^E=\tilde{\kappa}+O(\Phi^2)$ and $\tilde{\gamma}^B=O(\Phi^2)$. In practice one can estimate the convergence $\kappa$ as the $E$-mode of the shear in the WL limit, and use the detection of a large $B$-mode as an indication of systematic effects \citep{PetriSpShear}. Figure \ref{fig:2:emode} shows the KS reconstructed shear pattern corresponding to positive and negative $\kappa$ peaks. In a real observation, the convergence profile is reconstructed using (\ref{eq:2:kappa-ks}) on the shear field estimated from the observed source ellipticities.    
 
 %\bibliography{ref}

@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{fancyhdr}
+\usepackage{dsfont}
 \usepackage{setspace}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -38,6 +39,7 @@
 \newcommand{\pell}{\pmb{\ell}}
 \newcommand{\palpha}{\pmb{\alpha}}
 \newcommand{\pbeta}{\pmb{\beta}}
+\newcommand{\lik}[2]{\mathcal{L}(#1\vert#2)}
 
 \renewcommand{\nomname}{List of symbols and abbreviations}
 
@@ -49,7 +51,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\includeonly{Symbols,Chapter3}
+\includeonly{Chapter3}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -84,7 +86,11 @@
 
 \makenomenclature
 \include{Symbols}
+
+\begin{singlespace}
 \printnomenclature
+\end{singlespace}
+
 
 \include{Acknowledgements}
 

@@ -16,7 +16,7 @@
 \section{The multi--lens--plane algorithm}
 
 \subsection{Geodesic solver}
-The goal of this section is to review the algorithm used to solve the light geodesic equation (\ref{eq:2:geodesic-fo-3}), and that allows to compute the integrals for $\pbeta$ (\ref{eq:2:geosol-beta}) and $\bb{A}$ (\ref{eq:2:geosol-jac}) efficiently and in a numerically stable fashion. In the remainder of the Chapter we will consider a source placed at a fixed longitudinal comoving distance $\chi_s$. The source appears to be positioned at an angle $\pt$ on the sky, but its real position is at angle $\pbeta(\chi_s,\pt)$, which can be calculated by solving (\ref{eq:2:geodesic-fo-3}). Numerical integration of (\ref{eq:2:geosol-beta}) can be done by dividing the interval $\chi\in[0,\chi_s]$ in $N_l$ comoving steps, each of size $\Delta = \chi_s/N_l$ and using a first order method
+The goal of this section is to review the algorithm used to solve the light geodesic equation (\ref{eq:2:geodesic-fo-3}), and that allows to compute the integrals for $\pbeta$ (\ref{eq:2:geosol-beta}) and $\bb{A}$ (\ref{eq:2:geosol-jac}) efficiently and in a numerically stable fashion. In the remainder of the Chapter we will consider a source placed at a fixed longitudinal comoving distance $\chi_s$. The source appears to be positioned at an angle $\pt$ on the sky, but its real position is at angle $\pbeta(\chi_s,\pt)$, which can be calculated by solving (\ref{eq:2:geodesic-fo-3}). Numerical integration of (\ref{eq:2:geosol-beta}) can be done by dividing the interval $\chi\in[0,\chi_s]$ in $N_l$ equally spaced steps, each of size $\Delta = \chi_s/N_l$ and using a first order explicit method
 
 \begin{equation}
 \label{eq:3:int-fo}
@@ -35,7 +35,7 @@ Where $f$ is a generic function of $\chi$ and can be either $\pbeta$ or $\bb{A}$
 \frac{d^2}{d\chi^2}(\chi\pbeta(\chi)) = \frac{2}{\chi}\nabla_{\pbeta}\Phi(\chi,\pbeta(\chi))
 \end{equation} 
 %
-which is equivalent to 
+We promoted the $\xp$ dependency of $\Phi$ to a $\beta$ dependency using $\Phi(\chi,\xp=\chi\pbeta)\rightarrow\Phi(\chi,\pbeta)$. Equation (\ref{eq:3:geodesic-fo-beta-1}) is equivalent to 
 
 \begin{equation}
 \label{eq:3:geodesic-fo-beta-2}
@@ -83,7 +83,7 @@ The expression (\ref{eq:3:betakp1}) has a simple physical interpretation if we l
 \begin{center}
 \includegraphics[scale=0.7]{Figures/pdf/multi_lens_plane.pdf}
 \end{center}
-\caption{Multi--lens--plane algorithm schematics}
+\caption{Multi--lens--plane algorithm schematics: the trajectory of a single light ray from the observer to the source at $\chi_s$ is shown in red as it undergoes multiple deflections.}
 \label{fig:3:multi-lens-plane}
 \end{figure}
 %
@@ -94,9 +94,7 @@ If we want to compute the angular position of a light ray at the $k+1$-th step, 
 \pbeta_{k+1} = \frac{1}{\chi_{k+1}}\left[(\chi\pbeta)_{k} + \left(\frac{(\chi\pbeta)_{k}-(\chi\pbeta)_{k-1}}{\chi_k-\chi_{k-1}}+\palpha_k\right)(\chi_{k+1}-\chi_k) \right]
 \end{equation}
 %
-Note that equations (\ref{eq:3:betakp1}) and (\ref{eq:3:betakp1-2}) are the same if the steps are equally spaced, $\chi_k=k\Delta$. This tells us that the quantity $\palpha_k$, which is connected to the gradient of the potential as in (\ref{eq:3:alphak}), is the deflection angle that a light ray experiences upon impact with a two dimensional lens plane of thickness $\Delta$ positioned at a longitudinal distance $\chi_k$. This is why the procedure of solving (\ref{eq:3:geodesic-fo-beta-2}) in discrete $\chi$ steps takes the name of multi--lens--plane algorithm \citep{RayTracingJain,RayTracingHartlap}: the solving procedure is equivalent to considering a discrete set of trajectory deflections $\palpha_k$ caused by a discrete set of two dimensional lens planes, each described by a lensing potential which is essentially the three dimensional gravitational potential $\Phi$ projected along the longitudinal direction. We observe that equation (\ref{eq:3:alphak}) is essentially the longitudinal integral of $\Phi$ performed with one discrete step of size $\Delta$. This approximation is valid if $\Delta$ is small enough so that we can neglect the time evolution of $\Phi$ over the lens thickness. 
-
-Using the initial conditions
+Note that equations (\ref{eq:3:betakp1}) and (\ref{eq:3:betakp1-2}) are equivalent if the steps are equally spaced, $\chi_k=k\Delta$. This tells us that the quantity $\palpha_k$, which is connected to the gradient of the potential as in (\ref{eq:3:alphak}), is the deflection angle that a light ray experiences upon impact with a two dimensional lens plane of thickness $\Delta$ positioned at a longitudinal distance $\chi_k$. This is why the procedure of solving (\ref{eq:3:geodesic-fo-beta-2}) in discrete $\chi$ steps takes the name of multi--lens--plane algorithm \citep{RayTracingJain,RayTracingHartlap}: the solving procedure is equivalent to considering a discrete set of trajectory deflections $\palpha_k$ caused by a discrete set of two dimensional lens planes, each described by a lensing potential which is essentially the three dimensional gravitational potential $\Phi$ projected along the longitudinal direction. We observe that equation (\ref{eq:3:alphak}) is essentially the longitudinal integral of $\Phi$ performed with one discrete step of size $\Delta$. Using the initial conditions
 
 \begin{equation}
 \label{eq:3:initcond}
@@ -115,16 +113,112 @@ we can use the recurrence relation (\ref{eq:3:betakp1}) to compute the full ligh
 \delta\pbeta_{k+1} = \left(\frac{\chi_k-\Delta}{\chi_k+\Delta}\right)\delta\pbeta_k + \left(\frac{\Delta}{\chi_k+\Delta}\right)\palpha_k
 \end{equation} 
 %
-It turns out that, because the coefficients that multiply $\pbeta,\palpha$ are smaller than 1, (\ref{eq:3:betak-sum}) and (\ref{eq:3:betakp1-delta}) offer a more accurate numerical solution to the geodesic equation (\ref{eq:3:geodesic-fo-beta-2}). We can solve the geodesic equation for light rays with different initial conditions $\pt$, and study how the solution varies with $\pt$. This allows to translate the recurrence relations (\ref{eq:3:betak-sum}), (\ref{eq:3:betakp1-delta}) into recurrence relations for the lensing Jacobian $\bb{A}$. Noting that 
+It turns out that, because the coefficients that multiply $\delta\pbeta,\palpha$ are smaller than 1, (\ref{eq:3:betak-sum}) and (\ref{eq:3:betakp1-delta}) offer a more accurate numerical solution to the geodesic equation (\ref{eq:3:geodesic-fo-beta-2}). We can solve the geodesic equation for light rays with different initial conditions $\pt$, and study how the solution varies with $\pt$. This allows to translate the recurrence relations (\ref{eq:3:betak-sum}), (\ref{eq:3:betakp1-delta}) into recurrence relations for the lensing Jacobian $\bb{A}$. Noting that 
 
 \begin{equation}
 \label{eq:3:Tk}
 \frac{\partial (\alpha_i)_k}{\partial \theta_j} = \frac{2\Delta}{\chi_k}\partial_{\beta_i}\partial_{\beta_l}\Phi(\chi_k,\pbeta_k)\frac{\partial (\beta_l)_k}{\partial\theta_j}
 \end{equation}
+%
+we can define the projected tidal field 
+
+\begin{equation}
+\label{eq:3:tidal-proj}
+\bb{T}_k = 2\chi_k\Delta\bb{T}^\Phi(\chi_k,\pbeta_k) 
+\end{equation}
+%
+and define the recurrence relations for the Jacobian $\bb{A}$
+
+\begin{equation}
+\label{eq:3:jack-sum}
+\bb{A}_k = \mathds{1}_{2\times 2} + \sum_{i=1}^k\delta\bb{A}_i
+\end{equation}
+%
+\begin{equation}
+\label{eq:3:jackp1-delta}
+\delta\bb{A}_{k+1} = \left(\frac{\chi_k-\Delta}{\chi_k+\Delta}\right)\delta\bb{A}_k + \left(\frac{\Delta}{\chi_k+\Delta}\right)\bb{T}_k\bb{A}_k
+\end{equation} 
+%
+The recurrence relations (\ref{eq:3:jack-sum}),(\ref{eq:3:jackp1-delta}) can be used to estimate the WL quantities $\kappa_s,\pmb{\gamma}_s$ at an arbitrary angle in the sky $\pt$, given a set of discrete deflections $\palpha_k$ and tidal distortions $\bb{T}_k$, which can be computed from the potential $\Phi$. In the next section we will review the numerical methods necessary to solve the Poisson equation (\ref{eq:2:poisson}) that connects the potential $\Phi$ to the matter density contrast $\delta$. 
 
 \subsection{Poisson solver}
+In the previous section we showed that the lensing Jacobian $\bb{A}$ and the corresponding WL observables can be calculated numerically (using the relations \ref{eq:2:dfl-inverse}) once one knows the lens deflections and tidal distortions caused by each lens plane. These are ultimately determined by the matter density fluctuations that are responsible for the lensing effect in the first place. We define the longitudinally projected potential $\psi$ for a lens plane centered at comoving distance $\chi$ with thickness $\Delta$ as follows
+
+\begin{equation}
+\label{eq:3:projected-phi}
+\psi(\chi,\pbeta) = \frac{2}{\chi}\int_{\chi-\Delta/2}^{\chi+\Delta/2}d\chi' \Phi(\chi',\pbeta)
+\end{equation} 
+%
+Now, using the definition of (\ref{eq:3:projected-phi}) we can obtain the relations for the deflections and tidal distortions in terms of $\psi$
+
+\begin{equation}
+\label{eq:3:alphak-psi}
+\palpha_k = \nabla_{\pbeta}\psi(\chi_k,\pbeta_k)
+\end{equation}
+%
+\begin{equation}
+\label{eq:3:Tk-psi}
+\bb{T}_k = \nabla_{\pbeta}\nabla^T_{\pbeta}\psi(\chi_k,\pbeta_k)
+\end{equation}
+%
+Plugging (\ref{eq:3:projected-phi}) into the Poisson equation (\ref{eq:2:poisson}) we obtain that $\psi$ must satisfy a Poisson-like equation itself
+
+\begin{equation}
+\label{eq:3:poisson-psi-1}
+\nabla^2_{\pbeta}\psi(\chi,\pbeta) = \frac{2}{\chi}\int_{\chi-\Delta/2}^{\chi+\Delta/2}d\chi' \chi'^2\left(\nabla^2-\frac{\partial^2}{\partial \chi'^2}\right)\Phi(\chi',\chi'\pbeta)
+\end{equation}
+%
+We made an assumption of $\Delta$ being small in approximating $\nabla^2_{\pbeta}\approx \chi^2(\nabla^2-\partial_\chi^2)$. If $\Delta$ is small we can also treat the $\partial^2_\chi$ integrated term as a boundary term which vanishes when appropriate boundary conditions for the Poisson equation are chosen (for example periodic boundary conditions). With the help of (\ref{eq:2:poisson}) in the end we obtain
+
+\begin{equation}
+\label{eq:3:poisson-psi-2}
+\nabla^2_{\pbeta}\psi(\chi,\pbeta) = -\sigma(\chi,\pbeta)  
+\end{equation} 
+
+\begin{equation}
+\label{eq:3:lens-sigma}
+\sigma(\chi,\pbeta) = \frac{8\pi G \chi a(\chi)^2\Delta}{c^2}\rho_m(\chi)\delta(\chi,\chi\pbeta) = \frac{3H_0^2\Omega_m\chi\Delta}{c^2 a(\chi)}\delta(\chi,\chi\pbeta)
+\end{equation}
+%
+The dimensionless surface density $\sigma$ in (\ref{eq:3:lens-sigma}) for a lens plane can be estimated directly from the outputs of $N$--body simulations using a particle number count histogram to measure the density contrast $\delta$. Suppose we have a list of $N_p$ particle positions $\{(x_p,y_p,z_p)\}$ computed at time $\chi$, and let's assume without loss of generality that $z$ is the longitudinal direction and $(x,y)$ are the transverse coordinates. We consider a two dimensional regularly spaced transverse grid $\{(x_i,y_i)\}$ with $L_P$ pixels per side, each of size $L_b/L_P$. We assign to each pixel a particle number count
+
+\begin{equation}
+\label{eq:3:number-hist}
+n(\chi, \pbeta_i) = \sum_{p=1}^{N_p}w(\bb{x}_p,\chi,\pbeta_i)
+\end{equation}  
+%
+where 
+
+\begin{equation}
+\label{eq:3:number-kernel}
+w(\bb{x}_p,\chi,\pbeta_i) = 
+\begin{cases}
+1 \,\,\,\, {\rm if} \,\,\,\, (x_p,y_p) \,\, {\rm in} \,\, \chi\pbeta_i \, , \, z_p\in [\chi-\Delta/2,\chi+\Delta/2] \\
+0 \,\,\,\, {\rm otherwise}
+\end{cases}
+\end{equation}
+%
+We can then estimate the density contrast $\delta$ at each pixel from the histogram, assuming that all the simulation particles have the same mass
+
+\begin{equation}
+\label{eq:3:delta-hist}
+\delta(\chi,\chi\pbeta_i) = \frac{n(\chi,\pbeta_i)L_bL_P^2 }{\Delta N_p} - 1
+\end{equation}
+%
+Once the density contrast is estimated from the $N$--body outputs, the two dimensional Poisson equation (\ref{eq:3:poisson-psi-2}) can be solved on the regular transverse grid, at each of the discrete steps $\chi_k$. If we impose periodic boundary conditions on the edges of the lens plane, an efficient solution to (\ref{eq:3:poisson-psi-2}) can be calculated using the FFT of $\psi,\sigma$. Note that, because both these quantities are real, a real FFT is sufficient. Inverting the laplacian operator in Fourier space yields
+
+\begin{equation}
+\label{eq:3:poisson-sol-fft}
+\tilde{\psi}(\chi_k,\pell) = \tilde{\sigma}(\chi_k,\pell)\frac{e^{-\ell^2\theta_G^2}}{\ell^2}
+\end{equation} 
+%
+We decided to apply a Gaussian smoothing with scale $\theta_G$ to the solution (\ref{eq:3:poisson-sol-fft}) to get rid of sub-pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$.  
 
 \section{Approximate methods}
+
+\subsection{Born approximation}
+
+\subsection{Post--Born corrections}
 
 \section{The \LT software package}
 
