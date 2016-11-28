@@ -9,6 +9,7 @@ sns.set(palette="muted",font_scale=2)
 #Projects I worked on
 import miscellaneous
 import covarianceProject
+import bornProject
 
 #Options
 parser = argparse.ArgumentParser()
@@ -21,6 +22,7 @@ parser.add_argument("fig",nargs="*")
 method = dict()
 method["2-dist"] = miscellaneous.distortion
 method["2-emode"] = miscellaneous.EMode
+method["3-csample"] = bornProject.convergenceVisualize
 
 #Main
 def main():

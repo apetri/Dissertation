@@ -13,6 +13,8 @@
 
 \subsection{Time integration}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{The multi--lens--plane algorithm}
 
 \subsection{Geodesic solver}
@@ -139,7 +141,7 @@ and define the recurrence relations for the Jacobian $\bb{A}$
 \delta\bb{A}_{k+1} = \left(\frac{\chi_k-\Delta}{\chi_k+\Delta}\right)\delta\bb{A}_k + \left(\frac{\Delta}{\chi_k+\Delta}\right)\bb{T}_k\bb{A}_k
 \end{equation} 
 %
-The recurrence relations (\ref{eq:3:jack-sum}),(\ref{eq:3:jackp1-delta}) can be used to estimate the WL quantities $\kappa_s,\pmb{\gamma}_s$ at an arbitrary angle in the sky $\pt$, given a set of discrete deflections $\palpha_k$ and tidal distortions $\bb{T}_k$, which can be computed from the potential $\Phi$. In the next section we will review the numerical methods necessary to solve the Poisson equation (\ref{eq:2:poisson}) that connects the potential $\Phi$ to the matter density contrast $\delta$. 
+The recurrence relations (\ref{eq:3:jack-sum}),(\ref{eq:3:jackp1-delta}) can be used to estimate the WL quantities $\kappa_s,\pmb{\gamma}_s$ at an arbitrary angle in the sky $\pt$ in $O(N_l)$ time, given a set of discrete deflections $\palpha_k$ and tidal distortions $\bb{T}_k$, which can be computed from the potential $\Phi$. In the next section we will review the numerical methods necessary to solve the Poisson equation (\ref{eq:2:poisson}) that connects the potential $\Phi$ to the matter density contrast $\delta$. 
 
 \subsection{Poisson solver}
 In the previous section we showed that the lensing Jacobian $\bb{A}$ and the corresponding WL observables can be calculated numerically (using the relations \ref{eq:2:dfl-inverse}) once one knows the lens deflections and tidal distortions caused by each lens plane. These are ultimately determined by the matter density fluctuations that are responsible for the lensing effect in the first place. We define the longitudinally projected potential $\psi$ for a lens plane centered at comoving distance $\chi$ with thickness $\Delta$ as follows
@@ -168,7 +170,7 @@ Plugging (\ref{eq:3:projected-phi}) into the Poisson equation (\ref{eq:2:poisson
 \nabla^2_{\pbeta}\psi(\chi,\pbeta) = \frac{2}{\chi}\int_{\chi-\Delta/2}^{\chi+\Delta/2}d\chi' \chi'^2\left(\nabla^2-\frac{\partial^2}{\partial \chi'^2}\right)\Phi(\chi',\chi'\pbeta)
 \end{equation}
 %
-We made an assumption of $\Delta$ being small in approximating $\nabla^2_{\pbeta}\approx \chi^2(\nabla^2-\partial_\chi^2)$. If $\Delta$ is small we can also treat the $\partial^2_\chi$ integrated term as a boundary term which vanishes when appropriate boundary conditions for the Poisson equation are chosen (for example periodic boundary conditions). With the help of (\ref{eq:2:poisson}) in the end we obtain
+We made an assumption of $\Delta$ being small in approximating $\nabla^2_{\pbeta}\approx \chi^2(\nabla^2-\partial_\chi^2)$, so that we can neglect the time evolution of $\Phi$ within the lens. If $\Delta$ is small we can also treat the $\partial^2_\chi$ integrated term as a boundary term which vanishes when appropriate boundary conditions for the Poisson equation are chosen (for example periodic boundary conditions). With the help of (\ref{eq:2:poisson}) in the end we obtain
 
 \begin{equation}
 \label{eq:3:poisson-psi-2}
@@ -214,11 +216,74 @@ Once the density contrast is estimated from the $N$--body outputs, the two dimen
 %
 We decided to apply a Gaussian smoothing with scale $\theta_G$ to the solution (\ref{eq:3:poisson-sol-fft}) to get rid of sub-pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$.  
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Approximate methods}
+In this section we review the numerical implementation of the approximate methods shown in (\ref{eq:2:kappa-1}), (\ref{eq:2:kappa-2-ll}) and (\ref{eq:2:kappa-2-gp}), which allow to compute the Born and first post--Born contributions to the convergence $\kappa$ as line--of--sight integrals on the unperturbed light ray trajectories. 
 
 \subsection{Born approximation}
+The computation of the Born contribution to $\kappa$ for sources at distance $\chi_s$ involves a single integral over $\chi$, which can be readily computed using the first order method in (\ref{eq:3:int-fo}). We can write, at $O(\Delta)$ precision 
+
+\begin{equation}
+\label{eq:3:kappa-fo-num-1}
+\kappa^{(1)}_s(\pt) = -\Delta\sum_{k=1}^{N_l} W_{ks}\chi_k\nabla^2_\perp\Phi(\chi_k,\chi_k\pt)
+\end{equation} 
+%
+Where we used the compact notation $W_{kk'}=1-\chi_k/\chi_{k'}$. If we use the relations (\ref{eq:3:projected-phi}) and (\ref{eq:3:poisson-psi-2}) we can relate the first order convergence $\kappa^{(1)}$ to the discrete set of dimensionless lens densities $\{\sigma_k\equiv\sigma(\chi_k,\chi_k\pt)\}$
+
+\begin{equation}
+\label{eq:3:kappa-fo-num-2}
+\kappa^{(1)}_s = \frac{1}{2}\sum_{k=1}^{N_l} \sigma_k W_{ks}
+\end{equation}
+%
+As it is evident from (\ref{eq:3:kappa-fo-num-2}), the Born--approximated convergence can be efficiently calculated in $O(N_l)$ time. Moreover such approximate approach does not require knowledge of the solution to the Poisson equation (\ref{eq:3:poisson-psi-2}). At linear order in the potential $\Phi$, the shear field $\pmb{\gamma}$ can be calculated using the KS relation (\ref{eq:2:gamma-c-ks}).  
 
 \subsection{Post--Born corrections}
+The evaluation of the second order corrections to $\kappa$ in equations (\ref{eq:2:kappa-2-ll}) and (\ref{eq:2:kappa-2-gp}) involve double integrals over $\chi$ which, if naively implemented, lead to an $O(N_l^2)$ runtime algorithm. Applying the first order method in (\ref{eq:3:int-fo}) twice we obtain
+
+\begin{equation}
+\label{eq:3:kappa-ll-num}
+\kappa_s^{(2-{\rm ll})} = -\frac{1}{2}\sum_{k=1}^{N_l}\sum_{m=1}^k W_{ks}W_{mk} \Tr(\bb{T}_m\bb{T}_k)
+\end{equation}
+%
+\begin{equation}
+\label{eq:3:kappa-gp-num}
+\kappa_s^{(2-{\rm gp})} = \frac{1}{2}\sum_{k=1}^{N_l}\sum_{m=1}^k W_{ks}W_{mk} (\palpha_m\cdot\nabla\sigma_k)
+\end{equation}
+%
+Note that, since we are performing the integrals along unperturbed trajectories, the angular arguments of $\sigma_k,\palpha_k,\bb{T}_k$ have been fixed to $\pbeta_k\equiv\pt$ (for a single light ray). Note also that the gradient in (\ref{eq:3:kappa-gp-num}) is to be intended as with respect to the angular argument of $\sigma_k$. As previously noted, the naive implementation explained in (\ref{eq:3:kappa-ll-num}) and (\ref{eq:3:kappa-gp-num}) leads to an $O(N_l^2)$ runtime, which can be quite inefficient for a large number of lenses and light rays. A more efficient $O(N_l)$ algorithm can be employed noting that, as we compute the partial sums, we can cache the quantities 
+
+\begin{equation}
+\label{eq:3:cache}
+\begin{matrix}
+I^{\palpha,0}_k = \sum_{m=1}^k \palpha_m & ; & I^{\palpha,1}_k = \sum_{m=1}^k \chi_m\palpha_m & \\ \\
+I^{\bb{T},0}_k = \sum_{m=1}^k \bb{T}_m & ; & I^{\bb{T},1}_k = \sum_{m=1}^k \chi_m\bb{T}_m 
+\end{matrix} 
+\end{equation} 
+%
+With the definitions (\ref{eq:3:cache}), the second order post--Born corrections to $\kappa$ can be computed in linear time as  
+
+\begin{equation}
+\label{eq:3:kappa-ll-num-lin}
+\kappa_s^{(2-{\rm ll})} = -\frac{1}{2}\sum_{k=1}^{N_l} W_{ks} \Tr\left[\bb{T}_k\left(I^{\bb{T},0}_k-\frac{I^{\bb{T},1}_k}{\chi_k}\right)\right]
+\end{equation}
+%
+\begin{equation}
+\label{eq:3:kappa-gp-num-lin}
+\kappa_s^{(2-{\rm gp})} = \frac{1}{2}\sum_{k=1}^{N_l} W_{ks}\nabla\sigma_k\cdot\left(I^{\palpha,0}_k - \frac{I^{\palpha,1}_k}{\chi_k}\right)
+\end{equation}
+%
+Figure \ref{fig:3:csample} shows a sample $\kappa$ reconstruction from one $N$--body simulation, including the full ray--tracing map and a comparison between the residuals $\kappa-\kappa^{(1)}$ and the second order terms $\kappa^{(2-{\rm ll})},\kappa^{(2-{\rm gp})}$.  
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{Figures/eps/csample.eps}
+\end{center}
+\caption{Sample $\kappa$ reconstruction from one $N$--body simulation}
+\label{fig:3:csample}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{The \LT software package}
 
