@@ -7,20 +7,55 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Introduction}
-
-\citep{NbodySample}
-\begin{figure}
-\includegraphics[scale=0.5]{Figures/curving_nb.eps}
-\caption{A figure}
-\label{1:fig1}
-\end{figure}
-
-See \citep{Dodelson-Cosmology-2003}
+\section{The FRW model}
 
 \begin{equation}
 \label{eq:1:frw}
-ds^2 = -c^2dt^2
+ds^2 = -c^2dt^2 + a(t)^2d\bb{x}^2
 \end{equation}
+
+\section{Growth of density perturbations}
+
+Scalar perturbations to the FRW metric in (\ref{eq:1:frw}) can be parametrized in the conformal Newtonian gauge by two scalar potentials $\Phi,\Psi$ as follows
+
+\begin{equation}
+\label{eq:1:confnewt}
+ds^2 = -c^2dt^2(1+2\Psi(\bb{x},t)) + a(t)^2d\bb{x}^2(1+2\Phi(\bb{x},t))
+\end{equation}
+%
+For the scope of the present work we can safely ignore vector and tensor perturbations to the FRW metric as their effects are negligible in WL observations.
+
+\subsection{Einstein equation}
+The potentials $\Phi,\Psi$, as they appear in the metric (\ref{eq:1:confnewt}), must satisfy Einstein equation. Since we limit our study to scalar perturbations, there are only two independent components of the Einstein equation that we need to consider. Since WL physics is dominated by the late time behavior of density perturbations, we will ignore relativistic particles as contribution to the energy momentum tensor and focus on cold matter only. We parametrize the matter density as 
+
+\begin{equation}
+\label{eq:1:matterrho}
+\rho_m(\bb{x},t) = \rho_m(t)(1+\delta(\bb{x},t))
+\end{equation}
+%
+where $\rho_m(t)$ is the spatially averaged matter density and $\delta(\bb{x},t)$ is the spatially dependent density contrast. With this notation, the two independent components of the linearized Einstein's equation become
+
+\begin{equation}
+\label{eq:1:einstein-00}
+\nabla^2\Phi +3\frac{a^2H^2\Psi-a^2H\partial_t\Phi}{c^2} = -4\pi G\rho_m\delta
+\end{equation}
+
+\begin{equation}
+\label{eq:1:einstein-ij}
+\nabla^2(\Phi+\Psi) = 0
+\end{equation}
+%
+A few considerations are in order here. First of all, the terms in (\ref{eq:1:einstein-00}) which contain powers of $aH$ are sub--dominant for the WL case of interest, as the laplacian term will always dominate for modes with wavenumber $k$ well inside the Hubble horizon $kc\gg aH$ (see \citep{PNLensing} for a discussion of the importance of PN terms). We can hence drop these terms from (\ref{eq:1:einstein-00}), which then reduces to a Poisson--like equation 
+
+\begin{equation}
+\label{eq:1:poisson}
+\nabla^2\Phi(\bb{x},t) = -\frac{4\pi Ga(t)^2}{c^2}\rho_m(t)\delta(\bb{x},t)
+\end{equation}
+%
+Equation (\ref{eq:1:einstein-ij}) comes from the traceless part of the spatial Einstein equation, and as such it is sourced by anisotropic stresses in the matter components. Because such stresses are proportional to the quadrupole of the momentum distributions, which are negligible for non relativistic species, they can be safely neglected when studying WL. We will then use (\ref{eq:1:einstein-ij}) to conclude $\Psi=-\Phi$, which will be used when computing light ray geodesics. 
+
+\begin{equation}
+\label{eq:1:delta-lin}
+\end{equation} 
 
 %\bibliography{ref}

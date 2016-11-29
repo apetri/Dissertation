@@ -5,13 +5,77 @@
  \thispagestyle{plain}
 \setlength{\parindent}{10mm}
 
+In this Chapter we outline the numerical methods we used to produce simulated WL convergence and shear images. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Cosmological simulations}
+The matter density contrast $\delta$ evolves according to equation (\ref{eq:1:delta-lin}) at linear stage. For WL studies, however, $\delta$ becomes too big for the redshifts of interest, the linear approximation breaks down and an exact solution is needed. A popular approach to solve the Boltzmann equation (??) for collisionless matter is the so called $N$--body method, in which the phase space is discretized using a large number $N_p$ of particle tracers (see \citep{gadget2}). The particles are placed in a cubical periodic box of comoving size $L_b$ and are given initial conditions that correspond to the density contrast at linear stage. The system is then evolved with a Hamiltonian that mimics Newtonian gravitational interactions, described by the potential $\Phi$.  
 
 \subsection{Initial conditions}
+The starting point of an $N$--body simulation is a configuration of particles positions $\{\bb{x}_i\}$ and velocities $\{\bb{v}_i\}$ at some high redshift $z_{\rm in}\gg 1$, which mimic the linear density contrast $\delta$. Suppose that the particles are initially are arranged in a ``glass'' pattern and are given positions $\{\bb{x}_i^g\}$ that correspond to a uniform density profile ($\delta=0$). We seek to displace each particle by a small amount $\bb{d}(\bb{x}_i^g)$, so that the new density matches an input $\delta$ profile, which we can vary. Because mass is conserved by the displacement we can write
 
-\subsection{Time integration}
+\begin{equation}
+\label{eq:3:masscons}
+\rho_m d^3 x^g = \rho_m(1+\delta)d^3x
+\end{equation} 
+%
+Which relates the density contrast $\delta$ to the Jacobian of the displacement transformation 
+
+\begin{equation}
+\label{eq:3:delta-displ}
+1+\delta = \left\vert\mathds{1}_{3\times 3}+\frac{\partial \bb{d}}{\partial \bb{x}}\right\vert^{-1}
+\end{equation}
+%
+Using the identity
+
+\begin{equation}
+\label{eq:3:det-identity}
+\vert\mathds{1}+\lambda\bb{M}\vert = 1 + \lambda\Tr\bb{M} + O(\lambda^2)
+\end{equation}
+%
+for generic $\bb{M}$ and real $\lambda$, and noting that at high redshift we expect $\delta$ and $\bb{d}$ to be small, we immediately obtain a relation between the density contrast and the displacement field 
+
+\begin{equation}
+\label{eq:3:delta-displ-real}
+\delta = -\nabla\cdot\bb{d}
+\end{equation}
+%
+A possible solution to equation (\ref{eq:3:delta-displ-fourier}) is easily expressed in Fourier space if we assume the displacement field to be longitudinal (which is a good assumption since the peculiar velocity field is irrotational)
+
+\begin{equation}
+\label{eq:3:delta-displ-fourier}
+\tilde{\bb{d}}(\bb{k}) = \frac{i\bb{k}}{k^2}\tilde{\delta}(\bb{k})
+\end{equation}
+%
+Equation (\ref{eq:3:delta-displ-fourier}) takes the name of Zel'dovich approximation (see \citep{ZeldovichWhite} for a review), which essentially states that the displacement field is the gradient of the local gravitational potential. The Fourier coefficients $\tilde{\delta}(\bb{k})$ can be randomly drawn from $\mathcal{N}(0,P_\delta(k,z_{\rm in}))$. The linear matter power spectrum $P_\delta(k,z_{\rm in})$ can be computed analytically with Einstein--Boltzmann codes such as \ttt{CAMB} \citep{CAMB}. We assign the initial peculiar velocities $\bb{v}=\dot{\bb{d}}$ in the context of the Zel'dovich approximation using the time derivative of $\delta$. Since we limit ourselves to dark matter density perturbations, we can assume self--similar linear growth, described by the linear growth factor $D(z)$. In order to imprint baryonic physics in the initial conditions, we adopt an hybrid approach, in which we use \ttt{CAMB} to compute the linear matter power spectrum $P^{\rm lin}_\delta(\bb{k},0)$ at the present time, with baryons includes, and scale it back to $z_{\rm in}=100$ using the linear growth factor
+
+\begin{equation}
+\label{eq:3:hybrid-power}
+P_\delta(\bb{k},z_{\rm in}) = P^{\rm lin}_\delta(\bb{k},0)\left(\frac{D(z_{\rm in})}{D(0)}\right)^2 
+\end{equation}
+%
+The initial conditions with baryonic imprinted physics is then evolved with dark matter only collisionless dynamics. A random realization of $\tilde{\delta}$ can then be drawn from $P_\delta(\bb{k},z_{\rm in})$, and the peculiar velocities can be assigned as 
+
+\begin{equation}
+\label{eq:3:peculiar-initv}
+\tilde{\bb{v}}(\bb{k}) = \frac{i\bb{k}}{k^2}\tilde{\delta}(\bb{k})\left(\frac{\dot{z}}{D(z)}\frac{dD(z)}{dz}\right)_{z=z_{\rm in}}
+\end{equation}  
+%
+In order to generate random realizations of the initial conditions from the linear power spectrum $P^{\rm lin}_\delta(\bb{k},0)$, we used the \ttt{N-GenIC} software add--on to \ttt{Gadget2} \citep{gadget2}.   
+
+\subsection{Time evolution}
+Once generated, the initial conditions specified by equations (\ref{eq:3:delta-displ-fourier}) and (\ref{eq:3:peculiar-initv}) must be evolved in time from $z=z_{\rm in}$ until the present $z=0$. Since we consider collisionless dark matter only, which interacts only via gravity, the Hamiltonian of the system $H$ can be written as 
+
+\begin{equation}
+\label{eq:3:collisionless-ham}
+H = \sum_{i=1}^{N_p} \frac{\bb{p}_i^2}{2m_i a(t)^2} + \frac{1}{2}\sum_{i\neq j}m_im_j\varphi(\bb{x}_i-\bb{x}_j)
+\end{equation} 
+
+\begin{equation}
+\label{eq:3:macro-potential}
+\Phi(\bb{x},t) = \frac{1}{c^2}\sum_{i=1}^{N_p} m_i\varphi(\bb{x}-\bb{x}_i(t))
+\end{equation} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -214,7 +278,10 @@ Once the density contrast is estimated from the $N$--body outputs, the two dimen
 \tilde{\psi}(\chi_k,\pell) = \tilde{\sigma}(\chi_k,\pell)\frac{e^{-\ell^2\theta_G^2}}{\ell^2}
 \end{equation} 
 %
-We decided to apply a Gaussian smoothing with scale $\theta_G$ to the solution (\ref{eq:3:poisson-sol-fft}) to get rid of sub-pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$.  
+We decided to apply a Gaussian smoothing with scale $\theta_G$ to the solution (\ref{eq:3:poisson-sol-fft}) to get rid of sub-pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$.
+
+\subsection{Cosmic variance sampling}
+The multi--lens--plane integration of (\ref{eq:2:geosol-jac})
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

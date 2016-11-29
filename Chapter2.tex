@@ -7,26 +7,20 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this Chapter we review the basics of the Gravitational Lensing (GL) effect. GL is a prediction of General Relativity and states that light rays that travel through space--time inhomogeneities experience trajectory deflections. We start by deriving an equation for the light ray geodesics in a non homogeneous background, following the derivation in \citep{Dodelson-C11}. We then specialize the geodesic solution to the Weak Lensing (WL) case, exploring approximate approaches such as the Born approximation. We conclude discussing the short comings of these approximate approaches for modeling of WL observations. 
+In this Chapter we review the basics of the Gravitational Lensing (GL) effect. GL is a prediction of General Relativity and states that light rays that travel through space--time inhomogeneities experience trajectory deflections. We start by deriving an equation for the light ray geodesics in a non homogeneous background, following the derivation in \citep{Dodelson-C11}. We then specialize the geodesic solution to the Weak Lensing (WL) case, exploring approximate approaches such as the Born approximation.
 
 \section{Light ray geodesics}
 
-\subsection{Geodesic equation}
-Scalar perturbations to the FRW metric in (\ref{eq:1:frw}) can be parametrized in the conformal Newtonian gauge by two scalar potentials $\Phi,\Psi$ as follows
+\subsection{Geodesic equation} 
 
-\begin{equation}
-\label{eq:2:confnewt}
-ds^2 = -c^2dt^2(1+2\Psi(\bb{x},t)) + a(t)^2d\bb{x}^2(1+2\Phi(\bb{x},t))
-\end{equation}
-%
-For the scope of the present work we can safely ignore vector and tensor perturbations to the FRW metric as their effects are negligible in WL observations. We parametrize a light ray space--time trajectory $x^\mu(\tau)$ in terms of a continuous real parameter $\tau$, which plays the same role as proper time for massive particles. The geodesic equation reads 
+We parametrize a light ray space--time trajectory $x^\mu(\tau)$ in terms of a continuous real parameter $\tau$, which plays the same role as proper time for massive particles. The geodesic equation reads 
 
 \begin{equation}
 \label{eq:2:geodesic}
 \frac{d^2 x^\mu(\tau)}{d\tau^2} = -\Gamma_{\alpha\beta}^\mu(x^\mu(\tau)) \frac{d x^\alpha(\tau)}{d\tau}\frac{d x^\beta(\tau)}{d\tau}
 \end{equation}
 %
-Where the affine connection $\Gamma_{\alpha\beta}^\mu$ for the metric (\ref{eq:2:confnewt}) is, at first order in the potentials
+Where the affine connection $\Gamma_{\alpha\beta}^\mu$ for the metric (\ref{eq:1:confnewt}) is, at first order in the potentials $\Phi,\Psi$
 
 \begin{equation}
 \label{eq:2:connection}
@@ -88,11 +82,12 @@ The complete geodesic equation now becomes
 \end{equation}
 %
 After a few simplifications this assumes the form 
+
 \begin{equation}
 \label{eq:2:geodesic-fo-2}
 \frac{d^2\xp(\chi)}{d\chi^2} = \nabla_\perp(\Phi(\chi,\xp)-\Psi(\chi,\xp))
 \end{equation}
-
+%
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.75]{Figures/pdf/rayscheme.pdf}
@@ -100,38 +95,20 @@ After a few simplifications this assumes the form
 \caption{Coordinate system centered on a fundamental observer on Earth}
 \label{fig:2:scheme}
 \end{figure}
-
-\subsection{Einstein equation}
-The potentials $\Phi,\Psi$, as they appear in the metric (\ref{eq:2:confnewt}), must satisfy Einstein equation. Since we limit our study to scalar perturbations, there are only two independent components of the Einstein equation that we need to consider. Since WL physics is dominated by the late time behavior of density perturbations, we will ignore relativistic particles as contribution to the energy momentum tensor and focus on cold matter only. We parametrize the matter density as 
-
-\begin{equation}
-\label{eq:2:matterrho}
-\rho_m(\bb{x},t) = \rho_m(t)(1+\delta(\bb{x},t))
-\end{equation}
 %
-where $\rho_m(t)$ is the spatially averaged matter density and $\delta(\bb{x},t)$ is the spatially dependent density contrast. With this notation, the two independent components of the linearized Einstein's equation become
-
-\begin{equation}
-\label{eq:2:einstein-00}
-\nabla^2\Phi +3\frac{a^2H^2\Psi-a^2H\partial_t\Phi}{c^2} = -4\pi G\rho_m\delta
-\end{equation}
-
-\begin{equation}
-\label{eq:2:einstein-ij}
-\nabla^2(\Phi+\Psi) = 0
-\end{equation}
-%
-A few considerations are in order here. First of all, the terms in (\ref{eq:2:einstein-00}) which contain powers of $aH$ are sub--dominant for the WL case of interest, as the laplacian term will always dominate for modes with wavenumber $k$ well inside the Hubble horizon $kc\gg aH$ (see \citep{PNLensing} for a discussion of the importance of PN terms). We can hence drop these terms from (\ref{eq:2:einstein-00}), which then reduces to a Poisson--like equation. Equation (\ref{eq:2:einstein-ij}) comes from the traceless part of the spatial Einstein equation, and as such it is sourced by anisotropic stresses in the matter components. Because such stresses are proportional to the quadrupole of the momentum distributions, which are negligible for non relativistic species, they can be safely neglected when studying WL. We will then use (\ref{eq:2:einstein-ij}) to conclude $\Psi=-\Phi$ and express the geodesic equation in terms of the gravitational potential $\Phi$
+Using the relation (\ref{eq:1:einstein-ij}) between the gravitational potentials, which allows us to substitute $\Psi=-\Phi$, equation (\ref{eq:2:geodesic-fo-2}) becomes 
 
 \begin{equation}
 \label{eq:2:geodesic-fo-3}
 \frac{d^2\xp(\chi)}{d\chi^2} = 2\nabla_\perp\Phi(\chi,\xp(\chi))
 \end{equation}
+%
+The potential $\Phi$ satisfies the Poisson equation (\ref{eq:1:poisson}), which we can rewrite in our coordinate system (\ref{eq:2:coord}) as
 
 \begin{equation}
 \label{eq:2:poisson}
 \nabla^2\Phi(\chi,\xp) = -\frac{4\pi Ga(\chi)^2}{c^2}\rho_m(\chi)\delta(\chi,\xp)
-\end{equation}  
+\end{equation} 
 %
 We substituted the time dependency with a $\chi$ dependency using the distance--redshift relation. 
 
@@ -300,7 +277,7 @@ With $W_2(t,u,v)=W(t,u)W(u,v)$. The term in (\ref{eq:2:jacobian-so-ll}) originat
 %
 \begin{equation}
 \label{eq:2:kappa-2-gp}
-\kappa^{(2-{\rm gp})}(\chi,\pt) = 2\int_0^\chi d\chi'\int_0^{\chi'}d\chi'' W_2(\chi'',\chi',\chi)\frac{\chi'}{\chi''}\nabla_\perp \delta_L(\chi',\chi'\pt)\cdot\nabla_\perp\Phi(\chi'',\chi''\pt)
+\kappa^{(2-{\rm gp})}(\chi,\pt) = 2\int_0^\chi d\chi'\int_0^{\chi'}d\chi'' \frac{\chi'W_2(\chi'',\chi',\chi)}{\chi''}\nabla_\perp \delta_L(\chi',\chi'\pt)\cdot\nabla_\perp\Phi(\chi'',\chi''\pt)
 \end{equation} 
 %
 For completeness we should note that the quadratic terms (\ref{eq:2:kappa-2-ll}),(\ref{eq:2:kappa-2-gp}) are not the only ones that contribute to the WL convergence, as at the beginning of the Chapter we derived an approximate form for the light deflection (\ref{eq:2:geodesic-fo-3}) from the geodesic equation (\ref{eq:2:geodesic}). If one includes the PN corrections to (\ref{eq:2:geodesic-fo-3}), as shown in \citep{PNLensing}, additional quadratic terms $\kappa^{(2-{\rm PN})}$ arise
