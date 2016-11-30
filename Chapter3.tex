@@ -10,10 +10,10 @@ In this Chapter we outline the numerical methods we used to produce simulated WL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Cosmological simulations}
-The matter density contrast $\delta$ evolves according to equation (\ref{eq:1:delta-lin}) at linear stage. For WL studies, however, $\delta$ becomes too big for the redshifts of interest, the linear approximation breaks down and an exact solution is needed. A popular approach to solve the Boltzmann equation (??) for collisionless matter is the so called $N$--body method, in which the phase space is discretized using a large number $N_p$ of particle tracers (see \citep{gadget2}). The particles are placed in a cubical periodic box of comoving size $L_b$ and are given initial conditions that correspond to the density contrast at linear stage. The system is then evolved with a Hamiltonian that mimics Newtonian gravitational interactions, described by the potential $\Phi$.  
+The matter density contrast $\delta$ evolves according to equation (\ref{eq:1:delta-lin}) at linear stage. For WL studies, however, $\delta$ becomes too big for the redshifts of interest, the linear approximation breaks down and an exact solution is needed. A popular approach to solve the Boltzmann equation (??) for collisionless dark matter is the so called $N$--body method, in which the phase space is discretized using a large but finite number $N_p$ of particle tracers (see \citep{gadget2}). The particles are placed in a cubical periodic box of comoving size $L_b$ and are given initial conditions that correspond to the density contrast at linear stage. The system is then evolved with a Hamiltonian that mimics Newtonian gravitational interactions, described by the potential $\Phi$.  
 
 \subsection{Initial conditions}
-The starting point of an $N$--body simulation is a configuration of particles positions $\{\bb{x}_i\}$ and velocities $\{\bb{v}_i\}$ at some high redshift $z_{\rm in}\gg 1$, which mimic the linear density contrast $\delta$. Suppose that the particles are initially are arranged in a ``glass'' pattern and are given positions $\{\bb{x}_i^g\}$ that correspond to a uniform density profile ($\delta=0$). We seek to displace each particle by a small amount $\bb{d}(\bb{x}_i^g)$, so that the new density matches an input $\delta$ profile, which we can vary. Because mass is conserved by the displacement we can write
+The starting point of an $N$--body simulation is a configuration of particles positions $\{\bb{x}_i\}$ and velocities $\{\bb{v}_i\}$ at some high redshift $z_{\rm in}\gg 1$, which mimic the linear density contrast $\delta$. Suppose that the particles are initially are arranged in a ``glass'' pattern and are given positions $\{\bb{x}_i^g\}$ that correspond to a uniform density profile ($\delta=0$). We seek to displace each particle by a small amount $\bb{d}(\bb{x}_i^g)$, so that the new density matches an input $\delta$ profile, which we can vary. Because mass is conserved by the displacement transformation we can write
 
 \begin{equation}
 \label{eq:3:masscons}
@@ -41,14 +41,14 @@ for generic $\bb{M}$ and real $\lambda$, and noting that at high redshift we exp
 \delta = -\nabla\cdot\bb{d}
 \end{equation}
 %
-A possible solution to equation (\ref{eq:3:delta-displ-fourier}) is easily expressed in Fourier space if we assume the displacement field to be longitudinal (which is a good assumption since the peculiar velocity field is irrotational)
+A possible solution to equation (\ref{eq:3:delta-displ-real}) is easily expressed in Fourier space if we assume the displacement field to be longitudinal (which is a good assumption since the peculiar velocity field is irrotational)
 
 \begin{equation}
 \label{eq:3:delta-displ-fourier}
 \tilde{\bb{d}}(\bb{k}) = \frac{i\bb{k}}{k^2}\tilde{\delta}(\bb{k})
 \end{equation}
 %
-Equation (\ref{eq:3:delta-displ-fourier}) takes the name of Zel'dovich approximation (see \citep{ZeldovichWhite} for a review), which essentially states that the displacement field is the gradient of the local gravitational potential. The Fourier coefficients $\tilde{\delta}(\bb{k})$ can be randomly drawn from $\mathcal{N}(0,P_\delta(k,z_{\rm in}))$. The linear matter power spectrum $P_\delta(k,z_{\rm in})$ can be computed analytically with Einstein--Boltzmann codes such as \ttt{CAMB} \citep{CAMB}. We assign the initial peculiar velocities $\bb{v}=\dot{\bb{d}}$ in the context of the Zel'dovich approximation using the time derivative of $\delta$. Since we limit ourselves to dark matter density perturbations, we can assume self--similar linear growth, described by the linear growth factor $D(z)$. In order to imprint baryonic physics in the initial conditions, we adopt an hybrid approach, in which we use \ttt{CAMB} to compute the linear matter power spectrum $P^{\rm lin}_\delta(\bb{k},0)$ at the present time, with baryons includes, and scale it back to $z_{\rm in}=100$ using the linear growth factor
+Equation (\ref{eq:3:delta-displ-fourier}) takes the name of Zel'dovich approximation (see \citep{ZeldovichWhite} for a review), which essentially states that the displacement field is the gradient of the local gravitational potential. The Fourier coefficients $\tilde{\delta}(\bb{k})$ can be randomly drawn from $\mathcal{N}(0,P_\delta(k,z_{\rm in}))$. The linear matter power spectrum $P_\delta(k,z_{\rm in})$ can be computed analytically with Einstein--Boltzmann codes such as \ttt{CAMB} \citep{CAMB}. We assign the initial peculiar velocities $\bb{v}=\dot{\bb{d}}$ in the context of the Zel'dovich approximation using the time derivative of $\delta$. Since we limit ourselves to dark matter density perturbations, we can assume self--similar linear growth, described by the linear growth factor $D(z)$. In order to imprint baryonic physics in the initial conditions, we adopt an hybrid approach, in which we use \ttt{CAMB} to compute the linear matter power spectrum $P^{\rm lin}_\delta(\bb{k},0)$ at the present time, with baryons included, and scale it back to $z_{\rm in}=100$ using the linear growth factor
 
 \begin{equation}
 \label{eq:3:hybrid-power}
@@ -65,17 +65,35 @@ The initial conditions with baryonic imprinted physics is then evolved with dark
 In order to generate random realizations of the initial conditions from the linear power spectrum $P^{\rm lin}_\delta(\bb{k},0)$, we used the \ttt{N-GenIC} software add--on to \ttt{Gadget2} \citep{gadget2}.   
 
 \subsection{Time evolution}
-Once generated, the initial conditions specified by equations (\ref{eq:3:delta-displ-fourier}) and (\ref{eq:3:peculiar-initv}) must be evolved in time from $z=z_{\rm in}$ until the present $z=0$. Since we consider collisionless dark matter only, which interacts only via gravity, the Hamiltonian of the system $H$ can be written as 
+Once generated, the initial conditions specified by equations (\ref{eq:3:delta-displ-fourier}) and (\ref{eq:3:peculiar-initv}) must be evolved in time from $z=z_{\rm in}$ until the present $z=0$. Since we consider collisionless dark matter only, which interacts only via gravity, the Hamiltonian $H$ of the particle system (ignoring PN corrections) can be written as 
 
 \begin{equation}
 \label{eq:3:collisionless-ham}
 H = \sum_{i=1}^{N_p} \frac{\bb{p}_i^2}{2m_i a(t)^2} + \frac{1}{2}\sum_{i\neq j}m_im_j\varphi(\bb{x}_i-\bb{x}_j)
 \end{equation} 
+%
+We denoted as $m_i$ the particle masses, as $\bb{p}_i$ the particle momenta conjugated to the comoving coordinates $\bb{x}_i$ and as $\varphi$ the pair interaction potential (which comes from gravity) per unit mass. If one imposes periodic boundary conditions on the simulation box, the interaction potential satisfies the Poisson equation
+
+\begin{equation}
+\label{eq:3:part-poisson}
+\nabla^2\varphi(\bb{x}) = \frac{4\pi G}{a}\left(\sum_{\bb{n}\in\mathds{Z}^3}\delta_{r_s}(\bb{x}-\bb{n}L_b)-\frac{1}{L_b^3}\right) 
+\end{equation}
+%
+Where $\delta_{r_s}$ is the Dirac delta function $\delta^D$ convolved with a softening kernel of scale $r_s$. This softening is introduced because the $N$--body particles are in reality extended, collisionless, objects and the Newtonian interaction potential is smoothed out on interaction scales smaller than $r_s$. In our simulations $r_s$ has been fixed to $r_s\approx 10\,{\rm kpc}/h$. Note that the summation term can be dropped if we restrict $\bb{x}$ to be inside the box, but is important to enforce the periodic boundary conditions. We can relate $\varphi$ to the gravitational potential in (\ref{eq:1:poisson}) by    
 
 \begin{equation}
 \label{eq:3:macro-potential}
-\Phi(\bb{x},t) = \frac{1}{c^2}\sum_{i=1}^{N_p} m_i\varphi(\bb{x}-\bb{x}_i(t))
+\Phi(\bb{x},t) = -\frac{1}{c^2}\sum_{i=1}^{N_p} m_i\varphi(\bb{x}-\bb{x}_i(t))
 \end{equation} 
+%
+observing that, inside the simulation box, (\ref{eq:3:macro-potential}) leads to 
+
+\begin{equation}
+\label{eq:3:macro-potential-poisson}
+\nabla^2\Phi(\bb{x},t) = -\frac{4\pi Ga^2}{c^2}\left(\sum_{i=1}^{N_p}m_i\delta_{r_s}\left(a(\bb{x}-\bb{x}_i(t))\right)-\frac{1}{a^3L_b^3}\sum_{i=1}^{N_p}m_i\right)
+\end{equation}
+%
+Note that (\ref{eq:3:macro-potential-poisson}) is essentially the discretized version of (\ref{eq:1:poisson}) for a system with $N_p$ particles, where gravitational forces are softened on scales below $r_s$. The Hamiltonian equations of motion deriving from (\ref{eq:3:collisionless-ham}) can be numerically integrated to yield a trajectory $\bb{x}(t)$ for each particle. To preserve the Hamiltonian nature of the time evolution, \citep{gadget2} suggest adopting a Kick-Drift-Kick (KDK) numerical integration scheme. The drift step updates the particle coordinates using their momenta, while the kick updates their momenta using the local force field. The force field calculation requires the solution of (\ref{eq:3:part-poisson}) and a summation over all particle pairs, which leads to an $O(N_p^2)$ time complexity. In the limit of collisionless dynamics, approximate force field calculations can be carried over at a significantly lower complexity using the hybrid Tree Particle Mesh (TreePM) approach. The details of the force field calculation, time integration and TreePM implementation can be found in the \ttt{Gadget2} paper \citep{gadget2}. We used the publicly available version of the \ttt{Gadget2} code to perform the $N$--body simulations on which our WL simulations are based. We stored the $N$--body simulation outputs $\{\bb{x}_i(t)\}$ at a discrete set of time steps $\{t_k\}$, with the goal of using them to estimate the potential $\Phi$ necessary to reconstruct the WL quantities $\kappa,\pmb{\gamma}$. The numerical details of these WL simulations are contained in the next section.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -281,7 +299,17 @@ Once the density contrast is estimated from the $N$--body outputs, the two dimen
 We decided to apply a Gaussian smoothing with scale $\theta_G$ to the solution (\ref{eq:3:poisson-sol-fft}) to get rid of sub-pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$.
 
 \subsection{Cosmic variance sampling}
-The multi--lens--plane integration of (\ref{eq:2:geosol-jac})
+The multi--lens--plane integration of (\ref{eq:2:geosol-jac}) suggests a way of producing multiple WL image realizations from a single $N$--body simulation. This is essentially due to the fact that the field of view spanned by the observed ray positions $\pt$, when projected at redshift $z>0$, usually covers the simulation box only partially since $L_b$ can be chosen so that $\chi_k\theta<L_b$. Periodic shifts of the lens planes along directions perpendicular to the line of sight yield lenses with identical statistical properties, but lead to different realizations of $\kappa,\pmb{\gamma}$ images. We can summarize the procedure of constructing the lens system as follows:
+
+\begin{itemize}
+\item For a lens plane at distance $\chi_k$, choose a random $N$--body simulation among a set of $N_s$ independent simulations ($N_s=1$ if only one full simulation has been run)
+\item Choose a random direction between $(\h{x},\h{y},\h{z})$ to be the longitudinal direction. The other two directions will be the transverse coordinates $\xp$
+\item Cut a random slice of size $\Delta$ from the $N$--body output at $t_k$, along the chosen longitudinal direction
+\item Periodically shift the lens along the transverse directions by a random amount
+\item Repeat for the next lens plane at distance $\chi_{k+1}$
+\end{itemize}
+%
+This procedure produces different realizations of $\{\palpha_k,\bb{T}_k\}$ and hence allows to recycle the outputs of $N_s$ independent $N$--body simulations to produce $N_r\gg N_s$ realizations of WL observables. These simulated ensembles can be used to estimate the scatter in observable estimators coming from cosmic variance, as well as the estimator means. Because $N_r$ is bigger than $N_s$, these realizations will only be pseudo--independent, but can be safely treated as effectively independent if $N_r$ is not too large. This approximate independent issue, along with its implications on WL observation analysis, has been investigated in \citep{PetriVariance}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -304,6 +332,14 @@ Where we used the compact notation $W_{kk'}=1-\chi_k/\chi_{k'}$. If we use the r
 \end{equation}
 %
 As it is evident from (\ref{eq:3:kappa-fo-num-2}), the Born--approximated convergence can be efficiently calculated in $O(N_l)$ time. Moreover such approximate approach does not require knowledge of the solution to the Poisson equation (\ref{eq:3:poisson-psi-2}). At linear order in the potential $\Phi$, the shear field $\pmb{\gamma}$ can be calculated using the KS relation (\ref{eq:2:gamma-c-ks}).  
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{Figures/eps/csample.eps}
+\end{center}
+\caption{Sample $\kappa$ reconstruction from one $N$--body simulation with $L_b=260\,{\rm Mpc}/h$ and $N_p=512^3$. The lens planes have a thickness of $\Delta=L_b/3$ and are resolved with $L_P^2=4096^2$ pixels. The $\kappa$ maps are reconstructed with $2048^2$ light rays arranged in a regular grid. The source galaxies were placed at a single redshift $z_s=2$.}
+\label{fig:3:csample}
+\end{figure}
 
 \subsection{Post--Born corrections}
 The evaluation of the second order corrections to $\kappa$ in equations (\ref{eq:2:kappa-2-ll}) and (\ref{eq:2:kappa-2-gp}) involve double integrals over $\chi$ which, if naively implemented, lead to an $O(N_l^2)$ runtime algorithm. Applying the first order method in (\ref{eq:3:int-fo}) twice we obtain
@@ -340,18 +376,21 @@ With the definitions (\ref{eq:3:cache}), the second order post--Born corrections
 \kappa_s^{(2-{\rm gp})} = \frac{1}{2}\sum_{k=1}^{N_l} W_{ks}\nabla\sigma_k\cdot\left(I^{\palpha,0}_k - \frac{I^{\palpha,1}_k}{\chi_k}\right)
 \end{equation}
 %
-Figure \ref{fig:3:csample} shows a sample $\kappa$ reconstruction from one $N$--body simulation, including the full ray--tracing map and a comparison between the residuals $\kappa-\kappa^{(1)}$ and the second order terms $\kappa^{(2-{\rm ll})},\kappa^{(2-{\rm gp})}$.  
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.4]{Figures/eps/csample.eps}
-\end{center}
-\caption{Sample $\kappa$ reconstruction from one $N$--body simulation}
-\label{fig:3:csample}
-\end{figure}
+Figure \ref{fig:3:csample} shows a sample $\kappa$ reconstruction from one $N$--body simulation, including the full ray--tracing map and a comparison between the residuals $\kappa-\kappa^{(1)}$ and the second order terms $\kappa^{(2-{\rm ll})},\kappa^{(2-{\rm gp})}$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{The \LT software package}
+\section{The \LT\, software package}
+In this section we present \LT \citep{lenstools}, a {\sc python} software package that we developed to handle the numerical operations exposed in this Chapter in an efficient fashion. As its main purpose, \LT\, serves as a pipeline of operations that allow to produce simulated $\kappa,\pmb{\gamma}$ images starting from a set of parameters that define a $\Lambda$CDM cosmological model described in Chapter 1. The sequence of operations is described by the diagram in Figure \ref{fig:3:lt-flow}  
+%
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{Figures/eps/lt_flow.eps}
+\end{center}
+\caption{Schematic of the \LT\, pipeline flow. Vertical arrows are directed from a particular application to its input. Horizontal arrows are directed from the input to the output products.}
+\label{fig:3:lt-flow}
+\end{figure}
+%
+The \LT\, pipeline glues together the \ttt{CAMB}, \ttt{N-GenIC} and \ttt{Gadget2} public codes, used for the $N$--body simulations, with {\sc python} code for the $\Phi$ calculations and ray--tracing operations. The solution to the Poisson equation (\ref{eq:3:poisson-psi-2}) can be efficiently found via FFT, which \LT\, performs via the {\sc numpy} FFTPack \citep{scipy}. The ray--tracing operations (\ref{eq:3:betak-sum}), (\ref{eq:3:betakp1-delta}), (\ref{eq:3:jack-sum}), (\ref{eq:3:jackp1-delta}) can also be performed efficiently in {\sc numpy} using vectorized linear algebra routines. \LT\, also provides efficient implementations of the approximate methods for computing $\kappa$ shown in equations (\ref{eq:3:kappa-fo-num-2}), (\ref{eq:3:kappa-ll-num-lin}) and (\ref{eq:3:kappa-gp-num-lin}). The pipeline products are organized... For a throughout presentation of of \LT, complete with CPU time and memory usage benchmarks, we remand the reader to the official paper \citep{lenstools} and the code documentation at \url{http://lenstools.rtfd.io}     
 
 \bibliography{ref}

@@ -10,6 +10,7 @@ sns.set(palette="muted",font_scale=2)
 import miscellaneous
 import covarianceProject
 import bornProject
+import ltProject
 
 #Options
 parser = argparse.ArgumentParser()
@@ -20,9 +21,16 @@ parser.add_argument("fig",nargs="*")
 
 #Method dictionary
 method = dict()
+
+#########################################################################
+
 method["2-dist"] = miscellaneous.distortion
 method["2-emode"] = miscellaneous.EMode
+
+#########################################################################
+
 method["3-csample"] = bornProject.convergenceVisualize
+method["3-ltflow"] = ltProject.flow
 
 #Main
 def main():
