@@ -1,0 +1,70 @@
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+/opt/apps/intel15/python/2.7.9/lib/python2.7/site-packages/Crypto/Util/number.py:57: PowmInsecureWarning: Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.
+  _warn("Not using mpz_powm_sec.  You should rebuild using libgmp >= 5 to avoid timing attack vulnerability.", PowmInsecureWarning)
+01-23 09:28:28.102:lenstools.stderr:INFO: Initial memory usage: 0.482 Gbyte (task), 7.707 Gbyte (all 16 tasks)
+01-23 09:28:30.202:lenstools.stderr:DEBUG: Read particle positions: peak memory usage 0.578 Gbyte (task)
+01-23 09:28:30.405:lenstools.stderr:DEBUG: Done with gridding procedure: peak memory usage 0.578 Gbyte (task)
+01-23 09:28:31.166:lenstools.stderr:DEBUG: Received particles from all tasks: peak memory usage 0.586 Gbyte (task)
+01-23 09:28:33.942:lenstools.stderr:DEBUG: Done with density FFT operations: peak memory usage 1.165 Gbyte (task)
+01-23 09:28:34.353:lenstools.stderr:INFO: Plane 1 of 9 completed, peak memory usage: 1.165 Gbyte (task), 9.950 Gbyte (all 16 tasks)
+01-23 09:28:34.564:lenstools.stderr:DEBUG: Done with gridding procedure: peak memory usage 1.165 Gbyte (task)
+01-23 09:28:34.804:lenstools.stderr:DEBUG: Received particles from all tasks: peak memory usage 1.165 Gbyte (task)
+01-23 09:28:37.604:lenstools.stderr:DEBUG: Done with density FFT operations: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:37.978:lenstools.stderr:INFO: Plane 2 of 9 completed, peak memory usage: 1.302 Gbyte (task), 10.157 Gbyte (all 16 tasks)
+01-23 09:28:38.177:lenstools.stderr:DEBUG: Done with gridding procedure: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:38.425:lenstools.stderr:DEBUG: Received particles from all tasks: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:41.213:lenstools.stderr:DEBUG: Done with density FFT operations: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:41.586:lenstools.stderr:INFO: Plane 3 of 9 completed, peak memory usage: 1.302 Gbyte (task), 10.191 Gbyte (all 16 tasks)
+01-23 09:28:41.777:lenstools.stderr:DEBUG: Done with gridding procedure: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:42.18:lenstools.stderr:DEBUG: Received particles from all tasks: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:44.795:lenstools.stderr:DEBUG: Done with density FFT operations: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:45.492:lenstools.stderr:INFO: Plane 4 of 9 completed, peak memory usage: 1.302 Gbyte (task), 10.231 Gbyte (all 16 tasks)
+01-23 09:28:45.673:lenstools.stderr:DEBUG: Done with gridding procedure: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:45.934:lenstools.stderr:DEBUG: Received particles from all tasks: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:48.703:lenstools.stderr:DEBUG: Done with density FFT operations: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:49.73:lenstools.stderr:INFO: Plane 5 of 9 completed, peak memory usage: 1.302 Gbyte (task), 10.247 Gbyte (all 16 tasks)
+01-23 09:28:49.267:lenstools.stderr:DEBUG: Done with gridding procedure: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:49.512:lenstools.stderr:DEBUG: Received particles from all tasks: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:52.294:lenstools.stderr:DEBUG: Done with density FFT operations: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:52.667:lenstools.stderr:INFO: Plane 6 of 9 completed, peak memory usage: 1.302 Gbyte (task), 10.250 Gbyte (all 16 tasks)
+01-23 09:28:52.847:lenstools.stderr:DEBUG: Done with gridding procedure: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:53.96:lenstools.stderr:DEBUG: Received particles from all tasks: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:55.869:lenstools.stderr:DEBUG: Done with density FFT operations: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:56.247:lenstools.stderr:INFO: Plane 7 of 9 completed, peak memory usage: 1.302 Gbyte (task), 10.276 Gbyte (all 16 tasks)
+01-23 09:28:56.428:lenstools.stderr:DEBUG: Done with gridding procedure: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:56.681:lenstools.stderr:DEBUG: Received particles from all tasks: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:59.455:lenstools.stderr:DEBUG: Done with density FFT operations: peak memory usage 1.302 Gbyte (task)
+01-23 09:28:59.833:lenstools.stderr:INFO: Plane 8 of 9 completed, peak memory usage: 1.302 Gbyte (task), 10.276 Gbyte (all 16 tasks)
+01-23 09:29:00.15:lenstools.stderr:DEBUG: Done with gridding procedure: peak memory usage 1.302 Gbyte (task)
+01-23 09:29:00.270:lenstools.stderr:DEBUG: Received particles from all tasks: peak memory usage 1.302 Gbyte (task)
+01-23 09:29:03.42:lenstools.stderr:DEBUG: Done with density FFT operations: peak memory usage 1.302 Gbyte (task)
+01-23 09:29:03.415:lenstools.stderr:INFO: Plane 9 of 9 completed, peak memory usage: 1.302 Gbyte (task), 10.276 Gbyte (all 16 tasks)
