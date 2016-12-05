@@ -3,6 +3,71 @@ import astropy.units as u
 import matplotlib.pyplot as plt
 
 import lenstools as lt
+from lenstools.pipeline.simulation import LensToolsCosmology
+
+def distred(cmd_args,fontsize=22):
+
+	#Set up plot
+	fig,ax = plt.subplots()
+
+	#Models
+	model1 = LensToolsCosmology(Om0=1.,Ode0=0.)
+	model2 = LensToolsCosmology()
+
+	#Labels
+	label = (r"$\Omega_\Lambda=0$",r"$\Omega_\Lambda=0.74$")
+
+	#Redshift
+	z = np.linspace(0.,2.,50.)
+
+	#z-d plot
+	for n,m in enumerate((model1,model2)):
+		chi = m.comoving_distance(z)
+		ax.plot(z,chi.value,label=label[n])
+
+	#Labels
+	ax.set_xlabel(r"$z$",fontsize=fontsize)
+	ax.set_ylabel(r"$\chi({\rm Mpc})$",fontsize=fontsize)
+	ax.legend(loc="upper left")
+
+	#Save
+	fig.savefig("{0}/distred.{0}".format(cmd_args.type))
+
+#####################################################################################
+
+def growth(cmd_args,fontsize=22):
+
+	#Set up plot
+	fig,ax = plt.subplots()
+
+	#Models
+	model1 = LensToolsCosmology()
+	model2 = LensToolsCosmology(Om0=0.29,Ode0=0.71)
+	model3 = LensToolsCosmology(w0=-0.8)
+	model4 = LensToolsCosmology(wa=-0.2)
+
+	#Labels
+	label = (r"${\rm Fiducial}$",r"$\Omega_m=0.29$",r"$w_0=-0.8$",r"$w_a=-0.2$")
+
+	#Redshift
+	z = np.linspace(1000.,0.,100)
+
+	#Growth factor plot
+	for n,m in enumerate((model1,model2,model3,model4)):
+		g = m.growth_factor(z)[:,0]
+		ax.plot(z,g,label=label[n])
+
+	#Labels
+	ax.set_xlim(0,5)
+	ax.set_ylim(200,400)
+	ax.set_xlabel(r"$z$",fontsize=fontsize)
+	ax.set_ylabel(r"$D(z)$",fontsize=fontsize)
+	ax.legend()
+
+	#Save
+	fig.savefig("{0}/growth.{0}".format(cmd_args.type))
+
+#########################################################################################
 
 def distortion(cmd_args,fontsize=22):
 
@@ -42,6 +107,8 @@ def distortion(cmd_args,fontsize=22):
 
 	#Save 
 	fig.savefig("{0}/distortion.{0}".format(cmd_args.type))
+
+#########################################################################################
 
 def EMode(cmd_args,fontsize=22):
 

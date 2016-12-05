@@ -7,16 +7,141 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{The FRW model}
+\section{The Friedmann-Robertson-Walker model}
+In the course of this work, we will assume the Universe to be described by a flat Friedmann-Robertson-Walker (FRW) model with time dependent scale factor $a(t)$ and Hubble parameter $H(t)=\dot{a}(t)/a(t)$. We introduce comoving spatial coordinates $\bb{x}$, centered on an Earth based observer, and we define a spacetime 4--vector $dx^{\mu}=(cdt,d\bb{x})$. We can define a 4--momentum associated with the $x^\mu$ coordinates as $P^\mu=dx^\mu/ds$, with $ds=cd\tau$ (this definition says that $\tau$ can be identified as proper time for massive particles. For the case of photons we can identify $\tau$ as a geodesic line parameter). Assuming an homogeneous and isotropic Universe, the line element can be written as  
 
 \begin{equation}
 \label{eq:1:frw}
-ds^2 = -c^2dt^2 + a(t)^2d\bb{x}^2
+ds^2 = g_{\mu\nu}dx^\mu dx^\nu = -c^2dt^2 + a(t)^2d\bb{x}^2
+\end{equation}
+%
+Where we introduced the diagonal metric tensor $g_{\mu\nu}$, defined as 
+
+\begin{equation}
+\label{eq:1:metric}
+g_{\mu\nu}(\bb{x},t) = 
+\begin{pmatrix}
+-1 & 0 & 0 & 0 \\
+0 & a(t)^2 & 0 & 0 \\
+0 & 0 & a(t)^2 & 0 \\
+0 & 0 & 0 & a(t)^2 
+\end{pmatrix}
+\end{equation}
+%
+The contents in the FRW universe are assumed to be perfect fluids, described by spatially uniform mass densities $\rho_{(i)}$ and pressures $\mathcal{P}_{(i)}$. The stress--energy tensor for species $i$ can be written as 
+
+\begin{equation}
+\label{eq:1:stressenergy}
+\mathcal{T}_{(i)}^{\mu\nu} = \left(\rho_{(i)}c^2+\mathcal{P}_{(i)}\right)P^\mu P^\nu + \mathcal{P}_{(i)}g^{\mu\nu}
+\end{equation} 
+%
+For notational simplicity we indicated $g^{\mu\nu}=(\bb{g}^{-1})_{\mu\nu}$ and $V_\mu=g_{\mu\nu}V^\nu$ for a generic 4-vector $V^\mu$. Note that, for a fundamental observer, in absence of perturbations the 4-momentum must be consistent with null peculiar velocities 
+
+\begin{equation}
+\label{eq:1:4-momentum-unif}
+P^\mu = (1,0,0,0)
+\end{equation}
+%
+Note also that the stress--energy tensor must be covariantly conserved
+
+\begin{equation}
+\label{eq:1:covconservation}
+\nabla_\mu \mathcal{T}^{\mu\nu}_{(i)} = \partial_\mu \mathcal{T}^{\mu\nu}_{(i)} + \Gamma_{\mu\alpha}^\mu \mathcal{T}^{\alpha\nu}_{(i)} + \Gamma^\nu_{\mu\alpha}\mathcal{T}^{\mu\alpha}_{(i)} = 0 
+\end{equation} 
+%
+The only non zero components of the affine connection $\Gamma$ for the FRW metric (\ref{eq:1:frw}) are
+
+\begin{equation}
+\label{eq:1:connection-unif}
+\Gamma^i_{j0} = {\Gamma^0_{ij}}{a^2} = \frac{H}{c}\delta_{ij}
+\end{equation}
+%
+Combining (\ref{eq:1:connection-unif}) with (\ref{eq:1:stressenergy}), the 0-th component of the conservation condition (\ref{eq:1:covconservation}) reads
+
+\begin{equation}
+\label{eq:1:rho-conservation}
+\dot{\rho}_{(i)} + 3H\left(\rho_{(i)} + \mathcal{P}_{(i)}/c^2\right) = 0
+\end{equation}
+%
+The metric $g_{\mu\nu}$ has to satisfy Einstein equation with source terms $\mathcal{T}_{\mu\nu}$
+
+\begin{equation}
+\label{eq:1:einstein-full}
+\mathcal{R}^{\mu\nu}-\frac{1}{2}\mathcal{R}g^{\mu\nu} = \frac{8\pi G}{c^4}\sum_i \mathcal{T}^{\mu\nu}_{(i)}
+\end{equation}
+%
+We indicated as $\mathcal{R}^{\mu\nu}$ the Ricci tensor and as $\mathcal{R}=g_{\mu\nu}\mathcal{R}^{\mu\nu}$ the Ricci scalar. It can be shown (see for example \citep{Dodelson-C1}) that the components of the Ricci tensor for the metric (\ref{eq:1:frw}) are 
+
+\begin{equation}
+\label{eq:1:ricci}
+\begin{matrix}
+\displaystyle \mathcal{R}_{00} = -\frac{3\ddot{a}}{ac^2} & ; & \displaystyle \mathcal{R}_{ij} = \left(\frac{a\ddot{a}+2a^2H^2}{c^2}\right)\delta_{ij} & ; & \displaystyle \mathcal{R} = \frac{6}{c^2}\left(\frac{\ddot{a}}{a}+H^2\right) 
+\end{matrix}
+\end{equation}
+%
+With the symmetries in the metric (\ref{eq:1:frw}), the Einstein equations (\ref{eq:1:einstein-full}) have two independent components, which take the name of Friedmann equations 
+
+\begin{equation}
+\label{eq:1:friedmann-1}
+H^2 = \frac{8\pi G}{3}\sum_i\rho_{(i)}
+\end{equation} 
+%
+\begin{equation}
+\label{eq:2:friedmann-2}
+\frac{\ddot{a}}{a} = -\frac{4\pi G}{3}\sum_i\left(\rho_{(i)}+\frac{3\mathcal{P}_{(i)}}{c^2}\right)
+\end{equation}
+%
+Once relations between the components pressures and densities are specified, the conservation equation (\ref{eq:1:rho-conservation}) and the Friedmann equations (\ref{eq:1:friedmann-1}), (\ref{eq:2:friedmann-2}) can be solved explicitely to obtain the time dependencies of $a,\rho_{(i)},\mathcal{P}_{(i)}$. Later in the Chapter, we will derive these solutions explicitly for the relevant cases studied in this work.  
+
+\subsection{Distance-redshift relation}
+In this paragraph we will summarize the basics of the cosmological redshift effect, which is a direct consequence of the FRW geometry. Consider a source (for example a galaxy) at a comoving distance $\chi_s$ from the observer, which emits light at a frequency $\nu_s$. Due to the Universe expansion parametrized by the scale factor $a$, the wavelength of the light gets stretched as photons travel from the source to the observer. Indicating the observed frequency on Earth as $\nu_0$, we can define a redshift parameter associated with the source
+
+\begin{equation}
+\label{eq:1:redshift}
+z_s = \frac{\nu_s}{\nu_0}-1
+\end{equation}  
+%
+It can be shown that there is a one--to--one correspondence between redshift and scale factor
+
+\begin{equation}
+\label{eq:1:z-a}
+z_s = \frac{1}{a(t_s)}-1
+\end{equation}
+%
+Where $t_s$ is the emission time of a photon that reaches Earth at the present time $t_0$, for which we assumed $a(t_0)=1$. The FRW metric (\ref{eq:1:frw}) establishes correspondences between the source redshift $z_s$, the photon emission time $t_s$ and the source distance $\chi_s$. Using the fact that $ds^2=0$ along a photon spacetime trajectory, we can write
+
+\begin{equation}
+\label{eq:1:chi-a}
+\chi_s = -c\int_{t_0}^{t_s}\frac{dt}{a} = -c\int_{a(t_0)}^{a(t_s)}\frac{da}{a^2H}  
 \end{equation}
 
-\section{Growth of density perturbations}
+\begin{equation}
+\label{eq:1:t-a}
+t_s = \int_{0}^{\chi_s}\frac{a d\chi}{c} = \int_{a(t_0)}^{a(t_s)}\frac{da}{aH}  
+\end{equation}
+%
+Note that, using (\ref{eq:1:z-a}), the relations (\ref{eq:1:chi-a}), (\ref{eq:1:t-a}) can be rewritten as 
 
-Scalar perturbations to the FRW metric in (\ref{eq:1:frw}) can be parametrized in the conformal Newtonian gauge by two scalar potentials $\Phi,\Psi$ as follows
+\begin{equation}
+\label{eq:1:chi-z}
+\chi_s = c\int_0^{z_s}\frac{dz}{H(z)}
+\end{equation} 
+%
+\begin{equation}
+\label{eq:1:t-z}
+t_s = \int_0^{z_s}\frac{dz}{(1+z)H(z)}
+\end{equation} 
+%
+In practical observations, source redshifts $z_s$ are measured using photometric \citep{LSST} or spectroscopic \citep{DESI} techniques and $\chi_s,t_s$ are then inferred from equations (\ref{eq:1:chi-z}), (\ref{eq:1:t-z}) with the help of Friedmann equation (\ref{eq:1:friedmann-1}), which sets the time dependence of the Hubble parameter $H$. The late universe ($z\ll 3000$) is well described in terms of two components, namely cold matter and dark energy, which effects we will explore in the next paragraphs. 
+
+\subsection{Cold dark matter}
+
+\subsection{Dark energy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Matter density perturbations}
+In this section we describe how scalar metric perturbations evolve under the effect of gravity. This will be particularly relevant when studying the Gravitational Lensing effect in the next Chapter, as light ray geodesics will deviate from straight lines in the presence of density inhomogeneities. These geodesic deflections have a tangible effect in observations of distant galaxies, as observed galaxy shapes show apparent distortions that trace the metric perturbations. We review the basic model that describes density perturbations of collisionless cold dark matter in an expanding Universe. Scalar perturbations to the FRW metric (\ref{eq:1:frw}) can be parametrized in the conformal Newtonian gauge by two scalar potentials $\Phi,\Psi$ as follows
 
 \begin{equation}
 \label{eq:1:confnewt}
@@ -29,7 +154,21 @@ For the scope of the present work we can safely ignore vector and tensor perturb
 
 \begin{equation}
 \label{eq:1:boltzmann}
-\frac{df}{dt} = 0
+\frac{df}{ds} = P^\mu\frac{\partial f}{\partial x^\mu} + \frac{d P^i}{ds}\frac{\partial f}{\partial P^i} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:1:geodesic}
+\frac{dP^\mu}{ds} = -\Gamma^\mu_{\alpha\beta}P^\alpha P^\beta
+\end{equation}
+
+\begin{equation}
+\label{eq:1:connection}
+\begin{matrix}
+\Gamma_{00}^0 = \dot{\Psi}/c & ; & \Gamma_{0i}^0=\Gamma_{i0}^0 = \partial_i\Psi \\  
+\Gamma_{ij}^0 = [H+2H(\Phi-\Psi)+\dot{\Phi}]a^2\delta_{ij}/c & ; & \Gamma_{00}^i = \partial_i \Psi/a^2 \\
+\Gamma^i_{j0} = \Gamma^i_{0j} = (H+\dot{\Phi})\delta_{ij}/c & ; & \Gamma_{jk}^i = (\delta_{ij}\partial_k+\delta_{ik}\partial_j-\delta_{jk}\partial_i)\Phi\\
+\end{matrix}
 \end{equation}
 
 \subsection{Einstein equation}
@@ -40,11 +179,16 @@ The potentials $\Phi,\Psi$, as they appear in the metric (\ref{eq:1:confnewt}), 
 \rho_m(\bb{x},t) = \rho_m(t)(1+\delta(\bb{x},t))
 \end{equation}
 %
-where $\rho_m(t)$ is the spatially averaged matter density and $\delta(\bb{x},t)$ is the spatially dependent density contrast. With this notation, the two independent components of the linearized Einstein's equation become
+where $\rho_m(t)$ is the spatially averaged matter density and $\delta(\bb{x},t)$ is the spatially dependent density contrast. With this notation, the $00,0i$ and $ij$ components of the linearized Einstein equation (\ref{eq:1:einstein-full}) become respectively (see \citep{Dodelson-C5})
 
 \begin{equation}
 \label{eq:1:einstein-00}
-\nabla^2\Phi +3\frac{a^2H^2\Psi-a^2H\partial_t\Phi}{c^2} = -4\pi G\rho_m\delta
+\nabla^2\Phi +\frac{3a^2}{c^2}(H^2\Psi-H\dot{\Phi}) = -\frac{4\pi Ga^2\rho_m\delta}{c^2}
+\end{equation}
+
+\begin{equation}
+\label{eq:1:einstein-0i}
+\nabla(\dot{\Phi}-H\Psi) = \frac{4\pi Ga\rho_m\bb{v}}{c^2}
 \end{equation}
 
 \begin{equation}
@@ -65,11 +209,11 @@ Equation (\ref{eq:1:einstein-ij}) comes from the traceless part of the spatial E
 \label{eq:1:delta-lin}
 \end{equation} 
 
-\subsection{Growth factor}
+\subsection{Linear growth factor}
 
 \begin{equation}
 \label{eq:1:growth-diff}
-\frac{d^2D(z)}{dz^2} = 0
+\frac{d^2D(z)}{dz^2} + \left(\frac{\Omega_m(z)+\Omega_\Lambda(z)[1+3w(z)]}{2(1+z)}\right)\frac{dD(z)}{dz}-\frac{3\Omega_m(z)}{(1+z)^2}D(z)= 0
 \end{equation}
 
-%\bibliography{ref}
+\bibliography{ref}

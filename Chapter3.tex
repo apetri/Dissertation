@@ -65,7 +65,7 @@ The initial conditions with baryonic imprinted physics is then evolved with dark
 In order to generate random realizations of the initial conditions from the linear power spectrum $P^{\rm lin}_\delta(\bb{k},0)$, we used the \ttt{N-GenIC} software add--on to \ttt{Gadget2} \citep{gadget2}.   
 
 \subsection{Time evolution}
-Once generated, the initial conditions specified by equations (\ref{eq:3:delta-displ-fourier}) and (\ref{eq:3:peculiar-initv}) must be evolved in time from $z=z_{\rm in}$ until the present $z=0$. Since we consider collisionless dark matter only, which interacts only via gravity, the Hamiltonian $\mathcal{H}$ of the particle system (ignoring PN corrections) can be written as 
+Once generated, the initial conditions specified by equations (\ref{eq:3:delta-displ-fourier}) and (\ref{eq:3:peculiar-initv}) must be evolved in time from $z=z_{\rm in}$ until the present $z=0$. Since we consider collisionless dark matter only, which interacts only via gravity, the Hamiltonian $\mathcal{H}$ of the particle system (ignoring PN corrections, which is reasonable if $L_b\ll c/H$) can be written as 
 
 \begin{equation}
 \label{eq:3:collisionless-ham}
@@ -434,4 +434,4 @@ The pipeline products are organized in a hierarchical directory structure whose 
 \end{figure}
     
 
-\bibliography{ref}
+%\bibliography{ref}

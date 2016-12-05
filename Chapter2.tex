@@ -13,25 +13,14 @@ In this Chapter we review the basics of the Gravitational Lensing (GL) effect. G
 
 \subsection{Geodesic equation} 
 
-We parametrize a light ray space--time trajectory $x^\mu(\tau)$ in terms of a continuous real parameter $\tau$, which plays the same role as proper time for massive particles. The geodesic equation reads 
+We parametrize a light ray space--time trajectory $x^\mu(\tau)$ in terms of a continuous real parameter $\tau$, which plays the same role as proper time for massive particles. The geodesic equation (\ref{eq:1:geodesic}) can be rephrased as 
 
 \begin{equation}
 \label{eq:2:geodesic}
 \frac{d^2 x^\mu(\tau)}{d\tau^2} = -\Gamma_{\alpha\beta}^\mu(x^\mu(\tau)) \frac{d x^\alpha(\tau)}{d\tau}\frac{d x^\beta(\tau)}{d\tau}
 \end{equation}
 %
-Where the affine connection $\Gamma_{\alpha\beta}^\mu$ for the metric (\ref{eq:1:confnewt}) is, at first order in the potentials $\Phi,\Psi$
-
-\begin{equation}
-\label{eq:2:connection}
-\begin{matrix}
-\Gamma_{00}^0 = \frac{1}{c}\partial_t\Psi & ; & \Gamma_{0i}^0=\Gamma_{i0}^0 = \partial_i\Psi \\  
-\Gamma_{ij}^0 = \frac{\delta_{ij}a^2}{c}[H+2H(\Phi-\Psi)+\partial_t\Phi] & ; & \Gamma_{00}^i = \frac{\partial_i \Psi}{a^2} \\
-\Gamma^i_{j0} = \Gamma^i_{0j} = \frac{\delta_{ij}}{c}(H+\partial_t\Phi) & ; & \Gamma_{jk}^i = (\delta_{ij}\partial_k+\delta_{ik}\partial_j-\delta_{jk}\partial_i)\Phi\\
-\end{matrix}
-\end{equation}
-%
-Where the space--time dependency of the quantities has been omitted for notational simplicity. For the sake of expressing WL observables at first order in the potentials $\Phi,\Psi$, it is sufficient to approximate the affine connection at first order. We will make an argument later in the Chapter for higher order post--Newtonian (PN) corrections to be negligible for the scope of this work, following the conclusions of \citep{PNLensing}. We introduce a system of coordinates centered on a fundamental observer on Earth, as illustrated in Figure \ref{fig:2:scheme}
+For the sake of expressing WL observables at first order in the potentials $\Phi,\Psi$, it is sufficient to use the linear expressions (\ref{eq:1:connection}) for the affine connection $\Gamma^\mu_{\alpha\beta}$ at first order. We will make an argument later in the Chapter for higher order post--Newtonian (PN) corrections to be negligible for the scope of this work, following the conclusions of \citep{PNLensing}. We introduce a system of coordinates centered on a fundamental observer on Earth, as illustrated in Figure \ref{fig:2:scheme}
 
 \begin{equation}
 \label{eq:2:coord}
@@ -69,7 +58,7 @@ Now we can focus on the RHS of (\ref{eq:2:geodesic}) which reads, in the transve
 \Gamma_{\alpha\beta}^i \frac{d x^\alpha}{d\tau}\frac{d x^\beta}{d\tau} = \frac{p^2}{a^2} \Gamma_{\alpha\beta}^i \frac{d x^\alpha}{d\chi}\frac{d x^\beta}{d\chi}
 \end{equation}
 %
-If we expand the products in (\ref{eq:2:geodesic-rhs-1}) using the affine connection (\ref{eq:2:connection}) at first order in the potentials, we obtain
+If we expand the products in (\ref{eq:2:geodesic-rhs-1}) using the affine connection (\ref{eq:1:connection}) at first order in the potentials, we obtain
 \begin{equation}
 \label{eq:2:geodesic-rhs-2}
 \Gamma_{\alpha\beta}^i \frac{d x^\alpha}{d\tau}\frac{d x^\beta}{d\tau} = \frac{p^2}{a^2}\left[\partial_i\Psi-\frac{2aH}{c}\frac{d\xp}{d\chi} -\partial_i\Phi \right]
@@ -110,7 +99,7 @@ The potential $\Phi$ satisfies the Poisson equation (\ref{eq:1:poisson}), which 
 \nabla^2\Phi(\chi,\xp) = -\frac{4\pi Ga(\chi)^2}{c^2}\rho_m(\chi)\delta(\chi,\xp)
 \end{equation} 
 %
-We substituted the time dependency with a $\chi$ dependency using the distance--redshift relation. 
+We substituted the time dependency with a $\chi$ dependency using the time--redshift relation (\ref{eq:1:t-z}). 
 
 \subsection{Solution to the geodesic equation}
 The geodesic equation (\ref{eq:2:geodesic-fo-3}) is a second order differential equation which can be solved exactly once suitable initial conditions are specified. If we indicate with $\pt$ the angular position of the light ray as it is received by the observer we have $\xp(0)=0$ and $d\xp /d\chi(0)=\pt$. Equation (\ref{eq:2:geodesic-fo-3}) can hence be solved by double integration

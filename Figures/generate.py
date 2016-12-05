@@ -24,6 +24,11 @@ method = dict()
 
 #########################################################################
 
+method["1-distred"] = miscellaneous.distred
+method["1-growth"] = miscellaneous.growth
+
+#########################################################################
+
 method["2-dist"] = miscellaneous.distortion
 method["2-emode"] = miscellaneous.EMode
 
