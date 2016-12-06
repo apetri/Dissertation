@@ -28,21 +28,22 @@ g_{\mu\nu}(\bb{x},t) =
 \end{pmatrix}
 \end{equation}
 %
-The contents in the FRW universe are assumed to be perfect fluids, described by spatially uniform mass densities $\rho_{(i)}$ and pressures $\mathcal{P}_{(i)}$. The stress--energy tensor for species $i$ can be written as 
+In the remainder of the Chapter we will use the notation $g\equiv-\vert\bb{g}\vert$ and we will use the metric to raise and lower indexes, i.e. we define $V_\mu = g_{\mu\nu}V^\nu$ for a generic 4--vector $V^\mu$. We also define $g^{\mu\nu}=(\bb{g}^{-1})_{\mu\nu}$.
+The contents in the FRW universe are assumed to be perfect fluids, described by spatially uniform mass densities $\rho_{(i)}$ and pressures $\mathcal{P}_{(i)}$. We consider a reference frame in which the stress--energy tensor for species $i$ can be written as 
 
 \begin{equation}
 \label{eq:1:stressenergy}
-\mathcal{T}_{(i)}^{\mu\nu} = \left(\rho_{(i)}c^2+\mathcal{P}_{(i)}\right)P^\mu P^\nu + \mathcal{P}_{(i)}g^{\mu\nu}
+\mathcal{T}_{(i)}^{\mu\nu} = \left(\rho_{(i)}c^2+\mathcal{P}_{(i)}\right)U^\mu U^\nu + \mathcal{P}_{(i)}g^{\mu\nu}
 \end{equation} 
 %
-For notational simplicity we indicated $g^{\mu\nu}=(\bb{g}^{-1})_{\mu\nu}$ and $V_\mu=g_{\mu\nu}V^\nu$ for a generic 4-vector $V^\mu$. Note that, for a fundamental observer, in absence of perturbations the 4-momentum must be consistent with null peculiar velocities 
+Here $U^\mu$ is the 4--velocity of a fluid element centered at $x^\mu$. Note that, for a fundamental observer, in absence of perturbations the fluid elements 4--velocity must be consistent the homogeneity assumption 
 
 \begin{equation}
 \label{eq:1:4-momentum-unif}
-P^\mu = (1,0,0,0)
+U^\mu = (1,0,0,0)
 \end{equation}
 %
-Note also that the stress--energy tensor must be covariantly conserved
+Note also that the stress--energy tensor must is covariantly conserved
 
 \begin{equation}
 \label{eq:1:covconservation}
@@ -56,7 +57,7 @@ The only non zero components of the affine connection $\Gamma$ for the FRW metri
 \Gamma^i_{j0} = {\Gamma^0_{ij}}{a^2} = \frac{H}{c}\delta_{ij}
 \end{equation}
 %
-Combining (\ref{eq:1:connection-unif}) with (\ref{eq:1:stressenergy}), the 0-th component of the conservation condition (\ref{eq:1:covconservation}) reads
+Combining (\ref{eq:1:connection-unif}) with (\ref{eq:1:stressenergy}), the 0--th component of the conservation condition (\ref{eq:1:covconservation}) reads
 
 \begin{equation}
 \label{eq:1:rho-conservation}
@@ -75,7 +76,7 @@ We indicated as $\mathcal{R}^{\mu\nu}$ the Ricci tensor and as $\mathcal{R}=g_{\
 \begin{equation}
 \label{eq:1:ricci}
 \begin{matrix}
-\displaystyle \mathcal{R}_{00} = -\frac{3\ddot{a}}{ac^2} & ; & \displaystyle \mathcal{R}_{ij} = \left(\frac{a\ddot{a}+2a^2H^2}{c^2}\right)\delta_{ij} & ; & \displaystyle \mathcal{R} = \frac{6}{c^2}\left(\frac{\ddot{a}}{a}+H^2\right) 
+\displaystyle \mathcal{R}_{00} = -\frac{3\ddot{a}}{ac^2} & ; & \displaystyle \mathcal{R}_{ij} = \left(\frac{a\ddot{a}+2a^2H^2}{c^2}\right)\delta_{ij} & ; & \displaystyle \mathcal{R} = \frac{6}{c^2}\left(\frac{\ddot{a}}{a}+H^2\right) \\ \\ 
 \end{matrix}
 \end{equation}
 %
@@ -117,7 +118,7 @@ Where $t_s$ is the emission time of a photon that reaches Earth at the present t
 
 \begin{equation}
 \label{eq:1:t-a}
-t_s = \int_{0}^{\chi_s}\frac{a d\chi}{c} = \int_{a(t_0)}^{a(t_s)}\frac{da}{aH}  
+t_s = \int_{0}^{\chi_s}\frac{a d\chi}{c} = -\int_{a(t_0)}^{a(t_s)}\frac{da}{aH}  
 \end{equation}
 %
 Note that, using (\ref{eq:1:z-a}), the relations (\ref{eq:1:chi-a}), (\ref{eq:1:t-a}) can be rewritten as 
@@ -135,32 +136,126 @@ t_s = \int_0^{z_s}\frac{dz}{(1+z)H(z)}
 In practical observations, source redshifts $z_s$ are measured using photometric \citep{LSST} or spectroscopic \citep{DESI} techniques and $\chi_s,t_s$ are then inferred from equations (\ref{eq:1:chi-z}), (\ref{eq:1:t-z}) with the help of Friedmann equation (\ref{eq:1:friedmann-1}), which sets the time dependence of the Hubble parameter $H$. The late universe ($z\ll 3000$) is well described in terms of two components, namely cold matter and dark energy, which effects we will explore in the next paragraphs. 
 
 \subsection{Cold dark matter}
+In this work we model dark matter at late times as a non--relativistic species of particles with mass $m$. When the equilibrium temperature $T$ is much smaller than $mc^2/k_B$, we can neglect the pressure term in (\ref{eq:1:rho-conservation}) and obtain a scaling for the dark matter mass density $\rho_m$ with $a$
+
+\begin{equation}
+\label{eq:1:matter-scaling}
+\rho_m(a) = \rho_m(a_0)\left(\frac{a(t_0)}{a}\right)^3 = \rho_m(a_0)(1+z)^3 
+\end{equation} 
+%
+Plugging (\ref{eq:1:matter-scaling}) in the Friedmann equation (\ref{eq:1:friedmann-1}) we can get the scale dependence on time for a pure dark matter Universe
+
+\begin{equation}
+\label{eq:1:matter-only-a}
+a(t) = a(t_0)\left(\frac{t}{t_0}\right)^{2/3}
+\end{equation}
 
 \subsection{Dark energy}
+The existence of dark energy was postulated by observational evidence about the accelerated expansion of the universe. Suppose that dark energy can be described as a perfect fluid with density $\rho_\Lambda$ and pressure $\mathcal{P}_\Lambda$ which are related by
+
+\begin{equation}
+\label{eq:1:de-eos}
+\mathcal{P}_\Lambda = w\rho_\Lambda c^2
+\end{equation}
+%
+In this relation, $w$ takes the name of dark energy \textit{equation of state}. Looking at equation (\ref{eq:2:friedmann-2}) we note that a necessary condition for dark energy to cause $\ddot{a}>0$ is $w<-1/3$. Because of the challenges posed by modeling a fluid with negative $w$ from first principles, dark energy is usually described by a phenomenological, $a$ dependent, equation of state in the form \citep{LinderDE}
+
+\begin{equation}
+\label{eq:1:de-eos-running}
+w(a) = w_0 + w_a(1-a)
+\end{equation}
+%
+with $w_0,w_a$ constant. With the assumption (\ref{eq:1:de-eos-running}), the conservation equation (\ref{eq:1:rho-conservation}) can be solved for the scale dependency of $\rho_\Lambda$
+
+\begin{equation}
+\label{eq:1:de-scaling}
+\rho_\Lambda(a) = \rho_\Lambda(a_0)\left(\frac{a_0}{a}\right)^{3(1+w_0+w_a)}e^{3w_a(a-a(t_0))} 
+\end{equation}
+%
+We can consider a few limit cases of (\ref{eq:1:de-scaling}). For $w_0=-1,w_a=0$ the dark energy density $\rho_\Lambda$ does not depend on $a$ and behaves as a cosmological constant. If $w_0=-1$ and $w_a\neq 0$, on the other hand, there is a non--trivial scaling of $\rho_\Lambda$ with $a$. In order for this scaling to reproduce the observational fact that $\rho_\Lambda$ is negligible at recombination ($z\sim 1100$), we have that, if not null, $w_a$ has to be negative. Figure \ref{fig:1:distred} shows the alteration of the distance--redshift relation (\ref{eq:1:chi-z}) due to the presence of dark energy. Using Supernovae IA as standard candles, \citep{PerlmutterNobel} have measured the $\chi(z)$ relation with sufficient precision to establish dark energy as the dominant energy component in the present Universe, earning the Nobel Prize in 2011.  
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{Figures/eps/distred.eps}
+\end{center}
+\caption{Distance--redshift relation for two different Universe models, with and without dark energy}
+\label{fig:1:distred}
+\end{figure}    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Matter density perturbations}
-In this section we describe how scalar metric perturbations evolve under the effect of gravity. This will be particularly relevant when studying the Gravitational Lensing effect in the next Chapter, as light ray geodesics will deviate from straight lines in the presence of density inhomogeneities. These geodesic deflections have a tangible effect in observations of distant galaxies, as observed galaxy shapes show apparent distortions that trace the metric perturbations. We review the basic model that describes density perturbations of collisionless cold dark matter in an expanding Universe. Scalar perturbations to the FRW metric (\ref{eq:1:frw}) can be parametrized in the conformal Newtonian gauge by two scalar potentials $\Phi,\Psi$ as follows
+In this section we study the deviations from the homogeneous FRW Universe and describe how scalar perturbations evolve under the effect of gravity. This will be particularly relevant when studying the Gravitational Lensing (GL) effect in the next Chapter, as light ray geodesics will deviate from straight lines in the presence of density inhomogeneities. These geodesic deflections have a tangible effect in observations of distant sources, as observed galaxy shapes show apparent distortions that trace the metric perturbations. We review the basic model that describes density perturbations of collisionless cold dark matter in an expanding Universe. Scalar perturbations to the FRW metric (\ref{eq:1:frw}) can be parametrized in the conformal Newtonian gauge \citep{Dodelson-C4} by two scalar potentials $\Phi,\Psi$ as follows
 
 \begin{equation}
 \label{eq:1:confnewt}
 ds^2 = -c^2dt^2(1+2\Psi(\bb{x},t)) + a(t)^2d\bb{x}^2(1+2\Phi(\bb{x},t))
 \end{equation}
 %
-For the scope of the present work we can safely ignore vector and tensor perturbations to the FRW metric as their effects are negligible in WL observations.
+For the scope of the present work we can safely ignore vector and tensor perturbations to the FRW metric as their effects are negligible in WL observations. The phase space distribution of dark matter is described in terms of a distribution function $f_m(x^\mu,\bb{P})$, which is defined by the fact that $f_m(x^\mu,\bb{P})g d^3x d^3P$ is the number of particles contained in a phase space volume $d^3x d^3P$. We used the notations $P^\mu=(P^0,\bb{P})$, $d^3 P = dP^x dP^y dP^z$. Note that the momentum dependence of $f_m$ can be expressed in terms of $\bb{P}$ only, since the 4--momentum has to satisfy the constraint
+
+\begin{equation}
+\label{eq:1:m-constraint}
+g_{\mu\nu}P^\mu P^\nu = -1
+\end{equation} 
+%
+Because the phase space volume element $g d^3x d^3P$ is invariant under coordinate transformations, $f_m$ too must be invariant to conserve the number of particles. If we assume $f_m$ to describe a dark matter fluid at local equilibrium, we know that $f_m$ has to depend only on the invariant energy $e$, defined by \citep{JuttnerCov}
+
+\begin{equation}
+\label{eq:1:invariant-e}
+e = g_{\mu\nu}P^\mu U^\nu
+\end{equation}
+%
+Where the fluid 4--velocity $U^\mu = (U^0,\bb{U})$ obeys the usual constraint $U^\mu U_\mu=-1$. We can relate the distribution function to the dark matter 4--velocity, stress--energy tensor \citep{JuttnerCov} as
+
+\begin{equation}
+\label{eq:1:f-velocity}
+\int \frac{d^3 P}{P_0}\sqrt{g} P^\mu f_m = \rho_m U^\mu 
+\end{equation}
+%
+\begin{equation}
+\label{eq:1:f-stress}
+\int \frac{d^3 P}{P_0}\sqrt{g} P^\mu P^\nu f_m = \mathcal{T}^{\mu\nu} 
+\end{equation}
+%
+For notational simplicity we set $\mathcal{T}\equiv \mathcal{T}_m$. Note that equations (\ref{eq:1:stressenergy}) and (\ref{eq:1:f-stress}) can be manipulated to obtain expressions for the matter density and pressure in terms of $f_m$
+
+\begin{equation}
+\label{eq:1:f-rho}
+\rho_m = \int \frac{d^3 P}{P_0}\sqrt{g}e^2 f
+\end{equation}
+%
+\begin{equation}
+\label{eq:1:f-press}
+\mathcal{P}_m = \frac{1}{3}\int \frac{d^3 P}{P_0}\sqrt{g}(e^2-1) f
+\end{equation}
+%
+Using the expression (\ref{eq:1:f-press}), it is easy to show that $\mathcal{P}_m = O(\bb{U}^2)$ and the pressure can be neglected in the non--relativistic limit, as expected. 
+We parametrize the dark matter density as 
+
+\begin{equation}
+\label{eq:1:matter-rho}
+\rho_m(\bb{x},t) = \bar{\rho}_m(t)(1+\delta(\bb{x},t))
+\end{equation}
+%
+where $\bar{\rho}_m(t)$ is the spatially averaged density and $\delta(\bb{x},t)$ is the spatially dependent density contrast. In the next paragraph, we will use the Boltzmann equation for $f$ to relate the evolution of $\delta,\bb{U}$ at linear stage, in the non--relativistic limit.      
 
 \subsection{Collisionless Boltzmann equation}
+In the absence of collisions between dark matter particles, the phase space volume is preserved in the system evolution, and the distribution function must satisfy the source free Boltzmann equation 
 
 \begin{equation}
 \label{eq:1:boltzmann}
-\frac{df}{ds} = P^\mu\frac{\partial f}{\partial x^\mu} + \frac{d P^i}{ds}\frac{\partial f}{\partial P^i} = 0
+\frac{df_m(x^\mu,\bb{P})}{ds} = P^\mu\frac{\partial f_m(x^\mu,\bb{P})}{\partial x^\mu} + \frac{d P^i}{ds}\frac{\partial f_m(x^\mu,\bb{P})}{\partial P^i} = 0
 \end{equation}
+%
+The 4--momentum variation rate $dP^i/ds$ is obtained from the equations of motion, i.e. the geodesic equations for the metric (\ref{eq:1:confnewt})
 
 \begin{equation}
 \label{eq:1:geodesic}
 \frac{dP^\mu}{ds} = -\Gamma^\mu_{\alpha\beta}P^\alpha P^\beta
 \end{equation}
+%
+Using the expression for the affine connection $\Gamma$
 
 \begin{equation}
 \label{eq:1:connection}
@@ -170,16 +265,31 @@ For the scope of the present work we can safely ignore vector and tensor perturb
 \Gamma^i_{j0} = \Gamma^i_{0j} = (H+\dot{\Phi})\delta_{ij}/c & ; & \Gamma_{jk}^i = (\delta_{ij}\partial_k+\delta_{ik}\partial_j-\delta_{jk}\partial_i)\Phi\\
 \end{matrix}
 \end{equation}
-
-\subsection{Einstein equation}
-The potentials $\Phi,\Psi$, as they appear in the metric (\ref{eq:1:confnewt}), must satisfy Einstein equation. Since we limit our study to scalar perturbations, there are only two independent components of the Einstein equation that we need to consider. Since WL physics is dominated by the late time behavior of density perturbations, we will ignore relativistic particles as contribution to the energy momentum tensor and focus on cold matter only. We parametrize the matter density as 
+%
+the collisionless Boltzmann equation (\ref{eq:1:boltzmann}) becomes
 
 \begin{equation}
-\label{eq:1:matterrho}
-\rho_m(\bb{x},t) = \rho_m(t)(1+\delta(\bb{x},t))
+\label{eq:1:boltzmann-2}
+P^0\partial_0 f_m + P^i\partial_i f_m - \frac{\partial f_m}{\partial P^i}\left(\frac{P^0P^0\partial_i\Psi}{a^2} + \frac{2(H+\dot{\Phi})P^0P^i}{c} + \Gamma_{jk}^i P^jP^k \right) = 0
 \end{equation}
 %
-where $\rho_m(t)$ is the spatially averaged matter density and $\delta(\bb{x},t)$ is the spatially dependent density contrast. With this notation, the $00,0i$ and $ij$ components of the linearized Einstein equation (\ref{eq:1:einstein-full}) become respectively (see \citep{Dodelson-C5})
+Equations for $\rho_m,U^\mu$ can be obtained from the $P$--moments of the Boltzmann equation (\ref{eq:1:boltzmann-2}). We can integrate (\ref{eq:1:boltzmann-2}) in $d^3P$ directly, or we can multiply it by $P^j$ and then integrate. To perform the calculations, we will use the expressions
+
+\begin{equation}
+\label{eq:1:boltzmann-mom}
+\begin{matrix}
+\displaystyle \int d^3P P^\mu f_m = \frac{\mathcal{T}^\mu_0}{\sqrt{g}} & ; & \displaystyle \int d^3P P^0 P^i \frac{\partial f_m}{\partial P^j} = \frac{\mathcal{T}^i_j-\delta_{ij}\mathcal{T}^0_0}{\sqrt{g}} \\ \\
+\displaystyle \int d^3P P^0P^0 \frac{\partial f_m}{\partial P^i} = \frac{2\rho_m U_i}{\sqrt{g}} & ; & \displaystyle \int d^3P P^0P^0P^i \frac{\partial f_m}{\partial P^j} = -\frac{\rho_m\delta_{ij}}{\sqrt{g}} + O(\bb{U}^2) \\ \\ 
+\end{matrix}
+\end{equation}
+
+\begin{equation}
+\label{eq:1:boltzmann-mom-1}
+\int d^3P P^0P^iP^j \frac{\partial f_m}{\partial P^k} = -\frac{\delta_{ki}\mathcal{T}^j_0 + \delta_{kj}\mathcal{T}^i_0}{\sqrt{g}} + O(\bb{U}^2)
+\end{equation}
+
+\subsection{Einstein equation}
+The potentials $\Phi,\Psi$, as they appear in the metric (\ref{eq:1:confnewt}), must satisfy Einstein equation. Since we limit our study to scalar perturbations, there are only two independent components of the Einstein equation that we need to consider. Since WL physics is dominated by the late time behavior of density perturbations, we will ignore relativistic particles as contribution to the energy momentum tensor and focus on cold matter only. With this notation, the $00,0i$ and $ij$ components of the linearized Einstein equation (\ref{eq:1:einstein-full}) become respectively (see \citep{Dodelson-C5})
 
 \begin{equation}
 \label{eq:1:einstein-00}
@@ -215,5 +325,10 @@ Equation (\ref{eq:1:einstein-ij}) comes from the traceless part of the spatial E
 \label{eq:1:growth-diff}
 \frac{d^2D(z)}{dz^2} + \left(\frac{\Omega_m(z)+\Omega_\Lambda(z)[1+3w(z)]}{2(1+z)}\right)\frac{dD(z)}{dz}-\frac{3\Omega_m(z)}{(1+z)^2}D(z)= 0
 \end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{$\Lambda$CDM cosmological parameters}
+
 
 \bibliography{ref}
