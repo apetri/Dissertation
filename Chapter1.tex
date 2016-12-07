@@ -133,7 +133,7 @@ Note that, using (\ref{eq:1:z-a}), the relations (\ref{eq:1:chi-a}), (\ref{eq:1:
 t_s = \int_0^{z_s}\frac{dz}{(1+z)H(z)}
 \end{equation} 
 %
-In practical observations, source redshifts $z_s$ are measured using photometric \citep{LSST} or spectroscopic \citep{DESI} techniques and $\chi_s,t_s$ are then inferred from equations (\ref{eq:1:chi-z}), (\ref{eq:1:t-z}) with the help of Friedmann equation (\ref{eq:1:friedmann-1}), which sets the time dependence of the Hubble parameter $H$. The late universe ($z\ll 3000$) is well described in terms of two components, namely cold matter and dark energy, which effects we will explore in the next paragraphs. 
+In practical observations, source redshifts $z_s$ are measured using photometric \citep{LSST} or spectroscopic \citep{DESI} techniques and $\chi_s,t_s$ are then inferred from equations (\ref{eq:1:chi-z}), (\ref{eq:1:t-z}) with the help of Friedmann equation (\ref{eq:1:friedmann-1}), which sets the time dependence of the Hubble parameter $H$. The late universe ($z\ll 3000$) is well described in terms of two components, namely cold matter and dark energy (hence the $\Lambda$CDM denomination), which effects we will explore in the next paragraphs. 
 
 \subsection{Cold dark matter}
 In this work we model dark matter at late times as a non--relativistic species of particles with mass $m$. When the equilibrium temperature $T$ is much smaller than $mc^2/k_B$, we can neglect the pressure term in (\ref{eq:1:rho-conservation}) and obtain a scaling for the dark matter mass density $\rho_m$ with $a$
@@ -176,7 +176,7 @@ We can consider a few limit cases of (\ref{eq:1:de-scaling}). For $w_0=-1,w_a=0$
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.6]{Figures/eps/distred.eps}
+\includegraphics[scale=0.5]{Figures/eps/distred.eps}
 \end{center}
 \caption{Distance--redshift relation for two different Universe models, with and without dark energy}
 \label{fig:1:distred}
@@ -185,6 +185,7 @@ We can consider a few limit cases of (\ref{eq:1:de-scaling}). For $w_0=-1,w_a=0$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Matter density perturbations}
+\label{sec:1:density-pert}
 In this section we study the deviations from the homogeneous FRW Universe and describe how scalar perturbations evolve under the effect of gravity. This will be particularly relevant when studying the Gravitational Lensing (GL) effect in the next Chapter, as light ray geodesics will deviate from straight lines in the presence of density inhomogeneities. These geodesic deflections have a tangible effect in observations of distant sources, as observed galaxy shapes show apparent distortions that trace the metric perturbations. We review the basic model that describes density perturbations of collisionless cold dark matter in an expanding Universe. Scalar perturbations to the FRW metric (\ref{eq:1:frw}) can be parametrized in the conformal Newtonian gauge \citep{Dodelson-C4} by two scalar potentials $\Phi,\Psi$ as follows
 
 \begin{equation}
@@ -222,12 +223,12 @@ For notational simplicity we set $\mathcal{T}\equiv \mathcal{T}_m$. Note that eq
 
 \begin{equation}
 \label{eq:1:f-rho}
-\rho_m = \int \frac{d^3 P}{P_0}\sqrt{g}e^2 f
+\rho_m = \int \frac{d^3 P}{P_0}\sqrt{g}e^2 f_m
 \end{equation}
 %
 \begin{equation}
 \label{eq:1:f-press}
-\mathcal{P}_m = \frac{1}{3}\int \frac{d^3 P}{P_0}\sqrt{g}(e^2-1) f
+\mathcal{P}_m = \frac{1}{3}\int \frac{d^3 P}{P_0}\sqrt{g}(e^2-1) f_m
 \end{equation}
 %
 Using the expression (\ref{eq:1:f-press}), it is easy to show that $\mathcal{P}_m = O(\bb{U}^2)$ and the pressure can be neglected in the non--relativistic limit, as expected. 
@@ -255,7 +256,49 @@ The 4--momentum variation rate $dP^i/ds$ is obtained from the equations of motio
 \frac{dP^\mu}{ds} = -\Gamma^\mu_{\alpha\beta}P^\alpha P^\beta
 \end{equation}
 %
-Using the expression for the affine connection $\Gamma$
+The collisionless Boltzmann equation (\ref{eq:1:boltzmann}) then becomes
+
+\begin{equation}
+\label{eq:1:boltzmann-2}
+P^0\partial_0 f_m + P^i\partial_i f_m - \frac{\partial f_m}{\partial P^i}\left(P^0P^0\Gamma_{00}^i + 2\Gamma_{0j}^iP^0P^j + \Gamma_{jk}^i P^jP^k \right) = 0
+\end{equation}
+%
+Equations for $\rho_m,U^\mu$ can be obtained from the $P$--moments of the Boltzmann equation (\ref{eq:1:boltzmann-2}). We can integrate (\ref{eq:1:boltzmann-2}) in $d^3P$ directly, or we can multiply it by $P^j$ and then integrate. To perform the calculations, we will use the expressions
+
+\begin{equation}
+\label{eq:1:boltzmann-mom}
+\begin{matrix}
+\displaystyle \int d^3P P^\mu f_m = \frac{\mathcal{T}^\mu_0}{\sqrt{g}} & ; & \displaystyle \int d^3P P^0 P^i \frac{\partial f_m}{\partial P^j} = \frac{\mathcal{T}^i_j-\delta_{ij}\mathcal{T}^0_0}{\sqrt{g}} \\ \\
+\displaystyle \int d^3P P^0P^0 \frac{\partial f_m}{\partial P^i} = \frac{2\rho_m U_i}{\sqrt{g}} & ; & \displaystyle \int d^3P P^iP^j f_m =  O(\bb{U}^2) \\ \\ 
+\displaystyle \int d^3P P^0P^i f_m = \frac{\rho_mU^i}{\sqrt{g}} + O(\bb{U}^2) & ; & \displaystyle \int d^3P P^iP^j \frac{\partial f_m}{\partial P^k} = -\frac{\delta_{ki}U^j + \delta_{kj}U^i}{\sqrt{g}} + O(\bb{U}^2)  \\ \\
+\displaystyle \int d^3P P^0P^iP^j \frac{\partial f_m}{\partial P^k} = -\frac{\delta_{ki}U^j + \delta_{kj}U^i}{\sqrt{g}} + O(\bb{U}^2) & ; & \displaystyle \int d^3P P^0P^0P^i \frac{\partial f_m}{\partial P^j} = -\frac{\rho_m\delta_{ij}}{\sqrt{g}} + O(\bb{U}^2)
+\end{matrix}
+\end{equation}
+%
+In addition to the results (\ref{eq:1:boltzmann-mom}), we will use the approximate expressions for the stress--energy tensor 
+
+\begin{equation}
+\label{eq:1:stress-energy-nr}
+\begin{matrix}
+\mathcal{T}^0_0 = -\rho_m + O(\bb{U}^2) & ; & \mathcal{T}^i_0 = -(1+2\Psi)\rho_m U^i + O(\bb{U}^2)  & ; & \mathcal{T}^i_j = O(\bb{U}^2)
+\end{matrix}
+\end{equation}
+%
+Now we can perform an integration in $d^3P$ of equation (\ref{eq:1:boltzmann-2}) and take the non--relativistic limit discarding all $O(\bb{U}^2)$ terms, obtaining
+
+\begin{equation}
+\label{eq:1:b-monopole}
+\frac{\dot{\rho}_m}{c} + \nabla\cdot[(1+2\Psi)\rho_m\bb{U}] - \rho_m[\partial_t\log \sqrt{g} +  2(U_i\Gamma^i_{00} - 2\Gamma^i_{0i}) + (1+2\Psi)(U^i\Gamma_{ij}^j+U^i\Gamma^i_{jj})] = 0
+\end{equation}
+%
+We can also multiply (\ref{eq:1:boltzmann-2}) by $P^j$ and integrate, taking again the non--relativistic limit. The integration leads to 
+
+\begin{equation}
+\label{eq:1:b-dipole}
+\partial_t(\rho_m U^j) - \rho_m (U^j\partial_t\log \sqrt{g} - c\Gamma^j_{00} - 8c\Gamma_{0i}^jU^i) = 0 
+\end{equation}
+%
+Although the system of equations (\ref{eq:1:b-monopole}) and (\ref{eq:1:b-dipole}) can be closed with the help of Einstein equation (\ref{eq:1:einstein-full}), its exact solution is complicated to obtain because of the non--linearity of the system, and usually numerical methods have to be employed. In the limit in which the perturbations are still at linear stage, i.e. the perturbation quantities are small, we can trust the linearized version of (\ref{eq:1:b-monopole}), (\ref{eq:1:b-dipole}). We can use the linear expression for the affine connection $\Gamma$
 
 \begin{equation}
 \label{eq:1:connection}
@@ -266,39 +309,31 @@ Using the expression for the affine connection $\Gamma$
 \end{matrix}
 \end{equation}
 %
-the collisionless Boltzmann equation (\ref{eq:1:boltzmann}) becomes
+which, plugged in (\ref{eq:1:b-monopole}), (\ref{eq:1:b-dipole}) gives 
 
 \begin{equation}
-\label{eq:1:boltzmann-2}
-P^0\partial_0 f_m + P^i\partial_i f_m - \frac{\partial f_m}{\partial P^i}\left(\frac{P^0P^0\partial_i\Psi}{a^2} + \frac{2(H+\dot{\Phi})P^0P^i}{c} + \Gamma_{jk}^i P^jP^k \right) = 0
+\label{eq:1:b-monopole-lin}
+\dot{\delta} + c \nabla\cdot \bb{U} + 3\dot{\Phi} - \dot{\Psi} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:1:b-dipole-lin}
+\partial_t(\bar{\rho}_m\bb{U}) + 5H\bar{\rho}_m\bb{U} + \frac{c\nabla\Psi}{a^2} = 0
 \end{equation}
 %
-Equations for $\rho_m,U^\mu$ can be obtained from the $P$--moments of the Boltzmann equation (\ref{eq:1:boltzmann-2}). We can integrate (\ref{eq:1:boltzmann-2}) in $d^3P$ directly, or we can multiply it by $P^j$ and then integrate. To perform the calculations, we will use the expressions
-
-\begin{equation}
-\label{eq:1:boltzmann-mom}
-\begin{matrix}
-\displaystyle \int d^3P P^\mu f_m = \frac{\mathcal{T}^\mu_0}{\sqrt{g}} & ; & \displaystyle \int d^3P P^0 P^i \frac{\partial f_m}{\partial P^j} = \frac{\mathcal{T}^i_j-\delta_{ij}\mathcal{T}^0_0}{\sqrt{g}} \\ \\
-\displaystyle \int d^3P P^0P^0 \frac{\partial f_m}{\partial P^i} = \frac{2\rho_m U_i}{\sqrt{g}} & ; & \displaystyle \int d^3P P^0P^0P^i \frac{\partial f_m}{\partial P^j} = -\frac{\rho_m\delta_{ij}}{\sqrt{g}} + O(\bb{U}^2) \\ \\ 
-\end{matrix}
-\end{equation}
-
-\begin{equation}
-\label{eq:1:boltzmann-mom-1}
-\int d^3P P^0P^iP^j \frac{\partial f_m}{\partial P^k} = -\frac{\delta_{ki}\mathcal{T}^j_0 + \delta_{kj}\mathcal{T}^i_0}{\sqrt{g}} + O(\bb{U}^2)
-\end{equation}
+In this derivation we used the fact that, in the non--relativistic limit $\partial_t\bar{\rho}_m + 3H\bar{\rho}_m=0$, which can also be deducted from the $O(1)$ terms in equation (\ref{eq:1:b-monopole}). We observe that, if one ignores the $\Phi,\Psi$ terms in (\ref{eq:1:b-monopole-lin}), this relation is a continuity equation that describes mass conservation. In this fashion, $\bb{v}=c\bb{U}$ can be identified as the peculiar velocity $\dot{\bb{x}}$ of a fluid element, on top of the Universe expansion. 
 
 \subsection{Einstein equation}
-The potentials $\Phi,\Psi$, as they appear in the metric (\ref{eq:1:confnewt}), must satisfy Einstein equation. Since we limit our study to scalar perturbations, there are only two independent components of the Einstein equation that we need to consider. Since WL physics is dominated by the late time behavior of density perturbations, we will ignore relativistic particles as contribution to the energy momentum tensor and focus on cold matter only. With this notation, the $00,0i$ and $ij$ components of the linearized Einstein equation (\ref{eq:1:einstein-full}) become respectively (see \citep{Dodelson-C5})
+The system composed by the linear equations for $\delta$ and $\bb{U}$ (\ref{eq:1:b-monopole-lin}), (\ref{eq:1:b-dipole-lin}) can be closed making use of the Einstein equation, which relates the potentials $\Phi,\Psi$ to the components of the stress--energy tensor. Since we limit our study to scalar perturbations, there are only two independent components of the Einstein equation that we need to consider. WL physics is dominated by the late time behavior of density perturbations, and hence we will ignore relativistic particles focus on cold matter only. Under this assumption the $00,0i$ and $ij$ components of the linearized Einstein equation (\ref{eq:1:einstein-full}) become respectively (see \citep{Dodelson-C5})
 
 \begin{equation}
 \label{eq:1:einstein-00}
-\nabla^2\Phi +\frac{3a^2}{c^2}(H^2\Psi-H\dot{\Phi}) = -\frac{4\pi Ga^2\rho_m\delta}{c^2}
+\nabla^2\Phi +\frac{3a^2}{c^2}(H^2\Psi-H\dot{\Phi}) = -\frac{4\pi Ga^2\bar{\rho}_m\delta}{c^2}
 \end{equation}
 
 \begin{equation}
 \label{eq:1:einstein-0i}
-\nabla(\dot{\Phi}-H\Psi) = \frac{4\pi Ga\rho_m\bb{v}}{c^2}
+\nabla(\dot{\Phi}-H\Psi) = \frac{4\pi Ga^2\bar{\rho}_m\bb{v}}{c^2}
 \end{equation}
 
 \begin{equation}
@@ -310,25 +345,107 @@ A few considerations are in order here. First of all, the terms in (\ref{eq:1:ei
 
 \begin{equation}
 \label{eq:1:poisson}
-\nabla^2\Phi(\bb{x},t) = -\frac{4\pi Ga(t)^2}{c^2}\rho_m(t)\delta(\bb{x},t)
+\nabla^2\Phi(\bb{x},t) = -\frac{4\pi Ga(t)^2}{c^2}\bar{\rho}_m(t)\delta(\bb{x},t)
 \end{equation}
 %
-Equation (\ref{eq:1:einstein-ij}) comes from the traceless part of the spatial Einstein equation, and as such it is sourced by anisotropic stresses in the matter components. Because such stresses are proportional to the quadrupole of the momentum distributions, which are negligible for non relativistic species, they can be safely neglected when studying WL. We will then use (\ref{eq:1:einstein-ij}) to conclude $\Psi=-\Phi$, which will be used when computing light ray geodesics. 
+Moreover, since equation (\ref{eq:1:einstein-ij}) comes from the traceless part of the spatial Einstein equation, it is sourced by anisotropic stresses in the matter components. Because such stresses are proportional to the quadrupole of the momentum distributions, which are negligible for non relativistic species, they can be safely neglected when studying WL. We will then use (\ref{eq:1:einstein-ij}) to conclude $\Psi=-\Phi$, since we assume no singularities in $\Psi,\Phi$.  
+
+\subsection{Linear growth factor}
+The Poisson equation (\ref{eq:1:poisson}) allows us to obtain a linear equation for the density contrast $\delta$. We combine the time derivative of (\ref{eq:1:b-monopole-lin}) with the divergence of (\ref{eq:1:b-dipole-lin}) and we ignore the terms proportional to $\dot{\Psi},\dot{\Phi}$ (which give rise to PN corrections). After a few manipulations we get 
 
 \begin{equation}
 \label{eq:1:delta-lin}
+\ddot{\delta} + 2H\dot{\delta} - 4\pi G\bar{\rho}_m\delta = 0  
 \end{equation} 
+%
+Because of the linearity of equations (\ref{eq:1:b-monopole-lin}) and (\ref{eq:1:b-dipole-lin}), each Fourier mode $\tilde{\delta}(\bb{k},t)$ evolves independently in time. Moreover, in absence of pressure terms (which would bring in terms proportional to $\nabla^2\delta$), the perturbations $\delta$ grow self--similarly
 
-\subsection{Linear growth factor}
+\begin{equation}
+\label{eq:1:selfsim}
+\tilde{\delta}(\bb{k},t) = D(t)\tilde{\delta}(\bb{k},0)
+\end{equation}
+%
+Where the linear growth factor $D$ does not depend on the spatial scale. Equation (\ref{eq:1:delta-lin}) can be converted in an equation for the linear growth factor $D$ with the use of the time-redshift relation (\ref{eq:1:t-z}) and the Friedmann equations (\ref{eq:1:friedmann-1}), (\ref{eq:2:friedmann-2}). After a few manipulations we get
 
 \begin{equation}
 \label{eq:1:growth-diff}
-\frac{d^2D(z)}{dz^2} + \left(\frac{\Omega_m(z)+\Omega_\Lambda(z)[1+3w(z)]}{2(1+z)}\right)\frac{dD(z)}{dz}-\frac{3\Omega_m(z)}{(1+z)^2}D(z)= 0
+\frac{d^2D(z)}{dz^2} + \frac{4\pi G}{3}\left(\frac{\bar{\rho}_m(z)+\rho_\Lambda(z)[1+3w(z)]}{(1+z)H(z)^2}\right)\frac{dD(z)}{dz}-\frac{8\pi G\Omega_m(z)}{H(z)^2(1+z)^2}D(z)= 0
 \end{equation}
+%
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{Figures/eps/growth.eps}
+\end{center}
+\caption{Linear growth factor $D(z)$ obtained solving (\ref{eq:1:growth-diff}) for 4 different $\Lambda$CDM cosmologies. The initial condition has been set for a unit density perturbation at $z=1000$, namely $D(1000)=1, \dot{D}(1000)=0$.}
+\label{fig:1:growth}
+\end{figure}
+%
+In the limiting case of a pure dark matter universe ($\rho_\Lambda=0$), (\ref{eq:1:growth-diff}) reduces to
+
+\begin{equation}
+\label{eq:1:growth-diff-cold}
+\frac{d^2D(z)}{dz^2} + \left(\frac{1}{2(1+z)}\right)\frac{dD(z)}{dz}-\frac{3D(z)}{(1+z)^2} = 0
+\end{equation}
+% 
+Which admits a solution $D(z)\propto (1+z)^{-1}=a$. Figure \ref{fig:1:growth} shows the evolution of the linear growth factor $D$ with redshift for different combinations of the $\Lambda$CDM parameters. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{$\Lambda$CDM cosmological parameters}
+The main goal of the research presented in this work is studying how WL observations can be used to constrain the free parameters the describe the $\Lambda$CDM universe. In the conclusion of this Chapter we present the parametrization we will use consistently throughout this dissertation writeup. The present day Hubble parameter $H_0\equiv H(t_0)$ is expressed in terms of the dimensionless number $h$ by
 
+\begin{equation}
+\label{eq:1:hubble-present}
+H_0 = 100h\,{\rm km}\,{\rm s}^{-1}\,{\rm Mpc}^{-1}
+\end{equation} 
+%
+The density of the components that source the Einstein equation are usually quoted in the literature in terms of their ratios with the present critical density $\rho_c=3H_0^2/8\pi G$. We define
+
+\begin{equation}
+\label{eq:1:omega-def}
+\Omega_i = \frac{8\pi G\rho_i(t_0)}{3H_0^2}
+\end{equation}
+%
+In addition to dark matter and dark energy, the present universe contain a significant fraction of baryonic matter ($\Omega_b\approx \Omega_m/6$), whose physics is more complicated to model than the one of cold matter, as the Boltzmann equation for baryons contains pressure terms and collisional terms. We will ignore baryonic physics in the simulations on which this work is based, although investigation of baryonic physics in WL and in cosmology is an active topic of research. The initial conditions for the density inhomogeneities described in \S~\ref{sec:1:density-pert} are believed to be generated by quantum perturbations during an early epoch of accelerated expansion called inflation (\citep{Inflation}). Inflation is believed to generate random Gaussian, statistically isotropic, initial conditions that are nearly scale invariant 
+
+\begin{equation}
+\label{eq:1:initial-cond}
+\langle\tilde{\delta}(\bb{k},z_{\rm in})\tilde{\delta}^*(\bb{k}',z_{\rm in})\rangle = (2\pi)^3 P_\delta(k,z_{\rm in})\delta^D(\bb{k}-\bb{k}')
+\end{equation}
+%
+\begin{equation}
+\label{eq:1:initial-ps}
+P_\delta(k,z_{\rm in}) = \frac{A^2_s}{k^3}\left(\frac{k}{k_0}\right)^{n_s-1}
+\end{equation}
+%
+Here $n_s$ is a parameter that describes the deviation from scale invariance ($n_s=1$ correspond to scale invariant initial conditions). The overall normalization of the initial density perturbations $A_s$ is usually expressed in terms of an equivalent parameter, $\sigma_8$, defined as 
+
+\begin{equation}
+\label{eq:1:sigma8}
+\sigma_8 = \int \frac{d^3k}{(2\pi)^3} P^{\rm lin}_\delta(k,z=0)e^{-k^2 r_8^2}
+\end{equation} 
+%
+The notation in equation (\ref{eq:1:sigma8}) means that $P_\delta^{\rm lin}$ is calculated from $P_\delta(k,z_{\rm in})$ using linear evolution. $\sigma_8$ is defined from the variance of the linearly evolved density contrast smoothed with a Gaussian window of size $r_8=8\,{\rm Mpc}/h$. 
+
+\begin{table}
+\begin{center}
+\begin{tabular}[h]{c|c|c}
+
+\textbf{Parameter} & \textbf{Planck 2015} & \textbf{Fiducial} \\ \hline 
+
+$h$ & & \\
+$\Omega_m$ & & \\
+$\Omega_\Lambda$ & & \\
+$\Omega_b$ & & \\
+$w_0$ & & \\
+$w_a$ & & \\
+$\sigma_8$ & & \\
+$n_s$ & & \\
+
+\end{tabular}
+\end{center}
+\caption{Cosmological parameters}
+\label{tab:1:cosmopar}
+\end{table}
 
 \bibliography{ref}

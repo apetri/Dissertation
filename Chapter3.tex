@@ -10,7 +10,7 @@ In this Chapter we outline the numerical methods we used to produce simulated WL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Cosmological simulations}
-The matter density contrast $\delta$ evolves according to equation (\ref{eq:1:delta-lin}) at linear stage. For WL studies, however, $\delta$ becomes too big for the redshifts of interest, the linear approximation breaks down and an exact solution is needed. A popular approach to solve the Boltzmann equation (\ref{eq:1:boltzmann}) for collisionless dark matter is the $N$--body method, in which the phase space is discretized using a large but finite number $N_p$ of particle tracers (see \citep{gadget2}). The particles are placed in a cubical periodic box of comoving size $L_b$ and are given initial conditions that correspond to the linear density contrast at high $z$. The system is then evolved with a Hamiltonian that mimics Newtonian gravitational interactions, described by the potential $\Phi$.  
+The matter density contrast $\delta$ evolves according to equation (\ref{eq:1:delta-lin}) at linear stage. For WL studies, however, $\delta$ becomes too big at the redshifts of interest ($z\sim 1$), the linear approximation breaks down and an exact solution of (\ref{eq:1:b-monopole}), (\ref{eq:1:b-dipole}) and (\ref{eq:1:einstein-full}) is required. A popular approach to solve the Boltzmann equation (\ref{eq:1:boltzmann}) for collisionless dark matter is the $N$--body method, in which phase space is discretized using a large but finite number $N_p$ of particle tracers (see \citep{gadget2}). The particles are placed in a cubical periodic box of comoving size $L_b$ and are given initial conditions that correspond to the linear density contrast at high $z$. The system is then evolved with a Hamiltonian that mimics Newtonian gravitational interactions ($L_b\ll c/H$), described by the potential $\Phi$.  
 
 \subsection{Initial conditions}
 The starting point of an $N$--body simulation is a configuration of particles positions $\{\bb{x}_i\}$ and velocities $\{\bb{v}_i\}$ at some high redshift $z_{\rm in}\gg 1$, which mimic the linear density contrast $\delta$. Suppose that the particles are initially are arranged in a ``glass'' pattern and are given positions $\{\bb{x}_i^g\}$ that correspond to a uniform density profile ($\delta=0$). We seek to displace each particle by a small amount $\bb{d}(\bb{x}_i^g)$, so that the new density matches an input $\delta$ profile, which we can vary. Because mass is conserved by the displacement transformation we can write
@@ -261,7 +261,7 @@ We made an assumption of $\Delta$ being small in approximating $\nabla^2_{\pbeta
 
 \begin{equation}
 \label{eq:3:lens-sigma}
-\sigma(\chi,\pbeta) = \frac{8\pi G \chi a(\chi)^2\Delta}{c^2}\rho_m(\chi)\delta(\chi,\chi\pbeta) = \frac{3H_0^2\Omega_m\chi\Delta}{c^2 a(\chi)}\delta(\chi,\chi\pbeta)
+\sigma(\chi,\pbeta) = \frac{8\pi G \chi a(\chi)^2\Delta}{c^2}\bar{\rho}_m(\chi)\delta(\chi,\chi\pbeta) = \frac{3H_0^2\Omega_m\chi\Delta}{c^2 a(\chi)}\delta(\chi,\chi\pbeta)
 \end{equation}
 %
 The dimensionless surface density $\sigma$ in (\ref{eq:3:lens-sigma}) for a lens plane can be estimated directly from the outputs of $N$--body simulations using a particle number count histogram to measure the density contrast $\delta$. Suppose we have a list of $N_p$ particle positions $\{(x_p,y_p,z_p)\}$ computed at time $\chi$, and let's assume without loss of generality that $z$ is the longitudinal direction and $(x,y)$ are the transverse coordinates. We consider a two dimensional regularly spaced transverse grid $\{(x_i,y_i)\}$ with $L_P$ pixels per side, each of size $L_b/L_P$. We assign to each pixel a particle number count
@@ -386,7 +386,7 @@ In this section we present \LT \citep{lenstools}, a {\sc python} software packag
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.6]{Figures/eps/lt_flow.eps}
+\includegraphics[scale=0.5]{Figures/eps/lt_flow.eps}
 \end{center}
 \caption{Schematic of the \LT\, pipeline flow. Vertical arrows are directed from a particular application to its input. Horizontal arrows are directed from the input to the output products.}
 \label{fig:3:lt-flow}
@@ -427,11 +427,11 @@ Figure \ref{fig:3:lt-memory} shows the memory load as a function of the runtime 
 The pipeline products are organized in a hierarchical directory structure whose levels correspond to specifications of $\Lambda$CDM cosmological parameters, choices of $L_b,N_p$, random seeds for the initial conditions $\tilde{\delta}(\bb{k})$ and choices of the lens plane parameters $L_P,\Delta$. Separate directory tree levels are dedicated to the WL products $\kappa,\pmb{\gamma}$. Both single redshift images and shear catalogs can be produced. \LT\, provides an API to initialize, navigate and update the pipeline directory tree in an efficient way, allowing easy retrieval of WL simulation products for further post--processing. For a throughout presentation of \LT, we direct the reader to the code documentation at \url{http://lenstools.rtfd.io}. 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.6]{Figures/eps/lt_memory_usage.eps}
+\includegraphics[scale=0.5]{Figures/eps/lt_memory_usage.eps}
 \end{center}
 \caption{Memory load as a function of runtime for plane generation (black) and ray--tracing operations (black). Each vertical line corresponds to the completion of a $\psi$ plane calculation (black) and a lens crossing during ray--tracing (red).}
 \label{fig:3:lt-memory}
 \end{figure}
     
 
-%\bibliography{ref}
+\bibliography{ref}

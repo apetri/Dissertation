@@ -1,5 +1,6 @@
 import numpy as np
 import astropy.units as u
+import astropy.constants as cnst
 import matplotlib.pyplot as plt
 
 import lenstools as lt
@@ -24,6 +25,9 @@ def distred(cmd_args,fontsize=22):
 	for n,m in enumerate((model1,model2)):
 		chi = m.comoving_distance(z)
 		ax.plot(z,chi.value,label=label[n])
+
+	#Reference plot
+	ax.plot(z,(cnst.c/model2.H0).to(u.Mpc).value*z,linestyle="--",label=r"$cz/H_0$")
 
 	#Labels
 	ax.set_xlabel(r"$z$",fontsize=fontsize)
@@ -50,7 +54,7 @@ def growth(cmd_args,fontsize=22):
 	label = (r"${\rm Fiducial}$",r"$\Omega_m=0.29$",r"$w_0=-0.8$",r"$w_a=-0.2$")
 
 	#Redshift
-	z = np.linspace(1000.,0.,100)
+	z = np.linspace(1000.,0.,10000)
 
 	#Growth factor plot
 	for n,m in enumerate((model1,model2,model3,model4)):
@@ -59,7 +63,7 @@ def growth(cmd_args,fontsize=22):
 
 	#Labels
 	ax.set_xlim(0,5)
-	ax.set_ylim(200,400)
+	ax.set_ylim(50,400)
 	ax.set_xlabel(r"$z$",fontsize=fontsize)
 	ax.set_ylabel(r"$D(z)$",fontsize=fontsize)
 	ax.legend()
