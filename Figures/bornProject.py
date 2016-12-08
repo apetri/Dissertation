@@ -64,7 +64,7 @@ def convergenceVisualize(cmd_args,collection="c0",smooth=0.5*u.arcmin,fontsize=2
 
 ##########################################################################################################################
 
-def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.05,fontsize=22):
+def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.03,fontsize=22):
 
 	#Set up plot
 	fig,ax = plt.subplots(1,2,figsize=(16,8))
@@ -79,15 +79,22 @@ def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.05,fontsize=22):
 	exc = ConvergenceMap(exc_data,angle=conv.side_angle)
 
 	#Define binary colorbar
-	cmap = plt.get_cmap("binary")
+	cmap = plt.get_cmap("RdBu")
 	cmaplist = [ cmap(i) for i in range(cmap.N) ]
-	cmap = cmap.from_list('binary map',cmaplist,cmap.N)
+	cmap = cmap.from_list("binary map",cmaplist,cmap.N)
 	bounds = np.array([0.0,0.5,1.0])
 	norm = matplotlib.colors.BoundaryNorm(bounds,cmap.N)
 
 	#Plot the two alongside
-	conv.visualize(colorbar=True,fig=fig,ax=ax[0])
+	conv.visualize(colorbar=True,cbar_label=r"$\kappa$",fig=fig,ax=ax[0])
 	exc.visualize(colorbar=True,cmap="binary",norm=norm,fig=fig,ax=ax[1])
+
+	#Format right colorbar
+	cbar = exc.ax.get_images()[0].colorbar
+	cbar.outline.set_linewidth(1)
+	cbar.outline.set_edgecolor("black")
+	cbar_ticks = cbar.set_ticks([0,0.25,0.5,0.75,1])
+	cbar.set_ticklabels(["",r"$\kappa<\kappa_T$","",r"$\kappa>\kappa_T$",""])
 
 	#Save
 	fig.tight_layout()
