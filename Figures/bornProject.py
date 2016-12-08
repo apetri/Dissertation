@@ -2,6 +2,8 @@ import os
 
 import numpy as np
 import astropy.units as u
+
+import matplotlib
 import matplotlib.pyplot as plt
 
 from lenstools.pipeline.simulation import SimulationBatch
@@ -59,3 +61,34 @@ def convergenceVisualize(cmd_args,collection="c0",smooth=0.5*u.arcmin,fontsize=2
 	#Save
 	fig.tight_layout()
 	fig.savefig("{0}/csample.{0}".format(cmd_args.type))
+
+##########################################################################################################################
+
+def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.05,fontsize=22):
+
+	#Set up plot
+	fig,ax = plt.subplots(1,2,figsize=(16,8))
+
+	#Load map
+	conv = ConvergenceMap.load(os.path.join(fiducial["c0"].getMapSet("kappa").home,"WLconv_z2.00_0001r.fits"))
+	conv.smooth(smooth,kind="gaussianFFT",inplace=True)
+
+	#Build excursion set
+	exc_data = np.zeros_like(conv.data)
+	exc_data[conv.data>threshold] = 1.
+	exc = ConvergenceMap(exc_data,angle=conv.side_angle)
+
+	#Define binary colorbar
+	cmap = plt.get_cmap("binary")
+	cmaplist = [ cmap(i) for i in range(cmap.N) ]
+	cmap = cmap.from_list('binary map',cmaplist,cmap.N)
+	bounds = np.array([0.0,0.5,1.0])
+	norm = matplotlib.colors.BoundaryNorm(bounds,cmap.N)
+
+	#Plot the two alongside
+	conv.visualize(colorbar=True,fig=fig,ax=ax[0])
+	exc.visualize(colorbar=True,cmap="binary",norm=norm,fig=fig,ax=ax[1])
+
+	#Save
+	fig.tight_layout()
+	fig.savefig("{0}/excursion.{0}".format(cmd_args.type))

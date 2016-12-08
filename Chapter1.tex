@@ -265,7 +265,7 @@ P^0\partial_0 f_m + P^i\partial_i f_m - \frac{\partial f_m}{\partial P^i}\left(P
 %
 Equations for $\rho_m,U^\mu$ can be obtained from the $P$--moments of the Boltzmann equation (\ref{eq:1:boltzmann-2}). We can integrate (\ref{eq:1:boltzmann-2}) in $d^3P$ directly, or we can multiply it by $P^j$ and then integrate. To perform the calculations, we will use the expressions
 
-\begin{equation}
+\begin{equation*}
 \label{eq:1:boltzmann-mom}
 \begin{matrix}
 \displaystyle \int d^3P P^\mu f_m = \frac{\mathcal{T}^\mu_0}{\sqrt{g}} & ; & \displaystyle \int d^3P P^0 P^i \frac{\partial f_m}{\partial P^j} = \frac{\mathcal{T}^i_j-\delta_{ij}\mathcal{T}^0_0}{\sqrt{g}} \\ \\
@@ -273,9 +273,9 @@ Equations for $\rho_m,U^\mu$ can be obtained from the $P$--moments of the Boltzm
 \displaystyle \int d^3P P^0P^i f_m = \frac{\rho_mU^i}{\sqrt{g}} + O(\bb{U}^2) & ; & \displaystyle \int d^3P P^iP^j \frac{\partial f_m}{\partial P^k} = -\frac{\delta_{ki}U^j + \delta_{kj}U^i}{\sqrt{g}} + O(\bb{U}^2)  \\ \\
 \displaystyle \int d^3P P^0P^iP^j \frac{\partial f_m}{\partial P^k} = -\frac{\delta_{ki}U^j + \delta_{kj}U^i}{\sqrt{g}} + O(\bb{U}^2) & ; & \displaystyle \int d^3P P^0P^0P^i \frac{\partial f_m}{\partial P^j} = -\frac{\rho_m\delta_{ij}}{\sqrt{g}} + O(\bb{U}^2)
 \end{matrix}
-\end{equation}
+\end{equation*}
 %
-In addition to the results (\ref{eq:1:boltzmann-mom}), we will use the approximate expressions for the stress--energy tensor 
+In addition to the above results, we will use the approximate expressions for the stress--energy tensor 
 
 \begin{equation}
 \label{eq:1:stress-energy-nr}
@@ -288,7 +288,7 @@ Now we can perform an integration in $d^3P$ of equation (\ref{eq:1:boltzmann-2})
 
 \begin{equation}
 \label{eq:1:b-monopole}
-\frac{\dot{\rho}_m}{c} + \nabla\cdot[(1+2\Psi)\rho_m\bb{U}] - \rho_m[\partial_t\log \sqrt{g} +  2(U_i\Gamma^i_{00} - 2\Gamma^i_{0i}) + (1+2\Psi)(U^i\Gamma_{ij}^j+U^i\Gamma^i_{jj})] = 0
+\frac{\dot{\rho}_m}{c} + \nabla\cdot[(1+2\Psi)\rho_m\bb{U}] - \rho_m[\partial_t\log \sqrt{g} +  2(U_i\Gamma^i_{00} - 2\Gamma^i_{0i}) + (1+2\Psi)U^i(\Gamma_{ij}^j+\Gamma^i_{jj})] = 0
 \end{equation}
 %
 We can also multiply (\ref{eq:1:boltzmann-2}) by $P^j$ and integrate, taking again the non--relativistic limit. The integration leads to 
@@ -376,7 +376,7 @@ Where the linear growth factor $D$ does not depend on the spatial scale. Equatio
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/growth.eps}
 \end{center}
-\caption{Linear growth factor $D(z)$ obtained solving (\ref{eq:1:growth-diff}) for 4 different $\Lambda$CDM cosmologies. The initial condition has been set for a unit density perturbation at $z=1000$, namely $D(1000)=1, \dot{D}(1000)=0$.}
+\caption{Linear growth factor $D(z)$ obtained solving (\ref{eq:1:growth-diff}) for 4 different $\Lambda$CDM cosmologies. The initial condition has been set for a unit density perturbation at $z=1000$, namely $D(1000)=1, \dot{D}(1000)=0$. Note the fact that the growth of perturbations is suppressed by the presence of dark energy, which accelerates the expansion of the universe and makes harder for over--densities to clump.}
 \label{fig:1:growth}
 \end{figure}
 %
@@ -418,34 +418,36 @@ In addition to dark matter and dark energy, the present universe contain a signi
 P_\delta(k,z_{\rm in}) = \frac{A^2_s}{k^3}\left(\frac{k}{k_0}\right)^{n_s-1}
 \end{equation}
 %
-Here $n_s$ is a parameter that describes the deviation from scale invariance ($n_s=1$ correspond to scale invariant initial conditions). The overall normalization of the initial density perturbations $A_s$ is usually expressed in terms of an equivalent parameter, $\sigma_8$, defined as 
+Here $n_s$ is a parameter that describes the deviation from scale invariance ($n_s=1$ corresponds to scale invariant initial conditions). The overall normalization of the initial density perturbations $A_s$ is usually expressed in terms of an equivalent parameter, $\sigma_8$, defined as 
 
 \begin{equation}
 \label{eq:1:sigma8}
 \sigma_8 = \int \frac{d^3k}{(2\pi)^3} P^{\rm lin}_\delta(k,z=0)e^{-k^2 r_8^2}
 \end{equation} 
 %
-The notation in equation (\ref{eq:1:sigma8}) means that $P_\delta^{\rm lin}$ is calculated from $P_\delta(k,z_{\rm in})$ using linear evolution. $\sigma_8$ is defined from the variance of the linearly evolved density contrast smoothed with a Gaussian window of size $r_8=8\,{\rm Mpc}/h$. 
-
+The notation in equation (\ref{eq:1:sigma8}) means that $P_\delta^{\rm lin}$ is calculated from $\delta(k,z=0)$ obtained with the linear evolution described by equation equation (\ref{eq:1:delta-lin}). $\sigma_8$ is defined from the variance of the linearly evolved density contrast smoothed with a Gaussian window of size $r_8=8\,{\rm Mpc}/h$. 
+%
 \begin{table}
 \begin{center}
 \begin{tabular}[h]{c|c|c}
 
 \textbf{Parameter} & \textbf{Planck 2015} & \textbf{Fiducial} \\ \hline 
 
-$h$ & & \\
-$\Omega_m$ & & \\
-$\Omega_\Lambda$ & & \\
-$\Omega_b$ & & \\
-$w_0$ & & \\
-$w_a$ & & \\
-$\sigma_8$ & & \\
-$n_s$ & & \\
+$h$ & 0.67 & 0.72 \\
+$\Omega_m$ & 0.31 & 0.26 \\
+$\Omega_\Lambda$ & 0.69 & 0.74 \\
+$\Omega_b$ & 0.046 & 0.046 \\
+$w_0$ & - & $-1$ \\
+$w_a$ & - & 0 \\
+$\sigma_8$ & 0.83 & 0.8 \\
+$n_s$ & 0.96 & 0.96 \\
 
 \end{tabular}
 \end{center}
-\caption{Cosmological parameters}
+\caption{$\Lambda$CDM cosmological parameters from the Planck 2015 data best fit \citep{Planck15} and the fiducial values used in this work.}
 \label{tab:1:cosmopar}
 \end{table}
+%
+Table \ref{tab:1:cosmopar} shows a list of cosmological parameters measured from the Planck experiment, as well as the fiducial values used throughout this work. The dark energy equation of state parameters $w_0,w_a$ are essentially left unconstrained by CMB experiments such as Planck, which is sensitive to early Universe physics. WL observations, on the other hand, trace density fluctuations at late times, when the effects of dark energy are tangible. In the next Chapter, we will review the GL and WL effects and show how they can be used as tracers for the dark matter density fluctuations, whose statistical properties contain information about $\Lambda$CDM parameters. 
 
-\bibliography{ref}
+%\bibliography{ref}

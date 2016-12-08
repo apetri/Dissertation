@@ -1,0 +1,109 @@
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+
+
+#########################
+########Plotting#########
+#########################
+
+
+#############################################
+########Analytical formula utilities#########
+#############################################
+
+h2 = lambda x: x**2-1
+h3 = lambda x: x**3-3*x
+h4 = lambda x: x**4 - 6*(x**2) +3
+h5 = lambda x: x**5-10*(x**3)+15*x
+h6 = lambda x: x**6 - 15*(x**4) + 45*(x**2) -15
+h7 = lambda x: x**7 - 21*(x**5) + 105*(x**3) -105*x
+h8 = lambda x: x**8 - 28*(x**6) + 210*(x**4) - 420*(x**2) +105
+
+def mink_gauss(x,sigma):
+	
+	V0=0.5*match.erfc(x/np.sqrt(2))
+	V1=sigma[1]/(8*np.sqrt(2)*sigma[0])*np.exp(-0.5*(x**2))
+	V2=(x/(2*(2*pi)**1.5))*((sigma[1]/sigma[0])**2)*np.exp(-0.5*(x**2))
+ 
+ 	return V0,V1,V2
+
+def skew_correction(x,sigma,skew):
+	
+	c02=skew[0]/6.0
+	c13=skew[0]/6.0
+	c11=-skew[1]/4.0
+	c24=skew[0]/6.0
+	c22=-0.5*skew[1]
+	c20=-0.5*skew[2]
+ 
+	dV0=sigma[0]*(1.0/np.sqrt(2*pi))*np.exp(-0.5*(x**2))*(c02*h2(x))
+	dV1=sigma[0]*(sigma[1]/(8*np.sqrt(2)*sigma[0]))*np.exp(-0.5*(x**2))*(c13*h3(x) + c11*x)
+	dV2=sigma[0]*(((sigma[1]/sigma[0])**2)/(2*(2*pi)**1.5))*np.exp(-0.5*(x**2))*(c24*h4(x) + c22*h2(x) + c20)
+ 
+	return dV0,dV1,dV2
+
+def kurt_correction(x,sigma,skew,kurt):
+ 
+	c05=(skew[0]**2)/72.0
+	c03=kurt[0]/24.0
+	c16=(skew[0]**2)/72.0
+	c14=(kurt[0]-skew[0]*skew[1])/24.0
+	c12=(1.0/12.0)*(kurt[1]+(3.0/8.0)*(skew[1]**2))
+	c10=kurt[3]/8.0
+	c27=(skew[0]**2)/72.0
+	c25=(kurt[0]-2*skew[0]*skew[1])/24.0
+	c23=(1.0/6.0)*(kurt[1]+0.5*skew[0]*skew[2])
+	c21=0.5*(kurt[2]+0.5*skew[1]*skew[2])
+ 
+	dV0=(sigma[0]**2)*(1.0/np.sqrt(2*pi))*np.exp(-0.5*(x**2))*(c05*h5(x) + c03*h3(x))
+	dV1=(sigma[0]**2)*(sigma[1]/(8*np.sqrt(2)*sigma[0]))*np.exp(-0.5*(x**2))*(c16*h6(x) + c14*h4(x) - c12*h2(x) - c10)
+	dV2=(sigma[0]**2)*(((sigma[1]/sigma[0])**2)/(2*(2*pi)**1.5))*np.exp(-0.5*(x**2))*(c27*h7(x) + c25*h5(x) - c23*h3(x) - c21*x)
+ 
+	return dV0,dV1,dV2
+
+def compute_cumulants(sigma,third,fourth):
+ 
+	skew=np.zeros(3)
+	kurt=np.zeros(4)
+ 
+	skew[0] = (third[0]/(sigma[0]**4))
+	skew[1] = third[1]/((sigma[1]**2)*(sigma[0]**2))
+	skew[2] = 2*third[2]/(sigma[1]**4)
+ 
+	kurt[0] = (fourth[0] - 3.0*(sigma[0]**4))/(sigma[0]**6)
+	kurt[1] = (1.0/((sigma[1]**2)*(sigma[0]**4)))*(fourth[1] + 3.0*(sigma[0]**2)*(sigma[1]**2))
+	kurt[2] = (1.0/((sigma[1]**4)*(sigma[0]**2)))*(2*fourth[2]+fourth[3])
+	kurt[3] = (0.5/((sigma[1]**4)*(sigma[0]**2)))*(fourth[3] - 2*(sigma[1]**4))
+ 
+	return sigma,skew,kurt
+
+#####################################################################################################################################
+#####################################################################################################################################
+#####################################################################################################################################
+
+###Loading utilities######
+def load_minkovski_from_file(filename,multiplicator):
+ 
+ m = loadtxt(filename)
+ v = m[:,0]
+ N = len(v)
+ 
+ V0 = [m[:,1]/multiplicator,m[:,2]/multiplicator]
+ V1 = [m[:,3]/multiplicator,m[:,4]/multiplicator]
+ V2 = [m[:,5]/multiplicator,m[:,6]/multiplicator]
+ 
+ return v,V0,V1,V2,N
+
+def load_statistics_from_file(filename):
+ 
+ stat=loadtxt(filename)
+ 
+ mean=stat[0,0]
+ var=np.sqrt(stat[1:3,0])
+ third=stat[3:6,0]
+ fourth=stat[6:10,0]
+ fifth=stat[10,0]
+ 
+ return mean,var,third,fourth,fifth

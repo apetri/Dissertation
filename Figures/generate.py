@@ -11,6 +11,8 @@ import miscellaneous
 import covarianceProject
 import bornProject
 import ltProject
+import minkowskiProject
+import cfhtProject
 
 #Options
 parser = argparse.ArgumentParser()
@@ -37,6 +39,10 @@ method["2-emode"] = miscellaneous.EMode
 method["3-csample"] = bornProject.convergenceVisualize
 method["3-ltflow"] = ltProject.flow
 method["3-ltmemory"] = ltProject.memory_usage
+
+#########################################################################
+
+method["4-excursion"] = bornProject.excursion
 
 #Main
 def main():
