@@ -46,6 +46,10 @@ method["3-ltmemory"] = ltProject.memory_usage
 method["4-excursion"] = bornProject.excursion
 method["4-minkpert"] = minkowskiProject.minkPerturbation
 
+#########################################################################
+
+method["7-ebplot"] = spuriousProject.ebPlot
+
 #Main
 def main():
 	cmd_args = parser.parse_args()

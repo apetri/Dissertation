@@ -40,14 +40,23 @@ def minkPerturbation(cmd_args,nreal=1000,fontsize=22):
 
 	#Compute Gaussian predictions
 	gauss = mink_gauss(x,sigma)
+	skew_corr = skew_correction(x,sigma,skew)
+	kurt_corr = kurt_correction(x,sigma,skew,kurt)
 
 	#Plot
 	for n in range(3):
-		ax[n].plot(x,gauss[n])
-		ax[n].errorbar(x,mink[n][0],yerr=mink[n][1]/np.sqrt(nreal),linestyle="none",marker=".")
+		
+		ax[n].plot(x,gauss[n],label=r"${\rm Gaussian}$")
+		ax[n].plot(x,gauss[n]+skew_corr[n],label=r"${\rm Gaussian}+O(\sigma_0)$")
+		ax[n].plot(x,gauss[n]+skew_corr[n]+kurt_corr[n],label=r"${\rm Gaussian}+O(\sigma_0)+O(\sigma_0^2)$")
+		ax[n].errorbar(x,mink[n][0],yerr=mink[n][1]/np.sqrt(nreal),linestyle="none",marker=".",label=r"${\rm Measured}$")
+
 		ax[n].get_yaxis().get_major_formatter().set_powerlimits((-2,0))
 		ax[n].set_xlabel(r"$\kappa$",fontsize=fontsize)
 		ax[n].set_ylabel(r"$V_{0}(\kappa)$".format(n),fontsize=fontsize)
+
+		if n==0:
+			ax[n].legend(loc="lower left",prop={"size":15})
 
 	#Save
 	fig.tight_layout()
