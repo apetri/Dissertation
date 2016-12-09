@@ -12,6 +12,7 @@ import covarianceProject
 import bornProject
 import ltProject
 import minkowskiProject
+import spuriousProject
 import cfhtProject
 
 #Options
@@ -43,6 +44,7 @@ method["3-ltmemory"] = ltProject.memory_usage
 #########################################################################
 
 method["4-excursion"] = bornProject.excursion
+method["4-minkpert"] = minkowskiProject.minkPerturbation
 
 #Main
 def main():
