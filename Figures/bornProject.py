@@ -1,10 +1,13 @@
 import os
+from operator import add
+from functools import reduce
 
 import numpy as np
 import astropy.units as u
 
 import matplotlib
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 from lenstools.pipeline.simulation import SimulationBatch
 from lenstools import ConvergenceMap
@@ -99,3 +102,111 @@ def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.03,fontsize=22):
 	#Save
 	fig.tight_layout()
 	fig.savefig("{0}/excursion.{0}".format(cmd_args.type))
+
+##########################################################################################################################
+
+def powerResiduals(cmd_args,collection="c0",fontsize=22):
+
+	#Initialize plot
+	fig,ax = plt.subplots()
+
+	#Load data
+	ell = np.load(os.path.join(batch.home,"ell_nb100.npy"))
+	pFull = np.load(os.path.join(fiducial[collection].getMapSet("kappa").home,"convergence_power_s0_nb100.npy"))
+	pBorn = np.load(os.path.join(fiducial[collection].getMapSet("kappaBorn").home,"convergence_power_s0_nb100.npy"))
+	pLL_cross = np.load(os.path.join(fiducial[collection].getMapSet("kappaBorn").home,"cross_powerLL_s0_nb100.npy"))
+	pGP_cross = np.load(os.path.join(fiducial[collection].getMapSet("kappaBorn").home,"cross_powerGP_s0_nb100.npy"))
+
+	#Plot
+	ax.plot(ell,ell*(ell+1)*(np.abs(pFull.mean(0)-pBorn.mean(0)))/(2.0*np.pi),label=r"${\rm ray-born}$")
+	ax.plot(ell,ell*(ell+1)*np.abs(pGP_cross.mean(0))/np.pi,label=r"$2{\rm born}\times{\rm geo}$")
+	ax.plot(ell,ell*(ell+1)*np.abs(pLL_cross.mean(0))/np.pi,label=r"$2{\rm born}\times{\rm ll}$")
+
+	#Labels
+	ax.legend(loc="upper left",prop={"size":20})
+	ax.set_xscale("log")
+	ax.set_yscale("log")
+	ax.set_xlabel(r"$\ell$",fontsize=fontsize)
+	ax.set_ylabel(r"$\ell(\ell+1)\vert P_\ell\vert/2\pi}$")
+
+	#Save
+	fig.tight_layout()
+	fig.savefig("{0}/powerResiduals.{0}".format(cmd_args.type))
+
+##########################################################################################################################
+
+def plotSmooth(cmd_args,lines,collection="c0",moment=2,smooth=(0.5,1.,2.,3.,5.,7.,10.),ylabel=None,fontsize=22):
+
+	#Set up plot
+	fig,ax = plt.subplots()
+
+	#Load reference data
+	reference = list()
+	for s in smooth:
+		reference.append(np.load(os.path.join(fiducial[collection].getMapSet("kappaBorn").home,"convergence_moments_s{0}_nb9.npy".format(int(s*100))))[:,moment].mean())
+	reference = np.array(reference)
+
+	#Plot each of the lines
+	lk = lines.keys()
+	lk.sort(key=lambda k:lines[k][-1])
+
+	for l in lk:
+		ms,feat,idx,subtract,color,linestyle,order = lines[l]
+		data = list()
+
+		for s in smooth:
+			addends = [ np.load(os.path.join(fiducial[collection].getMapSet(ms).home,f.format(int(s*100))))[:,idx].mean() for f in feat ]
+			data.append(reduce(add,addends))
+
+		data = np.array(data)
+		if subtract:
+			data-=reference
+
+		ax.plot(smooth,data/reference,color=sns.xkcd_rgb[color],linestyle=linestyle,label=l)
+
+
+	#Labels
+	ax.set_xlabel(r"$\theta_G({\rm arcmin})$",fontsize=fontsize)
+	ax.set_ylabel(ylabel,fontsize=fontsize)
+	ax.legend(bbox_to_anchor=(0., 1.02, 1., .102),loc=3,ncol=2,mode="expand", borderaxespad=0.)
+
+	#Save
+	fig.savefig("{0}/delta_m{1}.{0}".format(cmd_args.type,moment))
+
+def plotSmoothSkew(cmd_args,collection="c0",smooth=(0.5,1.,2.,3.,5.,7.,10.),fontsize=22):
+
+	moment = 2 
+
+	#Lines to plot
+	lines = {
+
+	r"$\kappa^3_{\rm ray}-\kappa^3_{\rm born}$" : ("kappa",("convergence_moments_s{0}_nb9.npy",),moment,True,"denim blue","-",0),
+	r"$\kappa^3_{\rm born+geo}-\kappa^3_{\rm born}$" : ("kappaB+GP",("convergence_moments_s{0}_nb9.npy",),moment,True,"medium green","-",1),
+	r"$\kappa^3_{\rm born+ll}-\kappa^3_{\rm born}$" : ("kappaB+LL",("convergence_moments_s{0}_nb9.npy",),moment,True,"pale red","-",2),
+	r"$3\kappa^2_{\rm born}\kappa_{\rm geo}$" : ("kappaBorn",("cross_skewGP_s{0}_nb1.npy",),0,False,"medium green","--",4),
+	r"$3\kappa^2_{\rm born}\kappa_{\rm ll}$" : ("kappaBorn",("cross_skewLL_s{0}_nb1.npy",),0,False,"pale red","--",5),
+	r"$3\kappa^2_{\rm born}\kappa_{\rm ll}+3\kappa^2_{\rm born}\kappa_{\rm geo}$" : ("kappaBorn",("cross_skewLL_s{0}_nb1.npy","cross_skewGP_s{0}_nb1.npy"),0,False,"denim blue","--",3),
+
+	}
+
+	plotSmooth(cmd_args,lines,collection=collection,moment=moment,smooth=smooth,ylabel=r"$\langle\delta\kappa^3\rangle/\langle\kappa^3\rangle$",fontsize=fontsize)
+
+def plotSmoothKurt(cmd_args,collection="c0",smooth=(0.5,1.,2.,3.,5.,7.,10.),fontsize=22):
+
+	moment = 5 
+
+	#Lines to plot
+	lines = {
+
+	r"$\kappa^4_{\rm ray}-\kappa^4_{\rm born}$" : ("kappa",("convergence_moments_s{0}_nb9.npy",),moment,True,"denim blue","-",0),
+	r"$\kappa^4_{\rm born+geo}-\kappa^4_{\rm born}$" : ("kappaB+GP",("convergence_moments_s{0}_nb9.npy",),moment,True,"medium green","-",1),
+	r"$\kappa^4_{\rm born+ll}-\kappa^4_{\rm born}$" : ("kappaB+LL",("convergence_moments_s{0}_nb9.npy",),moment,True,"pale red","-",2),
+	r"$4\kappa^3_{\rm born}\kappa_{\rm geo}$" : ("kappaBorn",("cross_kurtGP_s{0}_nb1.npy",),0,False,"medium green","--",4),
+	r"$4\kappa^4_{\rm born}\kappa_{\rm ll}$" : ("kappaBorn",("cross_kurtLL_s{0}_nb1.npy",),0,False,"pale red","--",5),
+	r"$4\kappa^3_{\rm born}\kappa_{\rm ll}+4\kappa^3_{\rm born}\kappa_{\rm geo}$" : ("kappaBorn",("cross_kurtLL_s{0}_nb1.npy","cross_kurtGP_s{0}_nb1.npy"),0,False,"denim blue","--",3),
+
+	}
+
+	plotSmooth(cmd_args,lines,collection=collection,moment=moment,smooth=smooth,ylabel=r"$\langle\delta\kappa^4\rangle_c/\langle\kappa^4\rangle_c$",fontsize=fontsize)
+
+##########################################################################################################################

@@ -10,7 +10,7 @@ from lenstools.pipeline.simulation import LensToolsCosmology
 ####Book keeping####
 ####################
 
-data_path = "/Users/andreapetri/Documents/Columbia/weak_lensing"
+data_path = "/Users/andreapetri/Documents/Columbia/Minkowski"
 cosmo_parameters = ["Om","Ol","w","ns","si"]
 cosmo_legend = {"Om":"Om0","Ol":"Ode0","w":"w0","ns":"ns","si":"sigma8"}
 

@@ -5,6 +5,20 @@
  \thispagestyle{plain}
 \setlength{\parindent}{10mm}
 
+In this Chapter we describe how we can compress the hight dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work), that hopefully contain information about $\Lambda$CDM cosmological parameters. We will focus our analysis on pixelized $\kappa$ images, which are the output of the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and are independent from each other, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}. Because of the stochastic nature of the convergence profile in the field of view (which ultimately originates from cosmic variance), cosmological information is contained in statistically averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$. Our knowledge of the angular profiles $\h{\kappa}(\pt)$, combined with the isotropy assumption, allows to estimate the ensemble averages $\langle\rangle$ as spatial averages, both in real and Fourier space as 
+
+\begin{equation}
+\label{eq:4:average-real}
+\langle f(\h{\kappa})\rangle = \frac{1}{\theta^2_{\rm FOV}}\int_{\rm FOV}d\pt f(\h{\kappa})(\pt) 
+\end{equation}
+%
+\begin{equation}
+\label{eq:4:average-fourier}
+\langle \tilde{f}(\h{\kappa})\rangle = \frac{1}{N_{\ell}}\int d\pell' \tilde{f}(\h{\kappa})(\pell')\delta^D(\ell'^2-\ell^2)
+\end{equation}  
+%
+For the Fourier feature $\tilde{f}$, we consider each scale independently, and we average over the $N_\ell\sim\ell\theta_{\rm FOV}$ two dimensional modes $\pell$ with the same magnitude $\vert\pell\vert=\ell$. For a Gaussian field, all the statistical information is contained in image features $f$ which are quadratic in $\kappa$. Since $\kappa$ traces the non--linear density contrast $\delta$, cosmological information leaks from quadratic features into higher order descriptors. In the remainder of the Chapter we overview the image features considered in this work, and outline their most important properties, advantages and drawbacks.   
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Angular power spectrum}
@@ -14,6 +28,14 @@
 \section{Peak counts}
 
 \section{Minkowski Functionals}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.45]{Figures/eps/excursion.eps}
+\end{center}
+\caption{Excursion set}
+\label{fig:4:excursion}
+\end{figure}
 
 \subsection{Analytical model}
 

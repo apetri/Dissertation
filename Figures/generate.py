@@ -45,16 +45,25 @@ method["3-ltmemory"] = ltProject.memory_usage
 
 method["4-excursion"] = bornProject.excursion
 method["4-minkpert"] = minkowskiProject.minkPerturbation
+method["4-powerRes"] = bornProject.powerResiduals
+method["4-skewRes"] = bornProject.plotSmoothSkew
+method["4-kurtRes"] = bornProject.plotSmoothKurt
 
 #########################################################################
 
-method["7-ebplot"] = spuriousProject.ebPlot
+method["7-eb2d"] = spuriousProject.ebPlot
+method["7-spfit"] = spuriousProject.ebFit
 
 #Main
 def main():
 	cmd_args = parser.parse_args()
+
 	for fig in cmd_args.fig:
 		method[fig](cmd_args)
+
+	if not(len(cmd_args.fig)):
+		for l in sorted(method):
+			print("{0} ---> {1}".format(l,method[l].__name__))
 
 if __name__=="__main__":
 	main()
