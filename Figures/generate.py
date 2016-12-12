@@ -37,6 +37,7 @@ method["2-emode"] = miscellaneous.EMode
 
 #########################################################################
 
+method["3-plane"] = ltProject.planeVisualize
 method["3-csample"] = bornProject.convergenceVisualize
 method["3-ltflow"] = ltProject.flow
 method["3-ltmemory"] = ltProject.memory_usage

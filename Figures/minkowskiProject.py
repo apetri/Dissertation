@@ -22,7 +22,7 @@ variations_minus = [ LensToolsCosmology(Om0=0.23,Ode0=0.77,sigma8=0.798), LensTo
 ########Plotting#########
 #########################
 
-def minkPerturbation(cmd_args,nreal=1000,fontsize=22):
+def minkPerturbation(cmd_args,nreal=1000,fontsize=26):
 	
 	#Set up plot
 	fig,ax = plt.subplots(1,3,figsize=(24,8))
@@ -43,6 +43,9 @@ def minkPerturbation(cmd_args,nreal=1000,fontsize=22):
 	skew_corr = skew_correction(x,sigma,skew)
 	kurt_corr = kurt_correction(x,sigma,skew,kurt)
 
+	#Label add on 
+	lab_add = (r"/\theta_{\rm FOV}^2",r"/4\theta_{\rm FOV}^2",r"/2\pi\theta_{\rm FOV}^2")
+
 	#Plot
 	for n in range(3):
 		
@@ -52,11 +55,11 @@ def minkPerturbation(cmd_args,nreal=1000,fontsize=22):
 		ax[n].errorbar(x,mink[n][0],yerr=mink[n][1]/np.sqrt(nreal),linestyle="none",marker=".",label=r"${\rm Measured}$")
 
 		ax[n].get_yaxis().get_major_formatter().set_powerlimits((-2,0))
-		ax[n].set_xlabel(r"$\kappa$",fontsize=fontsize)
-		ax[n].set_ylabel(r"$V_{0}(\kappa)$".format(n),fontsize=fontsize)
+		ax[n].set_xlabel(r"$\kappa/\sigma_0$",fontsize=fontsize)
+		ax[n].set_ylabel(r"$V_{0}(\kappa)".format(n)+lab_add[n]+r"$",fontsize=fontsize)
 
 		if n==0:
-			ax[n].legend(loc="lower left",prop={"size":15})
+			ax[n].legend(loc="upper right",prop={"size":20})
 
 	#Save
 	fig.tight_layout()

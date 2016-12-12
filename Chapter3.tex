@@ -297,7 +297,15 @@ Once the density contrast is estimated from the $N$--body outputs, the two dimen
 \tilde{\psi}(\chi_k,\pell) = \tilde{\sigma}(\chi_k,\pell)\frac{e^{-\ell^2\theta_G^2}}{\ell^2}
 \end{equation} 
 %
-We decided to apply a Gaussian smoothing with scale $\theta_G$ to the solution (\ref{eq:3:poisson-sol-fft}) to get rid of sub-pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$.
+We decided to apply a Gaussian smoothing with scale $\theta_G$ to the solution (\ref{eq:3:poisson-sol-fft}) to get rid of sub-pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$. Figure \ref{fig:3:lens} shows an example lens (density and potential) plane based on equations (\ref{eq:3:delta-hist}), (\ref{eq:3:poisson-sol-fft}). 
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{Figures/eps/lens_plane.eps}
+\end{center}
+\caption{Dimensionless density $\sigma$ (left) and corresponding potential $\psi$ for a lens plane at $z_l=0.7$, cut from a $N_p=512^3, L_b=240\,{\rm Mpc}/h$ $N$--body simulation.}
+\label{fig:3:lens}
+\end{figure}
 
 \subsection{Cosmic variance sampling}
 \label{sec:3:sampling}

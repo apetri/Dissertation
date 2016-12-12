@@ -5,7 +5,10 @@
  \thispagestyle{plain}
 \setlength{\parindent}{10mm}
 
-In this Chapter we describe how we can compress the hight dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work), that hopefully contain information about $\Lambda$CDM cosmological parameters. We will focus our analysis on pixelized $\kappa$ images, which are the output of the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and are independent from each other, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}. Because of the stochastic nature of the convergence profile in the field of view (which ultimately originates from cosmic variance), cosmological information is contained in statistically averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$. Our knowledge of the angular profiles $\h{\kappa}(\pt)$, combined with the isotropy assumption, allows to estimate the ensemble averages $\langle\rangle$ as spatial averages, both in real and Fourier space as 
+In this Chapter we describe how we can compress the hight dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work), that hopefully contain information about $\Lambda$CDM cosmological parameters. We will focus our analysis on pixelized $\kappa$ images, which are the output of the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and are independent from each other, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}. Because of the stochastic nature of the convergence profile in the field of view (which ultimately originates from cosmic variance), cosmological information is contained in statistically averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$. For a Gaussian field, all the statistical information is contained in image features $f$ which are quadratic in $\kappa$. Since $\kappa$ traces the non--linear density contrast $\delta$, cosmological information leaks from quadratic features into higher order descriptors. In the remainder of the Chapter we overview the image features considered in this work, and outline their most important properties, advantages and drawbacks.
+
+\section{Real space expectation values}
+Our knowledge of the angular profiles $\h{\kappa}(\pt)$, combined with the isotropy assumption, allows to estimate the ensemble averages $\langle\rangle$ as spatial averages, both in real and Fourier space as 
 
 \begin{equation}
 \label{eq:4:average-real}
@@ -17,7 +20,7 @@ In this Chapter we describe how we can compress the hight dimensional informatio
 \langle \tilde{f}(\h{\kappa})\rangle = \frac{1}{N_{\ell}}\int d\pell' \tilde{f}(\h{\kappa})(\pell')\delta^D(\ell'^2-\ell^2)
 \end{equation}  
 %
-For the Fourier feature $\tilde{f}$, we consider each scale independently, and we average over the $N_\ell\sim\ell\theta_{\rm FOV}$ two dimensional modes $\pell$ with the same magnitude $\vert\pell\vert=\ell$. For a Gaussian field, all the statistical information is contained in image features $f$ which are quadratic in $\kappa$. Since $\kappa$ traces the non--linear density contrast $\delta$, cosmological information leaks from quadratic features into higher order descriptors. In the remainder of the Chapter we overview the image features considered in this work, and outline their most important properties, advantages and drawbacks.   
+For the Fourier feature $\tilde{f}$, we consider each scale independently, and we average over the $N_\ell\sim\ell\theta_{\rm FOV}$ two dimensional modes $\pell$ with the same magnitude $\vert\pell\vert=\ell$.    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -28,16 +31,118 @@ For the Fourier feature $\tilde{f}$, we consider each scale independently, and w
 \section{Peak counts}
 
 \section{Minkowski Functionals}
-
+The Large Scale Structure of the Universe at non--linear stage is known to be characterized by prominent morphological features such as one dimensional filaments (see the structure in Figure \ref{fig:3:lens} as an example). In the hope that a morphological description of $\kappa$ contains valuable information about cosmology, we considered the two dimensional morphological descriptors known as Minkowski functionals (MFs) \citep{Tomita,MatsubaraLong}. MFs of $\kappa$ images are based on the construction of the excursion sets, which are spatial partitions of the map based on the $\kappa$ value. A $\kappa_0$--excursion set $\Sigma(\kappa_0)$ is defined to be the set of angular positions $\pt$ for which $\kappa(\pt)>\kappa_0$, as shown in Figure \ref{fig:4:excursion}.      
+%
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.45]{Figures/eps/excursion.eps}
+\includegraphics[scale=0.4]{Figures/eps/excursion.eps}
 \end{center}
-\caption{Excursion set}
+\caption{Example of a $\kappa$--excursion set (black, right panel) with $\kappa_0=0.02$, referred to the image on the left panel. The image has been smoothed with a Gaussian kernel of size $\theta_G=0.5'$.}
 \label{fig:4:excursion}
 \end{figure}
+%
+The only three morphological descriptors that can be measured from $\kappa$--excursion sets which are invariant under translations and rotations are the area $V_0$ of $\Sigma(\kappa_0)$, the length $V_1$ of its boundary $\partial\Sigma(\kappa_0)$, and its Euler characteristic $V_2$ \citep{MatsubaraLong}. For computational convenience, $V_2$ can be related to the geodesic curvature $\mathcal{K}$ of the excursion set boundary by the Gauss--Bonnet theorem. We can formally define the three MFs $V_k(\kappa_0)$ as 
 
-\subsection{Analytical model}
+\begin{equation}
+\label{eq:4:formal-mf}
+\begin{matrix}
+\displaystyle V_0(\kappa_0) = \int_{\Sigma(\kappa_0)} d\pt & ; & \displaystyle V_1(\kappa_0) = \int_{\partial\Sigma(\kappa_0)} dl & ; & \displaystyle V_2(\kappa_0) = \int_{\partial\Sigma(\kappa_0)}\mathcal{K}dl
+\end{matrix}
+\end{equation}   
+%
+Where $dl$ is the line element on the boundary. The definitions (\ref{eq:4:formal-mf}) emphasize the symmetry of the MFs under rotations, but do not offer a computationally convenient method to measure them. With a little bit of work, these definitions can be re--arranged in the form (\ref{eq:4:average-real}) as integrals of local quantities over the area of the field of view. The area functional $V_0$ can easily be measured by thresholding the pixels in the $\kappa$ map, namely
+
+\begin{equation}
+\label{eq:4:mf0-estimator}
+V_0(\kappa_0) = \int d\pt \Theta(\kappa(\pt)-\kappa_0)
+\end{equation} 
+%
+The perimeter functional can be expressed as an area integral with the help of an integration by parts. The boundary of the excursion set $\partial \Sigma(\kappa_0)$, by definition, is the $\kappa\equiv\kappa_0$ set, which is orthogonal to the gradient $\nabla \kappa$. This helps us in finding tangent and normal unit vectors to the boundary, which we call $\bb{t},\bb{n}$. We have
+
+\begin{equation}
+\label{eq:4:tn-vectors}
+\begin{matrix}
+\displaystyle \bb{t} = \left(\frac{\partial_y \kappa}{\vert\nabla\kappa\vert},-\frac{\partial_x \kappa}{\vert\nabla\kappa\vert}\right) & ; & \displaystyle \bb{n} = -\frac{\nabla \kappa}{\vert\nabla\kappa\vert} 
+\end{matrix}
+\end{equation} 
+%
+It is easy to show, with the definitions (\ref{eq:4:tn-vectors}), that $\bb{t}\cdot\bb{n}=0$ and that $\bb{n}$ points to the exterior of the excursion set. Now, with a double integration by parts we can show
+
+\begin{equation}
+\label{eq:4:mf1-estimator}
+V_1(\kappa_0) = \int_{\partial\Sigma(\kappa_0)}\bb{n}\cdot\bb{n}dl = \int d\pt \Theta(\kappa-\kappa_0) \nabla\cdot \bb{n} = \int d\pt \delta^D(\kappa-\kappa_0)\vert\nabla\kappa\vert
+\end{equation}
+%
+Which yields a local estimator of the boundary perimeter, in terms of the gradient of $\kappa$. A similar trick can be employed to compute the Euler functional $V_2$, taking advantage of the definition of the geodesic curvature $\mathcal{K}$ as variation of the tangent $\bb{t}$ across the boundary
+
+\begin{equation}
+\label{eq:4:geocurv}
+\frac{d\bb{t}}{dl} = \mathcal{K}\bb{n}
+\end{equation}
+%
+which leads to 
+
+\begin{equation}
+\label{eq:4:geocurv-2}
+\mathcal{K} = \frac{t_it_j\partial_i\partial_j\kappa}{\vert\nabla\kappa\vert}
+\end{equation}
+%
+We can now perform the double integration by parts in a similar way as we did for (\ref{eq:4:mf1-estimator}) to get
+
+\begin{equation}
+\label{eq:4:mf2-estimator}
+V_2(\kappa_0) = \int d\pt \delta^D(\kappa-\kappa_0)\left(\frac{2\partial_x\partial_y\kappa\partial_x\kappa\partial_y\kappa-\partial^2_x\kappa(\partial_y\kappa)^2-\partial_y^2\kappa(\partial_x\kappa)^2}{\vert\nabla\kappa\vert^2}\right)
+\end{equation}
+%
+Equations (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) provide practical estimators for measuring the morphological features $V_k$ from an image by thresholding the pixel values and measuring local $\kappa$ gradients. In the next section we will present a theoretical model which relates $V_k$ to a set of $n$--point functions of $\kappa$.  
+
+\subsection{Relation with the moments of $\kappa$}
+The estimators (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) can be expressed as ensemble expectation values of functions of $\h{\kappa}$ via (\ref{eq:4:average-real}). We can write
+
+\begin{equation}
+\label{eq:4:mf-expectation}
+\begin{matrix}
+V_0(\kappa_0) = \theta_{\rm FOV}^2\langle\Theta(\h{\kappa}-\kappa_0)\rangle \\ \\
+V_1(\kappa_0) = \theta_{\rm FOV}^2\langle\delta^D(\h{\kappa}-\kappa_0)\vert\nabla\h{\kappa}\vert\rangle \\ \\
+\displaystyle V_2(\kappa_0) = \theta_{\rm FOV}^2\left\langle\delta^D(\h{\kappa}-\kappa_0)\frac{\h{t}_i\h{t}_j\partial_i\partial_j\h{\kappa}}{\vert\nabla\h{\kappa}\vert^2}\right\rangle
+\end{matrix}
+\end{equation}
+%
+Taking advantage of the isotropy assumption and noting that, for statistically isotropic two dimensional vector fields $\bbh{u},\bbh{v}$ one use the identities
+
+\begin{equation}
+\label{eq:4:iso-vectors}
+\begin{matrix}
+\displaystyle \langle\h{u}\rangle = \frac{\pi}{2}\langle\vert\h{u}_x\vert\rangle & ; & \displaystyle \langle\bbh{u}\cdot\bbh{v}\rangle = \pi\langle\vert \h{u}_x\vert\delta^D (\h{u}_y)\bbh{u}\cdot\bbh{v}\rangle
+\end{matrix}
+\end{equation}
+%
+which, applied to (\ref{eq:4:mf-expectation}) with $\bb{u}=\nabla\kappa$ and $v_i=\partial_i\partial_j\kappa\partial_j\kappa/\vert\nabla\kappa\vert^2$, give the expressions
+
+\begin{equation}
+\label{eq:4:mf0-expectation}
+V_0(\kappa_0) = \theta_{\rm FOV}^2\langle\Theta(\h{\kappa}-\kappa_0)\rangle
+\end{equation} 
+%
+\begin{equation}
+\label{eq:4:mf1-expectation}
+V_1(\kappa_0) = \frac{\pi}{2}\theta_{\rm FOV}^2\langle\delta^D(\h{\kappa}-\kappa_0)\vert\partial_x\h{\kappa}\vert\rangle
+\end{equation} 
+%
+\begin{equation}
+\label{eq:4:mf2-expectation}
+V_2(\kappa_0) = -\pi\theta_{\rm FOV}^2\langle\delta^D(\h{\kappa}-\kappa_0)\delta^D(\partial_y\h{\kappa})\vert\partial_x\h{\kappa}\vert\partial^2_y\h{\kappa}\rangle
+\end{equation}
+%
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.28]{Figures/eps/minkPerturbation.eps}
+\end{center}
+\caption{Perturbation series for MFs}
+\label{fig:4:minkpert}
+\end{figure}
+%
+Figure \ref{fig:4:minkpert}
 
 \section{Higher Moments of the convergence field}
 

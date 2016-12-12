@@ -67,7 +67,7 @@ def convergenceVisualize(cmd_args,collection="c0",smooth=0.5*u.arcmin,fontsize=2
 
 ##########################################################################################################################
 
-def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.03,fontsize=22):
+def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.02,fontsize=22):
 
 	#Set up plot
 	fig,ax = plt.subplots(1,2,figsize=(16,8))
@@ -97,7 +97,7 @@ def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.03,fontsize=22):
 	cbar.outline.set_linewidth(1)
 	cbar.outline.set_edgecolor("black")
 	cbar_ticks = cbar.set_ticks([0,0.25,0.5,0.75,1])
-	cbar.set_ticklabels(["",r"$\kappa<\kappa_T$","",r"$\kappa>\kappa_T$",""])
+	cbar.set_ticklabels(["",r"$\kappa<\kappa_0$","",r"$\kappa>\kappa_0$",""])
 
 	#Save
 	fig.tight_layout()

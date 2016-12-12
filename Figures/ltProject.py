@@ -1,4 +1,4 @@
-import re
+import os,re
 
 import numpy as np
 import pandas as pd
@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 
 from matplotlib import rc
 import daft
+
+from lenstools import dataExtern
+from lenstools.simulations import PotentialPlane
 
 #Pipeline flow
 def flow(cmd_args):
@@ -168,3 +171,22 @@ def memory_usage(cmd_args):
 
 	#Save
 	fig.savefig("{0}/lt_memory_usage.{0}".format(cmd_args.type))
+
+#Plane visualization
+def planeVisualize(cmd_args):
+
+	#Set up plot
+	fig,ax = plt.subplots(1,2,figsize=(16,8))
+
+	#Load the plane and compute the density
+	potential = PotentialPlane.load(os.path.join(dataExtern(),"plane.fits"))
+	density = potential.density()
+	potential.data*=1.0e6
+
+	#Show the result
+	potential.visualize(fig=fig,ax=ax[1],colorbar=True,cbar_label=r"$10^6\times\psi$")
+	density.visualize(fig=fig,ax=ax[0],colorbar=True,cbar_label=r"$\sigma$")
+
+	#Save
+	fig.tight_layout()
+	fig.savefig("{0}/lens_plane.{0}".format(cmd_args.type))
