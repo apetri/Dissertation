@@ -22,10 +22,11 @@ variations_minus = [ LensToolsCosmology(Om0=0.23,Ode0=0.77,sigma8=0.798), LensTo
 ########Plotting#########
 #########################
 
-def minkPerturbation(cmd_args,nreal=1000,fontsize=26):
+def minkPerturbation(cmd_args,mfs=(0,1,2),nreal=1000,fontsize=26):
 	
 	#Set up plot
-	fig,ax = plt.subplots(1,3,figsize=(24,8))
+	fig,ax = plt.subplots(1,len(mfs),figsize=(8*len(mfs),8))
+	ax = np.atleast_1d(ax)
 
 	#Load Minkowski functionals
 	fname = os.path.join(data_path,"Output_final","{0}_"+"{0}_200z_5smth.txt".format(fiducial.cosmo_id(cosmo_parameters,cosmo_legend)))
@@ -47,24 +48,29 @@ def minkPerturbation(cmd_args,nreal=1000,fontsize=26):
 	lab_add = (r"/\theta_{\rm FOV}^2",r"/4\theta_{\rm FOV}^2",r"/2\pi\theta_{\rm FOV}^2")
 
 	#Plot
-	for n in range(3):
+	for n,mf in enumerate(mfs):
 		
-		ax[n].plot(x,gauss[n],label=r"${\rm Gaussian}$")
-		ax[n].plot(x,gauss[n]+skew_corr[n],label=r"${\rm Gaussian}+O(\sigma_0)$")
-		ax[n].plot(x,gauss[n]+skew_corr[n]+kurt_corr[n],label=r"${\rm Gaussian}+O(\sigma_0)+O(\sigma_0^2)$")
-		ax[n].errorbar(x,mink[n][0],yerr=mink[n][1]/np.sqrt(nreal),linestyle="none",marker=".",label=r"${\rm Measured}$")
+		ax[n].plot(x,gauss[mf],label=r"$O(M^{(2)})$")
+		ax[n].plot(x,gauss[mf]+skew_corr[mf],label=r"$O(M^{(2)})+O(M^{(3)})$")
+		ax[n].plot(x,gauss[mf]+skew_corr[mf]+kurt_corr[mf],label=r"$O(M^{(2)})+O(M^{(3)})+O(M^{(4)})$")
+		ax[n].errorbar(x,mink[mf][0],yerr=mink[mf][1]/np.sqrt(nreal),linestyle="none",marker=".",label=r"${\rm Measured}$")
 
 		ax[n].get_yaxis().get_major_formatter().set_powerlimits((-2,0))
 		ax[n].set_xlabel(r"$\kappa/\sigma_0$",fontsize=fontsize)
-		ax[n].set_ylabel(r"$V_{0}(\kappa)".format(n)+lab_add[n]+r"$",fontsize=fontsize)
+		ax[n].set_ylabel(r"$V_{0}(\kappa)".format(mf)+lab_add[mf]+r"$",fontsize=fontsize)
 
-		if n==0:
-			ax[n].legend(loc="upper right",prop={"size":20})
+		if mf==0:
+			ax[n].legend(loc="upper right",prop={"size":18})
 
 	#Save
 	fig.tight_layout()
-	fig.savefig("{0}/minkPerturbation.{0}".format(cmd_args.type))
+	fig.savefig("{0}/minkPerturbation{1}.{0}".format(cmd_args.type,"-".join([str(m) for m in mfs])))
 
+def minkPerturbation01(cmd_args,mfs=(0,1)):
+	minkPerturbation(cmd_args,mfs=mfs)
+
+def minkPerturbation2(cmd_args,mfs=(2,)):
+	minkPerturbation(cmd_args,mfs=mfs)
 
 def seriesConvergence():
 	pass

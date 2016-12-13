@@ -97,11 +97,44 @@ def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.02,fontsize=22):
 	cbar.outline.set_linewidth(1)
 	cbar.outline.set_edgecolor("black")
 	cbar_ticks = cbar.set_ticks([0,0.25,0.5,0.75,1])
-	cbar.set_ticklabels(["",r"$\kappa<\kappa_0$","",r"$\kappa>\kappa_0$",""])
+	cbar.ax.set_yticklabels(["",r"$\kappa<\kappa_0$","",r"$\kappa>\kappa_0$",""],rotation=90)
 
 	#Save
 	fig.tight_layout()
 	fig.savefig("{0}/excursion.{0}".format(cmd_args.type))
+
+##########################################################################################################################
+
+def convergencePeaks(cmd_args,fontsize=22):
+
+	#Plot setup
+	fig,ax = plt.subplots(1,2,figsize=(16,8))
+
+	#Load the convergence map and smooth on 0.5 arcmin
+	conv = ConvergenceMap.load(os.path.join(fiducial["c0"].getMapSet("kappa").home,"WLconv_z2.00_0001r.fits"))
+	conv.smooth(0.5*u.arcmin,kind="gaussianFFT",inplace=True)
+
+	#Find the peak locations and height
+	sigma = np.linspace(-2.,13.,101)
+	height,positions = conv.locatePeaks(sigma,norm=True)
+
+	#Show the convergence with the peak locations
+	conv.visualize(fig=fig,ax=ax[0],colorbar=True,cbar_label=r"$\kappa$")
+	ax[0].scatter(*positions[height>2.].to(u.deg).value.T,color="red",marker="x")
+	ax[0].set_xlim(0,conv.side_angle.to(u.deg).value)
+	ax[0].set_ylim(0,conv.side_angle.to(u.deg).value)
+
+	#Show the peak histogram
+	conv.peakHistogram(sigma,norm=True,fig=fig,ax=ax[1],label=r"${\rm Measured}$")
+
+	#Labels
+	ax[1].set_xlabel(r"$\kappa/\sigma_0$",fontsize=fontsize)
+	ax[1].set_ylabel(r"$dN_{\rm pk}(\kappa)$")
+	ax[1].legend()
+
+	#Save
+	fig.tight_layout()
+	fig.savefig("{0}/convergencePeaks.{0}".format(cmd_args.type))
 
 ##########################################################################################################################
 

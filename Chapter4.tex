@@ -7,7 +7,7 @@
 
 In this Chapter we describe how we can compress the hight dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work), that hopefully contain information about $\Lambda$CDM cosmological parameters. We will focus our analysis on pixelized $\kappa$ images, which are the output of the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and are independent from each other, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}. Because of the stochastic nature of the convergence profile in the field of view (which ultimately originates from cosmic variance), cosmological information is contained in statistically averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$. For a Gaussian field, all the statistical information is contained in image features $f$ which are quadratic in $\kappa$. Since $\kappa$ traces the non--linear density contrast $\delta$, cosmological information leaks from quadratic features into higher order descriptors. In the remainder of the Chapter we overview the image features considered in this work, and outline their most important properties, advantages and drawbacks.
 
-\section{Real space expectation values}
+\section{Real space local expectation values}
 Our knowledge of the angular profiles $\h{\kappa}(\pt)$, combined with the isotropy assumption, allows to estimate the ensemble averages $\langle\rangle$ as spatial averages, both in real and Fourier space as 
 
 \begin{equation}
@@ -20,18 +20,76 @@ Our knowledge of the angular profiles $\h{\kappa}(\pt)$, combined with the isotr
 \langle \tilde{f}(\h{\kappa})\rangle = \frac{1}{N_{\ell}}\int d\pell' \tilde{f}(\h{\kappa})(\pell')\delta^D(\ell'^2-\ell^2)
 \end{equation}  
 %
-For the Fourier feature $\tilde{f}$, we consider each scale independently, and we average over the $N_\ell\sim\ell\theta_{\rm FOV}$ two dimensional modes $\pell$ with the same magnitude $\vert\pell\vert=\ell$.    
+For the Fourier feature $\tilde{f}$, we consider each scale independently, and we average over the $N_\ell\sim\ell\theta_{\rm FOV}$ two dimensional modes $\pell$ with the same magnitude $\vert\pell\vert=\ell$. In this section we will describe a systematic way to relate expectation values of local estimators to the connected moments of $\kappa$, following the derivation given in \citep{MatsubaraLong}. Since the estimators considered in this Chapter will contain at most second spatial derivatives in $\kappa$, we can consider the most general one of them to be some function of the $N$--dimensional vector $\bb{K}$, defined formally by
+
+\begin{equation}
+\label{eq:4:lcl-vec}
+\bb{K} = (\alpha,\pmb{\eta},\pmb{\zeta}) = \frac{1}{\sigma_0}(\kappa,\nabla \kappa,\partial^2_x\kappa,\partial^2_y\kappa,\partial_x\partial_y\kappa)
+\end{equation}
+%
+Where we indicated as $\pmb{\eta},\pmb{\zeta}$ respectively the first and second derivative of the $\kappa$ field, in units of its variance $\sigma_0^2=\langle\kappa^2\rangle$. Assuming $\langle\kappa\rangle=0$ without loss of generality, we can consider its probability distribution $\mathcal{L}(\bb{K})$ and its characteristic function $Z(\bb{J})$, defined as 
+
+\begin{equation}
+\label{eq:4:characteristic}
+Z(\bb{J}) = \left\langle e^{i\bb{J}\cdot\bb{K}}\right\rangle = \int d\bb{K}\mathcal{L}(\bb{K})e^{i\bb{J}\cdot\bb{K}}
+\end{equation} 
+%
+Note that, with the definition (\ref{eq:4:characteristic}), the expectation value of any polynomial $K_{i_1}...K_{i_n}$ can be calculated in terms of derivatives of $Z$
+
+\begin{equation}
+\label{eq:4:exp-poly}
+\left\langle K_{i_1}...K_{i_n}\right\rangle = \left[\left(-i\frac{\partial}{\partial J_{i_i}}\right)...\left(-i\frac{\partial}{\partial J_{i_n}}\right)Z(\bb{J})\right]_{\bb{J}=0}
+\end{equation}
+%
+Writing $Z$ as an exponential of connected terms in the usual way
+
+\begin{equation}
+\label{eq:4:gen-connected}
+Z(\bb{J}) = \exp\left(\sum_{n=2}^\infty\frac{i^n}{n!}M^{(n)}_{i_1...i_n}J_{i_1}...J_{i_n}\right)
+\end{equation}
+%
+we can immediately identify $M^{(2)}$ as the $\bb{K}$ covariance matrix as $\bb{M}^{(2)}=\langle\bb{K}\bb{K}^T\rangle$. For a Gaussian field, all $M^{(n)}$ with $n>2$ vanish, and the correlations (\ref{eq:4:exp-poly}) are easy to compute because the exponential in (\ref{eq:4:gen-connected}) has only one term. If $\bb{K}$ is non--Gaussian, such in our case, perturbative approaches to the calculation of (\ref{eq:4:exp-poly}) can be attempted if the connected moments $\bb{M}^{(n)}$ do not grow too fast in $n$. These approaches are based on the inverse Fourier transform of $Z$, once the $\bb{M}^{(2)}$ term has been factored out
+
+\begin{equation}
+\label{eq:4:characteristic-inverse}
+\mathcal{L}(\bb{K}) = \int \frac{d\bb{J}}{(2\pi)^N}\exp\left(-\frac{1}{2}\bb{J}^T\bb{M}^{(2)}\bb{J}-\bb{J}\cdot\bb{K}\right)\exp\left(\sum_{n=3}^\infty\frac{i^n}{n!}M^{(n)}_{i_1...i_n}J_{i_1}...J_{i_n}\right)
+\end{equation} 
+%
+Since we know that multiplications in $\bb{J}$ space act as gradients in $\bb{K}$ space, and since we know how to perform Gaussian integrals analytically, we can convert (\ref{eq:4:characteristic-inverse}) into  
+
+\begin{equation}
+\label{eq:4:characteristic-inverse-2}
+\mathcal{L}(\bb{K}) = \exp\left(\sum_{n=3}^\infty\frac{(-1)^n}{n!}M^{(n)}_{i_1...i_n}\partial_{K_{i_1}}...\partial_{K_{i_n}}\right)\mathcal{L}_G(\bb{K})
+\end{equation} 
+%
+\begin{equation}
+\label{eq:4:gaussian-lik}
+\mathcal{L}_G(\bb{K}) = \frac{1}{\sqrt{(2\pi)^N\vert\bb{M}^{(2)}\vert}}\exp\left(-\frac{1}{2}\bb{K}^T(\bb{M}^{(2)})^{-1}\bb{K}\right)
+\end{equation}
+%
+The form (\ref{eq:4:characteristic-inverse-2}) of the $\bb{K}$ likelihood in term of its connected moments also suggests that, in order to compute the expectation value of a generic function $f(\bb{K})$, we can take advantage of integration by parts and write
+
+\begin{equation}
+\label{eq:4:exp-formal}
+\langle f(\bb{K})\rangle = \left\langle\exp\left(\sum_{n=3}^\infty\frac{M^{(n)}_{i_1...i_n}}{n!}\partial_{K_{i_1}}...\partial_{K_{i_n}}\right)f(\bb{K})\right\rangle_G
+\end{equation}
+%
+Where the expectation values $\langle\rangle_G$ are computed with the Gaussian likelihood (\ref{eq:4:gaussian-lik}). Expanding the exponential in (\ref{eq:4:exp-formal}) in a power series yields a perturbative expansion for the expectation value $\langle f(\bb{K})\rangle$ in terms of the connected moments $M^{(n)}$. The series is expected to converge if $\bb{M}^{(n)}\rightarrow 0$ as $n$ grows, which might or might not be the case for the $\kappa$ maps under our investigation. Symmetry under rotations assures that the covariance matrix $\bb{M}^{(2)}$ can be parametrized in terms of two parameters $\sigma^2_\eta=\langle\eta^2\rangle,\sigma_\zeta=\langle(\zeta_{xx}+\zeta_{yy})^2\rangle$, which constrain the form of $\bb{M}^{(2)}$ as 
+
+\begin{equation}
+\label{eq:4:cov-rotinv}
+\begin{matrix}
+\langle \alpha^2\rangle = 1 & ; & \langle \alpha \pmb{\eta} \rangle = \langle \pmb{\eta}\pmb{\zeta} \rangle = 0 \\ \\
+\displaystyle \langle \eta_i\eta_j \rangle = -\langle \alpha \zeta_{ij} \rangle = \frac{\sigma_\eta^2 \delta_{ij}}{2} & ; & \displaystyle \langle \zeta_{ij}\zeta_{kl} \rangle = \frac{\sigma_\zeta^2}{8}(\delta_{ij}\delta_{kl}+\delta_{ik}\delta_{jl}+\delta_{il}\delta_{jk})
+\end{matrix}
+\end{equation}
+%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Angular power spectrum}
-
-\subsection{Perturbative expansion in $\Phi$}
-
-\section{Peak counts}
-
 \section{Minkowski Functionals}
-The Large Scale Structure of the Universe at non--linear stage is known to be characterized by prominent morphological features such as one dimensional filaments (see the structure in Figure \ref{fig:3:lens} as an example). In the hope that a morphological description of $\kappa$ contains valuable information about cosmology, we considered the two dimensional morphological descriptors known as Minkowski functionals (MFs) \citep{Tomita,MatsubaraLong}. MFs of $\kappa$ images are based on the construction of the excursion sets, which are spatial partitions of the map based on the $\kappa$ value. A $\kappa_0$--excursion set $\Sigma(\kappa_0)$ is defined to be the set of angular positions $\pt$ for which $\kappa(\pt)>\kappa_0$, as shown in Figure \ref{fig:4:excursion}.      
+\label{sec:4:mink}
+The Large Scale Structure of the Universe at non--linear stage is known to be characterized by prominent morphological features such as one dimensional filaments (see the structure in Figure \ref{fig:3:lens} as an example). In the hope that a morphological description of $\kappa$ contains valuable information about cosmology, we considered the two dimensional morphological descriptors known as Minkowski functionals (MFs) \citep{Tomita,MatsubaraLong}. MFs of $\kappa$ images are based on the construction of the excursion sets, which are spatial partitions of the map based on the $\kappa$ value. A $\kappa_0$--excursion set $\Sigma(\kappa_0)$ is defined to be the set of angular positions $\pt$ for which $\kappa(\pt)>\kappa_0$, as shown in Figure \ref{fig:4:excursion}. The only three morphological descriptors that can be measured from $\kappa$--excursion sets which are invariant under translations and rotations are the area $V_0$ of $\Sigma(\kappa_0)$, the length $V_1$ of its boundary $\partial\Sigma(\kappa_0)$, and its Euler characteristic $V_2$ \citep{MatsubaraLong}. For computational convenience, $V_2$ can be related to the geodesic curvature $\mathcal{K}$ of the excursion set boundary by the Gauss--Bonnet theorem. We can formally define the three MFs $V_k(\kappa_0)$ as 
 %
 \begin{figure}
 \begin{center}
@@ -41,8 +99,6 @@ The Large Scale Structure of the Universe at non--linear stage is known to be ch
 \label{fig:4:excursion}
 \end{figure}
 %
-The only three morphological descriptors that can be measured from $\kappa$--excursion sets which are invariant under translations and rotations are the area $V_0$ of $\Sigma(\kappa_0)$, the length $V_1$ of its boundary $\partial\Sigma(\kappa_0)$, and its Euler characteristic $V_2$ \citep{MatsubaraLong}. For computational convenience, $V_2$ can be related to the geodesic curvature $\mathcal{K}$ of the excursion set boundary by the Gauss--Bonnet theorem. We can formally define the three MFs $V_k(\kappa_0)$ as 
-
 \begin{equation}
 \label{eq:4:formal-mf}
 \begin{matrix}
@@ -136,13 +192,65 @@ V_2(\kappa_0) = -\pi\theta_{\rm FOV}^2\langle\delta^D(\h{\kappa}-\kappa_0)\delta
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.28]{Figures/eps/minkPerturbation.eps}
+\includegraphics[scale=0.3]{Figures/eps/minkPerturbation0-1.eps}
+\includegraphics[scale=0.3]{Figures/eps/minkPerturbation2.eps}
 \end{center}
 \caption{Perturbation series for MFs}
 \label{fig:4:minkpert}
 \end{figure}
 %
+The parametrization of the covariance matrix (\ref{eq:4:cov-rotinv}) allows to calculate explicitly expectation values of particular classes of estimators $f$ which are local in the convergence, such as (\ref{eq:4:mf0-expectation}), (\ref{eq:4:mf1-expectation}) and (\ref{eq:4:mf2-expectation}). Per equation (\ref{eq:4:exp-formal}), we need to calculate Gaussian expectation values of arbitrary $\alpha,\pmb{\eta},\pmb{\zeta}$ derivatives of the local estimator. After some Gaussian integral algebra we obtain
+
+\begin{equation}
+\label{eq:4:Rv0}
+\langle\partial_\alpha^n\Theta(\alpha-\nu)\rangle_G = \frac{(-1)^{n-1}}{\sqrt{2\pi}}e^{-\nu^2/2}H_{n-1}(\nu) 
+\end{equation}
+%
+\begin{equation}
+\label{eq:4:Rv1}
+\langle\partial_\alpha^n\partial_{\eta_x}^m\delta^D(\alpha-\nu)\vert\eta_x\vert\rangle_G = \frac{H_{m-2}(0)}{\pi}\left(\frac{\sigma_\eta}{\sqrt{2}}\right)^{1-m}e^{-\nu^2/2}H_n(\nu) 
+\end{equation} 
+%
+\begin{equation}
+\label{eq:4:Rv2}
+\begin{split}
+&\langle\partial_\alpha^k\partial_{\eta_y}^{l_1}\partial_{\eta_x}^{l_2}\partial_{\zeta_{yy}}^m\delta^D(\alpha-\nu)\delta^D(\eta_y)\vert\eta_x\vert\zeta_{yy}\rangle_G = \\ 
+&\frac{H_{l_1}(0)H_{l_2-2}(0)}{(2\pi)^{3/2}}\left(\frac{\sigma_\eta}{\sqrt{2}}\right)^{2-l_1-l_2-2m}e^{-\nu^2/2}[H_{k+1}(\nu)\delta_{m0}-H_k(\nu)\delta_{m1}]
+\end{split} 
+\end{equation} 
+%
+Where we defined the Hermite polynomials as 
+
+\begin{equation}
+\label{eq:4:hermite}
+\begin{matrix}
+\displaystyle H_{-1}(x) = \sqrt{\frac{\pi}{2}}e^{x^2/2}{\rm erfc}\left(\frac{x}{\sqrt{2}}\right) & ; & \displaystyle H_n(x) = e^{x^2/2}\left(-\frac{d}{dx}\right)^n e^{-x^2/2}
+\end{matrix}
+\end{equation}
+%
 Figure \ref{fig:4:minkpert}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Peak counts}
+
+%
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{Figures/eps/convergencePeaks.eps}
+\end{center}
+\caption{Peak counts}
+\label{fig:4:peaks}
+\end{figure}
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Angular power spectrum}
+
+\subsection{Perturbative expansion in $\Phi$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Higher Moments of the convergence field}
 
