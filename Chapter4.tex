@@ -74,7 +74,7 @@ The form (\ref{eq:4:characteristic-inverse-2}) of the $\bb{K}$ likelihood in ter
 \langle f(\bb{K})\rangle = \left\langle\exp\left(\sum_{n=3}^\infty\frac{M^{(n)}_{i_1...i_n}}{n!}\partial_{K_{i_1}}...\partial_{K_{i_n}}\right)f(\bb{K})\right\rangle_G
 \end{equation}
 %
-Where the expectation values $\langle\rangle_G$ are computed with the Gaussian likelihood (\ref{eq:4:gaussian-lik}). Expanding the exponential in (\ref{eq:4:exp-formal}) in a power series yields a perturbative expansion for the expectation value $\langle f(\bb{K})\rangle$ in terms of the connected moments $M^{(n)}$. The series is expected to converge if $\bb{M}^{(n)}\rightarrow 0$ as $n$ grows, which might or might not be the case for the $\kappa$ maps under our investigation. Symmetry under rotations assures that the covariance matrix $\bb{M}^{(2)}$ can be parametrized in terms of two parameters $\sigma^2_\eta=\langle\eta^2\rangle,\sigma_\zeta=\langle(\zeta_{xx}+\zeta_{yy})^2\rangle$, which constrain the form of $\bb{M}^{(2)}$ as 
+Where the expectation values $\langle\rangle_G$ are computed with the Gaussian likelihood (\ref{eq:4:gaussian-lik}). Expanding the exponential in (\ref{eq:4:exp-formal}) in a power series yields a perturbative expansion for the expectation value $\langle f(\bb{K})\rangle$ in terms of the connected moments $M^{(n)}$. The series is expected to converge if $\bb{M}^{(n)}\rightarrow 0$ as $n$ grows, which might or might not be the case for the $\kappa$ maps under our investigation. Symmetry under rotations assures that the covariance matrix $\bb{M}^{(2)}$ can be parametrized in terms of two parameters $\sigma^2_\eta=\langle\eta^2\rangle,\sigma^2_\zeta=\langle(\zeta_{xx}+\zeta_{yy})^2\rangle$, which constrain the form of $\bb{M}^{(2)}$ as 
 
 \begin{equation}
 \label{eq:4:cov-rotinv}
@@ -84,6 +84,26 @@ Where the expectation values $\langle\rangle_G$ are computed with the Gaussian l
 \end{matrix}
 \end{equation}
 %
+A perturbative expansion for local expectation values can be built from (\ref{eq:4:exp-formal}) once an assumption is made on the magnitude of the connected moments $\bb{M}^{(n)}$. We will assume, following \citep{MatsubaraLong}, that $\bb{M}^{(n)}=O(\lambda^{n-2})$, where $\lambda$ is a dimensionless parameter which describes small departures from Gaussianity. Note that in order for the perturbation series to converge, $\lambda$ needs to be small. Under this assumption, we can write the expansion for $\langle f \rangle$ up to $O(\lambda^2)$ as 
+
+\begin{equation}
+\label{eq:4:pert-quad}
+\langle f(\bb{K})\rangle = \langle f(\bb{K})\rangle_G + \langle f(\bb{K})\rangle_3 + \langle f(\bb{K})\rangle_4 + O(\lambda^3) 
+\end{equation}
+%
+with 
+
+\begin{equation}
+\label{eq:4:3-contribution}
+\langle f(\bb{K})\rangle_3 = \frac{1}{6}\bb{M}^{(3)}_{\bb{i}}\left\langle\frac{\partial f(\bb{K})}{\partial K_{\bb{i}}}\right\rangle_G
+\end{equation}
+%
+\begin{equation}
+\label{eq:4:4-contribution}
+\langle f(\bb{K})\rangle_4 = \frac{1}{24}\bb{M}^{(4)}_{\bb{i}}\left\langle\frac{\partial f(\bb{K})}{\partial K_{\bb{i}}}\right\rangle_G+ \frac{1}{12}\bb{M}^{(3)}_{\bb{i}}\bb{M}^{(3)}_{\bb{j}}\left\langle\frac{\partial^2 f(\bb{K})}{\partial K_{\bb{i}}\partial K_{\bb{j}}}\right\rangle_G
+\end{equation}
+%
+In equations (\ref{eq:4:3-contribution}), (\ref{eq:4:4-contribution}) we grouped individual vector indexes in the multi--indexes $\bb{i},\bb{j}$. Note that the quartic perturbation term (\ref{eq:4:4-contribution}) picks up disconnected contributions $(\bb{M}^{(3)})^2$ which are of the same order as $\bb{M}^{(4)}$. In the next paragraph we will apply this perturbation approach to morphological descriptors of simulated $\kappa$ images, and test its validity.   
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -93,7 +113,7 @@ The Large Scale Structure of the Universe at non--linear stage is known to be ch
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/excursion.eps}
+\includegraphics[scale=0.4]{Figures/png/excursion.png}
 \end{center}
 \caption{Example of a $\kappa$--excursion set (black, right panel) with $\kappa_0=0.02$, referred to the image on the left panel. The image has been smoothed with a Gaussian kernel of size $\theta_G=0.5'$.}
 \label{fig:4:excursion}
@@ -150,7 +170,7 @@ We can now perform the double integration by parts in a similar way as we did fo
 V_2(\kappa_0) = \int d\pt \delta^D(\kappa-\kappa_0)\left(\frac{2\partial_x\partial_y\kappa\partial_x\kappa\partial_y\kappa-\partial^2_x\kappa(\partial_y\kappa)^2-\partial_y^2\kappa(\partial_x\kappa)^2}{\vert\nabla\kappa\vert^2}\right)
 \end{equation}
 %
-Equations (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) provide practical estimators for measuring the morphological features $V_k$ from an image by thresholding the pixel values and measuring local $\kappa$ gradients. In the next section we will present a theoretical model which relates $V_k$ to a set of $n$--point functions of $\kappa$.  
+Equations (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) provide practical estimators for measuring the morphological features $V_k$ from an image by thresholding the pixel values and measuring local $\kappa$ gradients. In the next section we will present a relation between $V_k$ and the real space moments of $\kappa$.  
 
 \subsection{Relation with the moments of $\kappa$}
 The estimators (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) can be expressed as ensemble expectation values of functions of $\h{\kappa}$ via (\ref{eq:4:average-real}). We can write
@@ -213,13 +233,13 @@ The parametrization of the covariance matrix (\ref{eq:4:cov-rotinv}) allows to c
 %
 \begin{equation}
 \label{eq:4:Rv2}
-\begin{split}
-&\langle\partial_\alpha^k\partial_{\eta_y}^{l_1}\partial_{\eta_x}^{l_2}\partial_{\zeta_{yy}}^m\delta^D(\alpha-\nu)\delta^D(\eta_y)\vert\eta_x\vert\zeta_{yy}\rangle_G = \\ 
-&\frac{H_{l_1}(0)H_{l_2-2}(0)}{(2\pi)^{3/2}}\left(\frac{\sigma_\eta}{\sqrt{2}}\right)^{2-l_1-l_2-2m}e^{-\nu^2/2}[H_{k+1}(\nu)\delta_{m0}-H_k(\nu)\delta_{m1}]
-\end{split} 
+\begin{gathered}
+\langle\partial_\alpha^k\partial_{\eta_y}^{l_1}\partial_{\eta_x}^{l_2}\partial_{\zeta_{yy}}^m\delta^D(\alpha-\nu)\delta^D(\eta_y)\vert\eta_x\vert\zeta_{yy}\rangle_G = \\
+\frac{H_{l_1}(0)H_{l_2-2}(0)}{(2\pi)^{3/2}}\left(\frac{\sigma_\eta}{\sqrt{2}}\right)^{2-l_1-l_2-2m}e^{-\nu^2/2}[H_{k+1}(\nu)\delta_{m0}-H_k(\nu)\delta_{m1}]
+\end{gathered} 
 \end{equation} 
 %
-Where we defined the Hermite polynomials as 
+Where the Hermite polynomials $H_n$ are defined as 
 
 \begin{equation}
 \label{eq:4:hermite}
@@ -228,7 +248,56 @@ Where we defined the Hermite polynomials as
 \end{matrix}
 \end{equation}
 %
-Figure \ref{fig:4:minkpert}
+These expressions, after some tedious algebra, lead to the connection between the MFs and the moments of $\kappa$ via the perturbative approach (\ref{eq:4:pert-quad})
+
+\begin{equation}
+\label{eq:4:Vk-pert}
+V_k(\kappa_0=\sigma_0\nu) = A_k e^{-\nu^2/2}\left[V_k^G(\nu)+\delta V^1_k(\nu) + \delta V^2_k(\nu) + O(\lambda^3)\right] 
+\end{equation}
+%
+In this notation, $V_k^G=H_{k-1}$ is the Gaussian contribution to the $k$--th MF and $\delta V^1_k,\delta V^2_k$ are the corrections coming respectively from $O(\lambda)$, $O(\lambda^2)$ non--Gaussianity in $\kappa$. For reference, the amplitudes $A_k$ are defined as 
+
+\begin{equation}
+\label{eq:4:amplitude}
+\begin{matrix}
+\displaystyle A_0 = \frac{\theta_{\rm FOV}^2}{\sqrt{2\pi}} & ; & \displaystyle A_1 = \frac{\sigma_\eta\theta_{\rm FOV}^2}{2\sqrt{2}} & ; & \displaystyle A_2 = \frac{\sigma_\eta^2\theta^2_{\rm FOV}}{\sqrt{8\pi}}
+\end{matrix}
+\end{equation}
+%
+\citep{Munshi12} performed the calculations up to perturbative order $O(\lambda^2)$ and found that the knowledge of seven independent higher moments of $\kappa$ is sufficient to calculate the corrections. 
+
+\begin{equation}
+\label{eq:4:skew-dimensionless}
+\begin{matrix}
+\displaystyle \mu_{30} = \frac{\langle\kappa^3\rangle}{\sigma_0^3} & ; & \displaystyle \mu_{31} = -\frac{3}{4} \frac{\langle\kappa^2\nabla^2\kappa\rangle}{\sigma_0^3\sigma_\eta^2} & ; & \displaystyle \mu_{32} = -3 \frac{\langle\vert\nabla\kappa\vert^2\nabla^2\kappa\rangle}{\sigma_0^3\sigma_\eta^4}
+\end{matrix}
+\end{equation}
+%
+\begin{equation}
+\label{eq:4:kurt-dimensionless}
+\begin{matrix}
+\displaystyle \mu_{40} = \frac{\langle\kappa^4\rangle_c}{\sigma_0^4} & ; & \displaystyle \mu_{41} = \frac{\langle\kappa^3\nabla^2\kappa\rangle_c}{\sigma_0^4\sigma_\eta^2} \\ \\ 
+\displaystyle \mu_{42} = \frac{\langle\kappa\vert\nabla\kappa\vert^2\nabla^2\kappa\rangle_c}{\sigma_0^4\sigma_\eta^4} & ; & \displaystyle \mu_{43} = \frac{\vert\nabla\kappa\vert^4\rangle_c}{2\sigma_0^4\sigma_\eta^4}
+\end{matrix}
+\end{equation}
+%
+We use the subscript $c$ to indicate the connected component of the quartic moments $\pmb{\mu}_4$. The non--Gaussian corrections to the MFs can be expressed as 
+
+\begin{equation}
+\label{eq:4:Vk-pert-skew}
+\delta V^1_k = \frac{\mu_{30}}{6}H_{k+2} + \frac{k\mu_{31}}{3}H_k + \frac{k(k-1)\mu_{32}}{6}H_{k-2}
+\end{equation}
+%
+\begin{equation}
+\label{eq:4:Vk-pert-kurt}
+\begin{gathered}
+\displaystyle \delta V^2_0 = \frac{\mu_{30}^2}{72}H_5 + \frac{\mu_{40}}{24}H_3 \\
+\displaystyle \delta V^2_1 = \frac{\mu_{30}^2}{72}H_6 + \left(\frac{\mu_{40}-\mu_{30}\mu_{31}}{24}\right)H_4 - \frac{1}{12}\left(\mu_{41}+\frac{3}{8}\mu_{31}^2\right)H_2 - \frac{\mu_{43}}{8}  \\ 
+\displaystyle \delta V^2_2 = \frac{\mu_{30}^2}{72}H_7 + \left(\frac{\mu_{40}-\mu_{30}\mu_{31}}{24}\right)H_5 - \frac{1}{6}\left(\mu_{41}+\frac{\mu_{30}\mu_{32}}{2}\right)H_3 - \frac{1}{2}\left(\mu_{42}+2\mu_{43}+\frac{\mu_{31}\mu_{32}}{2}\right)H_1 
+\end{gathered}
+\end{equation}
+%
+Figure \ref{fig:4:minkpert} shows a comparison between measured MFs from our simulated $\kappa$ images (using estimators (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator})) and the $O(\lambda^2)$ perturbative approximation obtained with equations (\ref{eq:4:Vk-pert-skew}), (\ref{eq:4:Vk-pert-kurt}).  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -237,7 +306,7 @@ Figure \ref{fig:4:minkpert}
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/convergencePeaks.eps}
+\includegraphics[scale=0.4]{Figures/png/convergencePeaks.png}
 \end{center}
 \caption{Peak counts}
 \label{fig:4:peaks}

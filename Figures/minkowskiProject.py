@@ -3,6 +3,7 @@ import sys,os
 import numpy as np
 import scipy.special as sp
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 from lenstools.pipeline.simulation import LensToolsCosmology
 
@@ -72,8 +73,66 @@ def minkPerturbation01(cmd_args,mfs=(0,1)):
 def minkPerturbation2(cmd_args,mfs=(2,)):
 	minkPerturbation(cmd_args,mfs=mfs)
 
-def seriesConvergence():
-	pass
+def seriesConvergence(cmd_args,smoothing_arcmin=(1,5),mfs=(0,1,2),noise=False,nb=15,fontsize=22):
+
+	#Set up plot
+	fig,ax = plt.subplots()
+
+	#Colors/linestyles
+	color = [ sns.xkcd_rgb[c] for c in ["denim blue","medium green","pale red"] ]
+	linestyle = ["-","--"]
+
+	#Cycle over smoothing scales
+	for ns,s in enumerate(smoothing_arcmin):
+
+		#Root of filename
+		if noise:
+			suffix = "{0}smth_noisy.txt".format(s)
+		else:
+			suffix = "{0}smth.txt".format(s)
+
+		fname_cosmo = os.path.join(data_path,"Output_final","{0}"+"_{0}_200z_".format(fiducial.cosmo_id(cosmo_parameters,cosmo_legend))+suffix)
+		fname = os.path.join(data_path,"Output_final","{0}_"+suffix)
+	
+		#Load data: measured
+		mink = np.loadtxt(fname_cosmo.format("obs"))[9:]
+		cov = np.loadtxt(fname_cosmo.format("cov"))[9:,9:]
+
+		#Load data: theory
+		gauss = np.loadtxt(fname.format("tgauss"))
+		skew = np.loadtxt(fname.format("tskew"))
+		kurt = np.loadtxt(fname.format("tkurt"))
+
+		#Build line trends
+		line = np.zeros((len(mfs),3))
+		for n,mf in enumerate(mfs):
+
+			#Cut
+			meas = mink[nb*mf:nb*(mf+1)]
+			err = cov[nb*mf:nb*(mf+1),nb*mf:nb*(mf+1)]
+			psi = np.linalg.inv(err)
+			t0 = gauss[nb*mf:nb*(mf+1)]
+			t1 = skew[nb*mf:nb*(mf+1)]
+			t2 = kurt[nb*mf:nb*(mf+1)]
+
+			#Dot product 
+			line[n,0] = (meas - t0).dot(psi).dot(meas - t0) / nb
+			line[n,1] = (meas - t1).dot(psi).dot(meas - t1) / nb
+			line[n,2] = (meas - t2).dot(psi).dot(meas - t2) / nb
+
+			#Plot
+			ax.plot(line[n],color=color[n],linestyle=linestyle[ns],label=r"$V_{0}(\theta_G={1}')$".format(mf,s))
+
+	#Labels
+	ax.set_yscale("log")
+	ax.set_xticklabels([r"$G$","",r"$M^{(3)}$","",r"$M^{(4)}$"],fontsize=18)
+	ax.set_xlabel(r"${\rm Perturbative}$ ${\rm order}$",fontsize=fontsize)
+	ax.set_ylabel(r"$\Delta \chi^2_{\rm DOF}({\rm measured}-{\rm series})$",fontsize=fontsize)
+	ax.legend(loc="upper right")
+
+	#Save
+	fig.savefig("{0}/minkConvergence.{0}".format(cmd_args.type))
+	
 
 def contours():
 	pass

@@ -92,6 +92,14 @@ def excursion(cmd_args,smooth=0.5*u.arcmin,threshold=0.02,fontsize=22):
 	conv.visualize(colorbar=True,cbar_label=r"$\kappa$",fig=fig,ax=ax[0])
 	exc.visualize(colorbar=True,cmap="binary",norm=norm,fig=fig,ax=ax[1])
 
+	#Overlay boundary on the image
+	mask = conv.mask(exc_data.astype(np.int8))
+	i,j = np.where(mask.boundary>0)
+	scale = conv.resolution.to(u.deg).value
+	ax[0].scatter(j*scale,i*scale,color="red",marker=".",s=0.5)
+	ax[0].set_xlim(0,conv.side_angle.to(u.deg).value)
+	ax[0].set_ylim(0,conv.side_angle.to(u.deg).value)
+
 	#Format right colorbar
 	cbar = exc.ax.get_images()[0].colorbar
 	cbar.outline.set_linewidth(1)
@@ -120,12 +128,16 @@ def convergencePeaks(cmd_args,fontsize=22):
 
 	#Show the convergence with the peak locations
 	conv.visualize(fig=fig,ax=ax[0],colorbar=True,cbar_label=r"$\kappa$")
-	ax[0].scatter(*positions[height>2.].to(u.deg).value.T,color="red",marker="x")
+	ax[0].scatter(*positions[height>2.].to(u.deg).value.T,color="red",marker="o")
 	ax[0].set_xlim(0,conv.side_angle.to(u.deg).value)
 	ax[0].set_ylim(0,conv.side_angle.to(u.deg).value)
 
-	#Show the peak histogram
+	#Show the peak histogram (measured + gaussian)
 	conv.peakHistogram(sigma,norm=True,fig=fig,ax=ax[1],label=r"${\rm Measured}$")
+	conv.gaussianPeakHistogram(sigma,norm=True,fig=fig,ax=ax[1],label=r"${\rm Gaussian}$")
+
+	#Limits
+	ax[1].set_ylim(1,1.0e3)
 
 	#Labels
 	ax[1].set_xlabel(r"$\kappa/\sigma_0$",fontsize=fontsize)
