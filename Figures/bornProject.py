@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from lenstools.pipeline.simulation import SimulationBatch
-from lenstools import ConvergenceMap
+from lenstools import ConvergenceMap, GaussianNoiseGenerator
 
 #Simulation batch handler
 batch = SimulationBatch.current("/Users/andreapetri/Documents/Columbia/Simulations/DEBatch/environment.ini")
@@ -64,6 +64,40 @@ def convergenceVisualize(cmd_args,collection="c0",smooth=0.5*u.arcmin,fontsize=2
 	#Save
 	fig.tight_layout()
 	fig.savefig("{0}/csample.{0}".format(cmd_args.type))
+
+##########################################################################################################################
+
+def powerSample(cmd_args,smooth=0.5*u.arcmin,ngal=(15,30,45),z=2.0,fontsize=22):
+
+	#Set up plot
+	fig,ax = plt.subplots()
+
+	#Load data
+	ell = np.load(os.path.join(batch.home,"ell_nb98.npy"))
+	smth = np.exp(-(ell*smooth.to(u.rad).value)**2)
+	pkappa = np.load(os.path.join(fiducial["c0"].getMapSet("kappa").home,"power_s0_nb98.npy"))
+	pomega = np.load(os.path.join(fiducial["c0"].getMapSet("omega").home,"power_s0_nb98.npy"))
+
+	#Plot kappa,omega
+	ax.plot(ell,ell*(ell+1)*smth*pkappa.mean(0)/(2*np.pi),label=r"$\kappa\kappa$")
+	ax.plot(ell,ell*(ell+1)*smth*pomega.mean(0)/(2*np.pi),label=r"$\omega\omega$")
+
+	#Make up shape noise
+	linestyles = ["-","--","-."]
+	for n,ng in enumerate(ngal):
+		level = (0.15+0.035*z)**2 / (ng*(u.arcmin**-2)).to(u.rad**-2).value
+		ax.plot(ell,ell*(ell+1)*smth*level/(2*np.pi),color="black",linestyle=linestyles[n],label=r"${\rm Shape},\,\,"+r"n_g={0}".format(ng)+r"{\rm arcmin}^{-2}"+r"$")
+
+	#Labels, scales
+	ax.set_xscale("log")
+	ax.set_yscale("log")
+	ax.set_xlabel(r"$\ell$",fontsize=fontsize)
+	ax.set_ylabel(r"$\ell(\ell+1)P(\ell)e^{-\ell^2\theta_G^2}/2\pi$",fontsize=fontsize)
+	ax.legend(bbox_to_anchor=(0., 1.02, 1., .102),loc=3,ncol=2,mode="expand",borderaxespad=0.,prop={"size":15})
+
+	#Save
+	fig.savefig("{0}/powerSample.{0}".format(cmd_args.type))
+
 
 ##########################################################################################################################
 
@@ -132,9 +166,16 @@ def convergencePeaks(cmd_args,fontsize=22):
 	ax[0].set_xlim(0,conv.side_angle.to(u.deg).value)
 	ax[0].set_ylim(0,conv.side_angle.to(u.deg).value)
 
+	#Build a gaussianized version of the map
+	gen = GaussianNoiseGenerator.forMap(conv)
+	ell = np.linspace(conv.lmin,conv.lmax,100)
+	ell,Pell = conv.powerSpectrum(ell)
+	convGauss = gen.fromConvPower(np.array([ell,Pell]),bounds_error=False,fill_value=0.)
+
 	#Show the peak histogram (measured + gaussian)
 	conv.peakHistogram(sigma,norm=True,fig=fig,ax=ax[1],label=r"${\rm Measured}$")
-	conv.gaussianPeakHistogram(sigma,norm=True,fig=fig,ax=ax[1],label=r"${\rm Gaussian}$")
+	convGauss.peakHistogram(sigma,norm=True,fig=fig,ax=ax[1],label=r"${\rm Gaussianized}$")
+	conv.gaussianPeakHistogram(sigma,norm=True,fig=fig,ax=ax[1],label=r"${\rm Prediction}:(dN_{\rm pk}/d\nu)_G$")
 
 	#Limits
 	ax[1].set_ylim(1,1.0e3)

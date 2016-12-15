@@ -73,14 +73,14 @@ def minkPerturbation01(cmd_args,mfs=(0,1)):
 def minkPerturbation2(cmd_args,mfs=(2,)):
 	minkPerturbation(cmd_args,mfs=mfs)
 
-def seriesConvergence(cmd_args,smoothing_arcmin=(1,5),mfs=(0,1,2),noise=False,nb=15,fontsize=22):
+def seriesConvergence(cmd_args,smoothing_arcmin=(1,5,15),mfs=(0,1,2),noise=False,nb=15,fontsize=22):
 
 	#Set up plot
 	fig,ax = plt.subplots()
 
 	#Colors/linestyles
 	color = [ sns.xkcd_rgb[c] for c in ["denim blue","medium green","pale red"] ]
-	linestyle = ["-","--"]
+	linestyle = ["-","--","-."]
 
 	#Cycle over smoothing scales
 	for ns,s in enumerate(smoothing_arcmin):
@@ -128,7 +128,7 @@ def seriesConvergence(cmd_args,smoothing_arcmin=(1,5),mfs=(0,1,2),noise=False,nb
 	ax.set_xticklabels([r"$G$","",r"$M^{(3)}$","",r"$M^{(4)}$"],fontsize=18)
 	ax.set_xlabel(r"${\rm Perturbative}$ ${\rm order}$",fontsize=fontsize)
 	ax.set_ylabel(r"$\Delta \chi^2_{\rm DOF}({\rm measured}-{\rm series})$",fontsize=fontsize)
-	ax.legend(loc="upper right")
+	ax.legend(bbox_to_anchor=(0., 1.02, 1., .102),loc=3,ncol=3,mode="expand", borderaxespad=0.,prop={"size":15})
 
 	#Save
 	fig.savefig("{0}/minkConvergence.{0}".format(cmd_args.type))

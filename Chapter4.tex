@@ -5,22 +5,17 @@
  \thispagestyle{plain}
 \setlength{\parindent}{10mm}
 
-In this Chapter we describe how we can compress the hight dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work), that hopefully contain information about $\Lambda$CDM cosmological parameters. We will focus our analysis on pixelized $\kappa$ images, which are the output of the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and are independent from each other, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}. Because of the stochastic nature of the convergence profile in the field of view (which ultimately originates from cosmic variance), cosmological information is contained in statistically averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$. For a Gaussian field, all the statistical information is contained in image features $f$ which are quadratic in $\kappa$. Since $\kappa$ traces the non--linear density contrast $\delta$, cosmological information leaks from quadratic features into higher order descriptors. In the remainder of the Chapter we overview the image features considered in this work, and outline their most important properties, advantages and drawbacks.
+In this Chapter we describe how we can compress the hight dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work), that hopefully contain information about $\Lambda$CDM cosmological parameters. We will focus our analysis on pixelized $\kappa$ images, which are the output of the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and are independent from each other, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}. Because of the stochastic nature of the convergence profile in the field of view (which ultimately originates from cosmic variance), cosmological information is contained in statistically averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$. For a Gaussian field, all the statistical information is contained in image features $f$ which are quadratic in $\kappa$, such as the angular power spectrum. Since $\kappa$ traces the non--linear density contrast $\delta$, cosmological information leaks from quadratic features into higher order descriptors. In this work we consider two types of features: we make use of real space features, which have to do with the morphology of the image and can be expressed in terms of expectation values of local estimators. We also consider the angular $\kappa$ power spectrum, which is a non--local feature that encodes spatial quadratic correlations of $\kappa$. In the remainder of the Chapter we examine the most important properties, advantages and drawbacks of these image features. 
 
 \section{Real space local expectation values}
-Our knowledge of the angular profiles $\h{\kappa}(\pt)$, combined with the isotropy assumption, allows to estimate the ensemble averages $\langle\rangle$ as spatial averages, both in real and Fourier space as 
+Our knowledge of the angular profiles $\h{\kappa}(\pt)$, combined with the isotropy assumption, allows to estimate the ensemble averages $\langle\rangle$ as spatial averages in real space as 
 
 \begin{equation}
 \label{eq:4:average-real}
 \langle f(\h{\kappa})\rangle = \frac{1}{\theta^2_{\rm FOV}}\int_{\rm FOV}d\pt f(\h{\kappa})(\pt) 
 \end{equation}
 %
-\begin{equation}
-\label{eq:4:average-fourier}
-\langle \tilde{f}(\h{\kappa})\rangle = \frac{1}{N_{\ell}}\int d\pell' \tilde{f}(\h{\kappa})(\pell')\delta^D(\ell'^2-\ell^2)
-\end{equation}  
-%
-For the Fourier feature $\tilde{f}$, we consider each scale independently, and we average over the $N_\ell\sim\ell\theta_{\rm FOV}$ two dimensional modes $\pell$ with the same magnitude $\vert\pell\vert=\ell$. In this section we will describe a systematic way to relate expectation values of local estimators to the connected moments of $\kappa$, following the derivation given in \citep{MatsubaraLong}. Since the estimators considered in this Chapter will contain at most second spatial derivatives in $\kappa$, we can consider the most general one of them to be some function of the $N$--dimensional vector $\bb{K}$, defined formally by
+In this section we will describe a systematic way to relate expectation values of local estimators to the connected moments of $\kappa$, following the derivation given in \citep{MatsubaraLong}. Since the estimators considered in this Chapter will contain at most second spatial derivatives in $\kappa$, we can consider the most general one of them to be some function of the $N$--dimensional vector $\bb{K}$, defined formally by
 
 \begin{equation}
 \label{eq:4:lcl-vec}
@@ -103,7 +98,7 @@ with
 \langle f(\bb{K})\rangle_4 = \frac{1}{24}\bb{M}^{(4)}_{\bb{i}}\left\langle\frac{\partial f(\bb{K})}{\partial K_{\bb{i}}}\right\rangle_G+ \frac{1}{12}\bb{M}^{(3)}_{\bb{i}}\bb{M}^{(3)}_{\bb{j}}\left\langle\frac{\partial^2 f(\bb{K})}{\partial K_{\bb{i}}\partial K_{\bb{j}}}\right\rangle_G
 \end{equation}
 %
-In equations (\ref{eq:4:3-contribution}), (\ref{eq:4:4-contribution}) we grouped individual vector indexes in the multi--indexes $\bb{i},\bb{j}$. Note that the quartic perturbation term (\ref{eq:4:4-contribution}) picks up disconnected contributions $(\bb{M}^{(3)})^2$ which are of the same order as $\bb{M}^{(4)}$. In the next paragraph we will apply this perturbation approach to morphological descriptors of simulated $\kappa$ images, and test its validity.   
+In equations (\ref{eq:4:3-contribution}), (\ref{eq:4:4-contribution}) we grouped individual $\bb{K}$ vector indexes in the multi--indexes $\bb{i},\bb{j}$. Note that the quartic perturbation term (\ref{eq:4:4-contribution}) picks up disconnected contributions $(\bb{M}^{(3)})^2$ which are of the same order as $\bb{M}^{(4)}$. In the next paragraph we will apply this perturbative approach to morphological descriptors of simulated $\kappa$ images, and test its validity.   
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -115,7 +110,7 @@ The Large Scale Structure of the Universe at non--linear stage is known to be ch
 \begin{center}
 \includegraphics[scale=0.4]{Figures/png/excursion.png}
 \end{center}
-\caption{Example of a $\kappa$--excursion set (black, right panel) with $\kappa_0=0.02$, referred to the image on the left panel. The image has been smoothed with a Gaussian kernel of size $\theta_G=0.5'$.}
+\caption{Example of a $\kappa$--excursion set (black, right panel) for a simulated field of view of size $\theta_{\rm FOV}=3.5\,{\rm deg}$, with $\kappa_0=0.02$, referred to the image on the left panel. The $\kappa=0.02$ iso--contours have been indicated in red. The sources have been placed at a single redshift $z_s=2$. The image has been smoothed with a Gaussian kernel of size $\theta_G=0.5'$.}
 \label{fig:4:excursion}
 \end{figure}
 %
@@ -210,15 +205,6 @@ V_1(\kappa_0) = \frac{\pi}{2}\theta_{\rm FOV}^2\langle\delta^D(\h{\kappa}-\kappa
 V_2(\kappa_0) = -\pi\theta_{\rm FOV}^2\langle\delta^D(\h{\kappa}-\kappa_0)\delta^D(\partial_y\h{\kappa})\vert\partial_x\h{\kappa}\vert\partial^2_y\h{\kappa}\rangle
 \end{equation}
 %
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.3]{Figures/eps/minkPerturbation0-1.eps}
-\includegraphics[scale=0.3]{Figures/eps/minkPerturbation2.eps}
-\end{center}
-\caption{Perturbation series for MFs}
-\label{fig:4:minkpert}
-\end{figure}
-%
 The parametrization of the covariance matrix (\ref{eq:4:cov-rotinv}) allows to calculate explicitly expectation values of particular classes of estimators $f$ which are local in the convergence, such as (\ref{eq:4:mf0-expectation}), (\ref{eq:4:mf1-expectation}) and (\ref{eq:4:mf2-expectation}). Per equation (\ref{eq:4:exp-formal}), we need to calculate Gaussian expectation values of arbitrary $\alpha,\pmb{\eta},\pmb{\zeta}$ derivatives of the local estimator. After some Gaussian integral algebra we obtain
 
 \begin{equation}
@@ -231,6 +217,7 @@ The parametrization of the covariance matrix (\ref{eq:4:cov-rotinv}) allows to c
 \langle\partial_\alpha^n\partial_{\eta_x}^m\delta^D(\alpha-\nu)\vert\eta_x\vert\rangle_G = \frac{H_{m-2}(0)}{\pi}\left(\frac{\sigma_\eta}{\sqrt{2}}\right)^{1-m}e^{-\nu^2/2}H_n(\nu) 
 \end{equation} 
 %
+\hfill
 \begin{equation}
 \label{eq:4:Rv2}
 \begin{gathered}
@@ -277,7 +264,7 @@ In this notation, $V_k^G=H_{k-1}$ is the Gaussian contribution to the $k$--th MF
 \label{eq:4:kurt-dimensionless}
 \begin{matrix}
 \displaystyle \mu_{40} = \frac{\langle\kappa^4\rangle_c}{\sigma_0^4} & ; & \displaystyle \mu_{41} = \frac{\langle\kappa^3\nabla^2\kappa\rangle_c}{\sigma_0^4\sigma_\eta^2} \\ \\ 
-\displaystyle \mu_{42} = \frac{\langle\kappa\vert\nabla\kappa\vert^2\nabla^2\kappa\rangle_c}{\sigma_0^4\sigma_\eta^4} & ; & \displaystyle \mu_{43} = \frac{\vert\nabla\kappa\vert^4\rangle_c}{2\sigma_0^4\sigma_\eta^4}
+\displaystyle \mu_{42} = \frac{\langle\kappa\vert\nabla\kappa\vert^2\nabla^2\kappa\rangle_c}{\sigma_0^4\sigma_\eta^4} & ; & \displaystyle \mu_{43} = \frac{\langle\vert\nabla\kappa\vert^4\rangle_c}{2\sigma_0^4\sigma_\eta^4}
 \end{matrix}
 \end{equation}
 %
@@ -297,32 +284,126 @@ We use the subscript $c$ to indicate the connected component of the quartic mome
 \end{gathered}
 \end{equation}
 %
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{Figures/eps/minkPerturbation0-1.eps}
+\includegraphics[scale=0.4]{Figures/eps/minkPerturbation2.eps}
+\end{center}
+\caption{Perturbation series for MFs}
+\label{fig:4:minkpert}
+\end{figure}
+%
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{Figures/eps/minkConvergence.eps}
+\end{center}
+\caption{Convergence of the perturbation series MFs}
+\label{fig:4:minkconv}
+\end{figure}
+%
 Figure \ref{fig:4:minkpert} shows a comparison between measured MFs from our simulated $\kappa$ images (using estimators (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator})) and the $O(\lambda^2)$ perturbative approximation obtained with equations (\ref{eq:4:Vk-pert-skew}), (\ref{eq:4:Vk-pert-kurt}).  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Peak counts}
+In the previous section how morphological features in $\kappa$ maps can be related to quadratic and higher--than--quadratic local moments of $\kappa$. In the case of Gaussian fields, MFs are completely characterized in terms of the two moments $\sigma_0,\sigma_\eta$, but when non--Gaussianity is present MFs contain information on arbitrarily high order correlations. A similar argument can be carried out for a different type of local feature in $\kappa$ maps, such as the statistical properties of local $\kappa$ maxima (which we will call \textit{peaks} from now on). In this paragraph we will explore the usage of the number of peaks $N_{\rm pk}$ of a certain height $\kappa_0$ as an image feature. A $\kappa$ peak can be identified at a location $\pt_p$ if the gradient $\pmb{\eta}$ vanishes at this location and the Hessian matrix $\pmb{\zeta}$ is positive definite. Following \citep{BondCMB}, we can define the peak angular density at a particular location $\pt$ as 
 
+\begin{equation}
+\label{eq:4:peak-density}
+n_{\rm pk}(\pt) = \sum_p \delta^D(\pt-\pt_p) = \vert\pmb{\zeta}(\pt)\vert\delta^D(\pmb{\eta}(\pt))
+\end{equation}
+%
+Where the sum extends over all peaks in the map and the Jacobian determinant is defined as $\vert\pmb{\zeta}\vert=\zeta_{xx}\zeta_{yy}-\zeta_{xy}^2$. If we are interested in computing the expected number of peaks of a certain height $\kappa_0=\sigma_0\nu$ in a $\kappa$ image, we have to calculate the expectation value of the local estimator
+
+\begin{equation}
+\label{eq:4:peak-estimator}
+\frac{dN_{\rm pk}}{d\nu} = \theta^2_{\rm FOV}\left\langle\delta^D(\alpha-\nu)\delta^D(\pmb{\eta})\vert\pmb{\zeta}\vert\Theta(\vert\pmb{\zeta}\vert)\Theta(\Tr\pmb{\zeta})\right\rangle
+\end{equation}
+%
+The product of $\Theta$ functions in (\ref{eq:4:peak-estimator}) ensures that the extremum of $\kappa$ is actually a maximum and not a minimum or a saddle point. Note that we related the peak histogram to the expectation value of a local estimator, which can be calculated in perturbation series using (\ref{eq:4:exp-formal}) in the same fashion as the MFs, although the calculation is more involved. In this paragraph, we will limit ourselves to giving an expression for $\frac{dN_{\rm pk}}{d\nu}$ at Gaussian order. In order to ease the calculations, it is useful to introduce a parametrization for $\pmb{\zeta}$ in terms of three parameters $t,u,\phi$
+
+\begin{equation}
+\label{eq:4:hess-param}
+\pmb{\zeta} = -\sigma_\zeta
+\begin{pmatrix}
+\displaystyle \frac{x}{2}+x\epsilon\cos(2\phi) & x\epsilon\sin(2\phi) \\
+x\epsilon\sin(2\phi) & \displaystyle \frac{x}{2}-x\epsilon\cos(2\phi)
+\end{pmatrix}
+\end{equation}  
+%
+In this parametrization $x,\epsilon$ are scalars under rotations because $\sigma_\zeta x=-\Tr\pmb{\zeta}, \sigma_\zeta^2x^2(1-4\epsilon^2)/4=\vert\pmb{\zeta}\vert$, and $\phi$ transforms as an angle shift. With the help of the rotational symmetry, and the change of variable
+
+\begin{equation}
+\label{eq:4:wx}
+\begin{matrix}
+\displaystyle u = \frac{\alpha-\gamma x}{\sqrt{1-\gamma^2}} & ; & \displaystyle \gamma = \frac{\sigma_\eta^2}{\sigma_\zeta}
+\end{matrix}
+\end{equation} 
+%
+we can write the Gaussian likelihood (\ref{eq:4:gaussian-lik}) as 
+
+\begin{equation}
+\label{eq:4:gaussian-lik-pk}
+\mathcal{L}_G(\bb{K})d\bb{K} = \frac{8\epsilon x^2}{2\pi^3\sigma_\eta^2}\exp\left(-\frac{u^2+x^2}{2}-\frac{\eta^2}{\sigma_\eta^2}-4x^2\epsilon^2\right)dudxd\pmb{\eta}d\epsilon d\phi
+\end{equation} 
+%
+The expectation value (\ref{eq:4:peak-estimator}) can be expressed in a more friendly way as 
+
+\begin{equation}
+\label{eq:4:peak-estimator-2}
+\left(\frac{dN_{\rm pk}}{d\nu}\right)_G = \frac{\theta^2_{\rm FOV}\sigma^2_\zeta}{4}\left\langle\delta^D\left(u\sqrt{1-\gamma^2}+\gamma x-\nu\right)\delta^D(\pmb{\eta})x^2(1-4\epsilon^2)\Theta(-x)\Theta(1-4\epsilon^2)\right\rangle_G
+\end{equation}
+%
+Although tedious, the Gaussian integrals in (\ref{eq:4:peak-estimator-2}) can be performed explicitly \citep{BondCMB} to yield
+%
+\begin{equation}
+\label{eq:4:peaks-gaussian}
+\frac{dN_{\rm pk}(\nu)}{d\nu} = \frac{(\sigma_\eta\theta_{\rm FOV})^2}{2(2\pi)^{3/2} \gamma^2}e^{-\nu^2/2}G(\gamma,\gamma\nu)
+\end{equation}
+%
+\begin{equation}
+\label{eq:4:Gdef}
+\begin{gathered}
+G(\gamma,t) = (t^2-\gamma^2)\left[1-\frac{1}{2}{\rm erfc}\left(\frac{t}{\sqrt{2(1-\gamma^2)}}\right)\right] \\
++ \frac{t(1-\gamma^2)}{\sqrt{2\pi(1-\gamma^2)}} + \frac{e^{-t^2/(3-2\gamma^2)}}{\sqrt{3-2\gamma^2}}\left[1-\frac{1}{2}{\rm erfc}\left(\frac{t}{\sqrt{2(1-\gamma^2)(3-2\gamma^2)}}\right)\right]
+\end{gathered}
+\end{equation}
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/png/convergencePeaks.png}
 \end{center}
-\caption{Peak counts}
+\caption{A sample $\kappa$ map ($\theta_{\rm FOV}=3.5\,{\rm deg}$) with its peak locations highlighted in red dots. The right panel shows the peak number (blue) as a function of the peak height $\nu\sigma_0$ (blue). The panel also shows the peak histogram for a Gaussian $\kappa$ field with the same power spectrum as the simulated one (green) and the Gaussian prediction for $dN_{\rm pk}/d\nu$ obtained with equation (\ref{eq:4:peaks-gaussian}).}
 \label{fig:4:peaks}
 \end{figure}
 %
+Figure \ref{fig:4:peaks}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Angular power spectrum}
 
-\subsection{Perturbative expansion in $\Phi$}
+\begin{equation}
+\label{eq:4:average-fourier}
+\langle \tilde{f}(\h{\kappa})\rangle = \frac{1}{N_{\ell}}\int d\pell' \tilde{f}(\h{\kappa})(\pell')\delta^D(\ell'^2-\ell^2)
+\end{equation}  
+%
+For the Fourier feature $\tilde{f}$, we consider each scale independently, and we average over the $N_\ell\sim\ell\theta_{\rm FOV}$ two dimensional modes $\pell$ with the same magnitude $\vert\pell\vert=\ell$.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{Figures/eps/powerSample.eps}
+\end{center}
+\caption{Power spectrum sample}
+\label{fig:4:psample}
+\end{figure}
+
+\subsection{Born approximation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Higher Moments of the convergence field}
+\section{Convergence moments}
 
-\subsection{Perturbative expansion in $\Phi$}
+\subsection{Born approximation}
 
 \bibliography{ref}
