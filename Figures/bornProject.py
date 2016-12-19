@@ -14,6 +14,7 @@ from lenstools import ConvergenceMap, GaussianNoiseGenerator
 
 #Simulation batch handler
 batch = SimulationBatch.current("/Users/andreapetri/Documents/Columbia/Simulations/DEBatch/environment.ini")
+batchCov = SimulationBatch.current("/Users/andreapetri/Documents/Columbia/Simulations/CovarianceBatch/environment.ini")
 
 models = batch.models
 
@@ -97,6 +98,44 @@ def powerSample(cmd_args,smooth=0.5*u.arcmin,ngal=(15,30,45),z=2.0,fontsize=22):
 
 	#Save
 	fig.savefig("{0}/powerSample.{0}".format(cmd_args.type))
+
+def powerCov(cmd_args,fontsize=22):
+
+	#Set up plot
+	fig,ax = plt.subplots()
+
+	#Load data (linear binning)
+	ell = np.load(os.path.join(batch.home,"ell_nb100.npy"))
+	nell = np.load(os.path.join(fiducial["c0"].getMapSet("kappa").home,"num_ell_nb100.npy"))
+	pell0 = np.load(os.path.join(fiducial["c0"].getMapSet("kappa").home,"convergence_power_s0_nb100.npy"))
+	pellN = np.load(os.path.join(fiducial["c0"].getMapSet("kappa").home,"convergence_powerSN_s0_nb100.npy"))
+
+	#Load data (log binning)
+	ellL = np.load(os.path.join(batchCov["m0c0"].home,"ell.npy"))
+	nellL = np.load(os.path.join(batchCov["m0c0"].home,"num_ell.npy"))
+	pellL = np.load(os.path.join(batchCov["m0c0"].getMapSet("Maps1").home,"power_spectrum_s0.npy"))
+
+	#Mean, covariance
+	p0 = pell0.mean(0)
+	c0 = np.cov(pell0.T).diagonal()
+	pN = pellN.mean(0)
+	cN = np.cov(pellN.T).diagonal()
+	pL = pellL.mean(0)
+	cL = np.cov(pellL.T).diagonal()
+
+	#Plot and compare to Gaussian prediction
+	ax.plot(ell,c0*nell/(p0**2),label=r"${\rm Noiseless}$ ${\rm linear}$ ${\rm binning}$")
+	ax.plot(ellL,cL*nellL/(pL**2),label=r"${\rm Noiseless}$ ${\rm log}$ ${\rm binning}$")
+	ax.plot(ell,cN*nell/(pN**2),label=r"${\rm Shape, }n_g=15\,{\rm arcmin}^{-2}$")
+
+	#Labels
+	ax.set_xscale("log")
+	ax.set_xlabel(r"$\ell$",fontsize=fontsize)
+	ax.set_ylabel(r"${\rm cov}[\hat{P}(\ell)\hat{P}(\ell)]\times N_\ell/P^2_\ell$",fontsize=fontsize)
+	ax.legend(loc="upper left",prop={"size":15})
+
+	#Save
+	fig.savefig("{0}/powerCov.{0}".format(cmd_args.type))
 
 
 ##########################################################################################################################
@@ -204,16 +243,16 @@ def powerResiduals(cmd_args,collection="c0",fontsize=22):
 	pGP_cross = np.load(os.path.join(fiducial[collection].getMapSet("kappaBorn").home,"cross_powerGP_s0_nb100.npy"))
 
 	#Plot
-	ax.plot(ell,ell*(ell+1)*(np.abs(pFull.mean(0)-pBorn.mean(0)))/(2.0*np.pi),label=r"${\rm ray-born}$")
-	ax.plot(ell,ell*(ell+1)*np.abs(pGP_cross.mean(0))/np.pi,label=r"$2{\rm born}\times{\rm geo}$")
-	ax.plot(ell,ell*(ell+1)*np.abs(pLL_cross.mean(0))/np.pi,label=r"$2{\rm born}\times{\rm ll}$")
+	ax.plot(ell,ell*(ell+1)*(np.abs(pFull.mean(0)-pBorn.mean(0)))/(2.0*np.pi),label=r"$P-P^{1,1}$")
+	ax.plot(ell,ell*(ell+1)*np.abs(pGP_cross.mean(0))/np.pi,label=r"$2P^{1,2-{\rm gp}}$")
+	ax.plot(ell,ell*(ell+1)*np.abs(pLL_cross.mean(0))/np.pi,label=r"$2P^{1,2-{\rm ll}}$")
 
 	#Labels
 	ax.legend(loc="upper left",prop={"size":20})
 	ax.set_xscale("log")
 	ax.set_yscale("log")
 	ax.set_xlabel(r"$\ell$",fontsize=fontsize)
-	ax.set_ylabel(r"$\ell(\ell+1)\vert P_\ell\vert/2\pi}$")
+	ax.set_ylabel(r"$\ell(\ell+1)\vert P_{\kappa\kappa}(\ell)\vert/2\pi}$")
 
 	#Save
 	fig.tight_layout()
@@ -266,10 +305,10 @@ def plotSmoothSkew(cmd_args,collection="c0",smooth=(0.5,1.,2.,3.,5.,7.,10.),font
 	#Lines to plot
 	lines = {
 
-	r"$\kappa^3_{\rm ray}-\kappa^3_{\rm born}$" : ("kappa",("convergence_moments_s{0}_nb9.npy",),moment,True,"denim blue","-",0),
-	r"$\kappa^3_{\rm born+geo}-\kappa^3_{\rm born}$" : ("kappaB+GP",("convergence_moments_s{0}_nb9.npy",),moment,True,"medium green","-",1),
+	r"$\kappa^3-(\kappa^{(1)})^3$" : ("kappa",("convergence_moments_s{0}_nb9.npy",),moment,True,"denim blue","-",0),
+	r"$(\kappa^{(1+2-gp)})^3-(\kappa^{(1)})^3$" : ("kappaB+GP",("convergence_moments_s{0}_nb9.npy",),moment,True,"medium green","-",1),
 	r"$\kappa^3_{\rm born+ll}-\kappa^3_{\rm born}$" : ("kappaB+LL",("convergence_moments_s{0}_nb9.npy",),moment,True,"pale red","-",2),
-	r"$3\kappa^2_{\rm born}\kappa_{\rm geo}$" : ("kappaBorn",("cross_skewGP_s{0}_nb1.npy",),0,False,"medium green","--",4),
+	r"$3\kappa^2_{\rm born}\kappa_{\rm gp}$" : ("kappaBorn",("cross_skewGP_s{0}_nb1.npy",),0,False,"medium green","--",4),
 	r"$3\kappa^2_{\rm born}\kappa_{\rm ll}$" : ("kappaBorn",("cross_skewLL_s{0}_nb1.npy",),0,False,"pale red","--",5),
 	r"$3\kappa^2_{\rm born}\kappa_{\rm ll}+3\kappa^2_{\rm born}\kappa_{\rm geo}$" : ("kappaBorn",("cross_skewLL_s{0}_nb1.npy","cross_skewGP_s{0}_nb1.npy"),0,False,"denim blue","--",3),
 

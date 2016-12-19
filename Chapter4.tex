@@ -168,6 +168,7 @@ V_2(\kappa_0) = \int d\pt \delta^D(\kappa-\kappa_0)\left(\frac{2\partial_x\parti
 Equations (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) provide practical estimators for measuring the morphological features $V_k$ from an image by thresholding the pixel values and measuring local $\kappa$ gradients. In the next section we will present a relation between $V_k$ and the real space moments of $\kappa$.  
 
 \subsection{Relation with the moments of $\kappa$}
+\label{sec:4:mink-mom}
 The expectation value of estimators (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) can be expressed as ensemble expectation values of functions of $\h{\kappa}$ via (\ref{eq:4:average-real}). We can write
 
 \begin{equation}
@@ -382,6 +383,7 @@ Figure \ref{fig:4:peaks} shows a comparison between the peak histogram measured 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Angular power spectrum}
+\label{sec:4:power}
 In the previous sections we considered image features which are local, or can be expressed in terms estimators which are local in the convergence $\kappa$. In this section we will deviate from locality and focus on the information contained in larger scale correlations in $\kappa$. The most obvious feature one can consider is the $\kappa$ angular two--point function, defined as 
 
 \begin{equation}
@@ -396,7 +398,7 @@ In the definition (\ref{eq:4:kappa-2pt}) the correlation function $\xi_{\kappa\k
 \left\langle\h{\tilde{\kappa}}(\pell)\h{\tilde{\kappa}}(\pell')\right\rangle = (2\pi)^2 \delta^D(\pell+\pell')P_{\kappa\kappa}(\ell)
 \end{equation}
 %
-Where again translational invariance cause the Dirac delta to appear in (\ref{eq:4:kappa-power}) and rotational invariance makes the angular power spectrum $P_{\kappa\kappa}$ depend on $\ell=\vert\pell\vert$ only. Using both (\ref{eq:4:kappa-2pt}) and (\ref{eq:4:kappa-power}) we can relate $\xi_{\kappa\kappa}$ and $P_{\kappa\kappa}$ in the limit of full sky coverage as 
+Where again translational invariance causes the Dirac delta to appear in (\ref{eq:4:kappa-power}) and rotational invariance makes the angular power spectrum $P_{\kappa\kappa}$ depend on $\ell=\vert\pell\vert$ only. Using both (\ref{eq:4:kappa-2pt}) and (\ref{eq:4:kappa-power}) we can relate $\xi_{\kappa\kappa}$ and $P_{\kappa\kappa}$ in the limit of full sky coverage as 
 
 \begin{equation}
 \label{eq:4:xi-pow}
@@ -409,27 +411,115 @@ The relation (\ref{eq:4:xi-pow}) is valid in the flat sky limit, with spherical 
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/powerSample.eps}
 \end{center}
-\caption{Power spectrum sample}
+\caption{$\kappa$ (blue) and $\omega$ (green, see equation (\ref{eq:2:dfl-inverse})) angular power spectra, measured from the average of 1024 realizations of a fiducial cosmology in a field of view of size $\theta_{\rm FOV}=3.5\,{\rm deg}$. The sources were placed on a plane at $z_s=2$. For reference we also show the auto--power spectra of Gaussian white shape noise (black) for three different choices of the angular galaxy density $n_g=15,30,45\,{\rm galaxies}/{\rm arcmin}^2$. We applied a smoothing factor $e^{-\ell^2\theta_G^2}$ to the power spectra, corresponding to a Gaussian window of size $\theta_G=0.5'$.}
 \label{fig:4:psample}
 \end{figure}
 %
-A practical estimator for $P_{\kappa\kappa}$ can be obtained by replacing the expectation value in (\ref{eq:4:kappa-power}) with an integral in Fourier space over the multipoles with constant magnitude $\ell=\vert\pell\vert$. One can show that, if the Fourier transform of $\kappa$ is computed in a window of size $\theta_{\rm FOV}^2$, the estimator
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{Figures/eps/powerCov.eps}
+\end{center}
+\caption{Measured $\kappa$ power spectrum covariance (only diagonal terms) in units of the Gaussian predicted covariance from equation (\ref{eq:4:powercov-gauss-bin}). $N_\ell$ is defined to be $\ell\delta\ell_b\theta_{\rm FOV}^2/4\pi$. We measured the $P_{\kappa\kappa}$ covariance matrix from the same 1024 realizations in Figure \ref{fig:4:psample}, and adopted two different binning choices: 100 uniformly spaced bins between $\ell\in[100,10000]$ and 15 log--spaced bins between $\ell\in[100,6000]$. We show both the noiseless cases for linear (blue) and log (green) and the case in which shape noise has been added (red) to the $\kappa$ images with a galaxy density of $n_g=15\,{\rm galaxies}/{\rm arcmin}^2$.}
+\label{fig:4:pcov}
+\end{figure}
+%
+Under the assumption of statistical isotropy, a practical estimator for $P_{\kappa\kappa}$ can be obtained by replacing the expectation value in (\ref{eq:4:kappa-power}) with a Fourier space integral over the multipoles with constant magnitude $\ell=\vert\pell\vert$. One can show that, if the Fourier transform $\tilde{\kappa}$ is computed in a window of linear size $\theta_{\rm FOV}$, the estimator
 
 \begin{equation}
 \label{eq:4:powerest}
-\h{P}_{\kappa\kappa}(\ell) = \frac{1}{\theta_{\rm FOV}^2}\int_{\vert\pell\vert=\ell}\frac{d\pell}{2\pi\ell}\left\vert\h{\tilde{\kappa}}(\pell)\right\vert^2
+\h{P}_{\kappa\kappa}(\ell) = \frac{1}{\theta_{\rm FOV}^2}\int\frac{d\pell'}{2\pi\ell'}\left\vert\h{\tilde{\kappa}}(\pell')\right\vert^2\delta^D\left(\vert\pell'\vert-\ell\right)
 \end{equation}
 %
-converges to the real $P_{\kappa\kappa}$ if $\theta_{\rm FOV}$ is sufficiently large compared to the $\kappa$ angular correlation scale. 
+converges to the real $P_{\kappa\kappa}$ if $\theta_{\rm FOV}$ is sufficiently large compared to the typical $\kappa$ angular correlation scale. In Figure \ref{fig:4:psample} we show sample behaviors of the WL $\kappa$ and $\omega$ power spectra measured from our simulations, and compare them with shape noise power spectra. In the Gaussian limit, we can also quantify the scatter of the estimator (\ref{eq:4:powerest}) by evaluating the $\tilde{\kappa}$ 4--point functions using Wick's theorem. In the limit of $\ell\theta_{\rm FOV}\gg 1$ we can write 
 
+\begin{equation}
+\label{eq:4:powercov-gauss}
+\left\langle(\h{P}_{\kappa\kappa}(\ell)-P_{\kappa\kappa}(\ell))(\h{P}_{\kappa\kappa}(\ell')-P_{\kappa\kappa}(\ell'))\right\rangle_G = \frac{4\pi P^2_{\kappa\kappa}(\ell)}{\ell\theta^2_{\rm FOV}}\delta^D(\ell-\ell')
+\end{equation}
+%
+Looking at (\ref{eq:4:powercov-gauss}), we can immediately conclude that, at least in the Gaussian case, the $\kappa$ power spectrum covariance matrix is diagonal in $\ell$ and is inversely proportional to the area of the field of view and to the number of multipoles $\sim\ell$ that fall inside $\theta_{\rm FOV}$. In a more realistic case, in which we measure the value of $P_{\kappa\kappa}$ smeared in a multipole bin of size $\delta\ell_{\rm bin}$ using   
+
+\begin{equation}
+\label{eq:4:powerest-bin}
+\h{P}^{\rm bin}_{\kappa\kappa}(\ell_b) = \frac{1}{\delta\ell_{\rm bin}}\int_{\ell_b-\delta\ell_{\rm bin}/2}^{\ell_b+\delta\ell_{\rm bin}/2} d\ell \h{P}_{\kappa\kappa}(\ell)
+\end{equation}
+%
+the smeared estimator covariance matrix assumes the familiar form 
+%
+\begin{equation}
+\label{eq:4:powercov-gauss-bin}
+\left\langle\delta\h{P}^{\rm bin}_{\kappa\kappa}(\ell_b)\delta\h{P}^{\rm bin}_{\kappa\kappa}(\ell_{b'})\right\rangle_G = \frac{4\pi [P^{\rm bin}_{\kappa\kappa}(\ell_b)]^2}{\ell_b\delta\ell_{\rm bin}\theta^2_{\rm FOV}}\delta_{bb'}
+\end{equation}
+%
+Figure \ref{fig:4:pcov} shows that (\ref{eq:4:powerest-bin}) is a good approximation to the real power spectrum covariance matrix if one uses linear binning. The Figure also shows that the approximation is exact when shape noise is added to the $\kappa$ images, because the Gaussian shape noise covariance tends to dominate the WL non--Gaussian covariance on small scales. In the next paragraph we investigate the validity of the Born approximation (\ref{eq:2:kappa-1}) in predicting $P_{\kappa\kappa}$. 
 
 
 \subsection{Born approximation}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{Figures/eps/powerResiduals.eps}
+\end{center}
+\caption{Power spectrum residuals}
+\label{fig:4:powerRes}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Convergence moments}
+Because the $\kappa$ field in general is non--Gaussian, higher order Fourier statistics might contain cosmological information that the power spectrum, described in \S~\ref{sec:4:power}, misses. In general we can define a $n$--point correlation function of $\kappa$, both in real and Fourier space, as
+
+\begin{equation}
+\label{eq:4:npoint-real}
+\xi^{(n)}_\kappa = \left\langle\kappa(\pt_1)...\kappa(\pt_n)\right\rangle
+\end{equation}
+%
+\begin{equation}
+\label{eq:4:npoint-fourier}
+\left\langle\tilde{\kappa}(\pell_1)...\tilde{\kappa}(\pell_n)\right\rangle_c = (2\pi)^{2n} \delta^D(\pell_1+...+\pell_n)P_\kappa^{(n)}(\pell_1,...,\pell_n)
+\end{equation}
+%
+As usual, the Dirac delta function appears in (\ref{eq:4:npoint-fourier}) because of invariance under translations. The full profile of the multi--spectra $P^{(n)}_\kappa$ can be computationally expensive to measure from high resolution $\kappa$ images (the computational cost scales roughly as $O(N_R^n)$, where $N_R$ is the number of pixels in the image) but, if we are interested only in selected multipole features in the multi--spectra, we might be able to measure a finite, small number of kernel projections of $P^{(n)}_\kappa$ and still get some insight about the cosmological information contained in the $\kappa$ non--Gaussianity. To perform the projection, we smooth the $\kappa$ image with a Gaussian window of size $\theta_G$ and choose an arbitrary function $\tilde{\mu}$ of the multipoles. We define
+
+\begin{equation}
+\label{eq:4:npoint-projection}
+\mu^{(n)}_i(\theta_G) = \int d\pell_1...d\pell_n \delta^D(\pell_1+...+\pell_n)\left[\tilde{\mu}^{(n)}_iP_\kappa^{(n)}\right](\pell_1,...,\pell_n)e^{-\theta_G^2(\ell_1^2+...+\ell_n^2)/2}
+\end{equation}
+%
+If $\tilde{\mu}^{(n)}_i$ is polynomial in the multipoles, $\mu^{(n)}_i$ is a local connected moment of the convergence field smoothed on a scale $\theta_G$. Different choices of $\theta_G$, $\mu^{(n)}_i$ allow to probe different features in the $\kappa$ multi--spectra by simply smoothing the images and measuring local expectation values, which are both computationally cheap operations which scale respectively as $O(N_R), O(N_R\log N_R)$. Following the discussion in \S~\ref{sec:4:mink-mom} about the relation between morphological features and $\kappa$ moments, in this work we focus our attention on the projections defined by the following nine polynomials
+
+\begin{equation}
+\label{eq:4:poly-quad}
+\begin{matrix}
+\tilde{\mu}^{(2)}_0 = 1 & ; & \tilde{\mu}^{(2)}_1 = \pell_1\cdot\pell_2 
+\end{matrix}
+\end{equation} 
+%
+\begin{equation}
+\label{eq:4:poly-cubic}
+\begin{matrix}
+\tilde{\mu}^{(3)}_0 = 1 & ; & \tilde{\mu}^{(3)}_1 = \ell_3^2 & ; & \tilde{\mu}^{(3)}_2 = \ell_3^2 (\pell_1\cdot\pell_2)
+\end{matrix}
+\end{equation} 
+%
+\begin{equation}
+\label{eq:4:poly-quartic}
+\begin{matrix}
+\tilde{\mu}^{(4)}_0 = 1 & ; & \tilde{\mu}^{(4)}_1 = \ell_4^2 & ; & \tilde{\mu}^{(4)}_2 = \ell_4^2 (\pell_2\cdot\pell_3) & ; & \tilde{\mu}^{(4)}_3 = (\pell_1\cdot\pell_2)(\pell_3\cdot\pell_4) 
+\end{matrix}
+\end{equation}
+%
+Note that, with these choices, the quadratic projections defined by (\ref{eq:4:poly-quad}) correspond respectively to $\sigma_0^2$ and $\sigma_0^2\sigma_\eta^2$. The cubic and quartic projections defined by (\ref{eq:4:poly-cubic}), (\ref{eq:4:poly-quartic}), on the other hand, are equivalent to the local $\kappa$ moments defined in (\ref{eq:4:skew-dimensionless}), (\ref{eq:4:kurt-dimensionless}) modulo normalization factors that contain $\sigma_0, \sigma_\eta$. Because of the polynomial nature of the chosen kernels $\tilde{\mu}^{(n)}_i$, $\mu^{(n)}_i$ capture local features in the convergence images. Varying and combining different smoothing scales $\theta_G$, one can hope to probe different multipole scales in the multi--spectra and hence recover sensitivity to large scale angular correlations.     
 
 \subsection{Born approximation}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.35]{Figures/eps/delta_m2.eps}
+\includegraphics[scale=0.35]{Figures/eps/delta_m5.eps}
+\end{center}
+\caption{Skewness and kurtosis residuals}
+\label{fig:4:momRes}
+\end{figure}
 
 \bibliography{ref}

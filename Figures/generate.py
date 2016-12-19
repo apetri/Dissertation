@@ -50,6 +50,7 @@ method["4-minkpert2"] = minkowskiProject.minkPerturbation2
 method["4-minkseries"] = minkowskiProject.seriesConvergence
 method["4-peaks"] = bornProject.convergencePeaks
 method["4-powerSample"] = bornProject.powerSample
+method["4-powerCov"] = bornProject.powerCov
 method["4-powerRes"] = bornProject.powerResiduals
 method["4-skewRes"] = bornProject.plotSmoothSkew
 method["4-kurtRes"] = bornProject.plotSmoothKurt
