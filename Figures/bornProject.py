@@ -293,7 +293,7 @@ def plotSmooth(cmd_args,lines,collection="c0",moment=2,smooth=(0.5,1.,2.,3.,5.,7
 	#Labels
 	ax.set_xlabel(r"$\theta_G({\rm arcmin})$",fontsize=fontsize)
 	ax.set_ylabel(ylabel,fontsize=fontsize)
-	ax.legend(bbox_to_anchor=(0., 1.02, 1., .102),loc=3,ncol=2,mode="expand", borderaxespad=0.)
+	ax.legend(bbox_to_anchor=(0., 1.02, 1., .102),loc=3,ncol=2,mode="expand", borderaxespad=0.,prop={"size":15})
 
 	#Save
 	fig.savefig("{0}/delta_m{1}.{0}".format(cmd_args.type,moment))
@@ -305,12 +305,12 @@ def plotSmoothSkew(cmd_args,collection="c0",smooth=(0.5,1.,2.,3.,5.,7.,10.),font
 	#Lines to plot
 	lines = {
 
-	r"$\kappa^3-(\kappa^{(1)})^3$" : ("kappa",("convergence_moments_s{0}_nb9.npy",),moment,True,"denim blue","-",0),
-	r"$(\kappa^{(1+2-gp)})^3-(\kappa^{(1)})^3$" : ("kappaB+GP",("convergence_moments_s{0}_nb9.npy",),moment,True,"medium green","-",1),
-	r"$\kappa^3_{\rm born+ll}-\kappa^3_{\rm born}$" : ("kappaB+LL",("convergence_moments_s{0}_nb9.npy",),moment,True,"pale red","-",2),
-	r"$3\kappa^2_{\rm born}\kappa_{\rm gp}$" : ("kappaBorn",("cross_skewGP_s{0}_nb1.npy",),0,False,"medium green","--",4),
-	r"$3\kappa^2_{\rm born}\kappa_{\rm ll}$" : ("kappaBorn",("cross_skewLL_s{0}_nb1.npy",),0,False,"pale red","--",5),
-	r"$3\kappa^2_{\rm born}\kappa_{\rm ll}+3\kappa^2_{\rm born}\kappa_{\rm geo}$" : ("kappaBorn",("cross_skewLL_s{0}_nb1.npy","cross_skewGP_s{0}_nb1.npy"),0,False,"denim blue","--",3),
+	r"$\kappa^3-O(\Phi^3)$" : ("kappa",("convergence_moments_s{0}_nb9.npy",),moment,True,"denim blue","-",0),
+	r"$(\kappa^{(1+2-{\rm gp})})^3-(\kappa^{(1)})^3$" : ("kappaB+GP",("convergence_moments_s{0}_nb9.npy",),moment,True,"medium green","-",1),
+	r"$\delta(\kappa^{(1+2-{\rm ll})})^3-(\kappa^{(1)})^3$" : ("kappaB+LL",("convergence_moments_s{0}_nb9.npy",),moment,True,"pale red","-",2),
+	r"$O(\Phi^4)_{\rm gp}$" : ("kappaBorn",("cross_skewGP_s{0}_nb1.npy",),0,False,"medium green","--",4),
+	r"$O(\Phi^4)_{\rm ll}$" : ("kappaBorn",("cross_skewLL_s{0}_nb1.npy",),0,False,"pale red","--",5),
+	r"$O(\Phi^4)_{\rm gp}+O(\Phi^4)_{\rm ll}$" : ("kappaBorn",("cross_skewLL_s{0}_nb1.npy","cross_skewGP_s{0}_nb1.npy"),0,False,"denim blue","--",3),
 
 	}
 
@@ -323,12 +323,12 @@ def plotSmoothKurt(cmd_args,collection="c0",smooth=(0.5,1.,2.,3.,5.,7.,10.),font
 	#Lines to plot
 	lines = {
 
-	r"$\kappa^4_{\rm ray}-\kappa^4_{\rm born}$" : ("kappa",("convergence_moments_s{0}_nb9.npy",),moment,True,"denim blue","-",0),
-	r"$\kappa^4_{\rm born+geo}-\kappa^4_{\rm born}$" : ("kappaB+GP",("convergence_moments_s{0}_nb9.npy",),moment,True,"medium green","-",1),
-	r"$\kappa^4_{\rm born+ll}-\kappa^4_{\rm born}$" : ("kappaB+LL",("convergence_moments_s{0}_nb9.npy",),moment,True,"pale red","-",2),
-	r"$4\kappa^3_{\rm born}\kappa_{\rm geo}$" : ("kappaBorn",("cross_kurtGP_s{0}_nb1.npy",),0,False,"medium green","--",4),
-	r"$4\kappa^4_{\rm born}\kappa_{\rm ll}$" : ("kappaBorn",("cross_kurtLL_s{0}_nb1.npy",),0,False,"pale red","--",5),
-	r"$4\kappa^3_{\rm born}\kappa_{\rm ll}+4\kappa^3_{\rm born}\kappa_{\rm geo}$" : ("kappaBorn",("cross_kurtLL_s{0}_nb1.npy","cross_kurtGP_s{0}_nb1.npy"),0,False,"denim blue","--",3),
+	r"$\kappa^4-O(\Phi^4)$" : ("kappa",("convergence_moments_s{0}_nb9.npy",),moment,True,"denim blue","-",0),
+	r"$(\kappa^{(1+2-{\rm gp})})^4-(\kappa^{(1)})^4$" : ("kappaB+GP",("convergence_moments_s{0}_nb9.npy",),moment,True,"medium green","-",1),
+	r"$(\kappa^{(1+2-{\rm ll})})^4-(\kappa^{(1)})^3$" : ("kappaB+LL",("convergence_moments_s{0}_nb9.npy",),moment,True,"pale red","-",2),
+	r"$O(\Phi^5)_{\rm gp}$" : ("kappaBorn",("cross_kurtGP_s{0}_nb1.npy",),0,False,"medium green","--",4),
+	r"$O(\Phi^5)_{\rm ll}$" : ("kappaBorn",("cross_kurtLL_s{0}_nb1.npy",),0,False,"pale red","--",5),
+	r"$O(\Phi^5)_{\rm gp} + O(\Phi^5)_{\rm ll}$" : ("kappaBorn",("cross_kurtLL_s{0}_nb1.npy","cross_kurtGP_s{0}_nb1.npy"),0,False,"denim blue","--",3),
 
 	}
 

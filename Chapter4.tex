@@ -451,18 +451,34 @@ the smeared estimator covariance matrix assumes the familiar form
 \left\langle\delta\h{P}^{\rm bin}_{\kappa\kappa}(\ell_b)\delta\h{P}^{\rm bin}_{\kappa\kappa}(\ell_{b'})\right\rangle_G = \frac{4\pi [P^{\rm bin}_{\kappa\kappa}(\ell_b)]^2}{\ell_b\delta\ell_{\rm bin}\theta^2_{\rm FOV}}\delta_{bb'}
 \end{equation}
 %
-Figure \ref{fig:4:pcov} shows that (\ref{eq:4:powerest-bin}) is a good approximation to the real power spectrum covariance matrix if one uses linear binning. The Figure also shows that the approximation is exact when shape noise is added to the $\kappa$ images, because the Gaussian shape noise covariance tends to dominate the WL non--Gaussian covariance on small scales. In the next paragraph we investigate the validity of the Born approximation (\ref{eq:2:kappa-1}) in predicting $P_{\kappa\kappa}$. 
-
+Figure \ref{fig:4:pcov} shows that (\ref{eq:4:powerest-bin}) is a good approximation to the real power spectrum covariance matrix if one uses linear binning, but large non--Gaussian effects kick in at large $\ell$ when one uses log--spaced multipole bins \citep{Sato12,PetriVariance}. The Figure also shows that the approximation is exact when shape noise is added to the $\kappa$ images, because the Gaussian shape noise covariance tends to dominate the WL non--Gaussian covariance on small scales. In the next paragraph we investigate the validity of the Born approximation (\ref{eq:2:kappa-1}) in predicting $P_{\kappa\kappa}$. 
 
 \subsection{Born approximation}
-
+\label{sec:4:bornpower}
+%
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/powerResiduals.eps}
 \end{center}
-\caption{Power spectrum residuals}
+\caption{Difference between the full $\kappa$ power spectrum, obtained from ray--tracing, and its Born approximated version. We show the measured power residuals (blue), and the Born--geodesic (green), Born--lens--lens (red) cross spectra averaged over 8192 field of view realizations ($z_s=2, \theta_{\rm FOV}=3.5\,{\rm deg}$) of a fiducial $\Lambda$CDM model.}
 \label{fig:4:powerRes}
 \end{figure}
+%
+Since quadratic features, both in real and Fourier space, are the primary investigation tools for inferring cosmological parameters from WL data, we investigated how accurately the Born approximation (\ref{eq:2:kappa-1}) can predict the $\kappa$ power spectrum. The Born contribution to $P_{\kappa\kappa}$ is the lowest in terms of the gravitational potential $\Phi$. If we define 
+
+\begin{equation}
+\label{eq:4:power-cross}
+\left\langle\h{\tilde{\kappa}}^{(i)}(\pell)\h{\tilde{\kappa}}^{(j)}(\pell')\right\rangle = (2\pi)^2\delta^D(\pell+\pell')P^{i,j}_{\kappa\kappa}(\ell)
+\end{equation}
+%
+where $\kappa^{(i)}$ is an $O(\Phi^i)$ contribution to $\kappa$, we can express the full $\kappa$ power spectrum in a power series in $\Phi$, whose first few terms look like 
+
+\begin{equation}
+\label{eq:4:power-pert}
+P_{\kappa\kappa} = P_{\kappa\kappa}^{1,1} + 2\Re (P^{1,2-{\rm ll}}_{\kappa\kappa}+P^{1,2-{\rm gp}}_{\kappa\kappa}) + O(\Phi^4) 
+\end{equation}
+%
+The first corrections to the Born approximated power spectrum are of $O(\Phi^3)$ and, as Figure \ref{fig:4:powerRes} shows, they can account for the residuals $P_{\kappa\kappa}-P^{1,1}_{\kappa\kappa}$. The Born--geodesic cross terms, which trace local gradients in the cosmic density field, dominate over the Born--lens--lens ones, which are proportional to the non--local couplings of the tidal field. Depending in how big the statistical error on the measured $\h{P}_{\kappa\kappa}$ is, the Born approximation can induce biases when used in the inference of cosmological parameters. This could be an issue for large scale surveys because, as seen in (\ref{eq:4:powercov-gauss-bin}), the variance in the power spectrum measurement is inversely proportional to the sky coverage. We will investigate cosmological parameter constraints in Chapter \ref{chp:5}.    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -512,14 +528,28 @@ If $\tilde{\mu}^{(n)}_i$ is polynomial in the multipoles, $\mu^{(n)}_i$ is a loc
 Note that, with these choices, the quadratic projections defined by (\ref{eq:4:poly-quad}) correspond respectively to $\sigma_0^2$ and $\sigma_0^2\sigma_\eta^2$. The cubic and quartic projections defined by (\ref{eq:4:poly-cubic}), (\ref{eq:4:poly-quartic}), on the other hand, are equivalent to the local $\kappa$ moments defined in (\ref{eq:4:skew-dimensionless}), (\ref{eq:4:kurt-dimensionless}) modulo normalization factors that contain $\sigma_0, \sigma_\eta$. Because of the polynomial nature of the chosen kernels $\tilde{\mu}^{(n)}_i$, $\mu^{(n)}_i$ capture local features in the convergence images. Varying and combining different smoothing scales $\theta_G$, one can hope to probe different multipole scales in the multi--spectra and hence recover sensitivity to large scale angular correlations.     
 
 \subsection{Born approximation}
-
+%
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.35]{Figures/eps/delta_m2.eps}
-\includegraphics[scale=0.35]{Figures/eps/delta_m5.eps}
+\includegraphics[scale=0.45]{Figures/eps/delta_m2.eps}
+\includegraphics[scale=0.45]{Figures/eps/delta_m5.eps}
 \end{center}
-\caption{Skewness and kurtosis residuals}
+\caption{Comparison between the $\kappa$ skewness and kurtosis obtained with full ray--tracing and with the Born approximation. With the solid lines we show the residuals between the Born result and the ray--tracing (blue), the geodesic truncated (green) and the lens--lens truncated (red) kappa. The dashed line show the first post--Born corrections in equations (\ref{eq:4:skew-pert}), (\ref{eq:4:kurt-pert}) for the geodesic (green), lens--lens (red) cross terms, and the sum of the two (blue). We plot the results as a function of the smoothing scales $\theta_G$, averaging over 8192 realizations of the field of view in a fiducial $\Lambda$CDM model.}
 \label{fig:4:momRes}
 \end{figure}
+%
+In the same flavor as \S~\ref{sec:4:bornpower}, in this paragraph we investigate the accuracy of the Born approximation (\ref{eq:2:kappa-1}) in predicting the first few moments of $\kappa$, defined by the projections in (\ref{eq:4:poly-quad}), (\ref{eq:4:poly-cubic}) and (\ref{eq:4:poly-quartic}). Since these features are polynomial in $\Phi$, it is easy to isolate the main contribution to $\mu^{(n)}_i$ as $O(\Phi^n)$, and the first correction as $O(\Phi^{n+1})$. For the $\kappa$ skewness and kurtosis we have 
+
+\begin{equation}
+\label{eq:4:skew-pert}
+\kappa^3 = \left(\kappa^{(1)}\right)^3 + 3\left[\left(\kappa^{(1)}\right)^2\kappa^{(2-{\rm ll})} + \left(\kappa^{(1)}\right)^2\kappa^{(2-{\rm gp})} \right] + O(\Phi^5)
+\end{equation}
+%
+\begin{equation}
+\label{eq:4:kurt-pert}
+\kappa^4 = \left(\kappa^{(1)}\right)^4 + 4\left[\left(\kappa^{(1)}\right)^3\kappa^{(2-{\rm ll})} + \left(\kappa^{(1)}\right)^3\kappa^{(2-{\rm gp})} \right] + O(\Phi^6)
+\end{equation}
+%
+We show the residuals between the full ray--tracing results and the Born approximated ones in Figure \ref{fig:4:momRes}, which compares the difference $\delta{\kappa}^n=\kappa^n - \left(\kappa^{(1)}\right)^n$ to the lowest order post--Born corrections contained in (\ref{eq:4:skew-pert}), (\ref{eq:4:kurt-pert}). The Figure shows that the first post--Born corrections can fully account for the residuals and, contrary to the power spectrum case, for higher $\kappa$ moments the Born--geodesic and Born--lens--lens terms are comparable in magnitude. The Figure also shows that, in order to calculate $\kappa$ moments, it is not a good idea to truncate the $\kappa$ power series in $\Phi$ at any finite order beyond Born. The reason is that, by doing so, large numerical contributions to the moments, coming from $O\left(\left(\kappa^{(2-{\rm gp})}\right)^2\right)$ terms and higher will not be canceled by terms of order $O\left(\kappa^{(3)}\kappa^{(1)}\right)$, which have the same magnitude. This effect can clearly be seen, for the geodesic term, in Figure \ref{fig:4:momRes}. The issue whether the Born approximation to the moments leads to biased inferences about $\Lambda$CDM will be investigated in Chapter \ref{chp:5}.  
 
 \bibliography{ref}
