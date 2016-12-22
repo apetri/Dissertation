@@ -158,7 +158,7 @@ Figure \ref{fig:2:distortion} shows the physical interpretation of these differe
 \begin{equation}
 \label{eq:2:ellipticity-1}
 \begin{matrix}
-\displaystyle \epsilon^1 = \frac{q_{xx}-q_{yy}}{q_{xx}+q_{yy}} & ; & \displaystyle \epsilon^2 = \frac{2q_{xy}}{q_{xx}+q_{yy}}
+\displaystyle \epsilon^1 = \frac{q_{xx}-q_{yy}}{\Tr\bb{q}+2\sqrt{\vert\bb{q}\vert}} & ; & \displaystyle \epsilon^2 = \frac{2q_{xy}}{\Tr\bb{q}+2\sqrt{\vert\bb{q}\vert}}
 \end{matrix}
 \end{equation} 
 %
@@ -168,22 +168,29 @@ Where the quadrupole moments $q_{ij}$ are defined by
 q_{ij} = \int d\pt \theta_i\theta_j I_{\rm obs}(\pt) = \int d\pbeta (\bb{A}^{-1}\pbeta)_i(\bb{A}^{-1}\pbeta)_j I(\pbeta)
 \end{equation}
 %
-In the last equality flexion corrections have been ignored. If the un--lensed image is a circle and the image is small enough so that $\kappa,\pmb{\gamma}$ are constant over its profile, the integral can be computed explicitly in terms of the inverse of $\bb{A}$
+Flexion corrections have been ignored in the last equality. Provided that the image is small enough so that $\kappa,\pmb{\gamma}$ are constant over its profile, equation (\ref{eq:2:quadrupole}) can be used to relate the quadrupole moment $\bb{q}$ of the the un--lensed quadrupole $\bb{q}^s$ as  
+
+\begin{equation}
+\label{ref:4:quadrupole-1}
+\bb{q} = \bb{A}^{-1}\bb{q}^s\left(\bb{A}^T\right)^{-1}
+\end{equation}
+%
+If the un--lensed image is a circle, we can use $\bb{q}^s=\mathds{1}_{2\times 2}$ and get  
 
 \begin{equation}
 \label{eq:2:ellipticity-2}
 \begin{matrix}
-\displaystyle \epsilon^1 = \frac{(A^{-1}_{xx})^2-(A^{-1}_{yy})^2}{(A^{-1}_{xx})^2+(A^{-1}_{yy})^2+2(A^{-1}_{xy})^2} & ; & \displaystyle \epsilon^2 = \frac{2A^{-1}_{xy}(A^{-1}_{xx}+A^{-1}_{yy})}{(A^{-1}_{xx})^2+(A^{-1}_{yy})^2+2(A^{-1}_{xy})^2} &
+\displaystyle \epsilon^1 = \frac{(A^{-1}_{xx})^2-(A^{-1}_{yy})^2}{\Tr\left(\bb{A}^{-1}(\bb{A}^T)^{-1}\right)+2\vert\bb{A}^{-1}\vert} & ; & \displaystyle \epsilon^2 = \frac{2A^{-1}_{xy}\Tr\left(\bb{A}^{-1}\right)}{\Tr\left(\bb{A}^{-1}(\bb{A}^T)^{-1}\right)+2\vert\bb{A}^{-1}\vert} &
 \end{matrix}
 \end{equation}
 %
-If we express the numerator and denominator at lowest order in $\kappa,\pmb{\gamma}$ we get immediately
+After some algebra, we can obtain a relation between the ellipticity of the distorted image and the components of $\bb{A}$
 \begin{equation}
 \label{eq:2:ellipticity-3}
-\pmb{\epsilon} = \frac{2\pmb{\gamma}}{1-\kappa}
+\pmb{\epsilon} = \frac{\pmb{\gamma}}{1-\kappa}
 \end{equation}
 %
-which shows that the ellipticity is proportional to the shear and can hence be used to estimate it. Even if the observable quantity is the reduced shear $\pmb{\gamma}/(1-\kappa)$, for practical purposes in WL when $\kappa\ll 1$, one can approximate $\pmb{\epsilon}\approx 2\pmb{\gamma}$. In the following paragraph we will show how to relate the WL quantities $\kappa,\pmb{\gamma},\omega$ to the gravitational lensing potential $\Phi$. 
+which shows that the ellipticity is proportional to the shear and can hence be used to estimate it. Even if the observable quantity is the reduced shear $\pmb{\gamma}/(1-\kappa)$, for practical purposes in WL when $\kappa\ll 1$, one can approximate $\pmb{\epsilon}\approx \pmb{\gamma}$. In the following paragraph we will show how to relate the WL quantities $\kappa,\pmb{\gamma},\omega$ to the gravitational lensing potential $\Phi$. 
 
 \subsection{Ray tracing}
 Relating observable WL quantities such as the source ellipticity $\pmb{\epsilon}$ and the cosmic shear $\pmb{\gamma}$ can be done using equation (\ref{eq:2:geosol-2}), which relates light geodesics to the matter density fluctuations through the lensing potential. We can convert the transverse physical coordinates $\xp$ into angles $\pbeta$ dividing by the longitudinal distance
