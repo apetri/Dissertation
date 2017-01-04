@@ -41,11 +41,55 @@ Note that this definition of $N\sigma$ confidence intervals corresponds to the c
 \left(\Sigma^{-1}\right)_{\alpha\beta} = -\left(\frac{\partial^2\log\mathcal{L}(\bbh{p})}{\partial\h{p}_\alpha\partial\h{p}_\beta}\right)_{\bbh{p}=\bbh{p}_0}
 \end{equation}
 %
-is the parameter covariance matrix. We observe that, even if the parameter likelihood is not Gaussian, we can use the peak location $\bbh{p}_0$ and the matrix (\ref{eq:5:parcov}) as an estimate of the parameters and their covariance, although a complete characterization of the parameter space through the confidence intervals defined in (\ref{eq:5:liklevel}) is preferred.
+is the parameter covariance matrix. We observe that, even if the parameter likelihood is not Gaussian, we can use the peak location $\bbh{p}_0$ and the matrix (\ref{eq:5:parcov}) as an estimate of the parameters and their covariance, although a complete characterization of the parameter space through the confidence intervals defined in (\ref{eq:5:liklevel}) is preferred. The confidence intervals can be calculated by drawing samples from $\mathcal{L}(\bbh{p})$ using Markov Chain Monte Carlo (MCMC) techniques, which are implemented by many convenient software packages (see for example \citep{emcee}). 
 
-\subsection{Fisher matrix approximation}          
+\subsection{Fisher matrix approximation}
+Parameter inference becomes simpler if the forward model $\bb{d}(\bb{p})$ is linear in the parameters. Linearity can be safely assumed in the limit in which confidence intervals are expected to be localized around the peak of the likelihood, which is the case for large scale WL surveys. We can write 
 
-\section{Born approximation bias}
+\begin{equation}
+\label{eq:5:linapprox}
+\bb{d}(\bb{p}) = \bb{d}_0 + \bb{M}(\bb{p}-\bb{p}_0) + O(\vert\bb{p}-\bb{p}_0\vert^2)
+\end{equation}          
+%
+Assuming a flat prior $\Pi(\bbh{p})$ and plugging (\ref{eq:5:linapprox}) into (\ref{eq:5:gaussfeatlik}) we get, for the $\bb{p}$--dependent part of the likelihood
+
+\begin{equation}
+\label{eq:5:linapprox-lik}
+-2\log\mathcal{L}(\bb{p}) = \left[\dobs-\bb{d}_0-\bb{M}(\bb{p}-\bb{p}_0)\right]^T\bb{\Psi}\left[\dobs-\bb{d}_0-\bb{M}(\bb{p}-\bb{p}_0)\right]
+\end{equation}
+%
+From (\ref{eq:5:linapprox-lik}) we can immediately get an estimate for the peak of the likelihood $\bbh{p}_0$ and for the parameter covariance $\bb{\Sigma}$ using (\ref{eq:5:parcov})
+
+\begin{equation}
+\label{eq:5:linapprox-peak}
+\bbh{p}_0 = \bb{p}_0 + \left(\bb{M}^T\bb{\Psi}\bb{M}\right)^{-1}\bb{M}^T\bb{\Psi}\left(\dobs-\bb{d}_0\right)
+\end{equation}
+%
+\begin{equation}
+\label{eq:5:linapprox-cov}
+\bb{\Sigma} = \bb{F}^{-1} \equiv \left(\bb{M}^T\bb{\Psi}\bb{M}\right)^{-1} 
+\end{equation}
+%
+Equations (\ref{eq:5:linapprox-peak}), (\ref{eq:5:linapprox-cov}) constitute an important result which takes the name of Fisher matrix approximation, and $\bb{F}\equiv\bb{M}^T\bb{\Psi}\bb{M}$ takes the name of Fisher information matrix. In the case where prior information on the parameters is available, the estimates for the likelihood peak and parameter covariance are modified. For a Gaussian prior with distribution
+
+\begin{equation}
+\label{eq:5:gaussprior}
+\Pi(\bb{p}) = \frac{\vert\bb{F}_\Pi\vert}{(2\pi)^{N_\pi/2}}\exp\left(-\frac{1}{2}(\bb{p}-\bb{p}_\Pi)^T\bb{F}_\Pi(\bb{p}-\bb{p}_\Pi)\right)
+\end{equation}
+%
+we have 
+
+\begin{equation}
+\label{eq:5:linapprox-peak-prior}
+\bbh{p}_0 = \left(\bb{F}+\bb{F}_\Pi\right)^{-1}\left[\bb{M}^T\bb{\Psi}(\bbh{d}-\bb{d}_0) + \bb{F}_\Pi\bb{p}_\Pi + \bb{F}\bb{p}_0\right]
+\end{equation}
+%
+\begin{equation}
+\label{eq:5:linapprox-cov-prior}
+\bb{\Sigma} = \left(\bb{F}+\bb{F}_\Pi\right)^{-1} 
+\end{equation}
+
+\section{Born approximation induced bias}
 
 \section{Error degradation induced by covariance noise}
 
@@ -55,6 +99,6 @@ is the parameter covariance matrix. We observe that, even if the parameter likel
 
 \section{Dimensionality reduction}
 
-\section{WL constraining power}
+\section{Weak Lensing constraining power}
 
 \bibliography{ref}
