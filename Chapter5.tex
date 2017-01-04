@@ -8,21 +8,53 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Parameter estimation}
+In this Chapter we give an overview and discuss the cosmological parameter inference techniques used in this work. Inferring $\Lambda$CDM parameters from observations requires the construction of $\kappa$ images from $\pmb{\gamma}$ catalogs and the measurement of a feature $\bb{d}$ from the reconstructed image. When a forward model $\bb{d}(\bb{p})$ that connects features to cosmological parameters $\bb{p}$ is available, an estimate of the parameters $\bbh{p}$ can be derived from an estimate of the feature $\bbh{d}$ in a Bayesian framework. In this Chapter we review the probabilistic framework and we study WL parameter constraining capabilities using the features discussed in Chapter \ref{chp:4}. We also discuss a variety of constraint degradation sources and propose possible remedies.    
 
-\section{Covariance matrix estimation}
+\section{Bayesian formalism}
+In this paragraph we review the Bayesian probabilistic framework that we base the parameter inference on. We denote with $\bb{d}$ an $N_b$--dimensional image feature and with $\bb{p}$ a $N_\pi$ dimensional tuple of $\Lambda$CDM cosmological parameters (see Table \ref{tab:1:cosmopar}). We also indicate as $\bbh{d}$ an estimate of a feature from a simulated $\kappa$ field of view, as $\dobs$ a measured feature from an actual observation and as $\bbh{p}$ the deriving parameter estimate. We assume the existence of a forward model $\bb{d}(\bb{p})$ which can be obtained using our WL simulation pipeline or, in special cases such as for the $\kappa$ power spectrum, using analytical codes such as NICAEA \citep{Nicaea}. Using Bayes theorem, the likelihood $\lik{\bbh{p}}{\dobs}$ of an estimate $\bbh{p}$ given an observation $\dobs$ is given by
 
 \begin{equation}
-\label{eq:5:wishart-pdf}
-P(\bbh{C}\vert \bb{C}) = \frac{\vert\bbh{C}\vert^{\frac{N_r-N_b-1}{2}}e^{-\frac{1}{2}\Tr\left(\bb{C}^{-1}\bbh{C}\right)}}{2^{N_rN_b/2}\vert \bb{C}\vert^{N_r/2}\Gamma_{N_b}\left(\frac{N_r}{2}\right)}
+\label{eq:5:bayesthm}
+\lik{\bbh{p}}{\dobs,\bb{d}(\bb{p})} = \frac{\lik{\dobs}{\bbh{p},\bb{d}(\bb{p})}\Pi(\bbh{p})}{\mathcal{L}(\dobs)}
 \end{equation}
+%
+In the notation of equation (\ref{eq:5:bayesthm}) $\Pi$ encodes prior information on the parameters coming from WL independent probes (such as CMB experiments for example) and $\mathcal{L}(\dobs)$ is the overall observation likelihood, which acts as a $\bb{p}$--independent normalization factor in the parameter likelihood, which we will ignore in the prosecution of this work. We make a Gaussian assumption for the feature likelihood 
+
+\begin{equation}
+\label{eq:5:gaussfeatlik}
+\lik{\dobs}{\bbh{p},\bb{d}(\bb{p})} = \frac{1}{(2\pi)^{N_b/2}\vert\bb{C}\vert}\exp\left(-\frac{1}{2}(\dobs-\bb{d}(\bb{p}))^T\bb{C}^{-1}(\dobs-\bb{d}(\bb{p}))\right) 
+\end{equation}
+%
+where $\bb{C}$ is a $\bb{p}$--independent feature--feature covariance matrix. The Gaussian assumption for the data likelihood is justified by the Central Limit Theorem applied to feature averaging over a large number of fields of view, which can be as high as $O(10^3)$ for a $\theta_{\rm FOV}=3.5\,{\rm deg}$ sized tiling of a modern galaxy survey such as LSST. The independence of the covariance matrix $\bb{C}$ on the cosmological parameters is not justified in the present work. The drawbacks of such assumption will be reserved for future investigation. 
+
+Once the parameter likelihood is known, parameter confidence intervals can be obtained looking at surfaces with constant $\mathcal{L}$ in $\bb{p}$ space. We define an $N\sigma$ parameter confidence interval as the $\bb{p}$ space region with $\mathcal{L}>\mathcal{L}_N$. The likelihood confidence levels are defined as 
+
+\begin{equation}
+\label{eq:5:liklevel}
+\int_{\mathcal{L}>\mathcal{L}_N}\lik{\bbh{p}}{\dobs,\bb{d}(\bb{p})} d\bbh{p} = \frac{1}{\sqrt{2\pi}}\int_{-N}^Ne^{-x^2/2}dx
+\end{equation}  
+%
+Note that this definition of $N\sigma$ confidence intervals corresponds to the commonly accepted one when $\mathcal{L}(\bbh{p})$ is Gaussian. If this is the case, calling $\bbh{p}_0$ the location of the likelihood peak, the matrix $\bb{\Sigma}$, defined by
+
+\begin{equation}
+\label{eq:5:parcov}
+\left(\Sigma^{-1}\right)_{\alpha\beta} = -\left(\frac{\partial^2\log\mathcal{L}(\bbh{p})}{\partial\h{p}_\alpha\partial\h{p}_\beta}\right)_{\bbh{p}=\bbh{p}_0}
+\end{equation}
+%
+is the parameter covariance matrix. We observe that, even if the parameter likelihood is not Gaussian, we can use the peak location $\bbh{p}_0$ and the matrix (\ref{eq:5:parcov}) as an estimate of the parameters and their covariance, although a complete characterization of the parameter space through the confidence intervals defined in (\ref{eq:5:liklevel}) is preferred.
+
+\subsection{Fisher matrix approximation}          
 
 \section{Born approximation bias}
 
-\section{Covariance induced error degradation}
+\section{Error degradation induced by covariance noise}
+
+\subsection{Covariance matrix estimation}
+
+\subsection{Perturbative approach}
 
 \section{Dimensionality reduction}
 
 \section{WL constraining power}
 
-%\bibliography{ref}
+\bibliography{ref}
