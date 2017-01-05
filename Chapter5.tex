@@ -81,23 +81,86 @@ we have
 
 \begin{equation}
 \label{eq:5:linapprox-peak-prior}
-\bbh{p}_0 = \left(\bb{F}+\bb{F}_\Pi\right)^{-1}\left[\bb{M}^T\bb{\Psi}(\bbh{d}-\bb{d}_0) + \bb{F}_\Pi\bb{p}_\Pi + \bb{F}\bb{p}_0\right]
+\bbh{p}_0 = \left(\bb{F}+\bb{F}_\Pi\right)^{-1}\left[\bb{F}_\Pi\bb{p}_\Pi + \bb{F}\bb{p}_0 + \bb{M}^T\bb{\Psi}(\bbh{d}-\bb{d}_0) \right]
 \end{equation}
 %
 \begin{equation}
 \label{eq:5:linapprox-cov-prior}
 \bb{\Sigma} = \left(\bb{F}+\bb{F}_\Pi\right)^{-1} 
 \end{equation}
-
-\section{Born approximation induced bias}
+%
+Equation (\ref{eq:5:linapprox-cov-prior}) simply states that, because the parameter prior is independent from the WL observation, parameter error bars add as their inverse squared weight. In the case in which the parameter likelihood and prior peak at the same location $\bb{p}_0=\bb{p}_\Pi$, equation (\ref{eq:5:linapprox-peak-prior}) reduces to (\ref{eq:5:linapprox-peak}) with a modified Fisher information $\bb{F}+\bb{F}_\Pi$.    
 
 \section{Error degradation induced by covariance noise}
+In the previous derivation of parameter estimates (\ref{eq:5:linapprox-peak}) and error bars based on the covariance (\ref{eq:5:linapprox-cov}) we have assumed perfect knowledge of the feature--feature covariance matrix $\bb{C}$ and its inverse $\bb{\Psi}$. Although smooth models exist for covariances of power spectra (see (\ref{eq:4:powercov-gauss}) for an example in the Gaussian case), the same is not true for more complicated features, such as the ones described in Chapter \ref{chp:4}. What we are forced to do, in practice, is to obtain an estimate $\bbh{C}$ of $\bb{C}$ from our simulations and to plug the estimate this estimate feature likelihood (\ref{eq:5:gaussfeatlik}). The uncertainties in $\bbh{C},\bbh{\Psi}$ carry over all the way to the parameter estimate $\bbh{p}_0$ and covariance $\bb{\Sigma}$, of which we are left with a noisy estimate $\bbh{\Sigma}$. If simulations and observations are uncorrelated, the parameter estimate $\bbh{p}_0$ is unbiased (within the limits of the linear approximation (\ref{eq:5:linapprox})). The parameter covariance estimator
+
+\begin{equation}
+\label{eq:5:pcov-est-1}
+\bbh{\Sigma}_1 = \bbh{F}^{-1}
+\end{equation}
+%
+is a biased estimate of $\bb{\Sigma}$ as we will see later in the Chapter. The unbiased version of (\ref{eq:5:pcov-est-1}) is the correct error--bar to assign to $\bbh{p}_0$ if the scatter of the estimator (\ref{eq:5:linapprox-peak}) corresponds to $\Sigma$. Unfortunately we are going to see that this is not true. The real scatter of (\ref{eq:5:linapprox-peak}), assuming $\langle\dobs-\bb{d}_0\rangle=0$ for simplicity, is given by
+
+\begin{equation}
+\label{eq:5:peak-scatter}
+\left\langle\delta\bbh{p}_0\delta\bbh{p}_0^T\right\rangle = \left\langle\bbh{F}^{-1}\bb{M}^T\bbh{\Psi}(\dobs-\bb{d}_0)(\dobs-\bb{d}_0)^T\bbh{\Psi}\bb{M}\bbh{F}^{-1}\right\rangle
+\end{equation}
+%
+where the expectation value has to be taken both with respect to the observations and the simulations, both affected by noise, but assumed uncorrelated. To have an idea of the magnitude of (\ref{eq:5:peak-scatter}), we can take the expectation value over the observation and focus ourselves on the uncertainty introduced by the noise in the simulations only. We will use 
+
+\begin{equation}
+\label{eq:5:expobs}
+\left\langle(\dobs-\bb{d}_0)(\dobs-\bb{d}_0)^T\right\rangle = \bb{C}
+\end{equation}
+%
+to produce a noisy estimate of the $\bbh{p}_0$ scatter $\bbh{\Sigma}_2$, defined as 
+
+\begin{equation}
+\label{eq:5:pcov-est-2}
+\bbh{\Sigma}_2 = \bbh{F}^{-1}\bb{M}^T\bbh{\Psi}\bb{C}\bbh{\Psi}\bb{M}\bbh{F}^{-1} 
+\end{equation} 
+%
+In the next section we are going to show how expectation values of (\ref{eq:5:pcov-est-1}), (\ref{eq:5:pcov-est-2}) over simulations can be calculated under a Gaussian assumption.    
 
 \subsection{Covariance matrix estimation}
+To produce estimates of the feature--feature covariance matrix $\bb{C}$, we use our simulation pipeline, described in Chapter \ref{chp:3}, to produce multiple pseudo--independent realizations of a $\kappa$ field of view. We measure the feature $\bbh{d}_r$ from each image using the techniques exposed in Chapter \ref{chp:4} and we produce a covariance estimator $\bbh{C}$ based on ensembles made of a high number $N_r$ of image realizations
 
-\subsection{Perturbative approach}
+\begin{equation}
+\label{eq:5:meanest-sim}
+\bbh{d}_{\rm mean} = \frac{1}{N_r}\sum_{r=1}^{N_r}\bbh{d}_r 
+\end{equation}
+%
+\begin{equation}
+\label{eq:5:covestest-sim}
+\bbh{C} = \frac{1}{n}\sum_{r=1}^{N_r}\left(\bbh{d}_r-\bbh{d}_{\rm mean}\right)^T\left(\bbh{d}_r-\bbh{d}_{\rm mean}\right) 
+\end{equation}
+%
+We indicated as $n=N_r-1$ the effective number of degrees of freedom in the ensemble, which is smaller than $N_r$ because the mean feature $\bbh{d}_{\rm mean}$ is not known and has to be estimated from the ensemble itself. If the feature estimate $\bbh{d}_r$ is drawn from a Gaussian distribution with covariance $\bb{C}$, the covariance estimate $\bbh{C}$ is distributed according to the Wishart probability distribution \citep{Taylor12,Taylor14,MasumotoWishart}. A functional form for the Wishart distribution $\lik{\bbh{C}}{\bb{C},n}$ can be obtained from its characteristic function 
+
+\begin{equation}
+\label{eq:5:chardef}
+\phi(\bb{J}) = \left\langle e^{i\Tr(\bb{J}\bbh{C})}\right\rangle
+\end{equation}
+%
+Performing an inverse Fourier transform in matrix space (much like the one in (\ref{eq:4:characteristic-inverse})), we can reconstruct $\lik{\bbh{C}}{\bb{C},n}$ from $\phi(\bb{J})$. The characteristic function $\phi$ can be evaluated from the moments of the Wishart distribution which are easily expressed in terms of $\bb{C}$ and $n$ via a straightforward though tedious procedure. The final result is (see \citep{Taylor12} for the details)
+
+\begin{equation}
+\label{eq:5:charw}
+\phi(\bb{J}) = \left\vert\mathds{1}_{N_b\times N_b}-\frac{2i\bb{JC}}{n}\right\vert^{-n/2}
+\end{equation}
+%
+The inverse Fourier transform leads to the functional form of the Wishart distribution
+
+\begin{equation}
+\label{eq:5:wishart}
+\lik{\bbh{C}}{\bb{C},n} = 
+\end{equation}
+
+\subsection{Perturbative calculation of the estimate scatter}
 
 \section{Dimensionality reduction}
+
+\section{Born approximation induced bias}
 
 \section{Weak Lensing constraining power}
 
