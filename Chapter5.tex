@@ -11,7 +11,7 @@
 In this Chapter we give an overview and discuss the cosmological parameter inference techniques used in this work. Inferring $\Lambda$CDM parameters from observations requires the construction of $\kappa$ images from $\pmb{\gamma}$ catalogs and the measurement of a feature $\bb{d}$ from the reconstructed image. When a forward model $\bb{d}(\bb{p})$ that connects features to cosmological parameters $\bb{p}$ is available, an estimate of the parameters $\bbh{p}$ can be derived from an estimate of the feature $\bbh{d}$ in a Bayesian framework. In this Chapter we review the probabilistic framework and we study WL parameter constraining capabilities using the features discussed in Chapter \ref{chp:4}. We also discuss a variety of constraint degradation sources and propose possible remedies.    
 
 \section{Bayesian formalism}
-In this paragraph we review the Bayesian probabilistic framework that we base the parameter inference on. We denote with $\bb{d}$ an $N_b$--dimensional image feature and with $\bb{p}$ a $N_\pi$ dimensional tuple of $\Lambda$CDM cosmological parameters (see Table \ref{tab:1:cosmopar}). We also indicate as $\bbh{d}$ an estimate of a feature from a simulated $\kappa$ field of view, as $\dobs$ a measured feature from an actual observation and as $\bbh{p}$ the deriving parameter estimate. We assume the existence of a forward model $\bb{d}(\bb{p})$ which can be obtained using our WL simulation pipeline or, in special cases such as for the $\kappa$ power spectrum, using analytical codes such as NICAEA \citep{Nicaea}. Using Bayes theorem, the likelihood $\lik{\bbh{p}}{\dobs}$ of an estimate $\bbh{p}$ given an observation $\dobs$ is given by
+In this paragraph we review the Bayesian probabilistic framework that we base the parameter inference on. We denote with $\bb{d}$ an $N_d$--dimensional image feature and with $\bb{p}$ a $N_\pi$ dimensional tuple of $\Lambda$CDM cosmological parameters (see Table \ref{tab:1:cosmopar}). We also indicate as $\bbh{d}$ an estimate of a feature from a simulated $\kappa$ field of view, as $\dobs$ a measured feature from an actual observation and as $\bbh{p}$ the deriving parameter estimate. We assume the existence of a forward model $\bb{d}(\bb{p})$ which can be obtained using our WL simulation pipeline or, in special cases such as for the $\kappa$ power spectrum, using analytical codes such as NICAEA \citep{Nicaea}. Using Bayes theorem, the likelihood $\lik{\bbh{p}}{\dobs}$ of an estimate $\bbh{p}$ given an observation $\dobs$ is given by
 
 \begin{equation}
 \label{eq:5:bayesthm}
@@ -22,7 +22,7 @@ In the notation of equation (\ref{eq:5:bayesthm}) $\Pi$ encodes prior informatio
 
 \begin{equation}
 \label{eq:5:gaussfeatlik}
-\lik{\dobs}{\bbh{p},\bb{d}(\bb{p})} = \frac{1}{(2\pi)^{N_b/2}\vert\bb{C}\vert}\exp\left(-\frac{1}{2}(\dobs-\bb{d}(\bb{p}))^T\bb{C}^{-1}(\dobs-\bb{d}(\bb{p}))\right) 
+\lik{\dobs}{\bbh{p},\bb{d}(\bb{p})} = \frac{1}{(2\pi)^{N_d/2}\vert\bb{C}\vert}\exp\left(-\frac{1}{2}(\dobs-\bb{d}(\bb{p}))^T\bb{C}^{-1}(\dobs-\bb{d}(\bb{p}))\right) 
 \end{equation}
 %
 where $\bb{C}$ is a $\bb{p}$--independent feature--feature covariance matrix. The Gaussian assumption for the data likelihood is justified by the Central Limit Theorem applied to feature averaging over a large number of fields of view, which can be as high as $O(10^3)$ for a $\theta_{\rm FOV}=3.5\,{\rm deg}$ sized tiling of a modern galaxy survey such as LSST. The independence of the covariance matrix $\bb{C}$ on the cosmological parameters is not justified in the present work. The drawbacks of such assumption will be reserved for future investigation. 
@@ -41,7 +41,7 @@ Note that this definition of $N\sigma$ confidence intervals corresponds to the c
 \left(\Sigma^{-1}\right)_{\alpha\beta} = -\left(\frac{\partial^2\log\mathcal{L}(\bbh{p})}{\partial\h{p}_\alpha\partial\h{p}_\beta}\right)_{\bbh{p}=\bbh{p}_0}
 \end{equation}
 %
-is the parameter covariance matrix. We observe that, even if the parameter likelihood is not Gaussian, we can use the peak location $\bbh{p}_0$ and the matrix (\ref{eq:5:parcov}) as an estimate of the parameters and their covariance, although a complete characterization of the parameter space through the confidence intervals defined in (\ref{eq:5:liklevel}) is preferred. The confidence intervals can be calculated by drawing samples from $\mathcal{L}(\bbh{p})$ using Markov Chain Monte Carlo (MCMC) techniques, which are implemented by many convenient software packages (see for example \citep{emcee}). 
+is the parameter estimate covariance matrix. We observe that, even if the parameter likelihood is not Gaussian, we can use the peak location $\bbh{p}_0$ and the matrix (\ref{eq:5:parcov}) as an estimate of the parameters and their covariance, although a complete characterization of the parameter space through the confidence intervals defined in (\ref{eq:5:liklevel}) is preferred. The confidence intervals can be calculated by drawing samples from $\mathcal{L}(\bbh{p})$ using Markov Chain Monte Carlo (MCMC) techniques, which are implemented by many convenient software packages (see for example \citep{emcee}). 
 
 \subsection{Fisher matrix approximation}
 Parameter inference becomes simpler if the forward model $\bb{d}(\bb{p})$ is linear in the parameters. Linearity can be safely assumed in the limit in which confidence intervals are expected to be localized around the peak of the likelihood, which is the case for large scale WL surveys. We can write 
@@ -142,18 +142,25 @@ We indicated as $n=N_r-1$ the effective number of degrees of freedom in the ense
 \phi(\bb{J}) = \left\langle e^{i\Tr(\bb{J}\bbh{C})}\right\rangle
 \end{equation}
 %
-Performing an inverse Fourier transform in matrix space (much like the one in (\ref{eq:4:characteristic-inverse})), we can reconstruct $\lik{\bbh{C}}{\bb{C},n}$ from $\phi(\bb{J})$. The characteristic function $\phi$ can be evaluated from the moments of the Wishart distribution which are easily expressed in terms of $\bb{C}$ and $n$ via a straightforward though tedious procedure. The final result is (see \citep{Taylor12} for the details)
+Performing an inverse Fourier transform in matrix space (much like the one in (\ref{eq:4:characteristic-inverse})), we can reconstruct $\lik{\bbh{C}}{\bb{C},n}$ from $\phi(\bb{J})$. The characteristic function $\phi$ can be evaluated from the moments of the Wishart distribution which are easily expressed in terms of $\bb{C}$ and $n$ via a straightforward though tedious procedure based on Wick's theorem. The final result is (see \citep{Taylor12} for the details)
 
 \begin{equation}
 \label{eq:5:charw}
-\phi(\bb{J}) = \left\vert\mathds{1}_{N_b\times N_b}-\frac{2i\bb{JC}}{n}\right\vert^{-n/2}
+\phi(\bb{J}) = \left\vert\mathds{1}_{N_d\times N_d}-\frac{2i\bb{JC}}{n}\right\vert^{-n/2}
 \end{equation}
 %
 The inverse Fourier transform leads to the functional form of the Wishart distribution
 
 \begin{equation}
 \label{eq:5:wishart}
-\lik{\bbh{C}}{\bb{C},n} = 
+\lik{\bbh{C}}{\bb{C},n} = \left(\frac{n^{nN_d/2}\vert \bb{C}\vert^{-n/2}\vert\bbh{C}\vert^{(n-N_d-1)/2}}{2^{nN_d/2}\Gamma_{N_d}(n/2)}\right)\exp\left(-\frac{n}{2}\Tr(\bbh{C}\bb{C}^{-1})\right)
+\end{equation}
+%
+where the generalized gamma function $\Gamma_N$ is defined as an integral over the positive semidefinite $N\times N$ symmetric matrices 
+
+\begin{equation}
+\label{eq:5:gengamma}
+\Gamma_N(x) = \int_{\bb{X}>0}d\bb{X}\vert\bb{X}\vert^{x-(N+1)/2}e^{-\Tr\bb{X}}
 \end{equation}
 
 \subsection{Perturbative calculation of the estimate scatter}
