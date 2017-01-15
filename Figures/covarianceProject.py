@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 from lenstools.pipeline.simulation import SimulationBatch
 from lenstools.statistics.ensemble import Ensemble
@@ -51,22 +52,22 @@ colors = {
 
 #Labels
 labels = {
-"power_logb_large" : r"$\ell\in[100,800],N_b=8(\mathrm{log})$",
-"power_logb_small" : r"$\ell\in[1000,6000],N_b=7(\mathrm{log})$",
-"power_logb_all" : r"$\ell\in[100,6000],N_b=15(\mathrm{log})$",
-"power_logb_lowest_ell" : r"$\ell\in[100,250],N_b=4(\mathrm{log})$",
-"power_large" : r"$\ell\in[100,2000],N_b=15(\mathrm{lin})$",
-"power_small" : r"$\ell\in[2500,4500],N_b=15(\mathrm{lin})$",
-"power_large+small" : r"$\ell\in[100,4500],N_b=30(\mathrm{lin})$",
-"power_all" : r"$\ell\in[2500,6000],N_b=39(\mathrm{lin})$",
-"peaks_low" : r"$\kappa_0\in[-0.06,0.09],N_b=15$",
-"peaks_intermediate" : r"$\kappa_0\in[0.1,0.27],N_b=15$",
-"peaks_high" : r"$\kappa_0\in[0.28,0.45],N_b=15$",
-"peaks_low+intermediate" : r"$\kappa_0\in[-0.06,0.27],N_b=30$",
-"peaks_intermediate+high" : r"$\kappa_0\in[0.1,0.45],N_b=30$",
-"peaks_all" : r"$\kappa_0\in[-0.06,0.45],N_b=45$",
-"peaks_highest_kappa" : r"$\kappa_0\in[0.44,0.48],N_b=4$",
-"peaks_highest_kappa_s1" : r"$\kappa_0(\theta_G=1^\prime)>0.15,N_b=20$",
+"power_logb_large" : r"$\ell\in[100,800],N_d=8(\mathrm{log})$",
+"power_logb_small" : r"$\ell\in[1000,6000],N_d=7(\mathrm{log})$",
+"power_logb_all" : r"$\ell\in[100,6000],N_d=15(\mathrm{log})$",
+"power_logb_lowest_ell" : r"$\ell\in[100,250],N_d=4(\mathrm{log})$",
+"power_large" : r"$\ell\in[100,2000],N_d=15(\mathrm{lin})$",
+"power_small" : r"$\ell\in[2500,4500],N_d=15(\mathrm{lin})$",
+"power_large+small" : r"$\ell\in[100,4500],N_d=30(\mathrm{lin})$",
+"power_all" : r"$\ell\in[2500,6000],N_d=39(\mathrm{lin})$",
+"peaks_low" : r"$\kappa_0\in[-0.06,0.09],N_d=15$",
+"peaks_intermediate" : r"$\kappa_0\in[0.1,0.27],N_d=15$",
+"peaks_high" : r"$\kappa_0\in[0.28,0.45],N_d=15$",
+"peaks_low+intermediate" : r"$\kappa_0\in[-0.06,0.27],N_d=30$",
+"peaks_intermediate+high" : r"$\kappa_0\in[0.1,0.45],N_d=30$",
+"peaks_all" : r"$\kappa_0\in[-0.06,0.45],N_d=45$",
+"peaks_highest_kappa" : r"$\kappa_0\in[0.44,0.48],N_d=4$",
+"peaks_highest_kappa_s1" : r"$\kappa_0(\theta_G=1^\prime)>0.15,N_d=20$",
 } 
 
 #Plot order
@@ -107,6 +108,7 @@ offsets = {
 def curving_nb(cmd_args,db_filename="variance_scaling_nb_expected.sqlite",parameter="w",nsim=200,xlim=(0,1./65),ylim=(1,2.5),nr_top=[1000,500,300,200,150,100,90,70],fontsize=22,figname="curving_nb"):
 
 	#Plot panel
+	sns.set(font_scale=1)
 	fig,ax = plt.subplots() 
 	
 	#################################################################################################################
@@ -147,7 +149,7 @@ def curving_nb(cmd_args,db_filename="variance_scaling_nb_expected.sqlite",parame
 
 	#Axis labels and legends
 	ax.set_xlabel(r"$1/N_r$",fontsize=fontsize)
-	ax.set_ylabel(r"$\langle\hat{\sigma}^2_w\rangle/\sigma^2_{w,\infty}$",fontsize=fontsize)
+	ax.set_ylabel(r"$\langle\hat{\mathbf{\Sigma}}_{ww}\rangle/\mathbf{\Sigma}_{ww,\infty}$",fontsize=fontsize)
 	ax.legend(loc="upper left",prop={"size":10})
 
 	#Mirror x axis to show Nr on top
@@ -158,4 +160,5 @@ def curving_nb(cmd_args,db_filename="variance_scaling_nb_expected.sqlite",parame
 	ax1.set_xlabel(r"$N_r$",fontsize=fontsize)
 
 	#Save the figure
-	fig.savefig("eps/{0}.{1}".format(figname,cmd_args.type))
+	fig.savefig("{1}/{0}.{1}".format(figname,cmd_args.type))
+	sns.set(font_scale=2)

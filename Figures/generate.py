@@ -57,6 +57,10 @@ method["4-kurtRes"] = bornProject.plotSmoothKurt
 
 #########################################################################
 
+method["5-curvingnb"] = covarianceProject.curving_nb
+
+#########################################################################
+
 method["7-eb2d"] = spuriousProject.ebPlot
 method["7-spfit"] = spuriousProject.ebFit
 

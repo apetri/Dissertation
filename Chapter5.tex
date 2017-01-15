@@ -22,7 +22,7 @@ In the notation of equation (\ref{eq:5:bayesthm}) $\Pi$ encodes prior informatio
 
 \begin{equation}
 \label{eq:5:gaussfeatlik}
-\lik{\dobs}{\bbh{p},\bb{d}(\bb{p})} = \frac{1}{(2\pi)^{N_d/2}\vert\bb{C}\vert}\exp\left(-\frac{1}{2}(\dobs-\bb{d}(\bb{p}))^T\bb{C}^{-1}(\dobs-\bb{d}(\bb{p}))\right) 
+\lik{\dobs}{\bbh{p},\bb{d}(\bb{p})} = \frac{1}{(2\pi)^{N_d/2}\vert\bb{C}\vert^{1/2}}\exp\left(-\frac{1}{2}(\dobs-\bb{d}(\bb{p}))^T\bb{C}^{-1}(\dobs-\bb{d}(\bb{p}))\right) 
 \end{equation}
 %
 where $\bb{C}$ is a $\bb{p}$--independent feature--feature covariance matrix. The Gaussian assumption for the data likelihood is justified by the Central Limit Theorem applied to feature averaging over a large number of fields of view, which can be as high as $O(10^3)$ for a $\theta_{\rm FOV}=3.5\,{\rm deg}$ sized tiling of a modern galaxy survey such as LSST. The independence of the covariance matrix $\bb{C}$ on the cosmological parameters is not justified in the present work. The drawbacks of such assumption will be reserved for future investigation. 
@@ -74,7 +74,7 @@ Equations (\ref{eq:5:linapprox-peak}), (\ref{eq:5:linapprox-cov}) constitute an 
 
 \begin{equation}
 \label{eq:5:gaussprior}
-\Pi(\bb{p}) = \frac{\vert\bb{F}_\Pi\vert}{(2\pi)^{N_\pi/2}}\exp\left(-\frac{1}{2}(\bb{p}-\bb{p}_\Pi)^T\bb{F}_\Pi(\bb{p}-\bb{p}_\Pi)\right)
+\Pi(\bb{p}) = \frac{\vert\bb{F}_\Pi\vert^{1/2}}{(2\pi)^{N_\pi/2}}\exp\left(-\frac{1}{2}(\bb{p}-\bb{p}_\Pi)^T\bb{F}_\Pi(\bb{p}-\bb{p}_\Pi)\right)
 \end{equation}
 %
 we have 
@@ -149,11 +149,11 @@ Performing an inverse Fourier transform in matrix space (much like the one in (\
 \phi(\bb{J}) = \left\vert\mathds{1}_{N_d\times N_d}-\frac{2i\bb{JC}}{n}\right\vert^{-n/2}
 \end{equation}
 %
-The inverse Fourier transform leads to the functional form of the Wishart distribution
+The inverse Fourier transform leads to the functional form of the Wishart distribution $\lik{\bbh{C}}{\bb{C},n} = \mathcal{W}(\bb{C},\bbh{C},n)$ with
 
 \begin{equation}
 \label{eq:5:wishart}
-\lik{\bbh{C}}{\bb{C},n} = \left(\frac{n^{nN_d/2}\vert \bb{C}\vert^{-n/2}\vert\bbh{C}\vert^{(n-N_d-1)/2}}{2^{nN_d/2}\Gamma_{N_d}(n/2)}\right)\exp\left(-\frac{n}{2}\Tr(\bbh{C}\bb{C}^{-1})\right)
+\mathcal{W}(\bb{C},\bbh{C},n) =  \left(\frac{n^{nN_d/2}\vert \bb{C}\vert^{-n/2}\vert\bbh{C}\vert^{(n-N_d-1)/2}}{2^{nN_d/2}\Gamma_{N_d}(n/2)}\right)\exp\left(-\frac{n}{2}\Tr(\bbh{C}\bb{C}^{-1})\right)
 \end{equation}
 %
 where the generalized gamma function $\Gamma_N$ is defined as an integral over the positive semidefinite $N\times N$ symmetric matrices 
@@ -162,8 +162,48 @@ where the generalized gamma function $\Gamma_N$ is defined as an integral over t
 \label{eq:5:gengamma}
 \Gamma_N(x) = \int_{\bb{X}>0}d\bb{X}\vert\bb{X}\vert^{x-(N+1)/2}e^{-\Tr\bb{X}}
 \end{equation}
+%
+We can use the functional form of the Wishart distribution (\ref{eq:5:wishart}) to derive a closed formula for the distribution of the inverse estimate $\bbh{\Psi}=\bbh{C}^{-1}$, which can be done with a change of variables in matrix space. Following \citep{Taylor12} we get $\lik{\bbh{\Psi}}{\bb{\Psi},n} = \mathcal{W}^{-1}(\bbh{\Psi},\bb{\Psi},n)$ with 
+
+\begin{equation}
+\label{eq:5:wishart-inv}
+\mathcal{W}^{-1}(\bbh{\Psi},\bb{\Psi},n) = \left(\frac{n^{nN_d/2}\vert \bb{\Psi}\vert^{n/2}\vert\bbh{\Psi}\vert^{-(n+N_d+1)/2}}{2^{nN_d/2}\Gamma_{N_d}(n/2)}\right)\exp\left(-\frac{n}{2}\Tr(\bb{\Psi}\bbh{\Psi}^{-1})\right)
+\end{equation}
+%
+Using (\ref{eq:5:wishart-inv}), it can be shown (see \citep{MasumotoWishart}) that the estimate of the inverse covariance $\bbh{\Psi}$ is biased because
+
+\begin{equation}
+\label{eq:5:inv-bias}
+\left\langle\bbh{\Psi}\right\rangle = \frac{n\bb{\Psi}}{n-N_d-1}
+\end{equation} 
+%
+Because the moments of any square sub--matrix of $\bbh{\Psi}$ can be expressed in terms of the relevant elements of $\bb{\Psi}$, $n$ and the combination $\gamma=n-N_d-1$ (see again \citep{MasumotoWishart}) it can be shown that the rescaled Fisher information estimate $\bbh{F}'$ defined as 
+
+\begin{equation}
+\label{eq:5:rescaledF}
+\bbh{F}' = \frac{(n+N_\pi-N_d)\bbh{F}}{n}
+\end{equation}
+%
+is distributed as $\lik{\bbh{F}'}{\bb{F}',n,N_\pi,N_d} = \mathcal{W}^{-1}(\bbh{F}',\bb{F}',n+N_\pi-N_d)$. This observation leads immediately to the conclusion that the parameter error estimate based on (\ref{eq:5:pcov-est-1}) is biased low
+
+\begin{equation}
+\label{eq:5:pcov-est-1-bias}
+\left\langle\bbh{\Sigma}_1\right\rangle = \left(1+\frac{N_\pi-N_d}{n}\right)\bb{\Sigma}
+\end{equation}
+%
+This bias can easily be accounted for by applying the correction factor suggested by equation (\ref{eq:5:pcov-est-1-bias}) to the parameter covariance estimator (\ref{eq:5:pcov-est-1}). This procedure allows to estimate the parameter error bars in an unbiased fashion purely relying on simulations, and hence can be used for obtaining approximate parameter contour forecasts. When analyzing a real observation, though, we are left with a parameter estimate $\bbh{p}_0$, obtained from the peak of the likelihood which, as we will see, is drawn from a distribution with a width larger than $\bb{\Sigma}$. This larger scatter originates from the fact that the feature--feature covariance estimate $\bbh{C}$ is noisy and, although $\bbh{C}$ is unbiased, the peak scatter estimator $\bbh{\Sigma}_2$ in (\ref{eq:5:pcov-est-2}) is not. Unfortunately, unlike the case for $\bbh{\Sigma}_1$, the expectation value $\bbh{\Sigma}_2$ cannot be calculated exactly and needs to be approximated. We will tackle this issue in the following paragraph.  
 
 \subsection{Perturbative calculation of the estimate scatter}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{Figures/eps/curving_nb.eps}
+\end{center}
+\caption{Curving $N_d$}
+\label{fig:5:curvenb}
+\end{figure}
+
+\section{Pseudo--independence of $\kappa$ realizations}
 
 \section{Dimensionality reduction}
 
