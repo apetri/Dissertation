@@ -58,6 +58,10 @@ method["4-kurtRes"] = bornProject.plotSmoothKurt
 #########################################################################
 
 method["5-curvingnb"] = covarianceProject.curving_nb
+method["5-pspdf"] = covarianceProject.ps_pdf
+method["5-scalingnr"] = covarianceProject.scaling_nr
+method["5-scalingns"] = covarianceProject.scaling_ns
+method["5-meansns"] = covarianceProject.means_nsim
 
 #########################################################################
 

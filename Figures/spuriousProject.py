@@ -9,7 +9,12 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 import seaborn as sns
 
-import pixelize
+try:
+	import pixelize
+	pixelize = pixelize
+except ImportError:
+	pixelize = None
+
 from lenstools.pipeline.simulation import LensToolsCosmology
 
 ####################
