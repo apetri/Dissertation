@@ -151,7 +151,7 @@ def curving_nb(cmd_args,db_filename="variance_scaling_nb_expected.sqlite",parame
 
 	#Axis labels and legends
 	ax.set_xlabel(r"$1/N_r$",fontsize=fontsize)
-	ax.set_ylabel(r"$\langle\hat{\mathbf{\Sigma}}_{ww}\rangle/\mathbf{\Sigma}_{ww,\infty}$",fontsize=fontsize)
+	ax.set_ylabel(r"$\langle\hat{\mathbf{\Sigma}}_{w_0w_0}\rangle/\mathbf{\Sigma}_{w_0w_0,\infty}$",fontsize=fontsize)
 	ax.legend(loc="upper left",prop={"size":10})
 
 	#Mirror x axis to show Nr on top
@@ -251,7 +251,7 @@ def scaling_nr(cmd_args,db_filename="variance_scaling_nb_expected.sqlite",featur
 
 	#Labels
 	ax.set_xlabel(r"$N_r$",fontsize=fontsize)
-	ax.set_ylabel(r"$\langle\hat{\Sigma}_{ww}\rangle - \Sigma_{ww,\infty}$",fontsize=fontsize)
+	ax.set_ylabel(r"$\langle\hat{\Sigma}_{w_0w_0}\rangle - \Sigma_{w_0w_0,\infty}$",fontsize=fontsize)
 	ax.legend(loc="lower left",prop={"size":13})
 
 	#Save

@@ -10,7 +10,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from lenstools.pipeline.simulation import SimulationBatch
-from lenstools import ConvergenceMap, GaussianNoiseGenerator
+from lenstools import ConvergenceMap,GaussianNoiseGenerator,Ensemble
+from lenstools.statistics.constraints import FisherAnalysis
 
 #Simulation batch handler
 batch = SimulationBatch.current("/Users/andreapetri/Documents/Columbia/Simulations/DEBatch/environment.ini")
@@ -335,3 +336,134 @@ def plotSmoothKurt(cmd_args,collection="c0",smooth=(0.5,1.,2.,3.,5.,7.,10.),font
 	plotSmooth(cmd_args,lines,collection=collection,moment=moment,smooth=smooth,ylabel=r"$\langle\delta\kappa^4\rangle_c/\langle\kappa^4\rangle_c$",fontsize=fontsize)
 
 ##########################################################################################################################
+
+def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spectrum",kappa_models=("Born",),callback=None,variation_idx=(0,),bootstrap_size=100,resample=1000,return_results=False,fontsize=22):
+	
+	#Initialize plot
+	fig,ax = plt.subplots(len(variation_idx),3,figsize=(24,8*len(variation_idx)))
+	ax = np.atleast_2d(ax)
+
+	##################
+	#Load in the data#
+	##################
+
+	#Observation
+	bootstrap_mean = lambda e: e.values.mean(0)
+	feature_ray = Ensemble.read(os.path.join(fiducial["c0"].getMapSet("kappa").home,feature_name+".npy"),callback_loader=callback).bootstrap(bootstrap_mean,bootstrap_size=bootstrap_size,resample=resample)
+
+	#Containers for cosmological model
+	modelFeatures = dict()
+	for mf in kappa_models:
+		modelFeatures[mf] = dict()
+
+	parameters = dict()
+
+	for model in models:
+		parameters[model.cosmo_id] = np.array([model.cosmology.Om0,model.cosmology.w0,model.cosmology.sigma8])
+		for mf in kappa_models:
+
+			try:
+				modelFeatures[mf][model.cosmo_id] = Ensemble.read(os.path.join(model["c0"].getMapSet("kappa"+mf).home,feature_name+".npy"),callback_loader=callback)
+			except IOError:
+				pass
+
+	#Fit each model
+	for mf in kappa_models:
+
+		#Select correct 
+		features = modelFeatures[mf]
+
+		###############################
+		#Compute the covariance matrix#
+		###############################
+
+		features_covariance = features[fiducial.cosmo_id].cov()
+
+		################################################
+		#Load in the feature to fit, bootstrap the mean#
+		################################################
+	
+		feature_born = features[fiducial.cosmo_id].bootstrap(bootstrap_mean,bootstrap_size=bootstrap_size,resample=resample)
+
+		for nv,v in enumerate(variation_idx):
+
+			###############################
+			#Initialize the FisherAnalysis#
+			###############################
+
+			ftr = np.array([features[m.cosmo_id].values.mean(0) for m in [fiducial] + variations[v]])
+			par = np.array([parameters[m.cosmo_id] for m in [fiducial] + variations[v]])
+			fisher = FisherAnalysis.from_features(ftr,par,parameter_index=["Om","w0","si8"])
+
+			#############
+			####Fit######
+			#############
+
+			fitted_parameters_born = fisher.fit(feature_born,features_covariance)
+			fitted_parameters_ray = fisher.fit(feature_ray,features_covariance)
+
+			if return_results:
+				assert len(kappa_models)==1
+				assert len(variation_idx)==1
+
+				return fitted_parameters_born,fitted_parameters_ray
+
+			##########
+			#Plotting#
+			##########
+
+			for n,p in enumerate(fisher.parameter_names):
+				fitted_parameters_born[p].plot.hist(bins=50,ax=ax[nv,n],label=mf+"(Control)")
+				fitted_parameters_ray[p].plot.hist(bins=50,ax=ax[nv,n],label=mf+"(Observation)")
+				
+				ax[nv,n].set_xlabel(plab[p],fontsize=fontsize)
+				ax[nv,n].set_title(title)
+				ax[nv,n].legend()
+
+	#Labels
+	for a in ax.flatten():
+		plt.setp(a.get_xticklabels(),rotation=30)
+	
+	#Save
+	fig.tight_layout()
+	fig.savefig("{0}/bornBias_{1}.{0}".format(cmd_args.type,feature_name))
+
+
+def pbBiasNgal(cmd_args,feature_names="convergence_momentsSN{0}_s50_nb9",ngal=(10,15,20,30,40,50,60),kappa_model="Born",callback=None,variation_idx=0,bootstrap_size=100,resample=1000,fontsize=22):
+	
+	#Set up plot
+	fig,ax = plt.subplots()
+
+	#Parameter placeholders
+	lines = dict()
+
+	#Cycle over ngal
+	for ng in ngal:
+
+		#Fit parameters with Born, ray
+		pb,pr = pbBias(cmd_args,feature_name=feature_names.format(ng),
+			kappa_models=(kappa_model,),callback=callback,variation_idx=(variation_idx,),bootstrap_size=bootstrap_size,
+			resample=resample,return_results=True,fontsize=fontsize)
+
+		#Add parameter
+		for par in pb:
+			if par not in lines:
+				lines[par] = list()
+
+		#Compute (pB-pR)/sigmaR
+		for par in pb:
+			bias = (pb[par].mean() - pr[par].mean())/pr[par].std()
+			lines[par].append(bias)
+
+	#Plot
+	for par in lines:
+		ax.plot(ngal,np.array(lines[par]),label=plab[par])
+
+	#Legend
+	ax.set_xlabel(r"$n_g({\rm arcmin}^{-2})$",fontsize=fontsize)
+	ax.set_ylabel(r"$\langle p_{\rm born} - p_{\rm ray}\rangle/\sigma_{\rm ray}$")
+	ax.legend(bbox_to_anchor=(0., 1.02, 1., .102),loc=3,ncol=3,mode="expand", borderaxespad=0.)
+
+	#Save
+	fig.tight_layout()
+	fig.savefig("{0}/bornBias_ngal_{1}.{0}".format(cmd_args.type,feature_names.replace("{0}","")))

@@ -14,6 +14,7 @@ import ltProject
 import minkowskiProject
 import spuriousProject
 import cfhtProject
+import photozProject
 
 #Options
 parser = argparse.ArgumentParser()
@@ -62,6 +63,7 @@ method["5-pspdf"] = covarianceProject.ps_pdf
 method["5-scalingnr"] = covarianceProject.scaling_nr
 method["5-scalingns"] = covarianceProject.scaling_ns
 method["5-meansns"] = covarianceProject.means_nsim
+method["5-biasng"] = bornProject.pbBiasNgal
 
 #########################################################################
 
