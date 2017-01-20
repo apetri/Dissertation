@@ -63,6 +63,9 @@ method["5-pspdf"] = covarianceProject.ps_pdf
 method["5-scalingnr"] = covarianceProject.scaling_nr
 method["5-scalingns"] = covarianceProject.scaling_ns
 method["5-meansns"] = covarianceProject.means_nsim
+method["5-pca1"] = photozProject.pca_components_power_spectrum
+method["5-pca2"] = photozProject.pca_components_peaks
+method["5-pca3"] = photozProject.pca_components_moments
 method["5-biasng"] = bornProject.pbBiasNgal
 
 #########################################################################
