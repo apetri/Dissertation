@@ -68,7 +68,7 @@ def pca_components(cmd_args,db_name="constraints_combine.sqlite",feature_label="
 	ax.set_title(r"${\rm " + feature_label.replace("_pca","").replace("_","\,\,") + r"}$",fontsize=fontsize)
 
 	#Ticks
-	ax.set_ylim(0,3)
+	ax.set_ylim(0.9,3)
 	ax.tick_params(axis="both",which="major",labelsize=fontsize)
 
 	#Save figure
