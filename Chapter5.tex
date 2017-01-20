@@ -285,7 +285,7 @@ Note that (\ref{eq:5:pcov-ext-2-emp}) reduces to (\ref{eq:5:pcov-est-2-exp}) whe
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/curving_nb.eps}
 \end{center}
-\caption{Expectation value of the $w$ estimate scatter $\h{\Sigma}_{w_0w_0}$ as a function of the number of pseudo--independent realizations $N_r$ used to measure the feture covariance matrix. We show a variety of features with different dimensionalities, which include $\kappa$ power spectra and peak counts. We show the numerically bootstrapped results from our ensembles as points, the $O(1/N_r),O(1/N_r^2)$ perturbative predictions from equation (\ref{eq:5:pcov-est-2-exp}) as dashed and thin solid lines respectively and the empirical result from equation (\ref{eq:5:pcov-ext-2-emp}) as thick solid lines. The asymptotic parameter covariance $\bb{\Sigma}_\infty$, which coincides with the true covariance $\bb{\Sigma}$ has been estimated with a linear regression of $\langle\bbh{\Sigma}\rangle_2$ versus $1/N_r$ using the large $N_r$ tail.} 
+\caption{Expectation value of the $w$ estimate scatter $\h{\Sigma}_{w_0w_0}$ as a function of the number of pseudo--independent realizations $N_r$ used to measure the feture covariance matrix. We show a variety of features with different dimensionalities, which include $\kappa$ power spectra and peak counts. We show the numerically bootstrapped results from our ensembles as points, the $O(1/N_r),O(1/N_r^2)$ perturbative predictions from equation (\ref{eq:5:pcov-est-2-exp}) as dashed and thin solid lines respectively and the empirical result from equation (\ref{eq:5:pcov-ext-2-emp}) as thick solid lines. The asymptotic parameter covariance $\bb{\Sigma}_\infty$, which coincides with the true covariance $\bb{\Sigma}$, has been estimated with a linear regression of $\langle\bbh{\Sigma}\rangle_2$ versus $1/N_r$ using the large $N_r$ tail.} 
 \label{fig:5:curvenb}
 \end{figure}
 %
@@ -298,7 +298,7 @@ The analytical results illustrated in \S~\ref{sec:5:bayes}, \S~\ref{sec:5:degrad
 \begin{center}
 \includegraphics[scale=0.35]{Figures/eps/ps_pdf.eps}
 \end{center}
-\caption{}
+\caption{Distribution of the $\kappa$ power spectrum at four distinct multipoles. We show the distribution of $P_{\kappa\kappa}$ over 1000 realization ensembles constructed with different $N_s$ (solid colored lines). We also show the distribution of $P_{\kappa\kappa}$ over an ensemble built from a single $N$--body box, from which a large number of realizations $N_r\sim 10^5$ has been drawn (dashed black line).}
 \label{fig:5:pspdf}
 \end{figure}
 %
@@ -306,7 +306,7 @@ The analytical results illustrated in \S~\ref{sec:5:bayes}, \S~\ref{sec:5:degrad
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/means_ns.eps} \includegraphics[scale=0.4]{Figures/eps/scaling_ns.eps}
 \end{center}
-\caption{}
+\caption{Top panel: mean feature measured from $N_r=1000$ realization ensembles build with varying $N_s$. We show the $\kappa$ power spectrum measured at three selected mmultipoles $\ell$ and the peak counts at three different thresholds $\kappa_0$ (colored lines). The mean feature is plotted in units of the statistical error measured from the ensemble variance. We also show as a dashed black line the tolerance level corresponding to 10\% of the statistical error. Bottom panel: asymptotic parameter variance on $w_0$ plotted against the number of independent simulations $N_s$ used to construct the ensembles. The asymptotic variance has been obtained linearly regressing the boostrapped $\langle\bbh{\Sigma}_2\rangle$ against $1/N_r$ for large $N_r$. The trends are shown in units of the mean over $N_s$ for two different binning choices of the power spectrum (black, red) and for the peak counts (green).}
 \label{fig:5:mcns}
 \end{figure}
 %
@@ -316,12 +316,23 @@ One of the effects of this biased sampling is evident in Figure \ref{fig:5:pspdf
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/scaling_nr.eps}
 \end{center}
-\caption{}
+\caption{$w_0$ constraint degradation as a function of $N_r$ for different feature choices, measured from ensembles buit with $N_s=1$. The asymptotic variance $\bb{\Sigma}_{w_0w_0,\infty}$ has been estimated as the ensemble variance calculated at $N_r=128,000$. We show the trends for small (black) and large (blue) scale power spectra and large threshold peak counts for unsmoothed (green) and $1'$ smoothed (red) $\kappa$ images.}
 \label{fig:5:pseudonr}
 \end{figure}
+%
+Figure \ref{fig:5:mcns} also shows, in the lower panel, that the pseudo--independence of $\kappa$ realizations caused by small $N_s$ does not affect the sampling of the asymptotic parameter variance $\bb{\Sigma}$, which is already obtained correctly calculated for $N_s=2$ (modulo statistical fluctuations). This is true even if, for large $N_r$, the image realizations cannot be considered all independent, as Figure \ref{fig:5:pseudonr} shows. The Figure highlights the fact that, when the sampling procedure is based on a single $N$--body simulations, image features measured from the resulting $\kappa$ ensemble start to be correlated for large $N_r$. Depending on which feature we consider, when we look at the error bar  degradation $\langle\bbh{\Sigma}_2\rangle-\bb{\Sigma}$, in the case of perfect independence we should observe a $1/N_r$ asymptotic behavior. What we measure, on the other hand, is a flattening of the degradation trend at high $N_r$, hinting that the realizations that make up the ensemble are correlated. This flattening manifests itself at different $N_r$ depending on which feature we are looking at. Large scale $\kappa$ power spectra drawn from a single box are independent for $N_r<{\rm few}\times 10^3$, while smaller scale statistics like small scale power spectra and peak counts are independent for $N_r<{\rm few}\times 10^4$. These numbers shoule be interpreted as orders of magnitude, and are referred to the size of the boxes $L_b=240\,{\rm Mpc}/h$ used in this work. Different box sizes will likely modify the scale $N_r$ on which deviations from perfect independence start to appear.   
 
 
 \section{Dimensionality reduction}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.35]{Figures/eps/w_power_spectrum_pca.eps} \includegraphics[scale=0.35]{Figures/eps/w_peaks_pca.eps}
+\includegraphics[scale=0.35]{Figures/eps/w_moments_pca.eps}
+\end{center}
+\caption{}
+\label{fig:5:pca}
+\end{figure}
 
 \section{Born approximation induced bias}
 

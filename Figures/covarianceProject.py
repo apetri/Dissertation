@@ -298,7 +298,7 @@ def scaling_ns(cmd_args,db_filename="variance_scaling_nb_expected.sqlite",featur
 	#Labels
 	ax.set_xlim(-10,210)
 	ax.set_xlabel(r"$N_s$",fontsize=fontsize)
-	ax.set_ylabel(r"$\Sigma_{\infty}(N_s)/\Sigma_{\infty,mean}^2$",fontsize=fontsize)
+	ax.set_ylabel(r"$\Sigma_{\infty}(N_s)/\Sigma_{\infty,mean}$",fontsize=fontsize)
 	ax.legend()
 
 	#Save
