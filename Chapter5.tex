@@ -196,7 +196,7 @@ is distributed as $\lik{\bbh{F}'}{\bb{F}',n,N_\pi,N_d} = \mathcal{W}^{-1}(\bbh{F
 This bias can easily be accounted for by applying the correction factor suggested by equation (\ref{eq:5:pcov-est-1-bias}) to the parameter covariance estimator (\ref{eq:5:pcov-est-1}). This procedure allows to estimate the parameter error bars in an unbiased fashion purely relying on simulations, and hence can be used for obtaining approximate parameter contour forecasts. When analyzing a real observation, though, we are left with a parameter estimate $\bbh{p}_0$, obtained from the peak of the likelihood which, as we will see, is drawn from a distribution with a width larger than $\bb{\Sigma}$. This larger scatter originates from the fact that the feature--feature covariance estimate $\bbh{C}$ is noisy and, although $\bbh{C}$ is unbiased, the peak scatter estimator $\bbh{\Sigma}_2$ in (\ref{eq:5:pcov-est-2}) is not. Unfortunately, unlike the case for $\bbh{\Sigma}_1$, the expectation value of $\bbh{\Sigma}_2$ cannot be calculated exactly and needs to be approximated. We will tackle this issue in the following paragraph.  
 
 \subsection{Perturbative calculation of the estimate scatter}
-The expectation value of \ref{eq:5:pcov-est-2} is not easily calculable analytically because both $\bbh{\Psi},\bbh{F}^{-1}$ appear in the expression. In order to evaluate the behavior of the scatter $\bbh{\Sigma}_2$ with $N_d,N_r$, we proceed with a perturbative approach in the quantity $\delta\bbh{\Psi}$, defined by
+The expectation value of (\ref{eq:5:pcov-est-2}) is not easily calculable analytically because both $\bbh{\Psi},\bbh{F}^{-1}$ appear in the expression. In order to evaluate the behavior of the scatter $\bbh{\Sigma}_2$ with $N_d,N_r$, we proceed with a perturbative approach in the quantity $\delta\bbh{\Psi}$, defined by
 
 \begin{equation}
 \label{eq:5:deltapsi}
@@ -292,6 +292,7 @@ Note that (\ref{eq:5:pcov-ext-2-emp}) reduces to (\ref{eq:5:pcov-est-2-exp}) whe
 Figure \ref{fig:5:curvenb} shows a numerical experiment we performed using ensemble bootstrapping in order to measure the constraint degradation of the Dark Energy equation of state parameter $w_0$. The Figure show that, for ratios $N_d/N_r$ close to unity, the scatter of the $w_0$ estimate can be significantly bigger than the forecasted parameter covariance $\bb{\Sigma}$ (see \citep{DodelsonSchneider13,PetriVariance}). This numerical degradation brings up the necessity of dimensionality reduction: high dimensional features might contain more information about cosmology but, since in general their covariance matrix has to measured from simulations, this will induce constraint degradations that increase the size of the errorbars. A good compromise is to find low dimensional features that retain as much of the cosmological information as possible. This is not an easy task, and some possibilities will be illustrated later in the Chapter.  
 
 \section{Pseudo--independence of realizations}
+\label{sec:5:pseudo}
 The analytical results illustrated in \S~\ref{sec:5:bayes}, \S~\ref{sec:5:degrade} depend on the assumption that the image realizations that make up the $\kappa$ ensembles are independent. Because these ensembles are built with the sampling procedure described in \S~\ref{sec:3:sampling}, which uses $N_s$ independent $N$--body simulations to construct a large number $N_r\gg N_s$ of image realizations, these realizations are not guaranteed to be all independent. If $N_s$ is small, on the other hand, it is not guaranteed that $N_s$ simulations with a box size of $L_b=240\,{\rm Mpc}/h$ (such as the ones used in this work) are able to sample cosmic variance in an unbiased way, given the size $\sim 3\,{\rm Gpc}$ of the present Hubble horizon. 
 %
 \begin{figure}
@@ -310,7 +311,7 @@ The analytical results illustrated in \S~\ref{sec:5:bayes}, \S~\ref{sec:5:degrad
 \label{fig:5:mcns}
 \end{figure}
 %
-One of the effects of this biased sampling is evident in Figure \ref{fig:5:pspdf}, which shows the distribution of the $\kappa$ power spectrum in selected multipoles among the different realizations that populate the ensemble. In particular we can see that, when the sampling is based on a single simulation ($N_s=1$), the peak location of the distribution of $P_{\kappa\kappa}(\ell)$ depends on which particular ensemble is selected. Ensembles constructed from different $N$--body boxes sample the small scale power spectrum ($\ell\gtrsim 1000$) differently, while the distinction is not evident on larger scales ($\ell\lesssim 400$). Figure \ref{fig:5:pspdf} also shows that, with our chosen box size, $N_s=5$ is sufficient to obtain an unbiased sampling of the power spectrum up to $\ell\approx5000$. Another representation of biased sampling of image features is shown in the top panel of Figure \ref{fig:5:mcns}, which shows the mean of selected elements of the feature vectors as a function of the number of simulations used in the sampling. The plot shows that for features that are sensitive to $\delta$ fluctuations in the linear regime, such as large scale power spectra and low threshold peak counts, as few as $N_s=2$ simulations (with $L_b=240\,{\rm Mpc}/h$) are sufficient for the sampling bias to be smaller than 10\% of the statistical error. For more non--linear features, such as small scale power spectra and high threshold peak counts the reqyuired number of $N$--body simulations is of the order of 10, referred to the same 10\% tolerance mentioned before.    
+One of the effects of this biased sampling is evident in Figure \ref{fig:5:pspdf}, which shows the distribution of the $\kappa$ power spectrum in selected multipoles among the different realizations that populate the ensemble. In particular we can see that, when the sampling is based on a single simulation ($N_s=1$), the peak location of the distribution of $P_{\kappa\kappa}(\ell)$ depends on which particular ensemble is selected. Ensembles constructed from different $N$--body boxes sample the small scale power spectrum ($\ell\gtrsim 1000$) differently, while the distinction is not evident on larger scales ($\ell\lesssim 400$). Figure \ref{fig:5:pspdf} also shows that, with our chosen box size, $N_s=5$ is sufficient to obtain an unbiased sampling of the power spectrum up to $\ell\approx5000$. Another representation of biased sampling of image features is shown in the top panel of Figure \ref{fig:5:mcns}, which shows the mean of selected elements of the feature vectors as a function of the number of simulations used in the sampling. The plot shows that for features that are sensitive to $\delta$ fluctuations in the linear regime, such as large scale power spectra and low threshold peak counts, as few as $N_s=2$ simulations (with $L_b=240\,{\rm Mpc}/h$) are sufficient for the sampling bias to be smaller than 10\% of the statistical error. For more non--linear features, such as small scale power spectra and high threshold peak counts the required number of $N$--body simulations is of the order of 10, referred to the same 10\% tolerance mentioned before.    
 %
 \begin{figure}
 \begin{center}
@@ -324,15 +325,37 @@ Figure \ref{fig:5:mcns} also shows, in the lower panel, that the pseudo--indepen
 
 
 \section{Dimensionality reduction}
-
+In the previous sections we discussed how noisy feature covariance matrices cause degradations in cosmological parameter inferences. A way to reduce the degradation, as expressed by equations (\ref{eq:5:pcov-est-2-exp}) and (\ref{eq:5:pcov-ext-2-emp}), is to use a large number of independent image realizations $N_r$. On the other hand, in section \S~\ref{sec:5:pseudo} we saw that there is a limit on the number of independent realizations one can generate from a single $N$--body simulation. Because the constraint degradation, at first order, is proportional to the dimensionality of the features, dimensionality reduction techniques that are able to capture the same information with a smaller number $N_c<N_d$ of components, assume particular importance. In this section we will explore one of such techniques, names Principal Component Analysis (PCA) \citep{astroMLText}. PCA essentially projects image features onto a lower dimensional space that hopefully retains most of the original cosmological information. We indicate with $\bb{D}$ the $N_M\times N_d$ feature matrix, in which each of the $N_M$ rows represents an image feature measured in a particular $\Lambda$CDM like model. We perform a SVD decomposition \citep{scipy,astroMLText} of $\bb{D}$, writing it in the form
+%  
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.35]{Figures/eps/w_power_spectrum_pca.eps} \includegraphics[scale=0.35]{Figures/eps/w_peaks_pca.eps}
 \includegraphics[scale=0.35]{Figures/eps/w_moments_pca.eps}
 \end{center}
-\caption{}
+\caption{$1\sigma$ constraint on $w_0$ as function of the number of PCA components $N_c$ used in the projection. We show the case for the $\kappa$ power spectrum (top left) binned with 15 multipole bins, the $\kappa$ peak counts (top right) binned }
 \label{fig:5:pca}
 \end{figure}
+%
+\begin{equation}
+\label{eq:5:svd}
+\bb{D} = \bb{L\Lambda R}
+\end{equation}
+%
+where $\bb{L}$ is $N_M\times K$, $\bb{\Lambda}$ is a diagonal $K\times K$ matrix and $\bb{R}$ is $K\times N_d$. We used the notation $K={\rm min}(N_d,N_M)$. The diagonal components of $\bb{\Lambda}=(\Lambda_1,...,\Lambda_K)$, assumed sorted from biggest to smallest, are called \textit{singluar values} and represent the variance of the coordinates defined by the basis vectors in $\bb{R}$ over the $N_M$ models. The idea behind PCA is to project the feature space onto the first $N_c<N_d$ basis vectors, defined in $\bb{R}$, which have the largest $\Lambda_i$. The remaining directions are discarded, as they are interpreted as being representative of numerical noise unimportant for the sake of constraining cosmology. Because each of the $N_d$ components of the feature vector can have a different scale, in order not to exclude some of the components just because of their measure units, a whitening operation is usually performed before the SVD. This means that, before projecting, the whitened feature matrix $\bb{D}^W$ is produced according to
+
+\begin{equation}
+\label{eq:5:whitening}
+D^W_{md} = \frac{D_{md}-\mu_d}{\sigma_d}
+\end{equation}
+%
+In equation (\ref{eq:5:whitening}) we introduced $N_d$ arbitrary location and scale parameters $\mu_d,\sigma_d$, which are supposed to re--center and normalize $\bb{D}$ so that each feature dimension has the same relative importance. Popular choices for $\mu_d,\sigma_d$ are, respectively, the mean and standard deviation of $\bb{D}$ over the first dimension \citep{astroMLText}. After the whitening, we can perform the SVD on $\bb{D}^W$ and obtain the singular values $\bb{\Lambda}$ and the basis vectors $\bb{R}$. We can then select the $N_c$ biggest singular values and define $\bb{R}(N_c)$ as the matrix made by the first $N_c$ rows of $\bb{R}$. We can then project the image feature $\bb{d}$ from the high dimensional space to the lower dimensional space using PCA as 
+
+\begin{equation}
+\label{eq:5:pca-projection}
+\bb{d}_{\rm PCA}(N_c) = \bb{R}(N_c)\left(\frac{\bb{d}-\pmb{\mu}}{\pmb{\sigma}}\right)
+\end{equation}
+%
+Because the PCA projection depends on the specification of external parameters $\mu_d,\sigma_d$, this type of dimensionality reduction technique is not scale invariant. Nevertheless, we will see it will prove useful in dealing with parameter inferences in WL.     
 
 \section{Born approximation induced bias}
 
