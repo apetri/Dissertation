@@ -332,7 +332,7 @@ In the previous sections we discussed how noisy feature covariance matrices caus
 \includegraphics[scale=0.35]{Figures/eps/w_power_spectrum_pca.eps} \includegraphics[scale=0.35]{Figures/eps/w_peaks_pca.eps}
 \includegraphics[scale=0.35]{Figures/eps/w_moments_pca.eps}
 \end{center}
-\caption{$1\sigma$ constraint on $w_0$ as function of the number of PCA components $N_c$ used in the projection. We show the case for the $\kappa$ power spectrum (top left) binned with 15 multipole bins, the $\kappa$ peak counts (top right) binned }
+\caption{$1\sigma$ constraint on $w_0$ as function of the number of PCA components $N_c$ used in the projection. We show the case for the $\kappa$ power spectrum (top left) binned with 15 multipole bins (per redshift bin), the $\kappa$ peak counts (top right) binned in 45 $\kappa$ thresholds (per redshift bin), and the 9 moments (bottom) defined in (\ref{eq:4:poly-quad}), (\ref{eq:4:poly-cubic}) and (\ref{eq:4:poly-quartic}). We consider the single redshift case (thin lines) and the tomography case (thick line). The constraints are plotted in units of the un--projected constraint, obtained from the full feature space. The feature covariance matrix has been measured from an ensemble made of $N_r=16,000$ realizations to avoid constraint degradation issues. We use $N_M=100$ different choices of $(\Omega_m,w_0,\sigma_8)$ to perform the PCA, and we choose the whitening parameters as $\mu_d=\sigma_d=\sum_p D_{pd}/N_M$.}
 \label{fig:5:pca}
 \end{figure}
 %
@@ -355,7 +355,7 @@ In equation (\ref{eq:5:whitening}) we introduced $N_d$ arbitrary location and sc
 \bb{d}_{\rm PCA}(N_c) = \bb{R}(N_c)\left(\frac{\bb{d}-\pmb{\mu}}{\pmb{\sigma}}\right)
 \end{equation}
 %
-Because the PCA projection depends on the specification of external parameters $\mu_d,\sigma_d$, this type of dimensionality reduction technique is not scale invariant. Nevertheless, we will see it will prove useful in dealing with parameter inferences in WL.     
+Because the PCA projection depends on the specification of external parameters $\mu_d,\sigma_d$, this type of dimensionality reduction technique is not scale invariant. Nevertheless, we will see it will prove useful in dealing with parameter inferences in WL. Modern surveys, such as LSST \citep{LSST}, plan to use redshift tomography of image features in order to get more precise constraints on cosmology. Tomography greatly increases the dimensionality of the feature space. If tracer galaxies are divided in $N_z$ redshift bins, the feature dimensionality increases at least by a factor of $N_z$, which can become $N_z^2$ in the case we consider $\kappa$ cross power spectra across different bins. Figure \ref{fig:5:pca} shows an application of PCA to forecasts of cosmological constraints obtained from redshift tomography of an LSST--like survey \citep{PetriPhotoZ}. The Figure shows that this particular projection technique shows that, in this particular case, the feature dimensionality can be halved and one still gets a $w_0$ constraint which is within $\sim 15-20\%$ of un--projected case for the case of single redshift bins, with even better performance for the tomography case. A wide variety of dimensionality reduction techiques have been proposed in the literature (see \citep{astroMLText} for a non--comprehensive list), and their application to WL cosmology will be investigated in future work.      
 
 \section{Born approximation induced bias}
 
