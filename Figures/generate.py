@@ -70,6 +70,15 @@ method["5-biasng"] = bornProject.pbBiasNgal
 
 #########################################################################
 
+method["6-design"] = cfhtProject.design
+method["6-emulator"] = cfhtProject.emulatorAccuracy
+method["6-pca"] = cfhtProject.pca
+method["6-pcarobustness"] = cfhtProject.robustness
+method["6-csingle"] = cfhtProject.contours_single
+method["6-cmoments"] = cfhtProject.contour_moments
+
+#########################################################################
+
 method["7-eb2d"] = spuriousProject.ebPlot
 method["7-spfit"] = spuriousProject.ebFit
 
@@ -78,7 +87,14 @@ def main():
 	cmd_args = parser.parse_args()
 
 	for fig in cmd_args.fig:
-		method[fig](cmd_args)
+		
+		try:
+			int(fig)
+			for f in filter(lambda s:s.startswith(fig),method):
+				print(f)
+				method[f](cmd_args)
+		except:
+			method[fig](cmd_args)
 
 	if not(len(cmd_args.fig)):
 		for l in sorted(method):
