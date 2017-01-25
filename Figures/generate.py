@@ -66,6 +66,9 @@ method["5-meansns"] = covarianceProject.means_nsim
 method["5-pca1"] = photozProject.pca_components_power_spectrum
 method["5-pca2"] = photozProject.pca_components_peaks
 method["5-pca3"] = photozProject.pca_components_moments
+method["5-biaspower"] = bornProject.pbBiasPower
+method["5-biasmom"] = bornProject.pbBiasMoments
+method["5-biasmomSN"] = bornProject.pbBiasMomentsSN
 method["5-biasng"] = bornProject.pbBiasNgal
 
 #########################################################################

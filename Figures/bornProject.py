@@ -29,6 +29,8 @@ variations = (
 
 plab = { "Om":r"$\Omega_m$", "w0":r"$w_0$", "wa":r"$w_a$", "si8":r"$\sigma_8$" }
 
+
+
 ##########################################################################################################################
 
 def convergenceVisualize(cmd_args,collection="c0",smooth=0.5*u.arcmin,fontsize=22):
@@ -413,12 +415,12 @@ def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spect
 			##########
 
 			for n,p in enumerate(fisher.parameter_names):
-				fitted_parameters_born[p].plot.hist(bins=50,ax=ax[nv,n],label=mf+"(Control)")
-				fitted_parameters_ray[p].plot.hist(bins=50,ax=ax[nv,n],label=mf+"(Observation)")
+				fitted_parameters_born[p].plot.hist(bins=50,ax=ax[nv,n],edgecolor="none",label=r"${\rm Control}$")
+				fitted_parameters_ray[p].plot.hist(bins=50,ax=ax[nv,n],edgecolor="none",label=r"${\rm Observation}$")
 				
 				ax[nv,n].set_xlabel(plab[p],fontsize=fontsize)
 				ax[nv,n].set_title(title)
-				ax[nv,n].legend()
+				ax[nv,n].legend(loc="upper right",prop={"size":20})
 
 	#Labels
 	for a in ax.flatten():
@@ -428,6 +430,14 @@ def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spect
 	fig.tight_layout()
 	fig.savefig("{0}/bornBias_{1}.{0}".format(cmd_args.type,feature_name))
 
+def pbBiasPower(cmd_args,feature_name="convergence_power_s0_nb100"):
+	pbBias(cmd_args,feature_name=feature_name,title=r"$P^{\kappa\kappa}$")
+
+def pbBiasMoments(cmd_args,feature_name="convergence_moments_s0_nb9"):
+	pbBias(cmd_args,feature_name=feature_name,kappa_models=("Born",),title=r"${\rm Moments}$")
+
+def pbBiasMomentsSN(cmd_args,feature_name="convergence_momentsSN_s0_nb9"):
+	pbBias(cmd_args,feature_name=feature_name,title=r"${\rm Moments}$ ${\rm (shape}$ ${\rm noise)}$")
 
 def pbBiasNgal(cmd_args,feature_names="convergence_momentsSN{0}_s50_nb9",ngal=(10,15,20,30,40,50,60),kappa_model="Born",callback=None,variation_idx=0,bootstrap_size=100,resample=1000,fontsize=22):
 	
