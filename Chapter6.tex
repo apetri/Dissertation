@@ -8,26 +8,65 @@
 \label{chp:6}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Data reduction}
+\section{Catalogs}
 
-\subsection{Catalogs}
+\section{Emulator}
+
 \subsection{Cosmological parameter sampling}
+\label{sec:6:sampling}
+We describe the procedure we used to sample the $\Lambda$CDM parameter space. We consider a subset of $N_\pi=3$ parameters $\bb{p}=(\Omega_m,w_0,\sigma_8)$ and we seek a way to uniformly sample it so that no parameter is repeated twice. This sampling scheme takes the name of \textit{latin hypercube} \citep{Coyote2}. One way to implement the latin hypercube sample in practice is to set a $N_\pi$--dimensional bounding box that will contain all the sampled points, and normalize it to $[0,1]^{N_\pi}$ for simplicity. We can then set the number $N_M$ of cosmological models we wish to sample and distribute in an uniform latin hypercube scheme. Following \citep{Coyote2,PetriCFHTMink} we define a cost function 
 
+\begin{equation}
+\label{eq:6:cost}
+\mathcal{C}(\bb{P}) = \frac{2{N_\pi}^{1/2}}{N_M(N_M-1)}\sum_{i<j} \frac{1}{\vert \bb{P}_i-\bb{P}_j \vert}
+\end{equation} 
+%
+where $\bb{P}$ is a $N_M\times N_\pi$ matrix that contains the information on the sampled points and the sum runs over all pair of points. In order to sample the hypercube uniformly, we seek a configuration $\bb{P}$ that minimizes the cost function (\ref{eq:6:cost}) while enforcing the latin hypercube constraint. Because $\mathcal{C}$ is effectively the Coulomb potential energy of $N_M$ unit point charges confined in a box, its minimum leads to a uniform configuration. The simplest latin hypercube arrangement corresponds to the diagonal design $\bb{P}^0$, in which the points are arranged on the diagonal of the hypercube
+
+\begin{equation}
+\label{eq:6:diagonal}
+\bb{P}^0_{i} = \frac{i}{N_M}\underbrace{(1,1,...,1)}_{N_\pi}
+\end{equation}
+%  
+Of course this trivial arrangement is far from optimal. A possible heuristic method to find out a configuration $\bb{P}$ that minimizes (\ref{eq:6:cost}) is simulated annealing \citep{Skiena}, which however is too computationally expensive for our purposes. We resort on this less accurate, but faster, heuristic scheme instead: 
+\begin{enumerate}
+\item Start from the diagonal design $\bb{P}^0$
+\item Pick a random pair of points $(i,j)$ among the $N_M(N_M-1)/2$ available, pick a random parameter $p$ among the $N_\pi$ available
+\item Swap $P_{ip}$ with $P_{jp}$ and vice--versa (the swap preserves the latin hypercube property), recompute the cost function $\mathcal{C}$
+\item If the cost decrease, keep the swap, otherwise revert to the previous configuration
+\item Re--iterate the procedure starting from point 2. 
+\end{enumerate}
+%
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/cfht_design.eps}
 \end{center}
-\caption{}
+\caption{Distribution of the $(\Omega_m,w_0,\sigma_8)$ sampled triplets in the parameter prior box. We show both the $(\Omega_m,w_0)$ (left) and the $(\Omega_m,\sigma_8)$ (right) projections. The black points correspond to the $N_M=91$ latin hypercube models, and the red cross correspond to the fiducial $\Lambda$CDM parameters shown in Table \ref{tab:1:cosmopar}. The design is the result of $10^5$ iterations of the heuristic procedure described in \S~\ref{sec:6:sampling}.}
 \label{fig:6:sampling}
 \end{figure}
+%
+After several iterations, we are left with a latin hypercube design which samples the parameter space approximately uniformly. The last step is to rescale the parameter coordinates from the $[0,1]$ bounds to their originally intended values. The latin hypercube design we use for the present analysis is shown in Figure \ref{fig:6:sampling}. 
+
+
+\subsection{Interpolation}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{Figures/eps/cfht_emulator_accuracy.eps}
+\end{center}
+\caption{}
+\label{fig:6:interpolation}
+\end{figure}
+
+
 
 \section{$\Lambda$CDM parameter inference}
 
 \subsection{PCA projection}
 
-\subsection{Matter density}
+\subsection{Density fluctuations}
 
 \subsection{Dark Energy}
 
 
-%\bibliography{ref}
+\bibliography{ref}
