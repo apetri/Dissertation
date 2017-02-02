@@ -8,7 +8,24 @@
 \label{chp:6}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+In this Chapter we present an application of the techniques presented so far to real data, contained in the publicly available CFHTLenS survey catalogs \citep{cfht1,cfht2,CFHTKilbinger}. We start by reviewing the data reduction procedure that bridges the gap between the row--ordered data to the reconstructed $\kappa$ maps. We then present a set of cosmological simulations tailored to the CFHTLenS catalogs, which allow us to build the feature emulator used to produce $\Lambda$CDM parameter inferences.   
+
 \section{Catalogs}
+The CFHTLenS survey covers an area of 154\,${\rm deg}^2$, divided in four sub--patches of size 64,23,44 and 23\,${\rm deg}^2$. The publicly released catalogs, created with the SExtractor software \citep{SExtractor}, contain information on  galaxy photometric redshifts (see \citep{cfhtPhoto} for a detail on the estimation procedure) and shapes extracted with \ttt{lensfit} \citep{cfht1,cfht2}. After applying a redshift cut $0.2<z<1.3$ on the galaxies, and after considering only the ones with positive weight w (larger w indicates smaller shape measurement uncertainty), we are left with roughly $N_g=4.2$\,million objects distributed over an area of 124.7\,${\rm deg}^2$. This corresponds to an average galaxy density of $n_g\approx 9.3\,{\rm galaxies/arcmin}^2$. The catalog size is further reduced by $25\%$ if sub--patches with non negligible star--galaxy correlations are rejected \citep{CFHTFu}. These correlations are caused by imperfect Point Spread Function (PSF) removal procedures. With the information contained in the publicly available catalogs, we can construct the CFHTLenS $\kappa$ maps using the KS procedure (\ref{eq:2:kappa-ks}) applied to the ellipticity estimated shear data. We create smooth ellipticity maps according to \citep{PetriCFHTMink,PetriCFHTPeaks}
+
+\begin{equation}
+\label{eq:6:ellip-smooth}
+\bar{\bb{e}}(\pt) = \frac{\sum_{i=1}^{N_g}W(\vert\pt-\pt_i\vert){\rm w}_i(\bb{e}_i -\bb{c}_i)}{\sum_{i=1}^{N_g}W(\vert\pt-\pt_i\vert){\rm w}_i(1+m_i)}
+\end{equation}
+%
+In equation (\ref{eq:6:ellip-smooth}), $\pt_i,{\rm w}_i,\bb{e}_i,\bb{c}_i,m_i$ refer, respectively, to the sky position, weight, observed ellipticity, additive and multiplicative ellipticity correction of the $i$--th galaxy as read from the catalog. A Gaussian smoothing window
+
+\begin{equation}
+\label{eq:6:gausswin}
+W(\pt) = \frac{1}{2\pi\theta_G^2}\exp\left(-\frac{\theta^2}{2\theta_G^2}\right)
+\end{equation}
+%
+has been applied to the reconstructed images. The window size $\theta_G$ has been fixed to 1$'$, and occasionally varied to 1.8$'$ and 3.5$'$ for testing purposes, described later in the Chapter. We then set $\pmb{\gamma}(\pt)=\bar{\bb{e}}(\pt)$ and use equation (\ref{eq:2:kappa-ks}) to construct the $\kappa$ images which will then be used for the parameter inferences. We divide the survey area in 13 square sub--fields of area $12\,{\rm deg}^2$. We sample each subfield with $512^2$ evenly spaced square pixels. The reduced data undergoes a feature extraction step (see Chapter \ref{chp:4}). The extracted features are then compared to the simulated ones in a Bayesian fashion (see Chapter \ref{chp:5}) to obtain $\Lambda$CDM parameter posterior distributions. In the next section we describe the simulations used for the construction of the CFHTLenS feature emulator.      
 
 \section{Emulator}
 
@@ -32,8 +49,8 @@ Of course this trivial arrangement is far from optimal. A possible heuristic met
 \begin{enumerate}
 \item Start from the diagonal design $\bb{P}^0$
 \item Pick a random pair of points $(i,j)$ among the $N_M(N_M-1)/2$ available, pick a random parameter $p$ among the $N_\pi$ available
-\item Swap $P_{ip}$ with $P_{jp}$ and vice--versa (the swap preserves the latin hypercube property), recompute the cost function $\mathcal{C}$
-\item If the cost decrease, keep the swap, otherwise revert to the previous configuration
+\item Swap $P_{ip}$ with $P_{jp}$ (the swap preserves the latin hypercube property), recompute the cost function $\mathcal{C}$
+\item If the cost decreases, keep the swap, otherwise revert to the previous configuration
 \item Re--iterate the procedure starting from point 2. 
 \end{enumerate}
 %
@@ -47,6 +64,7 @@ Of course this trivial arrangement is far from optimal. A possible heuristic met
 %
 After several iterations, we are left with a latin hypercube design which samples the parameter space approximately uniformly. The last step is to rescale the parameter coordinates from the $[0,1]$ bounds to their originally intended values. The latin hypercube design we use for the present analysis is shown in Figure \ref{fig:6:sampling}. 
 
+\subsection{Simulations}
 
 \subsection{Interpolation}
 
