@@ -28,6 +28,7 @@ W(\pt) = \frac{1}{2\pi\theta_G^2}\exp\left(-\frac{\theta^2}{2\theta_G^2}\right)
 has been applied to the reconstructed images. The window size $\theta_G$ has been fixed to 1$'$, and occasionally varied to 1.8$'$ and 3.5$'$ for testing purposes, described later in the Chapter. We then set $\pmb{\gamma}(\pt)=\bar{\bb{e}}(\pt)$ and use equation (\ref{eq:2:kappa-ks}) to construct the $\kappa$ images which will then be used for the parameter inferences. We divide the survey area in 13 square sub--fields of area $12\,{\rm deg}^2$. We sample each subfield with $512^2$ evenly spaced square pixels. The reduced data undergoes a feature extraction step (see Chapter \ref{chp:4}). The extracted features are then compared to the simulated ones in a Bayesian fashion (see Chapter \ref{chp:5}) to obtain $\Lambda$CDM parameter posterior distributions. In the next section we describe the simulations used for the construction of the CFHTLenS feature emulator.      
 
 \section{Emulator}
+In order to build a feature emulator for CFHTLenS, we need to know how the particular feature depends on the cosmological parameters. We sample the $\Lambda$CDM parameter space using $N_M$ points and we ran the simulation pipeline described in \S~\ref{sec:3:lt} on each of the sampled points. We then measure the mean feature in each sampled cosmology and we infer the mean feature for arbitrary cosmologies (not included in the $N_M$ samples) using a suitable interpolation procedure. 
 
 \subsection{Cosmological parameter sampling}
 \label{sec:6:sampling}
@@ -65,16 +66,62 @@ Of course this trivial arrangement is far from optimal. A possible heuristic met
 After several iterations, we are left with a latin hypercube design which samples the parameter space approximately uniformly. The last step is to rescale the parameter coordinates from the $[0,1]$ bounds to their originally intended values. The latin hypercube design we use for the present analysis is shown in Figure \ref{fig:6:sampling}. 
 
 \subsection{Simulations}
+We run one $N$--body simulation with $N_p=512^3$, $L_b=240\,{\rm Mpc}/h$ for each of the cosmologies shown in Figure \ref{fig:6:sampling}. All these simulations (referred to as \ttt{CFHTemu1} in the remainder of this work) share the seed used to generate the initial conditions. In addition we run 50 independent $N$--body simulations (referred to as \ttt{CFHTcov} in the remainder of this work) for the fiducial cosmology indicated by the red cross in Figure \ref{fig:6:sampling}. This fiducial dataset will be used to estimate feature covariance matrices. We generate WL shear catalogs using the \LT\, software, performing ray--tracing from the galaxy positions and to the galaxy redshifts contained in the CFHTLenS catalog. In order to forward model the observations correctly, we need to add the intrinsic galaxy ellipticity to the WL signal obtained from ray--tracing. This can be done looking at the CFHTLenS catalog itself, assuming that the WL signal contained in the observations is much smaller than the intrinsic ellipticity noise. We take the intrinsic complex ellipticity $e$ of each galaxy and we rotate it by a random angle $\phi$ by performing the substitution
+
+\begin{equation}
+\label{eq:6:randrot}
+e \rightarrow e\exp(2i\phi)
+\end{equation} 
+%
+We then add this intrinsic ellipticity to the simulated WL shear. The random rotation prevents the double counting of the WL signal, whose spatial coherence is destroyed by the rotation. We use the forward modeled catalogs 
+
+\begin{equation}
+\label{eq:6:forwardcatalog}
+e(\bb{p}) = \gamma(\bb{p}) + e\exp(2i\phi)
+\end{equation}
+%
+to perform the KS inversion and the consequent feature extraction.      
 
 \subsection{Interpolation}
-
+The \LT\, simulation pipeline described in \S~\ref{sec:3:lt}, coupled with the parameter sampling heuristic described in \S~\ref{sec:6:sampling}, allows us to construct the $N_M\times N_d$ feature matrix $\bb{D}$ (introduced in \S~\ref{sec:5:dimred}), which contains information about the mean feature in each of the $N_M$ sampled cosmologies. 
+%
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/cfht_emulator_accuracy.eps}
 \end{center}
-\caption{}
+\caption{Emulator accuracy test for the CFHTLenS $\kappa$ power spectrum $P_{\kappa\kappa}$ (red) and Minkowski functionals $V_k$ (green, blue, black). We use the \ttt{CFHTemu1} simulations to produce a feature emulator that is then tested against the mean feature measured in the \ttt{CFHTcov} simulations (solid lines). We also compare the mean \ttt{CFHTcov} feature to an emulated feature with $(\Omega_m,w_0\sigma_8)=(0.8,-1.0,0.5)$ (deshed lines). The differences are plotted in units of the statistical error on each feature bin.}
 \label{fig:6:interpolation}
 \end{figure}
+%
+We can use the information contained in $\bb{D}$ to infer the mean feature in an arbitrary cosmology, not necessarily included in the $N_M$ samples. Although several sophisticated procedures can be adopted (see \citep{Coyote2}), for the purpose of this analysis we found it convenient to adopt a Radial Basis Functions (RBF) interpolation scheme. We model the cosmology dependence of the feature $\bb{d}$ as
+
+\begin{equation}
+\label{eq:6:rbf}
+d_i(\bb{p}) = \sum_{j=1}^{N_M} \lambda_{ij}f(\vert\bb{p}-\bb{p}_j\vert;R)
+\end{equation}  
+%
+where $\bb{p}_i$ is the $i$--th sampled $\Lambda$CDM parameter tuple and $f$ is the multiquadric function
+
+\begin{equation}
+\label{eq:6:multiquadric}
+f(x;R) = \sqrt{1+\left(\frac{x}{R}\right)^2}
+\end{equation}
+%
+We chose the smoothing scale $R$ as the average distance between sample parameters
+
+\begin{equation}
+\label{eq:6:scale}
+R = \frac{2}{N_M(N_M-1)}\sum_{i<j}\vert\bb{p}_i-\bb{p}_j\vert
+\end{equation} 
+%
+The interpolation can be performed for an arbitrary cosmology $\bb{p}$ once the weights $\lambda_{ij}$ are specified. This can be done by enforcing the constraint $d_i(\bb{p}_j) = D_{ji}$ for each index pair $(i,j)$. This leads to 
+
+\begin{equation}
+\label{eq:6:weights}
+\pmb{\lambda} = [\bb{f}(R)^{-1}\bb{D}]^T
+\end{equation} 
+%
+where we defined $f_{ij}(R) \equiv f(\vert\bb{p}_i-\bb{p}_j;R\vert)$. A test on the accuracy of the so obtained feature emulator $\bb{d}(\bb{p})$ is displayed in Figure \ref{fig:6:interpolation}. We use the emulated feature $\bb{d}(\bb{p})$ as the forward model that enters the Bayesian parameter inference defined by equation (\ref{eq:5:bayesthm}). 
 
 
 

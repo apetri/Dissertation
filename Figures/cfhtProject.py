@@ -162,7 +162,7 @@ def emulatorAccuracy(cmd_args,descriptors_in_plot=single[:-1]):
 	for n in range(len(tk)):
 		new_tk[n] = -0.04 + ((0.12+0.04)/(len(tk)-1))*n
 	ax.set_xticklabels(["{0:.2f}".format(t) for t in new_tk])
-	ax.set_xlabel(r"$\kappa$",fontsize=20)
+	ax.set_xlabel(r"$\kappa_0$",fontsize=20)
 	ax.set_ylabel(r"$[d_i-d_i({\rm emulator})]/\sqrt{C_{ii}}$",fontsize=20)
 
 	#Set a top axis too

@@ -325,6 +325,7 @@ Figure \ref{fig:5:mcns} also shows, in the lower panel, that the pseudo--indepen
 
 
 \section{Dimensionality reduction}
+\label{sec:5:dimred}
 In the previous sections we discussed how noisy feature covariance matrices cause degradations in cosmological parameter inferences. A way to reduce the degradation, as expressed by equations (\ref{eq:5:pcov-est-2-exp}) and (\ref{eq:5:pcov-ext-2-emp}), is to use a large number of independent image realizations $N_r$. On the other hand, in section \S~\ref{sec:5:pseudo} we saw that there is a limit on the number of independent realizations one can generate from a single $N$--body simulation. Because the constraint degradation, at first order, is proportional to the dimensionality of the features, dimensionality reduction techniques that are able to capture the same information with a smaller number $N_c<N_d$ of components, assume particular importance. In this section we will explore one of such techniques, names Principal Component Analysis (PCA) \citep{astroMLText}. PCA essentially projects image features onto a lower dimensional space that hopefully retains most of the original cosmological information. We indicate with $\bb{D}$ the $N_M\times N_d$ feature matrix, in which each of the $N_M$ rows represents an image feature measured in a particular $\Lambda$CDM like model. We perform a SVD decomposition \citep{scipy,astroMLText} of $\bb{D}$, writing it in the form
 %  
 \begin{figure}
