@@ -58,6 +58,7 @@ method["4-kurtRes"] = bornProject.plotSmoothKurt
 
 #########################################################################
 
+method["5-contsample"] = cfhtProject.contours_sample
 method["5-curvingnb"] = covarianceProject.curving_nb
 method["5-pspdf"] = covarianceProject.ps_pdf
 method["5-scalingnr"] = covarianceProject.scaling_nr
@@ -78,7 +79,10 @@ method["6-emulator"] = cfhtProject.emulatorAccuracy
 method["6-pca"] = cfhtProject.pca
 method["6-pcarobustness"] = cfhtProject.robustness
 method["6-csingle"] = cfhtProject.contours_single
-method["6-cmoments"] = cfhtProject.contour_moments
+method["6-csinglerep"] = cfhtProject.contours_single_reparametrize
+method["6-cmom"] = cfhtProject.contour_moments
+method["6-cmomsmth"] = cfhtProject.contour_moments_smoothing_scales
+method["6-si8lik"] = cfhtProject.Si8_likelihood_single
 
 #########################################################################
 

@@ -33,29 +33,24 @@ brew_colors_moments = brew_colors
 
 #Descriptor list
 descriptors=dict()
-descriptors["power_spectrum"]=r"$P_{\kappa\kappa}$"
-descriptors["minkowski_0"]=r"$V_0$"
-descriptors["minkowski_1"]=r"$V_1$"
-descriptors["minkowski_2"]=r"$V_2$"
-descriptors["moments"]=r"$\mathrm{Moments}$"
-descriptors["moments_q1_s1_k1"]=r"$\sigma_{0}^2,S_0,K_0$"
-descriptors["moments_q12_s1_k1"]=r"$\sigma_{0,1}^2,S_0,K_0$"
-descriptors["moments_q12_s12_k1"]=r"$\sigma_{0,1}^2,S_{0,1},K_0$"
-descriptors["moments_q12_s1"]=r"$\sigma_{0,1}^2,S_0$"
-descriptors["moments_q12_s12"]=r"$\sigma_{0,1}^2,S_{0,1}$"
-descriptors["moments_q12_s123"]=r"$\sigma_{0,1}^2,S_{0,1,2}$"
-descriptors["moments_q12_s123_k1"]=r"$\sigma_{0,1}^2,S_{0,1,2},K_0$"
-descriptors["moments_q12_s123_k12"]=r"$\sigma_{0,1}^2,S_{0,1,2},K_{0,1}$"
-descriptors["moments_q12_s123_k123"]=r"$\sigma_{0,1}^2,S_{0,1,2},K_{0,1,2}$"
-descriptors["moments_q12_s123_k1234"]=r"$\sigma_{0,1}^2,S_{0,1,2},K_{0,1,2,3}$"
+descriptors["power_spectrum"] = r"$P_{\kappa\kappa}$"
+descriptors["minkowski_0"] = r"$V_0$"
+descriptors["minkowski_1"] = r"$V_1$"
+descriptors["minkowski_2"] = r"$V_2$"
+descriptors["moments"]=r"${\rm Moments}$"
+descriptors["moments_q1_s1_k1"] = r"$\mu_0^{(2)},\mu_0^{(3)},\mu_0^{(4)}$"
+descriptors["moments_q12_s1_k1"] = r"$\mu_{0,1}^{(2)},\mu_0^{(3)},\mu_0^{(4)}$"
+descriptors["moments_q12_s12_k1"] = r"$\mu_{0,1}^{(2)},\mu_{0,1}^{(3)},\mu_0^{(4)}$"
+descriptors["moments_q12_s1"] = r"$\mu_{0,1}^{(2)},\mu_0^{(3)}$"
+descriptors["moments_q12_s12"] = r"$\mu_{0,1}^{(2)},\mu_{0,1}^{(3)}$"
+descriptors["moments_q12_s123"] = r"$\mu_{0,1}^{(2)},\mu_{0,1,2}^{(3)}$"
+descriptors["moments_q12_s123_k1"] = r"$\mu_{0,1}^{(2)},\mu_{0,1,2}^{(3)},\mu_0^{(4)}$" 
+descriptors["moments_q12_s123_k12"] = r"$\mu_{0,1}^{(2)},\mu_{0,1,2}^{(3)},\mu_{0,1}^{(4)}$"
+descriptors["moments_q12_s123_k123"] = r"$\mu_{0,1}^{(2)},\mu_{0,1,2}^{(3)},\mu_{0,1,2}^{(4)}$"
+descriptors["moments_q12_s123_k1234"] = r"$\mu_{0,1}^{(2)},\mu_{0,1,2}^{(3)},\mu_{0,1,2,3}^{(4)}$"
 
 #Number of principal components
-num_components = dict()
-num_components["power_spectrum"] = 3
-num_components["minkowski_0"] = 5
-num_components["minkowski_1"] = 20
-num_components["minkowski_2"] = 20
-num_components["moments"] = 9 
+num_components = {"power_spectrum":3,"minkowski_0":5,"minkowski_1":20,"minkowski_2":20,"moments":9}
 
 #Smoothing scales
 smoothing_scales = dict()
@@ -335,25 +330,22 @@ def robustness(cmd_args,parameter_axes={"Omega_m":0,"w":1,"sigma8":2},cosmo_labe
 ##################################################################################################################################################
 
 def robustness_1d(cmd_args):
-
 	robustness(cmd_args,marginalize_over="others")
 
 ##################################################################################################################################################
 
 def robustness_1d_reparametrize(cmd_args):
-
 	robustness(cmd_args,parameter_axes={"Omega_m":0,"w":1,"Sigma8Om0.55":2},cosmo_labels={"Omega_m":r"$\Omega_m$","w":r"$w$","Sigma8Om0.55":r"$\sigma_8(\Omega_m/0.27)^{0.55}$"},select="Sigma8Om0.55",marginalize_over="others")
 
 ##################################################################################################################################################
 
 def robustness_reparametrize(cmd_args):
-
 	robustness(cmd_args,parameter_axes={"Omega_m":0,"w":1,"Sigma8Om0.55":2},cosmo_labels={"Omega_m":r"$\Omega_m$","w":r"$w$","Sigma8Om0.55":r"$\sigma_8(\Omega_m/0.27)^{0.55}$"},select="Omega_m")
 
 ##################################################################################################################################################
 ##################################################################################################################################################
 
-def contours_combine(cmd_args,descriptors_in_plot=["power_spectrum"]+multiple,parameter_axes={"Omega_m":0,"w":1,"sigma8":2},cosmo_labels={"Omega_m":r"$\Omega_m$","w":r"$w$","sigma8":r"$\sigma_8$"},select="w",marginalize_over="me",mock=False,cross_label="cross",levels=[0.684],appendSigma=False):
+def contours_combine(cmd_args,descriptors_in_plot=["power_spectrum"]+multiple,parameter_axes={"Omega_m":0,"w":1,"sigma8":2},cosmo_labels={"Omega_m":r"$\Omega_m$","w":r"$w$","sigma8":r"$\sigma_8$"},select="w",marginalize_over="me",mock=False,cross_label="cross",num_components=num_components,levels=[0.684],appendSigma=False,show=False,legend=True):
 
 	#decide if consider data or simulations
 	if mock:
@@ -425,12 +417,16 @@ def contours_combine(cmd_args,descriptors_in_plot=["power_spectrum"]+multiple,pa
 			contour.getLikelihoodValues(levels=levels,precision=0.1)
 
 			#Plot contours
-			contour.plotContours(colors=[sns.xkcd_rgb[brew_colors[n]]],fill=False,display_maximum=False,display_percentages=False,alpha=1.0)
+			if show:
+				contour.show()
+
+			colors = [ sns.xkcd_rgb[brew_colors[m+n]] for m in range(len(levels)) ]
+			contour.plotContours(colors=colors,fill=False,display_maximum=False,display_percentages=False,alpha=1.0)
 
 		else:
 			
 			p,l,pmax,p0 = contour.marginal(select,levels=[0.684])
-			print(pmax,p0)
+			logging.debug(pmax,p0)
 			ax.plot(p,l,color=sns.xkcd_rgb[brew_colors[n]],label=contour_labels[-1])	
 
 	
@@ -438,7 +434,8 @@ def contours_combine(cmd_args,descriptors_in_plot=["power_spectrum"]+multiple,pa
 	
 		#Legend
 		contour.title_label=""
-		contour.labels(contour_labels,loc="upper right",prop={"size":15})
+		if legend:
+			contour.labels(contour_labels,loc="upper right",prop={"size":15})
 
 		#Save
 		par.pop(par.index(select))
@@ -466,9 +463,25 @@ def contours_combine(cmd_args,descriptors_in_plot=["power_spectrum"]+multiple,pa
 
 ##################################################################################################################################################
 
-def contours_single(cmd_args):
+def contours_sample(cmd_args):
+	return contours_combine(cmd_args,descriptors_in_plot=["power_spectrum"],cross_label="sample",levels=[0.997,0.95,0.684],show=True,legend=False)
 
+##################################################################################################################################################
+
+def contours_single(cmd_args):
 	return contours_combine(cmd_args,descriptors_in_plot=single,cross_label="single")
+
+##################################################################################################################################################
+
+def contours_single_reparametrize(cmd_args):
+	nc = {"power_spectrum":3,"minkowski_0":10,"minkowski_1":10,"minkowski_2":10,"moments":9}
+	return contours_combine(cmd_args,descriptors_in_plot=single,cross_label="single",parameter_axes={"Omega_m":0,"w":1,"Sigma8Om0.55":2},cosmo_labels={"Omega_m":r"$\Omega_m$","w":r"$w_0$","Sigma8Om0.55":r"$\Sigma_8$"},select="Omega_m",num_components=nc)
+
+####################################################################################################################################################
+
+def Si8_likelihood_single(cmd_args):
+	nc = {"power_spectrum":3,"minkowski_0":10,"minkowski_1":10,"minkowski_2":10,"moments":9}
+	return contours_combine(cmd_args,descriptors_in_plot=single,cross_label="single",parameter_axes={"Omega_m":0,"w":1,"Sigma8Om0.55":2},cosmo_labels={"Omega_m":r"$\Omega_m$","w":r"$w_0$","Sigma8Om0.55":r"$\Sigma_8$"},select="Sigma8Om0.55",marginalize_over="others",num_components=nc)
 
 ##################################################################################################################################################
 ##################################################################################################################################################
@@ -528,7 +541,7 @@ def contour_moments(cmd_args,descriptors_in_plot=moment_list,parameter_axes={"Om
 				raise TypeError("smoothing scales must be ether float or list!!")
 
 			smoothing_scale_suffix = "-".join(smoothing_scale_list)
-			smoothing_scale_label = "$($" + r"$\times$ ".join(["$"+theta+r"^\prime"+"$" for theta in smoothing_scale_list]) + "$)$"
+			smoothing_scale_label = "$($" + r"$+$ ".join(["$"+theta+r"^\prime"+"$" for theta in smoothing_scale_list]) + "$)$"
 
 			#Construct the likelihood filename
 			likelihood_file = os.path.join(root_dir,"likelihoods_{0}".format(par_hash),"likelihood_{0}--{1}.npy".format(descr,smoothing_scale_suffix))
@@ -585,7 +598,7 @@ def contour_moments(cmd_args,descriptors_in_plot=moment_list,parameter_axes={"Om
 	else:
 
 		#Legend
-		ax.set_xlabel(cosmo_labels[select],fontsize=20)
+		ax.set_xlabel(cosmo_labels[select],fontsize=22)
 		ax.set_ylabel(r"$\mathcal{L}$" + "$($" + cosmo_labels[select] + "$)$",fontsize=22)
 		ax.legend(loc="upper left",prop={"size":15})
 
@@ -594,6 +607,15 @@ def contour_moments(cmd_args,descriptors_in_plot=moment_list,parameter_axes={"Om
 		if figure_label is not None:
 			figname += figure_label
 		fig.savefig("{0}/{1}.{0}".format(cmd_args.type,figname))
+
+###################################################################################################
+
+def contour_moments_smoothing_scales(cmd_args):
+	smoothing_scales["moments_q1_s1_k1"] = "1.0+[1.0,1.8]+[1.0,1.8,3.5]"
+	contour_moments(cmd_args,descriptors_in_plot=["moments_q1_s1_k1"],figure_label="smooth")
+	smoothing_scales["moments_q1_s1_k1"] = 1.0
+
+####################################################################################################
 
 
 

@@ -42,7 +42,15 @@ Note that this definition of $N\sigma$ confidence intervals corresponds to the c
 \left(\Sigma^{-1}\right)_{\alpha\beta} = -\left(\frac{\partial^2\log\mathcal{L}(\bbh{p})}{\partial\h{p}_\alpha\partial\h{p}_\beta}\right)_{\bbh{p}=\bbh{p}_0}
 \end{equation}
 %
-is the parameter estimate covariance matrix. We observe that, even if the parameter likelihood is not Gaussian, we can use the peak location $\bbh{p}_0$ and the matrix (\ref{eq:5:parcov}) as an estimate of the parameters and their covariance, although a complete characterization of the parameter space through the confidence intervals defined in (\ref{eq:5:liklevel}) is preferred. The confidence intervals can be calculated by drawing samples from $\mathcal{L}(\bbh{p})$ using Markov Chain Monte Carlo (MCMC) techniques, which are implemented by many convenient software packages (see for example \citep{emcee}). 
+is the parameter estimate covariance matrix. We observe that, even if the parameter likelihood is not Gaussian, we can use the peak location $\bbh{p}_0$ and the matrix (\ref{eq:5:parcov}) as an estimate of the parameters and their covariance, although a complete characterization of the parameter space through the confidence intervals defined in (\ref{eq:5:liklevel}) is preferred. The confidence intervals can be calculated by drawing samples from $\mathcal{L}(\bbh{p})$ using Markov Chain Monte Carlo (MCMC) techniques, which are implemented by many convenient software packages (see for example \citep{emcee}). The boundaries of sample 1,2 and 3$\sigma$ confidence contours on the parameter doublet $(\Omega_m,\sigma_8)$ are shown in Figure \ref{fig:5:contsample}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{Figures/png/cfht_contoursOmega_m-sigma8_sample.png}
+\end{center}
+\caption{Sample 1,2 and 3$\sigma$ confidence contours on $(\Omega_m,\sigma_8)$. The gray scale refers to the value of the parameter likelihood $\mathcal{L}$}
+\label{fig:5:contsample}
+\end{figure}
 
 \subsection{Fisher matrix approximation}
 Parameter inference becomes simpler if the forward model $\bb{d}(\bb{p})$ is linear in the parameters. Linearity can be safely assumed in the limit in which confidence intervals are expected to be localized around the peak of the likelihood, which is the case for large scale WL surveys. We can write 
