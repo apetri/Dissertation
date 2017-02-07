@@ -16,6 +16,7 @@ try:
 except ImportError:
 	pixelize = None
 
+from lenstools.image.convergence import ConvergenceMap
 from lenstools.pipeline.simulation import LensToolsCosmology
 from lenstools.statistics.constraints import FisherAnalysis
 
@@ -43,6 +44,22 @@ colors = ["pale red","medium green","denim blue","dark grey","pumpkin"]
 ##########
 #Plotting#
 ##########
+
+#Atmosphere residuals visualization
+def visualize(cmd_args):
+
+	#Set up plot
+	fig,axes = plt.subplots(2,2,figsize=(16,16))
+
+	#Load data and plot
+	for n,ax in enumerate(axes.reshape(4)):
+		sp = ConvergenceMap.load(os.path.join(data_path,"pixelized","conv_{0}.fit".format(n+1)))
+		sp.visualize(fig=fig,ax=ax,colorbar=True)
+
+	#Save
+	fig.tight_layout()
+	fig.savefig("{0}/spurious_visualize.{0}".format(cmd_args.type))
+
 
 #E/B power spectrum plotting
 def ebPlot(cmd_args,fontsize=18):

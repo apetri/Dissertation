@@ -14,6 +14,7 @@ import ltProject
 import minkowskiProject
 import spuriousProject
 import cfhtProject
+import sensorsProject
 import photozProject
 
 #Options
@@ -90,8 +91,12 @@ method["6-si8lik"] = cfhtProject.Si8_likelihood_single
 
 #########################################################################
 
+method["7-spvis"] = spuriousProject.visualize
 method["7-eb2d"] = spuriousProject.ebPlot
 method["7-spfit"] = spuriousProject.ebFit
+method["7-galdistr"] = photozProject.galdistr
+method["7-phbias"] = photozProject.photoz_bias
+method["7-sensors"] = sensorsProject.visualize
 
 #Main
 def main():
