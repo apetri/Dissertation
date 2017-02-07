@@ -38,7 +38,7 @@ for n,v in enumerate(variations):
 	parameter_values[n+1] = v.Om0,v.w0,v.sigma8
 
 #Color sequence
-colors = ["pale red","medium green","denim blue","dark grey"]
+colors = ["pale red","medium green","denim blue","dark grey","pumpkin"]
 
 ##########
 #Plotting#
@@ -221,6 +221,8 @@ def _load_features(features,nbins):
 			slicing += range(nbins["power_spectrum"])
 		elif f=="moments":
 			slicing += range(nbins["power_spectrum"],nbins["power_spectrum"]+nbins["moments"])
+		elif f=="moments1pt":
+			slicing += [ nbins["power_spectrum"]+n for n in (0,2,5) ]
 		elif f=="minkowski":
 			slicing += range(nbins["power_spectrum"]+nbins["moments"],nbins["power_spectrum"]+nbins["moments"]+nbins["minkowski"]*3)
 		elif f=="peaks":
@@ -235,7 +237,7 @@ def _load_features(features,nbins):
 ########################################################################################################################################################################################
 ########################################################################################################################################################################################
 
-def plot_constraints(cmd_args,features=(["power_spectrum"],),parameters=["Om0","sigma8"],flabels=("ps",),plabels={"Om0":r"$\Omega_m$","w0":r"$w_0$","sigma8":r"$\sigma_8$"},bounds={"Om0":(0.26,0.29)},figname="wl_constraints",fontsize=22):
+def plot_constraints(cmd_args,features=(["power_spectrum"],),parameters=["Om0","sigma8"],flabels=("ps",),plabels={"Om0":r"$\Omega_m$","w0":r"$w_0$","sigma8":r"$\sigma_8$"},bounds={"Om0":(0.26,0.29)},figname="wl_constraints",legendloc="upper right",fontsize=22):
 
 	#Binning
 	nbins = {"power_spectrum":100,"moments":9,"minkowski":100,"peaks":100}
@@ -267,7 +269,7 @@ def plot_constraints(cmd_args,features=(["power_spectrum"],),parameters=["Om0","
 	#Axes labels
 	ax.set_xlabel(plabels[parameters[0]],fontsize=fontsize)
 	ax.set_ylabel(plabels[parameters[1]],fontsize=fontsize)
-	ax.legend(ellipses,flabels,loc="upper left",ncol=2,prop={"size":15})
+	ax.legend(ellipses,flabels,loc=legendloc,ncol=2,prop={"size":15})
 
 	#Bounds
 	ax.set_xlim(*bounds[parameters[0]])
@@ -280,8 +282,8 @@ def plot_constraints(cmd_args,features=(["power_spectrum"],),parameters=["Om0","
 
 def constraints_single1(cmd_args):
 	parameters = ["Om0","sigma8"]
-	features = (["power_spectrum"],["moments"],["minkowski"],["peaks"])
-	flabels = [r"$P_{\kappa\kappa}$",r"${\rm Moments}$",r"$V_{0,1,2}$",r"${\rm Peaks}$"]
+	features = (["power_spectrum"],["moments"],["minkowski"],["peaks"],["moments1pt"])
+	flabels = [r"$P_{\kappa\kappa}$",r"${\rm Moments}$",r"$V_{0,1,2}$",r"${\rm Peaks}$",r"${\rm Moments}$ ${\rm no}$ $\nabla$"]
 	bounds = {"Om0":(0.15,0.36),"w0":(-1.8,-0.2),"sigma8":(0.6,1.0)}
 	figname = "wl_constraints_single"
 
@@ -289,12 +291,12 @@ def constraints_single1(cmd_args):
 
 def constraints_single2(cmd_args):
 	parameters = ["Om0","w0"]
-	features = (["power_spectrum"],["moments"],["minkowski"],["peaks"])
-	flabels = [r"$P_{\kappa\kappa}$",r"${\rm Moments}$",r"$V_{0,1,2}$",r"${\rm Peaks}$"]
+	features = (["power_spectrum"],["moments"],["minkowski"],["peaks"],["moments1pt"])
+	flabels = [r"$P_{\kappa\kappa}$",r"${\rm Moments}$",r"$V_{0,1,2}$",r"${\rm Peaks}$",r"${\rm Moments}$ ${\rm no}$ $\nabla$"]
 	bounds = {"Om0":(0.15,0.36),"w0":(-1.8,-0.05),"sigma8":(0.6,1.0)}
 	figname = "wl_constraints_single"
 
-	plot_constraints(cmd_args,parameters=parameters,features=features,flabels=flabels,bounds=bounds,figname=figname)
+	plot_constraints(cmd_args,parameters=parameters,features=features,flabels=flabels,bounds=bounds,figname=figname,legendloc="upper left")
 
 ########################################################################################################################################################################################
 
