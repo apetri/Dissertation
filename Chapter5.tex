@@ -48,7 +48,7 @@ is the parameter estimate covariance matrix. We observe that, even if the parame
 \begin{center}
 \includegraphics[scale=0.6]{Figures/png/cfht_contoursOmega_m-sigma8_sample.png}
 \end{center}
-\caption{Sample 1,2 and 3$\sigma$ confidence contours on $(\Omega_m,\sigma_8)$. The gray scale refers to the value of the parameter likelihood $\mathcal{L}$}
+\caption{Sample 1 (blue), 2 (green) and 3$\sigma$ (red) example confidence contours on $(\Omega_m,\sigma_8)$. The gray scale refers to the value of the parameter likelihood $\mathcal{L}$.}
 \label{fig:5:contsample}
 \end{figure}
 
@@ -187,7 +187,7 @@ Using (\ref{eq:5:wishart-inv}), it can be shown (see \citep{MasumotoWishart}) th
 \left\langle\bbh{\Psi}\right\rangle = \frac{n\bb{\Psi}}{n-N_d-1}
 \end{equation} 
 %
-Because the moments of any square sub--matrix of $\bbh{\Psi}$ can be expressed in terms of the relevant elements of $\bb{\Psi}$, $n$ and the combination $\gamma=n-N_d-1$ (see again \citep{MasumotoWishart}) it can be shown that the rescaled Fisher information estimate $\bbh{F}'$ defined as 
+Because the moments of any square sub--matrix of $\bbh{\Psi}$ can be expressed in terms of the relevant elements of $\bb{\Psi}$, $n$ and the combination $\gamma=(n-N_d-1)/2$ (see again \citep{MasumotoWishart}) it can be shown that the rescaled Fisher information estimate $\bbh{F}'$ defined as 
 
 \begin{equation}
 \label{eq:5:rescaledF}
@@ -232,21 +232,21 @@ The series expansion for $(\bb{F}+\delta\bbh{F})^{-1}$, given by
 (\bb{F}+\delta\bbh{F})^{-1} = \sum_{k=0}^\infty (-1)^k(\bb{F}^{-1}\delta\bbh{F})^k\bb{F}^{-1}
 \end{equation}
 %
-provides a straightforward, although computationally tedious way to express (\ref{eq:5:pcov-est-2-pert}) at the desired order in $\delta\bbh{\Psi}$. \citep{MasumotoWishart} showed that a perturbation expansion in $\delta\bbh{\Psi}$ is roughly equivalent to a pertubration series in $1/N^r$, where higher connected moments of the inverse Wishart distribution give rise to higher powers in $1/N_r$. In order to express the expectation value of (\ref{eq:5:pcov-est-2-pert}) at $O(1/N_r^2)$, we need to know the moments of $\mathcal{W}^{-1}$ up to quartic order \citep{PetriVariance}. Following \citep{MasumotoWishart}, we have
+provides a straightforward, although computationally tedious way to express (\ref{eq:5:pcov-est-2-pert}) at the desired order in $\delta\bbh{\Psi}$. \citep{MasumotoWishart} showed that a perturbation expansion in $\delta\bbh{\Psi}$ is roughly equivalent to a perturbation series in $1/N_r$, where higher connected moments of the inverse Wishart distribution give rise to higher powers in $1/N_r$. In order to express the expectation value of (\ref{eq:5:pcov-est-2-pert}) at $O(1/N_r^2)$, we need to know the moments of $\mathcal{W}^{-1}$ up to quartic order \citep{PetriVariance}. Following \citep{MasumotoWishart}, we have
 
 \begin{equation}
 \label{eq:5:inv-wishart-moments-2}
-\left\langle\delta\h{\Psi}_I\delta\h{\Psi}_J\right\rangle = \frac{n^2\Psi_I\Psi_J + n^2\gamma\Psi_{\{ I}\Psi_{J\}}}{4\gamma^2(\gamma-1)(2\gamma+1)}
+\left\langle\delta\h{\Psi}_I\delta\h{\Psi}_J\right\rangle = \frac{\Psi_I\Psi_J + \gamma\Psi_{\{ I}\Psi_{J\}}}{(\gamma-1)(2\gamma+1)}
 \end{equation}
 %
 \begin{equation}
 \label{eq:5:inv-wishart-moments-3}
-\left\langle\delta\h{\Psi}_I\delta\h{\Psi}_J\delta\h{\Psi}_K\right\rangle = \frac{n^3\Psi_{\{ I}\Psi_J\Psi_{K\}}}{8\gamma(\gamma-1)(\gamma-2)(\gamma+1)(2\gamma+1)}
+\left\langle\delta\h{\Psi}_I\delta\h{\Psi}_J\delta\h{\Psi}_K\right\rangle = \frac{\gamma^2\Psi_{\{ I}\Psi_J\Psi_{K\}}}{(\gamma-1)(\gamma-2)(\gamma+1)(2\gamma+1)}
 \end{equation}
 %
 \begin{equation}
 \label{eq:5:inv-wishart-moments-4}
-\left\langle\delta\h{\Psi}_I\delta\h{\Psi}_J\delta\h{\Psi}_K\delta\h{\Psi}_L\right\rangle = \frac{n^4(2\gamma^2-5\gamma+9)\Psi_{\{ I}\Psi_{J\}}\Psi_{\{ K}\Psi_{L\}}}{16\gamma(\gamma-1)(\gamma-2)(\gamma-3)(2\gamma-1)(\gamma+1)(2\gamma+1)(2\gamma+3)}
+\left\langle\delta\h{\Psi}_I\delta\h{\Psi}_J\delta\h{\Psi}_K\delta\h{\Psi}_L\right\rangle = \frac{\gamma^3(2\gamma^2-5\gamma+9)\Psi_{\{ I}\Psi_{J\}}\Psi_{\{ K}\Psi_{L\}}}{(\gamma-1)(\gamma-2)(\gamma-3)(2\gamma-1)(\gamma+1)(2\gamma+1)(2\gamma+3)}
 \end{equation}
 %
 We adopted the following notation: we indicated with a capital letter $I=(i_1,i_2)$ a pair of indices $i_1,i_2$. We also used the curly brace notation for a symmetrization of indices
@@ -403,5 +403,14 @@ Born + $O(\Phi^2)$ & 156.7\,s & 1.52\,GB & 44\,hours \\ \hline
 Table \ref{tab:5:benchmarks} (taken from \citep{PetriBorn}) shows that, using the \LT\,implementation, one can save as much as a factor of 4 in computing time when computing $\kappa$ when using the Born approximation. This saving in CPU time, however, comes at a price since the forward model (\ref{eq:5:linapprox}) and the matrix $\bb{M}$ will be approximated at $O(\Phi)$. When using this approximate forward model to fit an observation via (\ref{eq:5:linapprox-peak}), depending on the particular feature used, one can incur in parameter biases. This possibility was explored in \citep{PetriBorn}, from which we take Figure \ref{fig:5:biasfeat}, which shows the distribution of parameter estimates $\bbh{p}_0$ obtained with exact and Born approximated forward models. We can clearly see that, while the Born approximation does not lead to biased constraints when the $\kappa$ power spectrum is used, the same is not true for higher point moments of $\kappa$ (defined in (\ref{eq:4:poly-quad}),(\ref{eq:4:poly-cubic}),(\ref{eq:4:poly-quartic})). We also observe that, when the effects of galaxy shape noise are taken into account, the increased statistical error in the parameter estimates removes the Born induced bias, which is withing the $1\sigma$ level. This conclusion applies to LSST--like surveys, and even holds for higher survey galaxy densities as high as $n_g\approx 60\,{\rm galaxies/arcmin}^2$ (see Figure \ref{fig:5:biasng}).  
 
 \section{Weak Lensing constraining power}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{Figures/eps/wl_constraints_single_Om0-sigma8.eps} \includegraphics[scale=0.4]{Figures/eps/wl_constraints_single_Om0-w0.eps}
+\includegraphics[scale=0.4]{Figures/eps/wl_constraints_combine_Om0-sigma8.eps} \includegraphics[scale=0.4]{Figures/eps/wl_constraints_combine_Om0-w0.eps}
+\end{center}
+\caption{$1\sigma$ (68\% confidence level) forecast constraints on $(\Omega_m,\sigma_8)$ (left) and $(\Omega_m,w_0)$ (right) using a single $(3.5\,{\rm deg})^2$ field of view. The ellipses are based on the parameter covariance matrix (\ref{eq:5:linapprox-cov}), where the feature covariance matrix $\bbh{C}$ has been estimated from 1000 realizations of the fiducial cosmology and the bias in (\ref{eq:5:pcov-est-1-bias}) has been corrected for. In the top panels we show the constraints obtained single image features such as $P_{\kappa\kappa}$ ($\ell \in [10^2,10^5],N_d=100$), the 9 $\kappa$ moments described in \S~\ref{sec:4:moments}, Minkowski functionals ($\kappa_0\in[-2\sigma,2\sigma]$) and peak counts ($\kappa_0\in[-2\sigma,5\sigma]$). In the bottom panels we show constraints obtained by combining $P_{\kappa\kappa}$ with various higher order statistics. Shape noise for a constant source redshift $z_s=2$ with $n_g=15\,{\rm galaxies/arcmin}^2$ has been added.}
+\label{fig:5:wlconstraints}
+\end{figure}
 
 %\bibliography{ref}

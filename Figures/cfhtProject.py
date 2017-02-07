@@ -14,8 +14,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib import rc
-from mpl_toolkits.axes_grid1 import host_subplot
-import mpl_toolkits.axisartist as AA
 import seaborn as sns
 
 axes_facecolor = rc.func_globals["rcParams"]["axes.facecolor"]
@@ -418,7 +416,9 @@ def contours_combine(cmd_args,descriptors_in_plot=["power_spectrum"]+multiple,pa
 
 			#Plot contours
 			if show:
-				contour.show()
+				contour.show(alpha=0.5)
+				contour.ax.grid(b=False)
+				contour.colorbar.set_label(r"$\mathcal{L}$",fontsize=20)
 
 			colors = [ sns.xkcd_rgb[brew_colors[m+n]] for m in range(len(levels)) ]
 			contour.plotContours(colors=colors,fill=False,display_maximum=False,display_percentages=False,alpha=1.0)

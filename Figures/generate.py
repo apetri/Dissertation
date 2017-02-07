@@ -71,6 +71,10 @@ method["5-biaspower"] = bornProject.pbBiasPower
 method["5-biasmom"] = bornProject.pbBiasMoments
 method["5-biasmomSN"] = bornProject.pbBiasMomentsSN
 method["5-biasng"] = bornProject.pbBiasNgal
+method["5-constr1"] = spuriousProject.constraints_single1
+method["5-constr2"] = spuriousProject.constraints_single2
+method["5-constr3"] = spuriousProject.constraints_combine1
+method["5-constr4"] = spuriousProject.constraints_combine2
 
 #########################################################################
 

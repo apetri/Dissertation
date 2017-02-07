@@ -1,6 +1,7 @@
 import sys,os
 
 import numpy as np
+import pandas as pd
 from scipy.optimize import leastsq
 from scipy import stats
 from astropy.io import fits
@@ -16,6 +17,7 @@ except ImportError:
 	pixelize = None
 
 from lenstools.pipeline.simulation import LensToolsCosmology
+from lenstools.statistics.constraints import FisherAnalysis
 
 ####################
 ####Book keeping####
@@ -27,6 +29,16 @@ cosmo_legend = {"Om":"Om0","Ol":"Ode0","w":"w0","ns":"ns","si":"sigma8"}
 
 fiducial = LensToolsCosmology(sigma8=0.798)
 variations = [ LensToolsCosmology(Om0=0.29,Ode0=0.71,sigma8=0.798), LensToolsCosmology(w0=-0.8,sigma8=0.798), LensToolsCosmology(sigma8=0.850) ]
+
+#Fill in cosmological parameter values
+parameter_values = np.zeros((4,3))
+
+parameter_values[0] = fiducial.Om0,fiducial.w0,fiducial.sigma8
+for n,v in enumerate(variations):
+	parameter_values[n+1] = v.Om0,v.w0,v.sigma8
+
+#Color sequence
+colors = ["pale red","medium green","denim blue","dark grey"]
 
 ##########
 #Plotting#
@@ -95,6 +107,8 @@ def ebPlot(cmd_args,fontsize=18):
 	fig.tight_layout()
 	fig.savefig("{0}/spurious_eb2D.{0}".format(cmd_args.type))
 	sns.set(font_scale=2)
+
+##################################################################################################################################
 
 #Fit spurious E/B power with log-linear, log-normal
 def residuals_lognormal(p,x,y,weight,n=2):
@@ -185,5 +199,120 @@ def ebFit(cmd_args,realizations=range(1,21),lmin=70.0,lmax=10000.0,Nbins=100,fon
 	fig.savefig("{0}/spurious_fit.{0}".format(cmd_args.type))
 
 
-	
+##################################################################################################################################
+
+def _load_features(features,nbins):
+
+	feature_directory = os.path.join(data_path,"systematics","output_bias2","nosys")
+	fname = "{0}_{1}_200z_1smth.txt"
+
+	#Load covariance, features
+	all_covariance = np.loadtxt(os.path.join(feature_directory,fname.format("cov",fiducial.cosmo_id(cosmo_parameters,cosmo_legend))))
+	all_features = list()
+	for m in [fiducial] + variations:
+		all_features.append(np.loadtxt(os.path.join(feature_directory,fname.format("obs",m.cosmo_id(cosmo_parameters,cosmo_legend)))))
+	all_features = np.array(all_features)
+
+	#Do the slicing
+	slicing = list()
+	for f in features:
+
+		if f=="power_spectrum":
+			slicing += range(nbins["power_spectrum"])
+		elif f=="moments":
+			slicing += range(nbins["power_spectrum"],nbins["power_spectrum"]+nbins["moments"])
+		elif f=="minkowski":
+			slicing += range(nbins["power_spectrum"]+nbins["moments"],nbins["power_spectrum"]+nbins["moments"]+nbins["minkowski"]*3)
+		elif f=="peaks":
+			slicing += range(nbins["power_spectrum"]+nbins["moments"]+nbins["minkowski"]*3,nbins["power_spectrum"]+nbins["moments"]+nbins["minkowski"]*3+nbins["peaks"])
+
+	features = all_features[:,slicing]
+	covariance = all_covariance[slicing][:,slicing]
+
+	#Return 
+	return features,covariance
+
+########################################################################################################################################################################################
+########################################################################################################################################################################################
+
+def plot_constraints(cmd_args,features=(["power_spectrum"],),parameters=["Om0","sigma8"],flabels=("ps",),plabels={"Om0":r"$\Omega_m$","w0":r"$w_0$","sigma8":r"$\sigma_8$"},bounds={"Om0":(0.26,0.29)},figname="wl_constraints",fontsize=22):
+
+	#Binning
+	nbins = {"power_spectrum":100,"moments":9,"minkowski":100,"peaks":100}
+
+	#Set up plot
+	fig,ax = plt.subplots()
+
+	#Ellipses
+	ellipses = list()
+
+	for n,feature in enumerate(features):
+
+		#Load features
+		f,cov = _load_features(feature,nbins)
+
+		#Instantiate Fisher analysis, compute parameter covariance
+		fisher = FisherAnalysis.from_features(f,parameters=parameter_values,parameter_index=["Om0","w0","sigma8"])
+		pcov = fisher.parameter_covariance(cov)[parameters].loc[parameters].values
+
+		#Correct for bias
+		pcov/=(1.+(3.-len(cov))/(1000.-1.))
+
+		#Plot ellipse
+		center = (getattr(fiducial,parameters[0]),getattr(fiducial,parameters[1]))
+		ellipse = fisher.ellipse(center=center,covariance=pcov,lw=1,fill=False,edgecolor=sns.xkcd_rgb[colors[n]])
+		ax.add_artist(ellipse)
+		ellipses.append(ellipse)
+
+	#Axes labels
+	ax.set_xlabel(plabels[parameters[0]],fontsize=fontsize)
+	ax.set_ylabel(plabels[parameters[1]],fontsize=fontsize)
+	ax.legend(ellipses,flabels,loc="upper left",ncol=2,prop={"size":15})
+
+	#Bounds
+	ax.set_xlim(*bounds[parameters[0]])
+	ax.set_ylim(*bounds[parameters[1]])
+
+	#Save
+	fig.savefig("{0}/{1}_{2}.{0}".format(cmd_args.type,figname,"-".join(parameters)))
+
+########################################################################################################################################################################################
+
+def constraints_single1(cmd_args):
+	parameters = ["Om0","sigma8"]
+	features = (["power_spectrum"],["moments"],["minkowski"],["peaks"])
+	flabels = [r"$P_{\kappa\kappa}$",r"${\rm Moments}$",r"$V_{0,1,2}$",r"${\rm Peaks}$"]
+	bounds = {"Om0":(0.15,0.36),"w0":(-1.8,-0.2),"sigma8":(0.6,1.0)}
+	figname = "wl_constraints_single"
+
+	plot_constraints(cmd_args,parameters=parameters,features=features,flabels=flabels,bounds=bounds,figname=figname)
+
+def constraints_single2(cmd_args):
+	parameters = ["Om0","w0"]
+	features = (["power_spectrum"],["moments"],["minkowski"],["peaks"])
+	flabels = [r"$P_{\kappa\kappa}$",r"${\rm Moments}$",r"$V_{0,1,2}$",r"${\rm Peaks}$"]
+	bounds = {"Om0":(0.15,0.36),"w0":(-1.8,-0.05),"sigma8":(0.6,1.0)}
+	figname = "wl_constraints_single"
+
+	plot_constraints(cmd_args,parameters=parameters,features=features,flabels=flabels,bounds=bounds,figname=figname)
+
+########################################################################################################################################################################################
+
+def constraints_combine1(cmd_args):
+	parameters = ["Om0","sigma8"]
+	features = (["power_spectrum"],["power_spectrum","moments"],["power_spectrum","minkowski"],["power_spectrum","peaks"])
+	flabels = [r"$P_{\kappa\kappa}$",r"$P_{\kappa\kappa}+{\rm Moments}$",r"$P_{\kappa\kappa}+V_{0,1,2}$",r"$P_{\kappa\kappa}+{\rm Peaks}$"]
+	bounds = {"Om0":(0.15,0.36),"w0":(-1.8,-0.05),"sigma8":(0.6,1.0)}
+	figname = "wl_constraints_combine"
+
+	plot_constraints(cmd_args,parameters=parameters,features=features,flabels=flabels,bounds=bounds,figname=figname)
+
+def constraints_combine2(cmd_args):
+	parameters = ["Om0","w0"]
+	features = (["power_spectrum"],["power_spectrum","moments"],["power_spectrum","minkowski"],["power_spectrum","peaks"])
+	flabels = [r"$P_{\kappa\kappa}$",r"$P_{\kappa\kappa}+{\rm Moments}$",r"$P_{\kappa\kappa}+V_{0,1,2}$",r"$P_{\kappa\kappa}+{\rm Peaks}$"]
+	bounds = {"Om0":(0.15,0.36),"w0":(-1.8,-0.05),"sigma8":(0.6,1.0)}
+	figname = "wl_constraints_combine"
+
+	plot_constraints(cmd_args,parameters=parameters,features=features,flabels=flabels,bounds=bounds,figname=figname)
 
