@@ -425,9 +425,15 @@ def contours_combine(cmd_args,descriptors_in_plot=["power_spectrum"]+multiple,pa
 
 		else:
 			
+			#Plot likelihood
 			p,l,pmax,p0 = contour.marginal(select,levels=[0.684])
 			logging.debug(pmax,p0)
-			ax.plot(p,l,color=sns.xkcd_rgb[brew_colors[n]],label=contour_labels[-1])	
+			ax.plot(p,l,color=sns.xkcd_rgb[brew_colors[n]],label=contour_labels[-1])
+
+			#Planck confidence interval
+			if select=="Sigma8Om0.55" and not(n):
+				sl,sr = 0.829-0.048,0.829+0.048
+				ax.fill_betweenx(np.linspace(0,9,10),sl*np.ones(10),sr*np.ones(10),color=sns.xkcd_rgb["dark grey"],alpha=0.4)
 
 	
 	if marginalize_over=="me":

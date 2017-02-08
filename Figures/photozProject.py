@@ -12,6 +12,7 @@ import seaborn as sns
 from lenstools.pipeline.simulation import SimulationBatch
 from lenstools import ConvergenceMap,GaussianNoiseGenerator,Ensemble
 from lenstools.statistics.constraints import FisherAnalysis
+from lenstools.statistics.ensemble import SquareMatrix
 from lenstools.simulations.design import Design
 from lenstools.catalog.shear import Catalog
 
@@ -51,9 +52,9 @@ feature_properties = {
 "pk" : {"name":"peaks_pca", "table_name": "pcov_noise", "pca_components" : 40, "color" : "medium green", "label" : r"${\rm Peaks}(N_c=40)$","linestyle" : "--", "marker" : "x"},
 "pk70" : {"name":"peaks_pca", "table_name": "pcov_noise", "pca_components" : 70, "color" : "medium green", "label" : r"${\rm Peaks}(N_c=70)$","linestyle" : "-", "marker" : "+"},
 
-"ps+pk" : {"name" : "power_spectrum+peaks" , "table_name" : "pcov_noise_combine", "pca_components" : 30+40, "color" : "pumpkin", "label" : r"$P^{\kappa\kappa}(N_c=30)+n_{\rm pk}(N_c=40)$","linestyle" : "-", "marker" : "x"},
-"ps+mu" : {"name" : "power_spectrum+moments" , "table_name" : "pcov_noise_combine", "pca_components" : 30+30, "color" : "dusty purple", "label" : r"$P^{\kappa\kappa}(N_c=30)+\mathbf{\mu}(N_c=30)$","linestyle" : "-", "marker" : "x"},
-"ps+pk+mu" : {"name" : "power_spectrum+peaks+moments" , "table_name" : "pcov_noise_combine", "pca_components" : 30+30+40, "color" : "dark grey", "label" : r"$P^{\kappa\kappa}(N_c=30)+n_{\rm pk}(N_c=40)+\mathbf{\mu}(N_c=30)$","linestyle" : "-", "marker" : "x"}
+"ps+pk" : {"name" : "power_spectrum+peaks" , "table_name" : "pcov_noise_combine", "pca_components" : 30+40, "color" : "pumpkin", "label" : r"$P_{\kappa\kappa}(N_c=30)+{\rm Peaks}(N_c=40)$","linestyle" : "-", "marker" : "x"},
+"ps+mu" : {"name" : "power_spectrum+moments" , "table_name" : "pcov_noise_combine", "pca_components" : 30+30, "color" : "dusty purple", "label" : r"$P_{\kappa\kappa}(N_c=30)+{\rm Moments}(N_c=30)$","linestyle" : "-", "marker" : "x"},
+"ps+pk+mu" : {"name" : "power_spectrum+peaks+moments" , "table_name" : "pcov_noise_combine", "pca_components" : 30+30+40, "color" : "dark grey", "label" : r"$P_{\kappa\kappa}(N_c=30)+{\rm Peaks}(N_c=40)+{\rm Moments}(N_c=30)$","linestyle" : "-", "marker" : "x"}
 
 }
 
@@ -135,6 +136,8 @@ def pca_components_moments(cmd_args):
 	pca_components(cmd_args,feature_label="moments_pca")
 
 ##################################################################################################################
+##################################################################################################################
+##################################################################################################################
 
 def photoz_bias(cmd_args,dbn="data/fisher/constraints_photoz.sqlite",parameters=["Om","w"],features_to_show=["ps","ps70","pk","pk70","mu","mu40"],fontsize=22):
 	
@@ -203,3 +206,63 @@ def photoz_bias(cmd_args,dbn="data/fisher/constraints_photoz.sqlite",parameters=
 
 	#Save figure
 	fig.savefig("{0}/photoz_bias_{1}.{0}".format(cmd_args.type,"-".join(parameters)))
+
+##################################################################################################################
+##################################################################################################################
+
+def parameter_constraints(cmd_args,dbn="data/fisher/constraints_combine.sqlite",features_to_show=["ps","ps70","pk","pk70","mu","mu40","ps+pk","ps+mu","ps+pk+mu"],parameters=["Om","w"],all_parameters=["Om","w","sigma8"],xlim=(0.252,0.267),ylim=(-1.04,-0.96),cmb_prior_fisher=None,suffix="lensing",fontsize=22):
+
+	#Database
+	db_name = os.path.join(batch.home,dbn)
+
+	#Init figure
+	fig,ax = plt.subplots()
+	ellipses = list()
+	labels = list()
+
+	#CMB prior
+	if cmb_prior_fisher is not None:
+		fisher_cmb = SquareMatrix.read(os.path.join(batch.home,cmb_prior_fisher))[all_parameters]
+
+	#Plot the features 
+	with FisherDatabase(db_name) as db:
+		for f in features_to_show:
+
+			#Query parameter covariance
+			pcov = db.query_parameter_covariance(feature_properties[f]["name"],nbins=feature_properties[f]["pca_components"],table_name=feature_properties[f]["table_name"],parameters=parameters)
+
+			#Show the ellipse
+			center = (par2value[parameters[0]],par2value[parameters[1]])
+			ellipse = FisherAnalysis.ellipse(center=center,covariance=pcov.values,p_value=0.677,fill=False,edgecolor=sns.xkcd_rgb[feature_properties[f]["color"]],linestyle=feature_properties[f]["linestyle"],lw=1)
+			ax.add_artist(ellipse)
+
+			#Labels
+			ellipses.append(ellipse)
+			labels.append(feature_properties[f]["label"])
+
+			#If there is a CMB prior to include, add the fisher matrices
+			if cmb_prior_fisher is not None:
+
+				#Fisher matrix addition in quadrature
+				pcov_lensing = db.query_parameter_covariance(feature_properties[f]["name"],nbins=feature_properties[f]["pca_components"],table_name=feature_properties[f]["table_name"],parameters=all_parameters)
+				pcov_lensing_cmb = (pcov_lensing.invert() + fisher_cmb).invert()[parameters]
+
+				#Add additional ellipses for the constraints with prior
+				ax.add_artist(FisherAnalysis.ellipse(center=center,covariance=pcov_lensing_cmb.values,p_value=0.677,fill=False,edgecolor=sns.xkcd_rgb[feature_properties[f]["color"]],linestyle=feature_properties[f]["linestyle"],lw=4))
+
+	#Axes bounds
+	ax.set_xlim(*xlim)
+	ax.set_ylim(*ylim)
+
+	#Axes labels and legend
+	ax.set_xlabel(par2label[parameters[0]],fontsize=fontsize)
+	ax.set_ylabel(par2label[parameters[1]],fontsize=fontsize)
+	ax.legend(ellipses,labels,prop={"size" : 17},bbox_to_anchor=(0.,1.02,1.,.102),loc=3,ncol=len(features_to_show)//4,mode="expand",borderaxespad=0.)
+	plt.setp(ax.get_xticklabels(),rotation=30)
+
+	#Save figure
+	fig.savefig("{0}/photoz_constraints_{1}_{2}.{0}".format(cmd_args.type,"-".join(parameters),suffix))
+
+
+def parameter_constraints_with_cmb(cmd_args):
+	parameter_constraints(cmd_args,features_to_show=["ps70","pk70","mu40","ps+pk","ps+mu","ps+pk+mu"],cmb_prior_fisher="data/planck/planck_base_w_TT_lowTEB.pkl",suffix="lensing_cmb")
