@@ -442,6 +442,8 @@ def contours_combine(cmd_args,descriptors_in_plot=["power_spectrum"]+multiple,pa
 		contour.title_label=""
 		if legend:
 			contour.labels(contour_labels,loc="upper right",prop={"size":15})
+		else:
+			contour.labels()
 
 		#Save
 		par.pop(par.index(select))

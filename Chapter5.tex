@@ -35,7 +35,7 @@ Once the parameter likelihood is known, parameter confidence intervals can be ob
 \int_{\mathcal{L}>\mathcal{L}_N}\lik{\bbh{p}}{\dobs,\bb{d}(\bb{p})} d\bbh{p} = \frac{1}{\sqrt{2\pi}}\int_{-N}^Ne^{-x^2/2}dx
 \end{equation}  
 %
-Note that this definition of $N\sigma$ confidence intervals corresponds to the commonly accepted one when $\mathcal{L}(\bbh{p})$ is Gaussian. If this is the case, calling $\bbh{p}_0$ the location of the likelihood peak, the matrix $\bb{\Sigma}$, defined by
+Note that this definition of $N\sigma$ confidence intervals (see Figure \ref{fig:5:contsample} for a visual example) corresponds to the commonly accepted one when $\mathcal{L}(\bbh{p})$ is a Gaussian in $\bbh{p}$. If this is the case, calling $\bbh{p}_0$ the location of the likelihood peak, the matrix $\bb{\Sigma}$, defined by
 
 \begin{equation}
 \label{eq:5:parcov}
@@ -403,6 +403,7 @@ Born + $O(\Phi^2)$ & 156.7\,s & 1.52\,GB & 44\,hours \\ \hline
 Table \ref{tab:5:benchmarks} (taken from \citep{PetriBorn}) shows that, using the \LT\,implementation, one can save as much as a factor of 4 in computing time when computing $\kappa$ when using the Born approximation. This saving in CPU time, however, comes at a price since the forward model (\ref{eq:5:linapprox}) and the matrix $\bb{M}$ will be approximated at $O(\Phi)$. When using this approximate forward model to fit an observation via (\ref{eq:5:linapprox-peak}), depending on the particular feature used, one can incur in parameter biases. This possibility was explored in \citep{PetriBorn}, from which we take Figure \ref{fig:5:biasfeat}, which shows the distribution of parameter estimates $\bbh{p}_0$ obtained with exact and Born approximated forward models. We can clearly see that, while the Born approximation does not lead to biased constraints when the $\kappa$ power spectrum is used, the same is not true for higher point moments of $\kappa$ (defined in (\ref{eq:4:poly-quad}),(\ref{eq:4:poly-cubic}),(\ref{eq:4:poly-quartic})). We also observe that, when the effects of galaxy shape noise are taken into account, the increased statistical error in the parameter estimates removes the Born induced bias, which is withing the $1\sigma$ level. This conclusion applies to LSST--like surveys, and even holds for higher survey galaxy densities as high as $n_g\approx 60\,{\rm galaxies/arcmin}^2$ (see Figure \ref{fig:5:biasng}).  
 
 \section{Weak Lensing constraining power}
+\label{sec:5:constraints}
 
 \begin{figure}
 \begin{center}

@@ -175,6 +175,8 @@ Figure \ref{fig:6:pcacomp} shows the singular values $\Lambda_i$ obtained from t
 %
 In this section we discuss the constraints on the Dark Matter density parameter $\Omega_m$ and the amplitude of the initial density fluctuations $\sigma_8$ from CFHTLenS data. It is immediately evident from Figure \ref{fig:6:cOmSisingle} that the $\kappa$ moments are the most efficient in constraining $(\Omega_m,\sigma_8)$, because of both the precision and the un--biased fashion in which the constraint is delivered. The constraint from the power spectrum suffers from a well known degeneracy between $\Omega_m$ and $\sigma_8$, which prevents tight bounds on these parameters to be obtained. Finally, the Minkowski functionals seem to suffer from uncorrected residual systematics in the CFHTLenS catalogs, which tend to shift the constraint towards the unphysical large $\Omega_m$, low $\sigma_8$ region. 
 
+Figure \ref{fig:6:cOmSimoments} shows the breakdown of the $(\Omega_m,\sigma_8)$ constraint when different sets of $\kappa$ moments are considered. In agreement with what stated in \S~\ref{sec:5:constraints}, we find that most of the constraining power comes from moments which include gradients of $\kappa$ ($\mu_{m}^{(n)}$ with $m>0$). Moreover we see that a significant amount of cosmological information is carried by moments which are quartic in $\kappa$, as can be also seen in \citep{JainKurt}. The right panel of Figure \ref{fig:6:cOmSimoments} also shows that, for the sake of constraining $\Omega_m,\sigma_8$, combining one point moments $\mu_0^{(n)}$ with different smoothing scales is not as effective as considering gradient moments.  
+
 In order to break the degeneracy between $\Omega_m$ and $\sigma_8$, we focus on the parameter combination $\Sigma_8=\sigma_8(\Omega_m/0.27)^\alpha$, which can be better constrained upon a suitable choice for the exponent $\alpha$. Different values of $\alpha$ map to different directions in the $(\Omega_m,\sigma_8)$ plane. From the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\sigma_8)$, we can easily compute the expectation value $\mathds{E}$ and variance $\mathds{V}$ of $\Sigma_8$. $\alpha$ is then obtained by minimizing $\mathds{V}/\sqrt{\mathds{E}}$, which yields an approximate value of $\alpha=0.55$, with slight variations across different features. The marginalized constraint on $\Sigma_8$ is shown in Figure \ref{fig:6:cSi855} and Table \ref{tab:6:Si8}
 %
 \begin{table}
@@ -182,19 +184,22 @@ In order to break the degeneracy between $\Omega_m$ and $\sigma_8$, we focus on 
 \begin{tabular}{c|c}
 \textbf{Feature} & $\Sigma_8=\sigma_8\Omega_m^{0.55}$ \\ \hline \hline
 $P_{\kappa\kappa}$(3) & $0.84^{+0.06}_{-0.09}$\\
-$P_{\kappa\kappa}$(3) $\times$ Moments(9) & $0.86^{+0.02}_{-0.09}$ \\
-$V_0(10)\times V_1(10) \times V_2(10)$  & $0.75^{+0.07}_{-0.04}$ \\
-$P_{\kappa\kappa}$(3) $\times V_0(10)\times V_1(10) \times V_2(10)$ & $0.76^{+0.04}_{-0.05}$ \\
-$P_{\kappa\kappa}$(3) $\times V_0(10)\times V_1(10) \times V_2(10) \times$ Moments(9) & $0.76^{+0.06}_{-0.04}$ \\ \hline
+$P_{\kappa\kappa}$(3) $+$ Moments(9) & $0.86^{+0.02}_{-0.09}$ \\
+$V_0(10)+ V_1(10) + V_2(10)$  & $0.75^{+0.07}_{-0.04}$ \\
+$P_{\kappa\kappa}$(3) $+ V_0(10)+ V_1(10) + V_2(10)$ & $0.76^{+0.04}_{-0.05}$ \\
+$P_{\kappa\kappa}$(3) $+ V_0(10)+ V_1(10) + V_2(10) +$ Moments(9) & $0.76^{+0.06}_{-0.04}$ \\ \hline
 \end{tabular}
 \end{center}
 \caption{Tabulated values of $1\sigma$ constraints on $\Sigma_8$}
 \label{tab:6:Si8}
-\end{table}    
+\end{table}
+%
+We can clearly see that, while the $\kappa$ power spectrum and the moments deliver a $\Sigma_8$ constraint that is consistent with the one from Planck \citep{Planck15} (although with a bigger error bar), the same is not true for the Minkowski functionals. These morphological descriptors seem to be affected to a greater extent by uncorrected systematics in the CFHTLenS catalogs.     
 
 \subsection{Dark Energy}
-
-\begin{figure}
+Constraints on the physical nature of Dark Energy, unfortunately, are still elusive when using CFHTLenS data, because of the small size of the survey. Figure \ref{fig:6:cwSi855signle} shows the Dark Energy equation of state constraint we can obtain from the data using a variety of features. We can clearly conclude that the CFHT survey leaves $w_0$ essentially unconstrained. With bigger surveys coming up in the future one can hope to reduce the statistical error on measurements, taking advantage of the increased sky coverage. Reduced statistical errors, on the other hand, require throughout investigations of systematics, in order to avoid biases in the constraints. Some of these issues will be object of the next Chapter. 
+%
+\begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/cfht_contoursw-Sigma8Om055_single.eps}
 \end{center}
