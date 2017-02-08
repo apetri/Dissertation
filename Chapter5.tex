@@ -323,7 +323,7 @@ One of the effects of this biased sampling is evident in Figure \ref{fig:5:pspdf
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/eps/scaling_nr.eps}
+\includegraphics[scale=0.6]{Figures/eps/scaling_nr.eps}
 \end{center}
 \caption{$w_0$ constraint degradation as a function of $N_r$ for different feature choices, measured from ensembles buit with $N_s=1$. The asymptotic variance $\bb{\Sigma}_{w_0w_0,\infty}$ has been estimated as the ensemble variance calculated at $N_r=128,000$. We show the trends for small (black) and large (blue) scale power spectra and large threshold peak counts for unsmoothed (green) and $1'$ smoothed (red) $\kappa$ images.}
 \label{fig:5:pseudonr}
@@ -404,14 +404,18 @@ Table \ref{tab:5:benchmarks} (taken from \citep{PetriBorn}) shows that, using th
 
 \section{Weak Lensing constraining power}
 \label{sec:5:constraints}
-
+%
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/wl_constraints_single_Om0-sigma8.eps} \includegraphics[scale=0.4]{Figures/eps/wl_constraints_single_Om0-w0.eps}
 \includegraphics[scale=0.4]{Figures/eps/wl_constraints_combine_Om0-sigma8.eps} \includegraphics[scale=0.4]{Figures/eps/wl_constraints_combine_Om0-w0.eps}
 \end{center}
-\caption{$1\sigma$ (68\% confidence level) forecast constraints on $(\Omega_m,\sigma_8)$ (left) and $(\Omega_m,w_0)$ (right) using a single $(3.5\,{\rm deg})^2$ field of view. The ellipses are based on the parameter covariance matrix (\ref{eq:5:linapprox-cov}), where the feature covariance matrix $\bbh{C}$ has been estimated from 1000 realizations of the fiducial cosmology and the bias in (\ref{eq:5:pcov-est-1-bias}) has been corrected for. In the top panels we show the constraints obtained single image features such as $P_{\kappa\kappa}$ ($\ell \in [10^2,10^5],N_d=100$), the 9 $\kappa$ moments described in \S~\ref{sec:4:moments}, Minkowski functionals ($\kappa_0\in[-2\sigma,2\sigma]$) and peak counts ($\kappa_0\in[-2\sigma,5\sigma]$). In the bottom panels we show constraints obtained by combining $P_{\kappa\kappa}$ with various higher order statistics. Shape noise for a constant source redshift $z_s=2$ with $n_g=15\,{\rm galaxies/arcmin}^2$ has been added.}
+\caption{$1\sigma$ (68\% confidence level) forecast constraints on $(\Omega_m,\sigma_8)$ (left) and $(\Omega_m,w_0)$ (right) using a single $(3.5\,{\rm deg})^2$ field of view. The ellipses are based on the parameter covariance matrix (\ref{eq:5:linapprox-cov}), where the feature covariance matrix $\bbh{C}$ has been estimated from 1000 realizations of the fiducial cosmology and the bias in (\ref{eq:5:pcov-est-1-bias}) has been corrected for. In the top panels we show the constraints obtained single image features such as $P_{\kappa\kappa}$ ($\ell \in [10^2,10^5],N_d=100$), the 9 $\kappa$ moments described in \S~\ref{sec:4:moments}, Minkowski functionals ($\kappa_0\in[-2\sigma,2\sigma], N_d=100$) and peak counts ($\kappa_0\in[-2\sigma,5\sigma], N_d=100$). In the bottom panels we show constraints obtained by combining $P_{\kappa\kappa}$ with various higher order statistics. Shape noise for a constant source redshift $z_s=2$ with $n_g=15\,{\rm galaxies/arcmin}^2$ has been added.}
 \label{fig:5:wlconstraints}
 \end{figure}
+%
+In this section we want to give a first flavor of the constraining power of WL probes and, most important of all, show how the higher order image features described in Chapter \ref{chp:4} can complement the cosmological information supplied by the power spectrum $P_{\kappa\kappa}$. Constraint forecasts on $(\Omega_m,\sigma_8)$ and $(\Omega_m,w_0)$ are shown in Figure \ref{fig:5:wlconstraints}, which shows both constraints from individual features and combinations of higher order statistics with the power spectrum. Biases on the $\bb{\Sigma}$ estimate that arise from high $N_d$ (see equation (\ref{eq:5:pcov-est-1-bias})) have been corrected for. We can see that, for single redshift galaxy sources with an angular density of $n_g=15\,{\rm galaxies/arcmin^2}$, $\kappa$ peak counts and $\kappa$ moments have a constraining power which is comparable with $P_{\kappa\kappa}$. In this systematic effects free case, we can also see that Minkowski functionals can deliver constraints which are about a factor of 2 better than the ones provided by the moments alone.
+Regarding the $\kappa$ moments, we can see that most of the cosmological information comes from moments that contain $\kappa$ gradients (i.e. $\mu_{m}^{(n)}$ with $m>0$) which, in addition to the PDF of $\kappa$, contain information about spatial correlations. 
+From the bottom panel of Figure \ref{fig:5:wlconstraints} we can observe that all higher order features considered in this work contain complementary information to the one contained in $P_{\kappa\kappa}$.    
 
 %\bibliography{ref}
