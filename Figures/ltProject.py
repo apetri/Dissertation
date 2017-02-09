@@ -3,9 +3,11 @@ import os,re
 import numpy as np
 import pandas as pd
 import astropy.units as u
-import matplotlib.pyplot as plt
 
+import matplotlib.pyplot as plt
 from matplotlib import rc
+import seaborn as sns
+
 import daft
 
 from lenstools import dataExtern
@@ -140,30 +142,31 @@ def memory_usage(cmd_args):
 	with open("planes.err","r") as fp:
 		df_planes = parse_log(fp)
 
-	ax.plot(df_planes["timestamp_s"].values,df_planes["peak_memory(GB)"].values,label="Lens Planes",color="black")
+	ax.plot(df_planes["timestamp_s"].values,df_planes["peak_memory(GB)"].values,label="Lens Planes",color=sns.xkcd_rgb["dark grey"])
 	ax.set_ylim(0,2.)
 
 	#Plot a black line after each plane is completed
 	planes_completed = df_planes.timestamp_s[df_planes.step.str.contains("Plane")].values
 	planes_completed_memory = df_planes["peak_memory(GB)"][df_planes.step.str.contains("Plane")].values
 	for n,t in enumerate(planes_completed):
-		_bline(ax,t,planes_completed_memory[n],color="black",linestyle="--")
+		_bline(ax,t,planes_completed_memory[n],color=sns.xkcd_rgb["dark grey"],linestyle="--")
 
 	#Plot memory usage for raytracing operations
 	with open("ray.err","r") as fp:
 		df_ray = parse_log(fp)
 
 	ax_top = ax.twiny()
-	ax_top.plot(df_ray["timestamp_s"].values,df_ray["peak_memory(GB)"].values,label="Ray--tracing",color="red")
+	ax_top.plot(df_ray["timestamp_s"].values,df_ray["peak_memory(GB)"].values,label="Ray--tracing",color=sns.xkcd_rgb["pale red"])
 	ax_top.set_xscale("log")
-	ax_top.spines["top"].set_color("red")
-	ax_top.tick_params(axis="x",colors="red")
+	ax_top.spines["top"].set_color(sns.xkcd_rgb["pale red"])
+	ax_top.tick_params(axis="x",colors=sns.xkcd_rgb["pale red"])
 
 	#Plot a red line after each lens crossing
 	lens_crossed = df_ray.timestamp_s[df_ray.step.str.contains("Lens")].values
 	lens_crossed_memory = df_ray["peak_memory(GB)"][df_ray.step.str.contains("Lens")].values
 	for n,t in enumerate(lens_crossed):
-		_tline(ax_top,t,lens_crossed_memory[n],color="red",linestyle="--")
+		_tline(ax_top,t,lens_crossed_memory[n],color=sns.xkcd_rgb["pale red"],linestyle="--")
+	ax.set_ylim(0,1.85)
 
 	#Labels
 	ax.set_xlabel(r"${\rm Runtime(s)}$",fontsize=22)

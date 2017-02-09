@@ -121,6 +121,10 @@ def ebPlot(cmd_args,fontsize=18):
 	ticks2 = cbar2.set_ticks([1.0e-21,1.0e-16,1.0e-11])
 	ax[2].set_xticks([500,4000,8000])
 
+	#Switch off grid
+	for n in (0,1,2):
+		ax[n].grid(b=False)
+
 	fig.tight_layout()
 	fig.savefig("{0}/spurious_eb2D.{0}".format(cmd_args.type))
 	sns.set(font_scale=2)
