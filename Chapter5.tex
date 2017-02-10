@@ -384,23 +384,15 @@ Born + $O(\Phi^2)$ & 156.7\,s & 1.52\,GB & 44\,hours \\ \hline
 % 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_power_s0_nb100.eps}
-\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_moments_s0_nb9.eps}
-\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_momentsSN_s0_nb9.eps}
+\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_powerSN15_s0_nb100.eps}
+\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_momentsSN10_s50_nb9.eps}
+\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_momentsSN30_s50_nb9.eps}
 \end{center}
 \caption{Distribution of parameter estimates for the triplet $(\Omega_m,w_0,\sigma_8)$, obtained with (\ref{eq:5:linapprox-peak}) for a variety of $\kappa$ features, including the power spectrum and some higher real space moments. The observation to fit has been generated with full ray--tracing and the forward model, based on $\bb{M}$, has been obtained both with the Born approximation (green bars), and exact ray--tracing (for the sake of null testing, blue bars). Forward models and covariance matrices have been estimated from ensembles of 8192 $\kappa$ realizations, and the mock observations have been generated averaging over 1000 realizations, to mimic the area of an LSST--like survey. The $\bbh{p}_0$ samples have been drawn with a bootstrapping procedure over the full ensemble of $\kappa$ realizations.}
 \label{fig:5:biasfeat}
 \end{figure}
 %
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.5]{Figures/eps/bornBias_ngal_convergence_momentsSN_s50_nb9.eps}
-\end{center}
-\caption{Born approximation induced bias on $(\Omega_m,w_0,\sigma_8)$ parameter constraints, as a function of the galaxy density of the survey $n_g$. The statistical conditions are the same as the ones described in Figure \ref{fig:5:biasfeat}.}
-\label{fig:5:biasng}
-\end{figure}
-%
-Table \ref{tab:5:benchmarks} (taken from \citep{PetriBorn}) shows that, using the \LT\,implementation, one can save as much as a factor of 4 in computing time when computing $\kappa$ when using the Born approximation. This saving in CPU time, however, comes at a price since the forward model (\ref{eq:5:linapprox}) and the matrix $\bb{M}$ will be approximated at $O(\Phi)$. When using this approximate forward model to fit an observation via (\ref{eq:5:linapprox-peak}), depending on the particular feature used, one can incur in parameter biases. This possibility was explored in \citep{PetriBorn}, from which we take Figure \ref{fig:5:biasfeat}, which shows the distribution of parameter estimates $\bbh{p}_0$ obtained with exact and Born approximated forward models. We can clearly see that, while the Born approximation does not lead to biased constraints when the $\kappa$ power spectrum is used, the same is not true for higher point moments of $\kappa$ (defined in (\ref{eq:4:poly-quad}),(\ref{eq:4:poly-cubic}),(\ref{eq:4:poly-quartic})). We also observe that, when the effects of galaxy shape noise are taken into account, the increased statistical error in the parameter estimates removes the Born induced bias, which is withing the $1\sigma$ level. This conclusion applies to LSST--like surveys, and even holds for higher survey galaxy densities as high as $n_g\approx 60\,{\rm galaxies/arcmin}^2$ (see Figure \ref{fig:5:biasng}).  
+Table \ref{tab:5:benchmarks} (taken from \citep{PetriBorn}) shows that, using the \LT\,implementation, one can save as much as a factor of 4 in computing time when computing $\kappa$ when using the Born approximation. This saving in CPU time, however, comes at a price since the forward model (\ref{eq:5:linapprox}) and the matrix $\bb{M}$ will be approximated at $O(\Phi)$. When using this approximate forward model to fit an observation via (\ref{eq:5:linapprox-peak}), depending on the particular feature used, one can incur in parameter biases. This possibility was explored in \citep{PetriBorn}, from which we take Figure \ref{fig:5:biasfeat}, which shows the distribution of parameter estimates $\bbh{p}_0$ obtained with exact and Born approximated forward models. We can clearly see that, while the Born approximation does not lead to biased constraints when the $\kappa$ power spectrum is used, the same is not true for higher point moments of $\kappa$ (defined in (\ref{eq:4:poly-quad}),(\ref{eq:4:poly-cubic}),(\ref{eq:4:poly-quartic})). We also observe that, when the effects of galaxy shape noise are taken into account, the increased statistical error in the parameter estimates removes the Born induced bias, which is withing the $1\sigma$ level.  
 
 \section{Weak Lensing constraining power}
 \label{sec:5:constraints}

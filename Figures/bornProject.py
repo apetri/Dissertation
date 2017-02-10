@@ -339,7 +339,7 @@ def plotSmoothKurt(cmd_args,collection="c0",smooth=(0.5,1.,2.,3.,5.,7.,10.),font
 
 ##########################################################################################################################
 
-def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spectrum",kappa_models=("Born",),callback=None,variation_idx=(0,),bootstrap_size=100,resample=1000,return_results=False,fontsize=22):
+def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spectrum",kappa_models=("Born",),callback=None,variation_idx=(0,),bootstrap_size=1000,resample=1000,return_results=False,fontsize=22):
 	
 	#Initialize plot
 	fig,ax = plt.subplots(len(variation_idx),3,figsize=(24,8*len(variation_idx)))
@@ -430,16 +430,16 @@ def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spect
 	fig.tight_layout()
 	fig.savefig("{0}/bornBias_{1}.{0}".format(cmd_args.type,feature_name))
 
-def pbBiasPower(cmd_args,feature_name="convergence_power_s0_nb100"):
-	pbBias(cmd_args,feature_name=feature_name,title=r"$P^{\kappa\kappa}$")
+def pbBiasPowerSN15(cmd_args,feature_name="convergence_powerSN15_s0_nb100"):
+	pbBias(cmd_args,feature_name=feature_name,title=r"$P_{\kappa\kappa}(n_g=15{\rm galaxies/arcmin}^2)$")
 
-def pbBiasMoments(cmd_args,feature_name="convergence_moments_s0_nb9"):
-	pbBias(cmd_args,feature_name=feature_name,kappa_models=("Born",),title=r"${\rm Moments}$")
+def pbBiasMomentsSN10(cmd_args,feature_name="convergence_momentsSN10_s50_nb9"):
+	pbBias(cmd_args,feature_name=feature_name,kappa_models=("Born",),title=r"${\rm Moments}(n_g=10{\rm galaxies/arcmin}^2)$")
 
-def pbBiasMomentsSN(cmd_args,feature_name="convergence_momentsSN_s0_nb9"):
-	pbBias(cmd_args,feature_name=feature_name,title=r"${\rm Moments}$ ${\rm (shape}$ ${\rm noise)}$")
+def pbBiasMomentsSN30(cmd_args,feature_name="convergence_momentsSN30_s50_nb9"):
+	pbBias(cmd_args,feature_name=feature_name,title=r"${\rm Moments}(n_g=30{\rm galaxies/arcmin}^2)$")
 
-def pbBiasNgal(cmd_args,feature_names="convergence_momentsSN{0}_s50_nb9",ngal=(10,15,20,30,40,50,60),kappa_model="Born",callback=None,variation_idx=0,bootstrap_size=100,resample=1000,fontsize=22):
+def pbBiasNgal(cmd_args,feature_names="convergence_momentsSN{0}_s50_nb9",ngal=(10,15,20,30,40,50,60),kappa_model="Born",callback=None,variation_idx=0,bootstrap_size=1000,resample=1000,fontsize=22):
 	
 	#Set up plot
 	fig,ax = plt.subplots()

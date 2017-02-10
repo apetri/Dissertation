@@ -10,7 +10,7 @@
 In this Chapter we discuss some of the systematic challenges that come with a large sky area survey such as LSST \citep{LSST}. In the previous chapter we saw that a small WL survey, such as CFHTLenS, leaves the Dark Energy equation of state $w_0$ essentially unconstrained. LSST covers an area of roughly $12,000\,{\rm deg}^2$, 100 times bigger than CFHTLenS, ideally yielding parameter constraints that are 10 times more precise. This increased precision comes at a cost, because small systematic effects that were negligible for CFHTLenS because of the large statistical errors, may not be negligible anymore when compared to cosmic variance fluctuations that are 10 times smaller. We discuss a variety of systematic effects that can affect parameter estimates: we focus on atmospheric contaminations to the shear signal, sensor effects and inaccuracies in photometric redshift estimation. We also overview additional systematic effects which we did not have the chance to investigate, and that we leave for future work.    
 
 \section{Atmospheric/PSF spurious shear}
-The first systematic issue we are going to investigate has to do with contaminations in the galaxy shape measurements \citep{PetriSpShear}. Before hitting the sensors on the telescope plate, photons travel through the Earth's atmosphere, which dilutes the WL signal by convolving it with a suitable Point Spread Function (PSF). This contamination adds to instrumentation specific issues, such as the telescope PSF, tracking errors and photon shot noise. All these effects are modeled and simulated using the \ttt{phosim} software package \citep{LSSTOperations}. We were provided with 20 independent realizations of a spurious shear catalog (see \citep{ChangLSST}) containing $10^5$ galaxies spread over a 4\,deg$^2$ field of view, which were generated with \ttt{phosim}. The catalog contains information about the residual spurious shear after PSF corrections with polynomial fits were attempted \citep{ChangLSST}. The spatial patterns of the residuals in 4 of these realizations are shown in Figure \ref{fig:7:spvisualize}. 
+The first systematic issue we are going to investigate has to do with contaminations in the galaxy shape measurements \citep{PetriSpShear}. Before hitting the sensors on the telescope plate, photons travel through the Earth's atmosphere, which dilutes the WL signal by convolving it with a suitable Point Spread Function (PSF). This contamination adds to instrumentation specific issues, such as the telescope PSF, tracking errors and photon shot noise. All these effects are modeled and simulated using the \ttt{phosim} software package \citep{LSSTOperations}. We were provided with 20 independent realizations of a spurious shear catalog (see \citep{ChangLSST}) containing $10^5$ galaxies spread over a 4\,deg$^2$ field of view, which were generated with \ttt{phosim}. The catalog contains information about the residual spurious shear after PSF corrections with polynomial fits were attempted \citep{ChangLSST}. The stochastic component of this residual spurious shear decreases approximately as the inverse of the number of exposures of a single field of view. The spatial patterns of the residuals in 4 of these realizations are shown in Figure \ref{fig:7:spvisualize}. 
 %
 \begin{figure}
 \begin{center}
@@ -32,7 +32,13 @@ which is related to the spurious shear $E$ and $B$ mode power spectra as
 \xi_{\gamma\gamma}^+(\alpha) = \int_0^\infty \frac{d\ell}{2\pi}\ell J_0(\ell\alpha)[S^{EE}(\ell)+S^{BB}(\ell)] 
 \end{equation}
 %
-Where $S^{EE}, S^{BB}$ are the power spectra of the $E$ and $B$ modes of the spurious shear, defined in equation (\ref{eq:2:shear-eb}). $J_0$ refers to the 0--th order Bessel function of the first kind. As we can see from Figure \ref{fig:7:eb2d}, we are allowed to use the statistical isotropy assumption for this kind of spurious shear, as its power spectrum depends on $\ell=\vert\pell\vert$ only
+Where $S^{EE}, S^{BB}$ are the power spectra of the $E$ and $B$ modes of the spurious shear, defined in equation (\ref{eq:2:shear-eb}). $J_0$ refers to the 0--th order Bessel function of the first kind. A useful number to quote is the amplitude $\sigma_{\kappa,{\rm sp}}$ of the $\kappa$ contamination induced by this spurious shear, defined by
+\begin{equation}
+\label{eq:7:sigmasys}
+\sigma^2_{\kappa,{\rm sp}} = \int_0^\infty \frac{d\ell}{2\pi}\ell S^{EE}(\ell) 
+\end{equation}
+%
+As we can see from Figure \ref{fig:7:eb2d}, we are allowed to use the statistical isotropy assumption for this kind of spurious shear, as its power spectrum depends on $\ell=\vert\pell\vert$ only
 %
 \begin{figure}
 \begin{center}
@@ -70,47 +76,49 @@ S^{EE}(\ell) =
 \end{cases} 
 \end{equation}
 %
-The pivot point has been fixed to $\ell_0=700$ and the best fit parameters to the pattern seen in Figure \ref{fig:7:spfit} have been found to be $(A_0,n_0,A_1,n_1,A_2,b,\mu)=(3.17\cdot 10^{-5},1.36,1.6\cdot 10^{-4},7.54,4.4\cdot 10^{-5},15.37,3.41)$. If we model this residual spurious shear as an additive contamination to the WL shear signal, using equation (\ref{eq:5:linapprox-peak}) we can evaluate the $\Lambda$CDM parameter bias that is induced by leaving this systematic effect uncorrected. In order to properly do this, we generated Gaussian spurious shear $\kappa$ mock images using the empirical model (\ref{eq:7:empmodel}). The Fourier coefficients for the spurious $\kappa$ maps are drawn from a Gaussian distribution with zero mean and variance $S^{EE}(\ell)$. We added these spurious shear mock realizations on top of the WL signal maps, we extracted the image features according to the procedures described in Chapter \ref{chp:4} and we quantified parameter biases on the triplet $(\Omega_m,w_0,\sigma_8)$. The results are shown in Table \ref{tab:7:spbias}
-
+The pivot point has been fixed to $\ell_0=700$ and the best fit parameters to the pattern seen in Figure \ref{fig:7:spfit} have been found to be $(A_0,n_0,A_1,n_1,A_2,b,\mu)=(3.17\cdot 10^{-5},1.36,1.6\cdot 10^{-4},7.54,4.4\cdot 10^{-5},15.37,3.41)$. If we model this residual spurious shear as an additive contamination to the WL shear signal, using equation (\ref{eq:5:linapprox-peak}) we can evaluate the $\Lambda$CDM parameter bias that is induced by leaving this systematic effect uncorrected. In order to properly do this, we generated Gaussian spurious shear $\kappa$ mock images using the empirical model (\ref{eq:7:empmodel}). The Fourier coefficients for the spurious $\kappa$ maps are drawn from a Gaussian distribution with zero mean and variance $S^{EE}(\ell)$. We added these spurious shear mock realizations on top of the WL signal maps, we extracted the image features according to the procedures described in Chapter \ref{chp:4} and we quantified parameter biases on the triplet $(\Omega_m,w_0,\sigma_8)$. The results are shown in Table \ref{tab:7:spbias}.
+%
 \begin{table}
 \begin{center}
 \begin{tabular}{c|ccc} 
 \multicolumn{4}{c}{\textbf{Survey Assumptions}} \\
 \multicolumn{4}{c}{$z_s=2$, $n_g=15\,{\rm galaxies/arcmin}^{-2}$, $\ell\in[100,2\cdot10^4]$, $\kappa_{\rm MF}\in[-2\sigma,2\sigma]$, $\kappa_{\rm pk}\in[-2\sigma,5\sigma]$} \\ \hline \hline
 
-& $\Omega_m$ & $w_0$ & $\sigma_8$  \\ \hline \hline 
+\textbf{Model} & $\Omega_m$ & $w_0$ & $\sigma_8$  \\ \hline \hline 
 &\multicolumn{3}{c}{\textbf{$\kappa$ power spectrum}} \\ 
-Log-linear & $4.0\cdot 10^{-6}$  & $-2.69\cdot 10^{-4}$ & $2.5\cdot 10^{-5}$ \\
+Log--linear & $4.0\cdot 10^{-6}$  & $-2.69\cdot 10^{-4}$ & $2.5\cdot 10^{-5}$ \\
 LSST simulation &  $-6.22\cdot10^{-5}$ &  $2.94\cdot10^{-4}$ &  $1.32\cdot10^{-4}$ \\
-LSST simulation $\cdot 10$ & $-7.51\cdot10^{-4}$ &  0.0025 &  0.0015 \\ 
-Error ($1\sigma$) & 0.060 & 0.43 & 0.10 \\ \hline \hline
+LSST simulation $\times 10$ & $-7.51\cdot10^{-4}$ &  0.0025 &  0.0015 \\ 
+Error ($1\sigma$) & 0.0015 & 0.01 & 0.0025 \\ \hline \hline
 
 &\multicolumn{3}{c}{\textbf{Minkowski functionals}} \\ 
-Log-linear & 0.0026 &0.037 & $-0.0024$ \\
+Log--linear & 0.0026 &0.037 & $-0.0024$ \\
 LSST simulation & 0.0020 &  0.025 & $-0.0014$ \\
-LSST simulation $\cdot 10$ & 0.007 & 0.055 & $-0.0068$ \\ 
-Error ($1\sigma$) & 0.038 &0.20  &0.056 \\ \hline
+LSST simulation $\times 10$ & 0.007 & 0.055 & $-0.0068$ \\ 
+Error ($1\sigma$) & 0.001 &0.005  &0.0014 \\ \hline
 
 &\multicolumn{3}{c}{\textbf{$\kappa$ Moments}} \\ 
-Log-linear & $-2.8\cdot 10^{-5}$ & $-0.0011$  & $4.7\cdot 10^{-5}$ \\
+Log--linear & $-2.8\cdot 10^{-5}$ & $-0.0011$  & $4.7\cdot 10^{-5}$ \\
 LSST simulation & $1.09\cdot10^{-5}$ & $-3.96\cdot10^{-4}$ & $-7.60\cdot10^{-6}$ \\
-LSST simulation $\cdot 10$ & $-2.84\cdot10^{-5}$ & $-4.72\cdot10^{-3}$ &  $1.26\cdot10^{-4}$ \\ 
-Error ($1\sigma$) & 0.065 &0.32  & 0.089  \\ \hline \hline
+LSST simulation $\times 10$ & $-2.84\cdot10^{-5}$ & $-4.72\cdot10^{-3}$ &  $1.26\cdot10^{-4}$ \\ 
+Error ($1\sigma$) & 0.0016 &0.008  & 0.002  \\ \hline \hline
 
 &\multicolumn{3}{c}{\textbf{Peak counts}} \\ 
-Log-linear & 0.009 & 0.026 & $3.2\cdot 10^{-4}$ \\
+Log--linear & 0.009 & 0.026 & $3.2\cdot 10^{-4}$ \\
 LSST simulation & 0.0011 &  0.018 &  $2.9\cdot10^{-4}$ \\
-LSST simulation $\cdot 10$ & 0.0026 & 0.046 & $4.0\cdot10^{-4}$ \\ 
-Error ($1\sigma$) & 0.044  & 0.25  & 0.060 \\ \hline \hline
+LSST simulation $\times 10$ & 0.0026 & 0.046 & $4.0\cdot10^{-4}$ \\ 
+Error ($1\sigma$) & 0.0011  & 0.0062  & 0.0015 \\ \hline \hline
 
 \end{tabular}
 \end{center}
 
-\caption{Comparison for the bias values on the parameter triplet $(\Omega_m,w_0,\sigma_8)$ using three different models for the LSST spurious shear: ``Log-linear" refers to the log--linear model (\ref{eq:7:loglin}) with $(A,n,l_0)=(10^{-6.6},0.7,700)$, with the normalization $\sigma^2_{sys}=4\times10^{-7}$. ``LSST simulation" refers to the spurious shear mocks generated with the empirical model (\ref{eq:7:empmodel}) (the amplitudes have been divided by a factor of $N_{exposures}=368$ to account for multiple field of view exposures),``LSST simulation $\times$ 10" refers to the same model but with the amplitude $\sigma^2_{sys}$ increased by a factor of 10.}
+\caption{Comparison for the bias values on the parameter triplet $(\Omega_m,w_0,\sigma_8)$ using three different models for the LSST spurious shear: ``Log--linear" (first rows) refers to the log--linear model (\ref{eq:7:loglin}) with $(A,n,l_0)=(10^{-6.6},0.7,700)$, with the normalization $\sigma^2_{\kappa,{\rm sp}}=4\times10^{-7}$. ``LSST simulation" (second rows) refers to the spurious shear mocks generated with the empirical model (\ref{eq:7:empmodel}) (the amplitudes have been divided by a factor of $N_{\rm exposures}=368$ to account for multiple field of view exposures),``LSST simulation $\times$ 10" (third rows) refers to the same model but with the amplitude $\sigma^2_{\kappa,{\rm sp}}$ increased by a factor of 10. The $1\sigma$ error values (fourth rows) refer to the forecasts for an LSST--like survey obtained with equation (\ref{eq:5:linapprox-cov}).}
 \label{tab:7:spbias}
-\end{table} 
+\end{table}
+%
+The results show that, for the simplified control case in which all the source galaxies are placed at the same redshift $z_s=2$, 
 
-\section{Sensor effects}
+\section{CCD sensor effects}
 %
 \begin{figure}
 \begin{center}
