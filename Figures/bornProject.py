@@ -433,8 +433,8 @@ def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spect
 def pbBiasPowerSN15(cmd_args,feature_name="convergence_powerSN15_s0_nb100"):
 	pbBias(cmd_args,feature_name=feature_name,title=r"$P_{\kappa\kappa}(n_g=15{\rm galaxies/arcmin}^2)$")
 
-def pbBiasMomentsSN10(cmd_args,feature_name="convergence_momentsSN10_s50_nb9"):
-	pbBias(cmd_args,feature_name=feature_name,kappa_models=("Born",),title=r"${\rm Moments}(n_g=10{\rm galaxies/arcmin}^2)$")
+def pbBiasMomentsSN15(cmd_args,feature_name="convergence_momentsSN15_s50_nb9"):
+	pbBias(cmd_args,feature_name=feature_name,kappa_models=("Born",),title=r"${\rm Moments}(n_g=15{\rm galaxies/arcmin}^2)$")
 
 def pbBiasMomentsSN30(cmd_args,feature_name="convergence_momentsSN30_s50_nb9"):
 	pbBias(cmd_args,feature_name=feature_name,title=r"${\rm Moments}(n_g=30{\rm galaxies/arcmin}^2)$")
