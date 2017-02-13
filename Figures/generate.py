@@ -68,9 +68,6 @@ method["5-meansns"] = covarianceProject.means_nsim
 method["5-pca1"] = photozProject.pca_components_power_spectrum
 method["5-pca2"] = photozProject.pca_components_peaks
 method["5-pca3"] = photozProject.pca_components_moments
-method["5-biaspower"] = bornProject.pbBiasPowerSN15
-method["5-biasmom15"] = bornProject.pbBiasMomentsSN15
-method["5-biasmom30"] = bornProject.pbBiasMomentsSN30
 method["5-constr1"] = spuriousProject.constraints_single1
 method["5-constr2"] = spuriousProject.constraints_single2
 method["5-constr3"] = spuriousProject.constraints_combine1
@@ -97,6 +94,11 @@ method["7-galdistr"] = photozProject.galdistr
 method["7-phconstr"] = photozProject.parameter_constraints_with_cmb
 method["7-phbias"] = photozProject.photoz_bias
 method["7-sensors"] = sensorsProject.visualize
+method["7-ccdpow"] = sensorsProject.power_spectrum
+method["7-biaspower"] = bornProject.pbBiasPowerSN30
+method["7-biasmom15"] = bornProject.pbBiasMomentsSN15
+method["7-biasmom30"] = bornProject.pbBiasMomentsSN30
+method["7-biasng"] = bornProject.pbBiasNgal
 
 #Main
 def main():

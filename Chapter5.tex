@@ -53,6 +53,7 @@ is the parameter estimate covariance matrix. We observe that, even if the parame
 \end{figure}
 
 \subsection{Fisher matrix approximation}
+\label{sec:5:fisher}
 Parameter inference becomes simpler if the forward model $\bb{d}(\bb{p})$ is linear in the parameters. Linearity can be safely assumed in the limit in which confidence intervals are expected to be localized around the peak of the likelihood, which is the case for large scale WL surveys. We can write 
 
 \begin{equation}
@@ -364,35 +365,7 @@ In equation (\ref{eq:5:whitening}) we introduced $N_d$ arbitrary location and sc
 \bb{d}_{\rm PCA}(N_c) = \bb{R}(N_c)\left(\frac{\bb{d}-\pmb{\mu}}{\pmb{\sigma}}\right)
 \end{equation}
 %
-Because the PCA projection depends on the specification of external parameters $\mu_d,\sigma_d$, this type of dimensionality reduction technique is not scale invariant. Nevertheless, we will see it will prove useful in dealing with parameter inferences in WL. Modern surveys, such as LSST \citep{LSST}, plan to use redshift tomography of image features in order to get more precise constraints on cosmology. Tomography greatly increases the dimensionality of the feature space. If tracer galaxies are divided in $N_z$ redshift bins, the feature dimensionality increases at least by a factor of $N_z$, which can become $N_z^2$ in the case we consider $\kappa$ cross power spectra across different bins. Figure \ref{fig:5:pca} shows an application of PCA to forecasts of cosmological constraints obtained from redshift tomography of an LSST--like survey \citep{PetriPhotoZ}. The Figure shows that this particular projection technique shows that, in this particular case, the feature dimensionality can be halved and one still gets a $w_0$ constraint which is within $\sim 15-20\%$ of un--projected case for the case of single redshift bins, with even better performance for the tomography case. A wide variety of dimensionality reduction techiques have been proposed in the literature (see \citep{astroMLText} for a non--comprehensive list), and their application to WL cosmology will be investigated in future work.      
-
-\section{Born approximation induced bias}
-While in the previous sections we focused on constraint degradation and possible feature sampling bias due to the pseudo--random nature of the procedure described in \S~\ref{sec:3:sampling}, in this section we focus on another potential source of bias, namely the Born approximation. If one is interested in approximating the $\kappa$ field at first order in the gravitational potential $\Phi$, equation (\ref{eq:3:kappa-fo-num-2}) gives a computationally efficient recipe to do so. The reason why the Born approximation is faster than exact ray--tracing (based on (\ref{eq:3:jackp1-delta})), is that knowledge of the density contrast $\delta$ only is needed. Full ray--tracing, on the other hand, needs the specification of $\Phi$ in order to compute the angle deflections and hence requires the solution to the Poisson equation (\ref{eq:3:poisson-psi-2}). 
-%
-\begin{table}
-\begin{center}
-\begin{tabular}{c|c|c|c}
-\textbf{Solver} & \textbf{Runtime (1 FOV)} & \textbf{Memory usage} & \textbf{CPU time (1000 FOV)} \\ \hline \hline
-Born & 36.0\,s & 0.86\,GB & 10\,hours  \\
-Full ray--tracing & 124.8\,s & 1.65\,GB & 35\,hours  \\
-Born + $O(\Phi^2)$ & 156.7\,s & 1.52\,GB & 44\,hours \\ \hline
-\end{tabular}
-\end{center}
-\caption{CPU time and memory usage benchmarks for $\kappa$ reconstruction. The test case we considered consists in a discretization with $N_l=42$ uniformly spaced lenses between the observer and the sources at $z_s=2$, each with a resolution of $4096^2$ pixels. The $\kappa$ field is resolved with $2048^2$ light rays. We show both the runtime for producing a single field of view and the CPU hours needed to perform the reconstruction 1000 times, to mock an LSST--like galaxy survey. Run times do not include the Poisson solution calculation, as this can be recycled to produce multiple field of view realizations (see \S~\ref{sec:3:sampling}). The Poisson solution run time is negligible in the account of the total CPU time needed for the production of $N_r\gg N_l$ field of view realizations.}
-\label{tab:5:benchmarks}
-\end{table}
-% 
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_powerSN15_s0_nb100.eps}
-\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_momentsSN15_s50_nb9.eps}
-\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_momentsSN30_s50_nb9.eps}
-\end{center}
-\caption{Distribution of parameter estimates for the triplet $(\Omega_m,w_0,\sigma_8)$, obtained with (\ref{eq:5:linapprox-peak}) for a variety of $\kappa$ features, including the power spectrum and some higher real space moments. The observation to fit has been generated with full ray--tracing and the forward model, based on $\bb{M}$, has been obtained both with the Born approximation (green bars), and exact ray--tracing (for the sake of null testing, blue bars). Forward models and covariance matrices have been estimated from ensembles of 8192 $\kappa$ realizations, and the mock observations have been generated averaging over 1000 realizations, to mimic the area of an LSST--like survey. The $\bbh{p}_0$ samples have been drawn with a bootstrapping procedure over the full ensemble of $\kappa$ realizations.}
-\label{fig:5:biasfeat}
-\end{figure}
-%
-Table \ref{tab:5:benchmarks} (taken from \citep{PetriBorn}) shows that, using the \LT\,implementation, one can save as much as a factor of 4 in computing time when computing $\kappa$ when using the Born approximation. This saving in CPU time, however, comes at a price since the forward model (\ref{eq:5:linapprox}) and the matrix $\bb{M}$ will be approximated at $O(\Phi)$. When using this approximate forward model to fit an observation via (\ref{eq:5:linapprox-peak}), depending on the particular feature used, one can incur in parameter biases. This possibility was explored in \citep{PetriBorn}, from which we take Figure \ref{fig:5:biasfeat}, which shows the distribution of parameter estimates $\bbh{p}_0$ obtained with exact and Born approximated forward models. We can clearly see that, while the Born approximation does not lead to biased constraints when the $\kappa$ power spectrum is used, the same is not true for higher point moments of $\kappa$ (defined in (\ref{eq:4:poly-quad}),(\ref{eq:4:poly-cubic}),(\ref{eq:4:poly-quartic})). We also observe that, when the effects of galaxy shape noise are taken into account, the increased statistical error in the parameter estimates removes the Born induced bias, which is withing the $1\sigma$ level.  
+Because the PCA projection depends on the specification of external parameters $\mu_d,\sigma_d$, this type of dimensionality reduction technique is not scale invariant. Nevertheless, we will see it will prove useful in dealing with parameter inferences in WL. Modern surveys, such as LSST \citep{LSST}, plan to use redshift tomography of image features in order to get more precise constraints on cosmology. Tomography greatly increases the dimensionality of the feature space. If tracer galaxies are divided in $N_z$ redshift bins, the feature dimensionality increases at least by a factor of $N_z$, which can become $N_z^2$ in the case we consider $\kappa$ cross power spectra across different bins. Figure \ref{fig:5:pca} shows an application of PCA to forecasts of cosmological constraints obtained from redshift tomography of an LSST--like survey \citep{PetriPhotoZ}. The Figure shows that this particular projection technique shows that, in this particular case, the feature dimensionality can be halved and one still gets a $w_0$ constraint which is within $\sim 15-20\%$ of un--projected case for the case of single redshift bins, with even better performance for the tomography case. A wide variety of dimensionality reduction techiques have been proposed in the literature (see \citep{astroMLText} for a non--comprehensive list), and their application to WL cosmology will be investigated in future work.  
 
 \section{Weak Lensing constraining power}
 \label{sec:5:constraints}

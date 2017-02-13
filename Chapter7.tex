@@ -7,7 +7,7 @@
 \label{chp:7}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this Chapter we discuss some of the systematic challenges that come with a large sky area survey such as LSST \citep{LSST}. In the previous chapter we saw that a small WL survey, such as CFHTLenS, leaves the Dark Energy equation of state $w_0$ essentially unconstrained. LSST covers an area of roughly $12,000\,{\rm deg}^2$, 100 times bigger than CFHTLenS, ideally yielding parameter constraints that are 10 times more precise. This increased precision comes at a cost, because small systematic effects that were negligible for CFHTLenS because of the large statistical errors, may not be negligible anymore when compared to cosmic variance fluctuations that are 10 times smaller. We discuss a variety of systematic effects that can affect parameter estimates: we focus on atmospheric contaminations to the shear signal, sensor effects and inaccuracies in photometric redshift estimation. We also overview additional systematic effects which we did not have the chance to investigate, and that we leave for future work.    
+In this Chapter we discuss some of the systematic challenges that come with a large sky area survey such as LSST \citep{LSST}. In the previous chapter we saw that a small WL survey, such as CFHTLenS, leaves the Dark Energy equation of state $w_0$ essentially unconstrained. LSST covers an area of roughly $12,000\,{\rm deg}^2$, 100 times bigger than CFHTLenS, ideally yielding parameter constraints that are 10 times more precise. This increased precision comes at a cost, because small systematic effects that were negligible for CFHTLenS because of the large statistical errors, may not be negligible anymore when compared to cosmic variance fluctuations that are 10 times smaller. We discuss a variety of systematic effects that can affect parameter estimates: we focus on atmospheric contaminations to the shear signal, sensor effects and inaccuracies in photometric redshift estimation. We also study potential parameter biases that can arise from approximate forward modeling based on the Born approximation. To conclude, we give an overview of additional systematic effects which we did not have the chance to investigate, and that we leave for future work.    
 
 \section{Atmospheric/PSF spurious shear}
 The first systematic issue we are going to investigate has to do with contaminations in the galaxy shape measurements \citep{PetriSpShear}. Before hitting the sensors on the telescope plate, photons travel through the Earth's atmosphere, which dilutes the WL signal by convolving it with a suitable Point Spread Function (PSF). This contamination adds to instrumentation specific issues, such as the telescope PSF, tracking errors and photon shot noise. All these effects are modeled and simulated using the \ttt{phosim} software package \citep{LSSTOperations}. We were provided with 20 independent realizations of a spurious shear catalog (see \citep{ChangLSST}) containing $10^5$ galaxies spread over a 4\,deg$^2$ field of view, which were generated with \ttt{phosim}. The catalog contains information about the residual spurious shear after PSF corrections with polynomial fits were attempted \citep{ChangLSST}. The stochastic component of this residual spurious shear decreases approximately as the inverse of the number of exposures of a single field of view. The spatial patterns of the residuals in 4 of these realizations are shown in Figure \ref{fig:7:spvisualize}. 
@@ -86,50 +86,176 @@ The pivot point has been fixed to $\ell_0=700$ and the best fit parameters to th
 
 \textbf{Model} & $\Omega_m$ & $w_0$ & $\sigma_8$  \\ \hline \hline 
 &\multicolumn{3}{c}{\textbf{$\kappa$ power spectrum}} \\ 
-Log--linear & $4.0\cdot 10^{-6}$  & $-2.69\cdot 10^{-4}$ & $2.5\cdot 10^{-5}$ \\
-LSST simulation &  $-6.22\cdot10^{-5}$ &  $2.94\cdot10^{-4}$ &  $1.32\cdot10^{-4}$ \\
-LSST simulation $\times 10$ & $-7.51\cdot10^{-4}$ &  0.0025 &  0.0015 \\ 
-Error ($1\sigma$) & 0.0015 & 0.01 & 0.0025 \\ \hline \hline
+\textit{Log--linear} & $4.0\cdot 10^{-6}$  & $-2.69\cdot 10^{-4}$ & $2.5\cdot 10^{-5}$ \\
+\textit{LSST simulation} &  $-6.22\cdot10^{-5}$ &  $2.94\cdot10^{-4}$ &  $1.32\cdot10^{-4}$ \\
+\textit{LSST simulation} $\times 10$ & $-7.51\cdot10^{-4}$ &  0.0025 &  0.0015 \\ 
+\textit{Error} ($1\sigma$) & 0.0015 & 0.01 & 0.0025 \\ \hline \hline
 
 &\multicolumn{3}{c}{\textbf{Minkowski functionals}} \\ 
-Log--linear & 0.0026 &0.037 & $-0.0024$ \\
-LSST simulation & 0.0020 &  0.025 & $-0.0014$ \\
-LSST simulation $\times 10$ & 0.007 & 0.055 & $-0.0068$ \\ 
-Error ($1\sigma$) & 0.001 &0.005  &0.0014 \\ \hline
+\textit{Log--linear} & 0.0026 &0.037 & $-0.0024$ \\
+\textit{LSST simulation} & 0.0020 &  0.025 & $-0.0014$ \\
+\textit{LSST simulation} $\times 10$ & 0.007 & 0.055 & $-0.0068$ \\ 
+\textit{Error ($1\sigma$)} & 0.001 &0.005  &0.0014 \\ \hline
 
 &\multicolumn{3}{c}{\textbf{$\kappa$ Moments}} \\ 
-Log--linear & $-2.8\cdot 10^{-5}$ & $-0.0011$  & $4.7\cdot 10^{-5}$ \\
-LSST simulation & $1.09\cdot10^{-5}$ & $-3.96\cdot10^{-4}$ & $-7.60\cdot10^{-6}$ \\
-LSST simulation $\times 10$ & $-2.84\cdot10^{-5}$ & $-4.72\cdot10^{-3}$ &  $1.26\cdot10^{-4}$ \\ 
-Error ($1\sigma$) & 0.0016 &0.008  & 0.002  \\ \hline \hline
+\textit{Log--linear} & $-2.8\cdot 10^{-5}$ & $-0.0011$  & $4.7\cdot 10^{-5}$ \\
+\textit{LSST simulation} & $1.09\cdot10^{-5}$ & $-3.96\cdot10^{-4}$ & $-7.60\cdot10^{-6}$ \\
+\textit{LSST simulation} $\times 10$ & $-2.84\cdot10^{-5}$ & $-4.72\cdot10^{-3}$ &  $1.26\cdot10^{-4}$ \\ 
+\textit{Error} ($1\sigma$) & 0.0016 &0.008  & 0.002  \\ \hline \hline
 
 &\multicolumn{3}{c}{\textbf{Peak counts}} \\ 
-Log--linear & 0.009 & 0.026 & $3.2\cdot 10^{-4}$ \\
-LSST simulation & 0.0011 &  0.018 &  $2.9\cdot10^{-4}$ \\
-LSST simulation $\times 10$ & 0.0026 & 0.046 & $4.0\cdot10^{-4}$ \\ 
-Error ($1\sigma$) & 0.0011  & 0.0062  & 0.0015 \\ \hline \hline
+\textit{Log--linear} & 0.009 & 0.026 & $3.2\cdot 10^{-4}$ \\
+\textit{LSST simulation} & 0.0011 &  0.018 &  $2.9\cdot10^{-4}$ \\
+\textit{LSST simulation} $\times 10$ & 0.0026 & 0.046 & $4.0\cdot10^{-4}$ \\ 
+\textit{Error} ($1\sigma$) & 0.0011  & 0.0062  & 0.0015 \\ \hline \hline
 
 \end{tabular}
 \end{center}
 
-\caption{Comparison for the bias values on the parameter triplet $(\Omega_m,w_0,\sigma_8)$ using three different models for the LSST spurious shear: ``Log--linear" (first rows) refers to the log--linear model (\ref{eq:7:loglin}) with $(A,n,l_0)=(10^{-6.6},0.7,700)$, with the normalization $\sigma^2_{\kappa,{\rm sp}}=4\times10^{-7}$. ``LSST simulation" (second rows) refers to the spurious shear mocks generated with the empirical model (\ref{eq:7:empmodel}) (the amplitudes have been divided by a factor of $N_{\rm exposures}=368$ to account for multiple field of view exposures),``LSST simulation $\times$ 10" (third rows) refers to the same model but with the amplitude $\sigma^2_{\kappa,{\rm sp}}$ increased by a factor of 10. The $1\sigma$ error values (fourth rows) refer to the forecasts for an LSST--like survey obtained with equation (\ref{eq:5:linapprox-cov}).}
+\caption{Comparison for the bias values on the parameter triplet $(\Omega_m,w_0,\sigma_8)$ using three different models for the LSST spurious shear: \textit{Log--linear} (first rows) refers to the log--linear model (\ref{eq:7:loglin}) with $(A,n,l_0)=(10^{-6.6},0.7,700)$, with the normalization $\sigma^2_{\kappa,{\rm sp}}=4\times10^{-7}$. \textit{LSST simulation} (second rows) refers to the spurious shear mocks generated with the empirical model (\ref{eq:7:empmodel}) (the amplitudes have been divided by a factor of $N_{\rm exposures}=368$ to account for multiple field of view exposures), \textit{LSST simulation $\times$ 10} (third rows) refers to the same model but with the amplitude $\sigma^2_{\kappa,{\rm sp}}$ increased by a factor of 10. The $1\sigma$ error values (fourth rows) refer to the forecasts for an LSST--like survey obtained with equation (\ref{eq:5:linapprox-cov}).}
 \label{tab:7:spbias}
 \end{table}
 %
-The results show that, for the simplified control case in which all the source galaxies are placed at the same redshift $z_s=2$, 
+The results show that, for the simplified control case in which all the source galaxies are placed at the same redshift $z_s=2$, the effect of the spurious shear on parameter constraints depends on the type of feature considered in the analysis. While features that are polynomial in $\kappa$, such as the power spectrum and moments, can deliver constraints which are essentially unbiased for the study cases described in Table \ref{tab:7:spbias}, the same is not true for features that probe the morphology of $\kappa$. Minkowski functionals deliver constraints which suffer from a bias of several $\sigma$, when spurious shear corrections are ignored. The situation is not as dramatic for the peak counts constraint on $\sigma_8$, as the significance of the bias is below $1\sigma$. When we look at the $\Omega_m$ and $w_0$ constraints, however, the bias can be as large as $2\sigma$ for the spurious shear modeled by the LSST instrument simulation. Because different features bias the constraints in different directions in parameter space, possibilities of self--calibration for this kind of contamination could be considered in the future.
 
 \section{CCD sensor effects}
+In this section we discuss some of the systematic issues that can arise from imperfections in the sensors used to image source galaxies. Modern telescopes, such as LSST, use Charge--Coupled Devices (CCD) \citep{CCDBook,LSST,LSSTOperations} as a mean to covert photon counts into voltage signals which can then be converted into digitized images. Impurity gradients in the silicon of which CCDs are made lead to the presence of spurious transverse electric fields, which displace the photons captured by the CCD. Such displacements can lead to observed shape distortions, which may have an effect on the reconstructed WL fields. The astrometric displacement $\bb{d}_E$ field due to the transverse electric fields is usually modeled as a radial field \citep{PetriCCD}
+
+\begin{equation}
+\label{eq:7:displ}
+\bb{d}_E = d(r)\bbh{r}
+\end{equation}
+%
+which, at first order, causes an additive spurious contribution to the reconstructed $\kappa$ field, which takes the name of \textit{Tree Ring} effect. The additive spurious convergence $\kappa_{\rm tree}$ can be calculated as (see \citep{PetriCCD})
+
+\begin{equation}
+\label{eq:7:ktree}
+\kappa_{\rm tree} = -\frac{1}{2}\nabla\cdot\bb{d}_E = -\frac{1}{2}\left(\frac{d(r)}{r}+\frac{d}{dr}d(r)\right)
+\end{equation}   
+%
+A visualization of the spurious convergence induced by the tree ring effect is shown in the left panel of Figure \ref{fig:7:sensvis}. 
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/sensors_visualize.eps}
 \end{center}
-\caption{}
+\caption{Spatial profiles of the additive contaminations to $\kappa$ due to the tree ring (left) and pixel size variations (right) effects. The maps cover a field of view of $(0.2\,{\rm deg})^2$. In order to extend the systematic effects mapping to the entire LSST field of view of $(3.5\,{\rm deg})^2$, we repeated the patterns seen in this Figure across the whole field of view, applying random $90^\circ$ rotations.}
 \label{fig:7:sensvis}
 \end{figure}
+%
+An additional source of contamination that derives from CCD manufacture imperfections has to do with variable pixel sizes. When the pixel area is not uniform across the CCD surface, variations in photon counts can be erroneously interpreted as variations in the source intensity profile. This creates a possible additional source of error in the measurement of galaxy shapes. A realistic spatial profile of the additive contribution to $\kappa$ caused by pixel size variations, which we call $\kappa_{\rm pixel}$, is shown in the right panel of Figure \ref{fig:7:sensvis}. For a more throughout discussion and treatment of the tree ring and pixel size variation effects we remand the reader to \citep{PetriCCD}. In order to evaluate the effect of the tree ring and pixel size variation systematics on cosmological constraints, we make use of equation (\ref{eq:5:linapprox-peak}) and we use the $\kappa$ power spectrum $P_{\kappa\kappa}$ as an image feature. The bias estimate $\bbh{b}$ in the parameters is calculated as 
+
+\begin{equation}
+\label{eq:7:biasccd}
+\bbh{b} = \bbh{p}_{\rm sp}-\bbh{p}_0 = \bb{Z}(\bbh{d}_{\rm sp}-\bbh{d}_0)
+\end{equation}
+%
+Where we indicated as $\bbh{d}_{\rm sp},\bbh{d}_0$ the measured $\kappa$ power spectra with and without CCD systematics present. The $N_\pi\times N_d$ projection matrix $\bb{Z}$ is defined as 
+
+\begin{equation}
+\label{eq:7:zeta}
+\bb{Z} = (\bb{M}^T\bb{\Psi}\bb{M})^{-1}\bb{M}^T\bb{\Psi}
+\end{equation}
+%
+following the notation of \S~\ref{sec:5:fisher}, in which $\bb{M},\bb{\Psi}$ refer to the feature cosmology derivative and inverse covariance matrix respectively. More explicitly, we can write the power spectrum difference as 
+
+\begin{equation}
+\label{eq:7:powerccd}
+\h{P}_{\kappa\kappa+{\rm sp}}(\ell_b)-\h{P}_{\kappa\kappa}(\ell_b) = \left\vert\frac{\h{\tilde{\kappa}}(\ell_b)+\tilde{\kappa}_{\rm sp}(\ell_b)}{2\pi}\right\vert^2-\h{P}_{\kappa\kappa}(\ell_b) 
+\end{equation} 
+%
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{Figures/eps/sensors_power.eps}
+\end{center}
+\caption{}
+\label{fig:7:ccdpow}
+\end{figure}
+%
+In equation (\ref{eq:7:powerccd}) the subscript $i$ can either refer to the tree ring or pixel variation effect. Note that, contrary to $\h{\tilde{\kappa}}$, the systematic additive contribution $\tilde{\kappa}_{\rm sp}$ is not a stochastic quantity, since it is tied to the field of view. The same is true for its angular power spectrum $P_{\kappa\kappa,{\rm sp}}$ (shown in Figure \ref{fig:7:ccdpow}). We can write the bias estimator for the $\alpha$--th cosmological parameter as 
+\begin{equation}
+\label{eq:7:biasccd-1}
+\h{b}_\alpha = \sum_{\ell_b=\ell_{\rm min}}^{\ell_{\rm max}} Z_{\alpha\ell_b}\left(P_{\kappa\kappa,{\rm sp}}(\ell_b)+\frac{\h{\tilde{\kappa}}(\ell_b)\tilde{\kappa}_{\rm sp}^*(\ell_b)+\h{\tilde{\kappa}}^*(\ell_b)\tilde{\kappa}_{\rm sp}(\ell_b)}{(2\pi)^2}\right)
+\end{equation}
+%
+We assume a diagonal covariance matrix for the $\kappa$ power spectrum, calculated according to (\ref{eq:4:powercov-gauss-bin}) 
+
+\begin{equation}
+\label{eq:7:diagcov}
+C_{\ell_b\ell_{b'}} = \frac{P^2_{\kappa\kappa}(\ell_b)}{N_{\rm modes}(\ell_b)}\delta_{\ell_b\ell_{b'}}
+\end{equation}
+%
+where $N_{\rm modes}(\ell_b)$ is the number of $\pell$ modes that fall inside the multipole bin $\ell_b$, and can be read off equation (\ref{eq:4:powercov-gauss-bin}). With this assumption, we can write down the expectation value $\bb{b}$ and scatter $\sigma_{\bb{b}}$ for the bias estimator (\ref{eq:7:biasccd-1}) as  
+
+\begin{equation}
+\label{eq:7:expb}
+b_\alpha = \left\langle\h{b}_\alpha\right\rangle = \sum_{\ell_b=\ell_{\rm min}}^{\ell_{\rm max}} Z_{\alpha\ell_b}P_{\rm sp}(\ell_b)
+\end{equation}
+%
+\begin{equation}
+\label{eq:7:sigmab}
+\sigma_{b_\alpha} = \sqrt{\left\langle\left(\h{b}_\alpha-b_\alpha\right)^2\right\rangle} = 2\sum_{\ell_b=\ell_{\rm min}}^{\ell_{\rm max}} Z_{\alpha\ell_b}\sqrt{\frac{P_{\rm sp}(\ell_b)P_{\kappa\kappa}(\ell_b)}{N_{\rm modes}(\ell_b)}}
+\end{equation}
+%
+Note that, because of the nature of the bias estimator (\ref{eq:7:biasccd-1}), the CCD induced parameter bias has both a fixed component (\ref{eq:7:expb}) proportional to $P_{\rm sp}$ and a stochastic component with a root mean square error (\ref{eq:7:sigmab}) that scales as $\sqrt{P_{\rm sp}/N_{\rm modes}}$. Depending on the size of the survey, the fixed and stochastic components of the parameter bias can have different relative amplitudes because, while (\ref{eq:7:sigmab}) decreases with the survey area, (\ref{eq:7:expb}) does not.
+%
+\begin{table}
+\begin{center}
+\begin{tabular}{c|ccc}
+\textbf{Bias component} & $\Omega_m$ & $w_0$ & $\sigma_8$ \\ \hline \hline
+\multicolumn{4}{c}{\textbf{Tree rings}} \\ \hline
+$\bb{b}$ & $5.05\cdot 10^{-10}$ & $2.79\cdot 10^{-9}$ & $-3.52\cdot 10^{-10}$ \\
+$\sigma_{\bb{b}}$ & $6.92\cdot 10^{-8}$ & $1.34\cdot 10^{-7}$ & $1.29\cdot 10^{-7}$ \\ \hline
+
+\multicolumn{4}{c}{\textbf{Pixel size variations}} \\ \hline
+$\bb{b}$ & $1.21\cdot 10^{-5}$ & $-2.18\cdot 10^{-5}$ & $-1.79\cdot 10^{-5}$ \\
+$\sigma_{\bb{b}}$ & $1.21\cdot 10^{-5}$ & $3.37\cdot 10^{-5}$ & $1.82\cdot 10^{-5}$ \\ \hline
+\end{tabular}
+\end{center}
+\caption{Amplitudes for the fixed (\ref{eq:7:expb}) and stochastic (\ref{eq:7:sigmab}) components of the $(\Omega_m,w_0,\sigma_8)$ bias induced by the tree ring and pixel size variations effects resulting from CCD fabrication imperfections. The spurious contributions to $\kappa$ were measured from a LSST instrument simulation \citep{PetriCCD}, and the forward models necessary to obtain the WL $P_{\kappa\kappa}$ derivatives $\bb{M}$ and covariance matrix $\bb{C}$ were calculated with the analytical code $\ttt{NICAEA}$ \citep{Nicaea}. The number $N_{\rm modes}$ of $\pell$ modes which appears in equation (\ref{eq:7:sigmab}) is referred to an LSST--like survey. Shape noise contributions with a galaxy density of $n_g=15\,{\rm galaxies/arcmin^2}$ are included.}
+\label{tab:7:ccdbias}
+\end{table}
+%
+Table \ref{tab:7:ccdbias} shows the values for the amplitude of the bias components $\bb{b},\sigma_{\bb{b}}$ for an LSST--like galaxy survey. Compared with the $1\sigma$ $\Lambda$CDM parameter errors shown in Table \ref{tab:7:spbias}, we can conclude that the biases induced by the CCD imperfections considered in this section can be safely neglected even for a survey with an area as wide as LSST, because they are several order of magnitude smaller than the parameter uncertainty due to cosmic variance.  
 
 \section{Photometric redshift errors}
 
-\section{Other systematics}
+\section{Born approximation}
+While in the previous sections we focused on $\Lambda$CDM parameter biases arising from observational systematic effects, in this section we focus on a  potential source of bias due to approximate theoretical modeling of WL features, namely the Born approximation. If one is interested in approximating the forward--modeled $\kappa$ field at first order in the gravitational potential $\Phi$, equation (\ref{eq:3:kappa-fo-num-2}) gives a computationally efficient recipe to do so. The reason why the Born approximation is faster than exact ray--tracing (based on (\ref{eq:3:jackp1-delta})), is that knowledge of the density contrast $\delta$ only is needed. Full ray--tracing, on the other hand, needs the specification of $\Phi$ in order to compute the angle deflections and hence requires the solution to the Poisson equation (\ref{eq:3:poisson-psi-2}). 
+%
+\begin{table}
+\begin{center}
+\begin{tabular}{c|c|c|c}
+\textbf{Solver} & \textbf{Runtime (1 FOV)} & \textbf{Memory usage} & \textbf{CPU time (1000 FOV)} \\ \hline \hline
+Born & 36.0\,s & 0.86\,GB & 10\,hours  \\
+Full ray--tracing & 124.8\,s & 1.65\,GB & 35\,hours  \\
+Born + $O(\Phi^2)$ & 156.7\,s & 1.52\,GB & 44\,hours \\ \hline
+\end{tabular}
+\end{center}
+\caption{CPU time and memory usage benchmarks for $\kappa$ reconstruction. The test case we considered consists in a discretization with $N_l=42$ uniformly spaced lenses between the observer and the sources at $z_s=2$, each with a resolution of $4096^2$ pixels. The $\kappa$ field is resolved with $2048^2$ light rays. We show both the runtime for producing a single field of view and the CPU hours needed to perform the reconstruction 1000 times, to mock an LSST--like galaxy survey. Run times do not include the Poisson solution calculation, as this can be recycled to produce multiple field of view realizations (see \S~\ref{sec:3:sampling}). The Poisson solution run time is negligible in the account of the total CPU time needed for the production of $N_r\gg N_l$ field of view realizations.}
+\label{tab:7:benchmarks}
+\end{table}
+% 
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_powerSN30_s0_nb100.eps}
+\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_momentsSN15_s50_nb9.eps}
+\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_momentsSN30_s50_nb9.eps}
+\end{center}
+\caption{Distribution of parameter estimates for the triplet $(\Omega_m,w_0,\sigma_8)$, obtained with (\ref{eq:5:linapprox-peak}) for a variety of $\kappa$ features, including the power spectrum and some higher real space moments. The observation to fit has been generated with full ray--tracing and the forward model, based on $\bb{M}$, has been obtained both with the Born approximation (green bars), and exact ray--tracing (for the sake of null testing, blue bars). Forward models and covariance matrices have been estimated from ensembles of 8192 $\kappa$ realizations, and the mock observations have been generated averaging over 1000 realizations, to mimic the area of an LSST--like survey. The $\bbh{p}_0$ samples have been drawn with a bootstrapping procedure over the full ensemble of $\kappa$ realizations.}
+\label{fig:7:biasfeat}
+\end{figure}
+%
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{Figures/eps/bornBias_ngal_convergence_powerSN_s0_nb100.eps}
+\end{center}
+\caption{}
+\label{fig:7:biasbornngal}
+\end{figure}
+%
+Table \ref{tab:7:benchmarks} (taken from \citep{PetriBorn}) shows that, using the \LT\,implementation, one can save as much as a factor of 4 in CPU time when computing $\kappa$ using the Born approximation. These time savings, however, come at a price since the forward model (\ref{eq:5:linapprox}) and the matrix $\bb{M}$ will be correct only at $O(\Phi)$. When using approximate forward models to fit observations via (\ref{eq:5:linapprox-peak}), depending on the particular image feature used, one can induce bias in parameter inferences. This possibility was explored in \citep{PetriBorn}, from which we take Figure \ref{fig:7:biasfeat}, which shows the distribution of parameter estimates $\bbh{p}_0$ obtained with exact and Born approximated forward models. We can clearly see that, while the Born approximation does not lead to biased constraints when the $\kappa$ power spectrum is used, the same is not true for higher point moments of $\kappa$ (defined in (\ref{eq:4:poly-quad}),(\ref{eq:4:poly-cubic}),(\ref{eq:4:poly-quartic})). We also observe that, when the effects of galaxy shape noise are taken into account, the increased statistical error in the parameter estimates removes the Born induced bias, which is withing the $1\sigma$ level.
+
+\section{Other systematic effects}
 
 \bibliography{ref}

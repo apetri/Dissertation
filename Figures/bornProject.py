@@ -351,7 +351,7 @@ def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spect
 
 	#Observation
 	bootstrap_mean = lambda e: e.values.mean(0)
-	feature_ray = Ensemble.read(os.path.join(fiducial["c0"].getMapSet("kappa").home,feature_name+".npy"),callback_loader=callback).bootstrap(bootstrap_mean,bootstrap_size=bootstrap_size,resample=resample)
+	feature_ray = Ensemble.read(os.path.join(fiducial["c0"].getMapSet("kappa").home,feature_name+".npy"),callback_loader=callback).bootstrap(bootstrap_mean,bootstrap_size=bootstrap_size,resample=resample,seed=0)
 
 	#Containers for cosmological model
 	modelFeatures = dict()
@@ -385,7 +385,7 @@ def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spect
 		#Load in the feature to fit, bootstrap the mean#
 		################################################
 	
-		feature_born = features[fiducial.cosmo_id].bootstrap(bootstrap_mean,bootstrap_size=bootstrap_size,resample=resample)
+		feature_born = features[fiducial.cosmo_id].bootstrap(bootstrap_mean,bootstrap_size=bootstrap_size,resample=resample,seed=0)
 
 		for nv,v in enumerate(variation_idx):
 
@@ -420,7 +420,7 @@ def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spect
 				
 				ax[nv,n].set_xlabel(plab[p],fontsize=fontsize)
 				ax[nv,n].set_title(title)
-				ax[nv,n].legend(loc="upper right",prop={"size":20})
+				ax[nv,n].legend(loc="upper right",mode="expand",ncol=2,prop={"size":20})
 
 	#Labels
 	for a in ax.flatten():
@@ -430,8 +430,8 @@ def pbBias(cmd_args,feature_name="convergence_power_s0_nb100",title="Power spect
 	fig.tight_layout()
 	fig.savefig("{0}/bornBias_{1}.{0}".format(cmd_args.type,feature_name))
 
-def pbBiasPowerSN15(cmd_args,feature_name="convergence_powerSN15_s0_nb100"):
-	pbBias(cmd_args,feature_name=feature_name,title=r"$P_{\kappa\kappa}(n_g=15{\rm galaxies/arcmin}^2)$")
+def pbBiasPowerSN30(cmd_args,feature_name="convergence_powerSN30_s0_nb100"):
+	pbBias(cmd_args,feature_name=feature_name,title=r"$P_{\kappa\kappa}(n_g=30{\rm galaxies/arcmin}^2)$")
 
 def pbBiasMomentsSN15(cmd_args,feature_name="convergence_momentsSN15_s50_nb9"):
 	pbBias(cmd_args,feature_name=feature_name,kappa_models=("Born",),title=r"${\rm Moments}(n_g=15{\rm galaxies/arcmin}^2)$")
@@ -439,7 +439,7 @@ def pbBiasMomentsSN15(cmd_args,feature_name="convergence_momentsSN15_s50_nb9"):
 def pbBiasMomentsSN30(cmd_args,feature_name="convergence_momentsSN30_s50_nb9"):
 	pbBias(cmd_args,feature_name=feature_name,title=r"${\rm Moments}(n_g=30{\rm galaxies/arcmin}^2)$")
 
-def pbBiasNgal(cmd_args,feature_names="convergence_momentsSN{0}_s50_nb9",ngal=(10,15,20,30,40,50,60),kappa_model="Born",callback=None,variation_idx=0,bootstrap_size=1000,resample=1000,fontsize=22):
+def pbBiasNgal(cmd_args,feature_names="convergence_powerSN{0}_s0_nb100",ngal=(10,15,20,30,40,50,60),kappa_model="Born",callback=None,variation_idx=0,bootstrap_size=1000,resample=1000,fontsize=22):
 	
 	#Set up plot
 	fig,ax = plt.subplots()
