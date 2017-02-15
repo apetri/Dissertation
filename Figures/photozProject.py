@@ -200,9 +200,10 @@ def photoz_bias(cmd_args,dbn="data/fisher/constraints_photoz.sqlite",parameters=
 	ax.set_ylim(-ylim,ylim)
 
 	#Legends
-	ax.set_xlabel(r"$\delta$" + par2label[parameters[0]],fontsize=fontsize)
-	ax.set_ylabel(r"$\delta$" + par2label[parameters[1]],fontsize=fontsize)
-	ax.legend(ellipses,labels,loc="upper left",mode="expand",ncol=2,prop={"size":15})
+	ax.set_xlabel(par2label[parameters[0]].rstrip("$") + r"^{\rm ph}$" + r"$-$" + par2label[parameters[0]],fontsize=fontsize)
+	ax.set_ylabel(par2label[parameters[1]].rstrip("$") + r"^{\rm ph}$" + r"$-$" + par2label[parameters[1]],fontsize=fontsize)
+	ax.legend(ellipses,labels,prop={"size" : 17},bbox_to_anchor=(0.,1.02,1.,.102),loc=3,ncol=1,mode="expand",borderaxespad=0.)
+	plt.setp(ax.get_xticklabels(),rotation=30)
 
 	#Save figure
 	fig.savefig("{0}/photoz_bias_{1}.{0}".format(cmd_args.type,"-".join(parameters)))
@@ -257,7 +258,7 @@ def parameter_constraints(cmd_args,dbn="data/fisher/constraints_combine.sqlite",
 	#Axes labels and legend
 	ax.set_xlabel(par2label[parameters[0]],fontsize=fontsize)
 	ax.set_ylabel(par2label[parameters[1]],fontsize=fontsize)
-	ax.legend(ellipses,labels,prop={"size" : 17},bbox_to_anchor=(0.,1.02,1.,.102),loc=3,ncol=len(features_to_show)//4,mode="expand",borderaxespad=0.)
+	ax.legend(ellipses,labels,prop={"size" : 17},bbox_to_anchor=(0.,1.02,1.,.102),loc=3,ncol=1,mode="expand",borderaxespad=0.)
 	plt.setp(ax.get_xticklabels(),rotation=30)
 
 	#Save figure
