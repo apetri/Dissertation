@@ -74,12 +74,12 @@ def galdistr(cmd_args,fontsize=22):
 
 		#Make the histogram
 		ng,zb = np.histogram(z,bins=np.arange(z.min(),z.max(),0.02))
-		ax.plot(0.5*(zb[1:]+zb[:-1]),ng,color=sns.xkcd_rgb[colors[n]],label=r"$z\in[{0:.2f},{1:.2f}]$".format(z.min(),z.max()))
+		ax.plot(0.5*(zb[1:]+zb[:-1]),ng,color=sns.xkcd_rgb[colors[n]],label=r"$z_s\in[{0:.2f},{1:.2f}]$".format(z.min(),z.max()))
 		ax.fill_between(0.5*(zb[1:]+zb[:-1]),np.zeros_like(ng),ng,color=sns.xkcd_rgb[colors[n]],alpha=0.3)
 
 	#Labels
-	ax.set_xlabel(r"$z$",fontsize=fontsize)
-	ax.set_ylabel(r"$N_g(z)$",fontsize=fontsize)
+	ax.set_xlabel(r"$z_s$",fontsize=fontsize)
+	ax.set_ylabel(r"$N_g(z_s)$",fontsize=fontsize)
 	ax.legend()
 
 	#Ticks

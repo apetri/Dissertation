@@ -168,7 +168,7 @@ following the notation of \S~\ref{sec:5:fisher}, in which $\bb{M},\bb{\Psi}$ ref
 \begin{center}
 \includegraphics[scale=0.6]{Figures/eps/sensors_power.eps}
 \end{center}
-\caption{}
+\caption{Power spectrum of the additive $\kappa$ contamination due to the tree ring (blue) and pixel size variation (green) effects. The power spectra were measured from one realization of a $(3.5\,{\rm deg})^2$ field of view obtained repeating the patterns in Figure \ref{fig:7:sensvis} with random $90^\circ$ rotations.}
 \label{fig:7:ccdpow}
 \end{figure}
 %
@@ -219,14 +219,73 @@ $\sigma_{\bb{b}}$ & $1.21\cdot 10^{-5}$ & $3.37\cdot 10^{-5}$ & $1.82\cdot 10^{-
 Table \ref{tab:7:ccdbias} shows the values for the amplitude of the bias components $\bb{b},\sigma_{\bb{b}}$ for an LSST--like galaxy survey. Compared with the $1\sigma$ $\Lambda$CDM parameter errors shown in Table \ref{tab:7:spbias}, we can conclude that the biases induced by the CCD imperfections considered in this section can be safely neglected even for a survey with an area as wide as LSST, because they are several order of magnitude smaller than the parameter uncertainty due to cosmic variance.  
 
 \section{Photometric redshift errors}
+In this section we examine the effects of uncorrected redshift measurement errors on $\Lambda$CDM parameter constraints. Photometric surveys such as LSST do not use full spectroscopic information in order to determine the redshift $z_s$ of a source, but use the information on a limited number of frequency bands (LSST uses 5 of them for example) in order to estimate $z_s$. This can lead to redshift measurement inaccuracies if the measured redshift $z_{\rm ph}$ is not an unbiased estimate of $z_s$. We model the relation between the photometric and real redshift of a source galaxy as the sum of a fixed bias $b_{\rm ph}$ and a stochastic component of root mean square $\sigma_{\rm ph}$ \citep{PetriPhotoZ,LSSTSciBook} 
 
+\begin{equation}
+\label{eq:7:phreal}
+z_{\rm ph}(z_s) = z_s + b_{\rm ph}(z_s) + \sigma_{\rm ph}(z_s)\mathcal{N}(0,1)
+\end{equation}
+%
+where we chose the functional forms of the bias and root mean square following the LSST Science Book \citep{LSSTSciBook} as 
+
+\begin{equation}
+\label{eq:7:bph}
+b_{\rm ph}(z_s) = 0.003(1+z_s)
+\end{equation}
+%
+\begin{equation}
+\label{eq:7:sph}
+\sigma_{\rm ph}(z_s) = 0.02(1+z_s)
+\end{equation}
+%
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{Figures/png/lsst_galdistr.png}
+\end{center}
+\caption{Redshift distribution of $10^6$ source galaxies arranged uniformly in a $(3.5\,{\rm deg})^2$ field of view (which corresponds to a density of $n_g=22\,{\rm galaxies/arcmin}^2$). The distribution follows the law $n(z_s)\propto (z_s/z_0)^2\exp(-z_s/z_0)$ with $z_0=0.3$. For the purpose of this study the galaxies have been divided in 5 redshift bins which have been chosen such that each bin contains the same number of galaxies.}
+\label{fig:7:galdistr}
+\end{figure}
+%
+We simulated an LSST--like galaxy survey by drawing the redshift $z_s$ of $N_g=10^6$ source galaxies from the distribution in Figure \ref{fig:7:galdistr}. The galaxies are distributed uniformly in a $(3.5\,{\rm deg})^2$ field of view. Uncorrected photometric redshift systematics can lead to biased constraints when employing redshift tomography for a more throughout mapping of the WL feature space \citep{HutererWLSys,PetriPhotoZ}. If we assign the redshift $z_{\rm ph}$ to a galaxy which has a real redshift of $z_s$ during the feature forward modeling process, we must consider the possibility that the resulting $\Lambda$CDM parameter inferences may be biased. 
+%
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/photoz_bias_Om-w.eps}\includegraphics[scale=0.4]{Figures/eps/photoz_constraints_Om-w_lensing_cmb.eps}
 \end{center}
-\caption{}
+\caption{Left panel: parameter bias on $(\Omega_m,w_0)$ induced by photometric redshift errors, obtained using the $\kappa$ tomographic power spectrum (red), peak counts (green) and moments (blue). We show the results for 20 independent LSST--like survey realizations (crosses) and indicate the mean of $\h{p}^{\rm ph}-\h{p}$ as a square. For reference, we draw the $1\sigma$ (68\% confidence level) ellipses on the bias $\h{p}^{\rm ph}-\h{p}$ assuming its distribution is Gaussian. Right panel: $1\sigma$ confidence ellipses on $(\Omega_m,w_0)$ obtained from tomographic features (color coded in the legend). We the constraints without (thin lines) and with (thick lines) Planck \citep{Planck15} priors included via equation (\ref{eq:5:linapprox-cov-prior}). Feature covariance matrices have been measured from $N_r=16,000$ realizations of the shear catalogs.}
 \label{fig:7:photoz}
 \end{figure}
+%
+To study the magnitude of this effect, we divide the source galaxies in $N_z=5$ redshift bins and we use the \LT\,functionality to perform ray--tracing to the real redshift $z_s$ of each galaxy. This operation yields a WL shear catalog, which can be produced in multiple different statistical realizations (following the procedure in \S~\ref{sec:3:sampling}) for different $\Lambda$CDM cosmologies. The shear catalogs are then converted in $\kappa$ images via a grid procedure defined by
+
+\begin{equation}
+\label{eq:7:gridding}
+\pmb{\gamma}(\pt_p,\bar{z}_b) = \frac{\sum_{g=1}^{N_g}\pmb{\gamma}(\pt_g,z_g)W(\pt_g,\pt_p;z_g,\bar{z}_b)}{\sum_{g=1}^{N_g}W(\pt_g,\pt_p;z_g,\bar{z}_b)}
+\end{equation}  
+%
+where $\pt_g,z_g$ refer to the galaxy position and redshift respectively and $\pt_p,\bar{z}_b$ indicate the pixel position on the image grid and the center of the redshift bin (see Figure \ref{fig:7:galdistr}). The window function $W$ has been chosen as a top--hat 
+
+\begin{equation}
+\label{eq:7:that}
+W(\pt_g,\pt_p;z_g,\bar{z}_b) = 
+\begin{cases}
+1 \,\,\,\, {\rm if} \,\,\,\, \pt_g\in\pt_p,z_g\in\bar{z}_b \\
+0 \,\,\,\, {\rm otherwise}
+\end{cases}
+\end{equation}
+%
+The KS inversion procedure (\ref{eq:2:kappa-ks}) is then applied to each of the 5 $\pmb{\gamma}(\pt_p,\bar{z}_b)$ images to obtain the pixelized convergence field  $\kappa(\pt_p,\bar{z}_b)$ (a smoothing factor of $e^{-\ell^2\theta_G^2/2}$ with $\theta_G=0.5'$ has been applied during the KS procedure for convenience). We then proceed with the feature extraction described in Chapter \ref{chp:4}, with the additional possibility of considering tomographic information from the classification of the source galaxies in different redshift bins $\{\bar{z}_b\}$. We can define a cross redshift $\kappa$ power spectrum $P_{\kappa\kappa}(\ell,\bar{z}_b,\bar{z}_{b'})$ as 
+
+\begin{equation}
+\label{eq:7:crosspower}
+\left\langle\tilde{\kappa}(\pell,\bar{z}_b)\tilde{\kappa}(\pell',\bar{z}_{b'})\right\rangle = (2\pi)^2\delta^D(\pell+\pell')P_{\kappa\kappa}(\ell,\bar{z}_b,\bar{z}_{b'})
+\end{equation} 
+%
+Note that, when introducing tomography, the dimensionality of the feature space defined by $P_{\kappa\kappa}$ increases from $N_d$ to $N_d N_z(N_z-1)/2$. For the remaining $\kappa$ features described in Chapter \ref{chp:4}, which are not quadratic in $\kappa$, we simply stack together the feature vectors $\bb{d}$ measured in different bins $\bar{z}_b$, increasing the dimensionality of the feature space from $N_d$ to $N_dN_z$. Dimensionality reduction techniques become especially relevant when considering tomographic features because, given the increase in feature space dimensionality, the constraint degradation pitfalls described in \S~\ref{sec:5:degrade} may become important. In order to study the effect of photometric redshift errors, we take the simulated shear catalogs in the fiducial cosmology and we replace each redshift $z_s$ with an estimate $z_{\rm ph}$ based on photometry, which we obtain using equation (\ref{eq:7:phreal}). We then perform the $\kappa$ reconstruction with equation (\ref{eq:7:gridding}), measure the image features and finally infer $\Lambda$CDM parameters using equations (\ref{eq:5:linapprox-peak}), (\ref{eq:5:linapprox-cov}). We quantify the bias induced on the inference of a parameter $p$ by uncorrected photometric redshift systematics as $\h{p}^{\rm ph}-\h{p}$, where $\h{p}^{\rm ph},\h{p}$ are the $p$ estimates from mock observations with and without redshift errors. We show the results in Figure \ref{fig:7:photoz}. 
+
+The results show that photometric redshift errors can cause significant parameter constraints if left uncorrected when using polynomial features such as the power spectrum and the moments of $\kappa$. Peak counts, on the other hand, seem to be less affected by this systematic effect, probably because they probe correlations of galaxy shapes that are very close to each other on the sky. These correlations are affected to a lesser extent by photometric redshift errors, which are spatially uncorrelated. Since the bias for different features appears in different directions in feature space, the possibility of self--calibration may be considered in the future.
+
+The right panel of Figure \ref{fig:7:photoz} shows constraint forecasts on $\Omega_m$ and $w_0$ using tomographic features. The Figure shows that the combination of power spectrum, moments and peaks can in principle constrain $w_0$ to a percent level.   
 
 \section{Born approximation}
 While in the previous sections we focused on $\Lambda$CDM parameter biases arising from observational systematic effects, in this section we focus on a  potential source of bias due to approximate theoretical modeling of WL features, namely the Born approximation. If one is interested in approximating the forward--modeled $\kappa$ field at first order in the gravitational potential $\Phi$, equation (\ref{eq:3:kappa-fo-num-2}) gives a computationally efficient recipe to do so. The reason why the Born approximation is faster than exact ray--tracing (based on (\ref{eq:3:jackp1-delta})), is that knowledge of the density contrast $\delta$ only is needed. Full ray--tracing, on the other hand, needs the specification of $\Phi$ in order to compute the angle deflections and hence requires the solution to the Poisson equation (\ref{eq:3:poisson-psi-2}). 
@@ -266,4 +325,4 @@ Table \ref{tab:7:benchmarks} (taken from \citep{PetriBorn}) shows that, using th
 
 \section{Other systematic effects}
 
-\bibliography{ref}
+%\bibliography{ref}
