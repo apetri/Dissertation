@@ -6,114 +6,114 @@
 \setlength{\parindent}{10mm}
 
 \label{chp:3}
-In this Chapter we outline the numerical methods we used to produce simulated WL convergence and shear images. 
+In this Chapter we describe the relevant numerical methods for performing simulations of WL observations. We use publicly available software to trace the non--linear time evolution of the matter density contrast $\delta(t)$. The geodesic equation can then be solved numerically adding the multiple deflections which light experiences traveling from sources to observers. The solution of the geodesic equation for a sufficient number of light rays allows to reconstruct the spatial profiles of the WL observables $\kappa,\pmb{\gamma},\omega$. We conclude the Chapter by presenting our ray--tracing software \LT, which we have publicly released for the use of the WL community.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Cosmological simulations}
-The matter density contrast $\delta$ evolves according to equation (\ref{eq:1:delta-lin}) at linear stage. For WL studies, however, $\delta$ becomes too big at the redshifts of interest ($z\sim 1$), the linear approximation breaks down and an exact solution of (\ref{eq:1:b-monopole}), (\ref{eq:1:b-dipole}) and (\ref{eq:1:einstein-full}) is required. A popular approach to solve the Boltzmann equation (\ref{eq:1:boltzmann}) for collisionless dark matter is the $N$--body method, in which phase space is discretized using a large but finite number $N_p$ of particle tracers (see \citep{gadget2}). The particles are placed in a cubical periodic box of comoving size $L_b$ and are given initial conditions that correspond to the linear density contrast at high $z$. The system is then evolved with a Hamiltonian that mimics Newtonian gravitational interactions ($L_b\ll c/H$), described by the potential $\Phi$.  
+The evolution of the matter density contrast $\delta$ is controlled, at linear stage, by equation (\ref{eq:1:delta-lin}). For WL studies, however, $\delta$ becomes too big at the redshifts of interest ($z\sim 1$) for the linear approximation to still be valid and exact solutions of (\ref{eq:1:b-monopole}), (\ref{eq:1:b-dipole}) and (\ref{eq:1:einstein-full}) are required. A popular approach to solve Boltzmann's equation (\ref{eq:1:boltzmann}) for collision--free Dark Matter is the $N$--body method, which proceeds in a discretization of phase space using a large but finite number $N_p$ of particle tracers (see \citep{gadget2}). The particles are placed in a cubical periodic box of comoving size $L_b$ and are assigned initial conditions which correspond to the density contrast at high $z$, for which the linear approximation is still valid. The particle system is then evolved with a Hamiltonian that mimics Newtonian gravitational interactions (PN corrections are neglected under the assumption $L_b\ll c/H$), described by the potential $\Phi$.  
 
 \subsection{Initial conditions}
-The starting point of an $N$--body simulation is a configuration of particles positions $\{\bb{x}_i\}$ and velocities $\{\bb{v}_i\}$ at some high redshift $z_{\rm in}\gg 1$, which mimic the linear density contrast $\delta$. Suppose that the particles are initially are arranged in a ``glass'' pattern and are given positions $\{\bb{x}_i^g\}$ that correspond to a uniform density profile ($\delta=0$). We seek to displace each particle by a small amount $\bb{d}(\bb{x}_i^g)$, so that the new density matches an input $\delta$ profile, which we can vary. Because mass is conserved by the displacement transformation we can write
+The starting step of an $N$--body simulation is a configuration of particle positions $\{\bb{x}_i\}$ and velocities $\{\bb{v}_i\}$ at some initial high redshift $z_{\rm in}\gg 1$. The starting particle configuration traces the linear density contrast $\delta$. The particles are initially are arranged in a \textit{glass} pattern and are given positions $\{\bb{x}_i^g\}$ which correspond to a uniform density profile ($\delta\approx0$). The particles are displaced from their position in the glass by a small amount $\bb{d}(\bb{x}_i^g)$, which is chosen so that the new density profile matches an input $\delta$ profile, which we can be arbitrarily varied. Because mass is conserved by the displacement transformation we can impose the condition
 
 \begin{equation}
 \label{eq:3:masscons}
-\rho_m d^3 x^g = \rho_m(1+\delta)d^3x
+\rho_m d^3 x^g = \rho_m(1+\delta)d^3x,
 \end{equation} 
 %
-Which relates the density contrast $\delta$ to the Jacobian of the displacement transformation 
+which relates the density contrast $\delta$ to the Jacobian of the displacement transformation ($\bb{x}(\bb{d}) = \bb{x}^g+\bb{d}$) as 
 
 \begin{equation}
 \label{eq:3:delta-displ}
 1+\delta = \left\vert\mathds{1}_{3\times 3}+\frac{\partial \bb{d}}{\partial \bb{x}}\right\vert^{-1}
 \end{equation}
 %
-Using the identity
+Using the matrix identity
 
 \begin{equation}
 \label{eq:3:det-identity}
 \vert\mathds{1}+\lambda\bb{M}\vert = 1 + \lambda\Tr\bb{M} + O(\lambda^2)
 \end{equation}
 %
-for generic $\bb{M}$ and real $\lambda$, and noting that at high redshift we expect $\delta$ and $\bb{d}$ to be small, we immediately obtain a linear relation between the density contrast and the displacement field 
+for a generic square matrix $\bb{M}$ and real $\lambda$, and noting that at high redshift we expect $\delta$ and $\bb{d}$ to be small, we obtain a linear relation between the density contrast and the displacement field, which reads 
 
 \begin{equation}
 \label{eq:3:delta-displ-real}
 \delta = -\nabla\cdot\bb{d}
 \end{equation}
 %
-A possible solution to equation (\ref{eq:3:delta-displ-real}) is easily expressed in Fourier space if we assume the displacement field to be longitudinal (which is a good assumption since the peculiar velocity field is irrotational)
+A possible solution to equation (\ref{eq:3:delta-displ-real}) is best expressed in Fourier space if we assume the displacement field to be longitudinal (which is a good assumption since the peculiar velocity field is approximately curl--free)
 
 \begin{equation}
 \label{eq:3:delta-displ-fourier}
 \tilde{\bb{d}}(\bb{k}) = \frac{i\bb{k}}{k^2}\tilde{\delta}(\bb{k})
 \end{equation}
 %
-Equation (\ref{eq:3:delta-displ-fourier}) takes the name of Zel'dovich approximation (see \citep{ZeldovichWhite} for a review), which essentially states that the displacement field is the gradient of the local gravitational potential. The Fourier coefficients $\tilde{\delta}(\bb{k})$ can be randomly drawn from $\mathcal{N}(0,P_\delta(k,z_{\rm in}))$. The linear matter power spectrum $P_\delta(k,z_{\rm in})$ can be computed analytically with Einstein--Boltzmann codes such as \ttt{CAMB} \citep{CAMB}. We assign the initial peculiar velocities $\bb{v}=\dot{\bb{d}}$ in the context of the Zel'dovich approximation using the time derivative of $\delta$. Since we limit ourselves to dark matter density perturbations, we can assume self--similar linear growth, described by the linear growth factor $D(z)$ that appears in (\ref{eq:1:growth-diff}). In order to imprint baryonic physics in the initial conditions, we adopt a hybrid approach, in which we use \ttt{CAMB} to compute the linear matter power spectrum $P^{\rm lin}_\delta(\bb{k},0)$ at the present time, with baryons included, and scale it back to $z_{\rm in}=100$ using the linear growth factor
+Equation (\ref{eq:3:delta-displ-fourier}) takes the name of Zel'dovich approximation (see \citep{ZeldovichWhite} for a review), and it essentially states that the displacement field that corresponds to the input $\delta$ profile is proportional to the gradient of the local gravitational potential. The Fourier coefficients $\tilde{\delta}(\bb{k})$ are random draws from a normal distribution with variance $P_\delta(k,z_{\rm in})$. The linear $\delta$ power spectrum $P_\delta(k,z_{\rm in})$ can be analytically computed with Einstein--Boltzmann software such as \ttt{CAMB} \citep{CAMB}. We assign the initial peculiar velocities $\bb{v}=\dot{\bb{d}}$ in the context of the Zel'dovich approximation using the time derivative of $\delta$. Since we limit ourselves to Dark Matter density perturbations, we can assume a self--similar linear growth model described by the linear growth factor $D(z)$, which appears in equation (\ref{eq:1:growth-diff}). In order to imprint baryon physics in the initial conditions, we adopt a hybrid approach in which we use \ttt{CAMB} to compute the linear matter power spectrum $P^{\rm lin}_\delta(\bb{k},0)$ at the present time, with baryons included. We then scale $P^{\rm lin}_\delta$ back to $z_{\rm in}=100$ using the linear growth factor
 
 \begin{equation}
 \label{eq:3:hybrid-power}
 P_\delta(\bb{k},z_{\rm in}) = P^{\rm lin}_\delta(\bb{k},0)\left(\frac{D(z_{\rm in})}{D(0)}\right)^2 
 \end{equation}
 %
-The initial conditions with baryonic imprinted physics is then evolved with dark matter only collisionless dynamics. A random realization of $\tilde{\delta}$ can then be drawn from $P_\delta(\bb{k},z_{\rm in})$, and the peculiar velocities can be assigned as 
+This initial condition (which includes baryon effects) is then evolved according to Dark Matter only collision--free dynamics. Random realizations of $\tilde{\delta}$ are drawn from $\mathcal{N}(0,P_\delta(\bb{k},z_{\rm in}))$ and the peculiar particle velocities $\bb{v}$ are assigned according to 
 
 \begin{equation}
 \label{eq:3:peculiar-initv}
 \tilde{\bb{v}}(\bb{k}) = \frac{i\bb{k}}{k^2}\tilde{\delta}(\bb{k})\left(\frac{\dot{z}}{D(z)}\frac{dD(z)}{dz}\right)_{z=z_{\rm in}}
 \end{equation}  
 %
-In order to generate random realizations of the initial conditions from the linear power spectrum $P^{\rm lin}_\delta(\bb{k},0)$, we used the \ttt{N-GenIC} software add--on to \ttt{Gadget2} \citep{gadget2}.   
+We used the \ttt{N-GenIC} software add--on to \ttt{Gadget2} \citep{gadget2} in order to generate random realizations of the $\bb{d},\bb{v}$ initial conditions from the linear $\delta$ power spectrum $P^{\rm lin}_\delta(\bb{k},0)$.   
 
 \subsection{Time evolution}
-Once generated, the initial conditions specified by equations (\ref{eq:3:delta-displ-fourier}) and (\ref{eq:3:peculiar-initv}) must be evolved in time from $z=z_{\rm in}$ until the present $z=0$. Since we consider collisionless dark matter only, which interacts only via gravity, the Hamiltonian $\mathcal{H}$ of the particle system (ignoring PN corrections, which is reasonable if $L_b\ll c/H$) can be written as 
+Once generated, the initial conditions specified by equations (\ref{eq:3:delta-displ-fourier}) and (\ref{eq:3:peculiar-initv}) are evolved in time from $z=z_{\rm in}$ until the present redshift $z=0$. Since we consider collision--free Dark Matter, which interacts only via gravitational forces, the Hamiltonian $\mathcal{H}$ of the particle system (ignoring PN corrections, since we are in the limit $L_b\ll c/H$) can be written as 
 
 \begin{equation}
 \label{eq:3:collisionless-ham}
 \mathcal{H} = \sum_{i=1}^{N_p} \frac{\bb{p}_i^2}{2m_i a(t)^2} + \frac{1}{2}\sum_{i\neq j}m_im_j\varphi(\bb{x}_i-\bb{x}_j)
 \end{equation} 
 %
-We denoted as $m_i$ the particle masses, as $\bb{p}_i$ the particle momenta conjugated to the comoving coordinates $\bb{x}_i$ and as $\varphi$ the pair interaction potential (which comes from gravity) per unit mass. If one imposes periodic boundary conditions on the simulation box, the interaction potential satisfies the Poisson equation
+We denoted the particle masses as $m_i$, the particle momenta conjugated to the comoving coordinates $\bb{x}_i$ as $\bb{p}_i$ and the pair interaction potential per unit mass as as $\varphi$. If periodic boundary conditions are imposed on the boundary of the simulation box, the interaction potential satisfies the Poisson equation
 
 \begin{equation}
 \label{eq:3:part-poisson}
 \nabla^2\varphi(\bb{x}) = \frac{4\pi G}{a}\left(\sum_{\bb{n}\in\mathds{Z}^3}\delta_{r_s}(\bb{x}-\bb{n}L_b)-\frac{1}{L_b^3}\right) 
 \end{equation}
 %
-Where $\delta_{r_s}$ is the Dirac delta function $\delta^D$ convolved with a softening kernel of scale $r_s$. This softening is introduced because the $N$--body particles are in reality extended, collisionless, objects and the Newtonian interaction potential is smoothed out on interaction scales smaller than $r_s$. In our simulations $r_s$ has been fixed to $r_s\approx 10\,{\rm kpc}/h$. Note that the summation term can be dropped if we restrict $\bb{x}$ to be inside the box, but is important to enforce the periodic boundary conditions. We can relate $\varphi$ to the gravitational potential in (\ref{eq:1:poisson}) by    
+where $\delta_{r_s}$ is the Dirac delta function $\delta^D$ convolved with a softening kernel of scale $r_s$. The softening is introduced because the $N$--body particles are in reality extended objects and the Newtonian interaction potential needs to be smoothed out on interaction scales smaller than $r_s$. In our simulations $r_s$ has been fixed to $r_s\approx 10\,{\rm kpc}/h$. Note that the summation term can be dropped if we restrict $\bb{x}$ to be inside the box, but it is important to enforce the periodic boundary conditions. We can relate $\varphi$ to the gravitational potential in (\ref{eq:1:poisson}) by    
 
 \begin{equation}
 \label{eq:3:macro-potential}
 \Phi(\bb{x},t) = -\frac{1}{c^2}\sum_{i=1}^{N_p} m_i\varphi(\bb{x}-\bb{x}_i(t))
 \end{equation} 
 %
-We can observe that, inside the simulation box, (\ref{eq:3:macro-potential}) leads to 
+We can observe that, inside the simulation box, equation (\ref{eq:3:macro-potential}) leads to 
 
 \begin{equation}
 \label{eq:3:macro-potential-poisson}
 \nabla^2\Phi(\bb{x},t) = -\frac{4\pi Ga^2}{c^2}\left(\sum_{i=1}^{N_p}m_i\delta_{r_s}\left(a(\bb{x}-\bb{x}_i(t))\right)-\frac{1}{a^3L_b^3}\sum_{i=1}^{N_p}m_i\right)
 \end{equation}
 %
-Note that (\ref{eq:3:macro-potential-poisson}) is essentially the discretized version of (\ref{eq:1:poisson}) for a system with $N_p$ particles, where gravitational forces are softened on scales below $r_s$. The Hamiltonian equations of motion derived from (\ref{eq:3:collisionless-ham}) can be numerically integrated to yield a trajectory $\bb{x}(t)$ for each particle. To preserve the Hamiltonian nature of the time evolution, \citep{gadget2} suggest adopting a Kick-Drift-Kick (KDK) numerical integration scheme. The drift step updates the particle coordinates using their momenta, while the kick updates their momenta using the local force field. The force field calculation requires the solution of (\ref{eq:3:part-poisson}) and a summation over all particle pairs, which leads to an $O(N_p^2)$ time complexity. In the limit of collisionless dynamics, approximate force field calculations can be carried over at a significantly lower complexity using the hybrid Tree Particle Mesh (TreePM) approach. The details of the force field calculation, time integration and TreePM implementation can be found in the \ttt{Gadget2} paper \citep{gadget2}. We used the publicly available version of the \ttt{Gadget2} code to perform the $N$--body simulations on which our WL simulations are based. We stored the $N$--body simulation outputs $\{\bb{x}_i(t)\}$ at a discrete set of time steps $\{t_k\}$, with the goal of using them to estimate the potential $\Phi$ necessary to reconstruct the WL quantities $\kappa,\pmb{\gamma}$. The numerical details of these WL simulations are contained in the next section.  
+Note that (\ref{eq:3:macro-potential-poisson}) is essentially the discretized version of (\ref{eq:1:poisson}) for a system made of $N_p$ particles, where gravitational forces are softened on scales below $r_s$. The Hamiltonian equations of motion derived from (\ref{eq:3:collisionless-ham}) can be numerically integrated and yield a trajectory $\bb{x}_i(t)$ for each particle. To preserve the Hamiltonian nature of the time evolution, \citep{gadget2} suggest adopting a Kick--Drift--Kick (KDK) numerical integration scheme. The drift step updates the particle coordinates from their momenta, while the kick updates the momenta using the local force field. The force field calculation requires the solution of (\ref{eq:3:part-poisson}) and a summation over all particle pairs, which leads to an $O(N_p^2)$ time complexity. In the limit of collision--free dynamics, approximate force field calculations can be performed with a significantly lower complexity using the hybrid Tree Particle Mesh (TreePM) approach. The details of the force field calculation, time integration and TreePM implementation can be found in the \ttt{Gadget2} paper \citep{gadget2}. We used the publicly available version of the \ttt{Gadget2} code to perform the $N$--body simulations on which our WL simulations are based. We stored the $N$--body simulation outputs $\{\bb{x}_i(t)\}$ at a discrete set of time steps $\{t_k\}$. We then used these outputs to estimate the potential $\Phi$ necessary from which WL observables $\kappa,\pmb{\gamma}$ can be reconstructed. We describe the numerical details of the WL simulations in the next section.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{The multi--lens--plane algorithm}
 
 \subsection{Geodesic solver}
-The goal of this section is to review the algorithm used to solve the light geodesic equation (\ref{eq:2:geodesic-fo-3}), and that allows to compute the integrals for $\pbeta$ (\ref{eq:2:geosol-beta}) and $\bb{A}$ (\ref{eq:2:geosol-jac}) efficiently and in a numerically stable fashion. In the remainder of the Chapter we will consider a source placed at a fixed longitudinal comoving distance $\chi_s$. The source appears to be positioned at an angle $\pt$ on the sky, but its real position is at angle $\pbeta(\chi_s,\pt)$, which can be calculated by solving (\ref{eq:2:geodesic-fo-3}). Numerical integration of (\ref{eq:2:geosol-beta}) can be done by dividing the interval $\chi\in[0,\chi_s]$ in $N_l$ equally spaced steps, each of size $\Delta = \chi_s/N_l$ and using a first order explicit method
+In this section we review the algorithm used to solve the light geodesic equation (\ref{eq:2:geodesic-fo-3}). This algorithm allows us to compute the $\pbeta$ (\ref{eq:2:geosol-beta}) and $\bb{A}$ (\ref{eq:2:geosol-jac}) integrals in an efficient and numerically stable fashion. In the remainder of the Chapter we will assume that source galaxies are positioned at fixed longitudinal comoving distance $\chi_s$. A particular light ray is observed at an angular position $\pt$ on the sky due to lensing, but its originating angular position is $\pbeta(\chi_s,\pt)$. $\pt$ and $\pbeta$ are related through equation (\ref{eq:2:geodesic-fo-3}). Numerical integration of (\ref{eq:2:geosol-beta}) is performed dividing the interval $\chi\in[0,\chi_s]$ in $N_l$ equally spaced steps, each of size $\Delta = \chi_s/N_l$ and using a first order explicit method
 
 \begin{equation}
 \label{eq:3:int-fo}
 \int_0^{\chi_s} f(\chi)d\chi = \Delta\sum_{i=1}^{N_l}f(\chi_k) + O\left(\frac{1}{N_l}\right)
 \end{equation} 
-
+%
 \begin{equation}
 \label{eq:3:int-steps}
 \chi_k = k\Delta
 \end{equation}  
 %
-Where $f$ is a generic function of $\chi$ and can be either $\pbeta$ or $\bb{A}$. Before applying the numerical integration method to (\ref{eq:2:geodesic-fo-3}), it is convenient to recast the geodesic equation into an equation for $\pbeta=\xp/\chi$ 
+In this notation, $f$ is a generic function of $\chi$ and can be identified with either $\pbeta$ or $\bb{A}$. Before applying the numerical integration method to (\ref{eq:2:geodesic-fo-3}), it is convenient to rewrite the geodesic equation as an equation for $\pbeta=\xp/\chi$ 
 
 \begin{equation}
 \label{eq:3:geodesic-fo-beta-1}
@@ -127,7 +127,7 @@ We promoted the $\xp$ dependency of $\Phi$ to a $\beta$ dependency using $\Phi(\
 \frac{d^2\pbeta(\chi)}{d\chi^2} + \frac{2}{\chi}\frac{d\pbeta(\chi)}{d\chi} - \frac{2}{\chi^2}\nabla_{\pbeta}\Phi(\chi,\pbeta(\chi)) = 0
 \end{equation}
 %
-Now let us focus on an intermediate discrete step $k$ and introduce the compact notation 
+Now let us consider an intermediate discrete step $k$ and introduce the compact notation 
 \begin{equation}
 \label{eq:3:compactnotation}
 \begin{matrix}
@@ -135,10 +135,10 @@ f_k\equiv f(\chi_k) & ; & f'_k\equiv\left.\frac{df}{d\chi}\right\vert_{\chi=\chi
 \end{matrix}
 \end{equation}  
 %
-and define
+We define
 \begin{equation}
 \label{eq:3:alphak}
-\palpha_k = \frac{2\Delta}{\chi_k}\nabla_{\pbeta}\Phi(\chi_k,\pbeta_k)
+\palpha_k = \frac{2\Delta}{\chi_k}\nabla_{\pbeta}\Phi(\chi_k,\pbeta_k).
 \end{equation}
 %
 Using the first order finite difference approximations for the $\pbeta$ derivatives
@@ -146,11 +146,11 @@ Using the first order finite difference approximations for the $\pbeta$ derivati
 \begin{equation}
 \label{eq:3:finitediff}
 \begin{matrix}
-\pbeta'_k = \frac{\pbeta_{k+1}-\pbeta_{k-1}}{2\Delta} + O(\Delta^2) & ; & \pbeta''_k = \frac{\pbeta_{k+1}+\pbeta_{k-1}-2\pbeta_k}{\Delta^2} + O(\Delta^2)
+\pbeta'_k = \frac{\pbeta_{k+1}-\pbeta_{k-1}}{2\Delta} + O(\Delta^2) & ; & \pbeta''_k = \frac{\pbeta_{k+1}+\pbeta_{k-1}-2\pbeta_k}{\Delta^2} + O(\Delta^2),
 \end{matrix}
 \end{equation}
 %
-we can write equation (\ref{eq:3:geodesic-fo-beta-2}) as 
+we can rewrite equation (\ref{eq:3:geodesic-fo-beta-2}) as 
 \begin{equation}
 \label{eq:3:geodesic-fo-beta-disc}
 \frac{\pbeta_{k+1}+\pbeta_{k-1}-2\pbeta_k}{\Delta^2} + \frac{\pbeta_{k+1}-\pbeta_{k-1}}{\chi_k\Delta} - \frac{\palpha_k}{\chi_k\Delta} = 0
@@ -163,30 +163,30 @@ Once we solve (\ref{eq:3:geodesic-fo-beta-disc}) for $\pbeta_{k+1}$, we immediat
 \pbeta_{k+1} = \frac{2\pbeta_k\chi_k-(\chi_k-\Delta)\pbeta_{k-1}+\Delta\palpha_k}{\chi_k+\Delta}
 \end{equation}  
 %
-The expression (\ref{eq:3:betakp1}) has a simple physical interpretation if we look at the scheme in Figure \ref{fig:3:multi-lens-plane}.
+The expression (\ref{eq:3:betakp1}) has a simple physical interpretation that we can understand by looking at the diagram in Figure \ref{fig:3:multi-lens-plane}.
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.7]{Figures/pdf/multi_lens_plane.pdf}
 \end{center}
-\caption{Multi--lens--plane algorithm schematics: the trajectory of a single light ray from the observer to the source at $\chi_s$ is shown in red as it undergoes multiple deflections.}
+\caption{Multi--lens--plane algorithm schematics: the trajectory of a single light ray from the observer to the source at $\chi_s$ is shown in red as it undergoes the multiple deflections caused by the lensing effect.}
 \label{fig:3:multi-lens-plane}
 \end{figure}
 %
-If we want to compute the angular position of a light ray at the $k+1$-th step, we need to know its position at the two previous steps $k,k-1$. Simple geometric arguments, and the fact that angles are small, tell us that 
+If we want to calculate the angular position of a light ray at the $k+1$-th step, we need to know its position at the two previous steps $k,k-1$. Simple geometric arguments, combined with the small deflection assumption, tell us that 
 
 \begin{equation}
 \label{eq:3:betakp1-2}
 \pbeta_{k+1} = \frac{1}{\chi_{k+1}}\left[(\chi\pbeta)_{k} + \left(\frac{(\chi\pbeta)_{k}-(\chi\pbeta)_{k-1}}{\chi_k-\chi_{k-1}}+\palpha_k\right)(\chi_{k+1}-\chi_k) \right]
 \end{equation}
 %
-Note that equations (\ref{eq:3:betakp1}) and (\ref{eq:3:betakp1-2}) are equivalent if the steps are equally spaced, $\chi_k=k\Delta$. This tells us that the quantity $\palpha_k$, which is connected to the gradient of the potential as in (\ref{eq:3:alphak}), is the deflection angle that a light ray experiences upon impact with a two dimensional lens plane of thickness $\Delta$ positioned at a longitudinal distance $\chi_k$. This is why the procedure of solving (\ref{eq:3:geodesic-fo-beta-2}) in discrete $\chi$ steps takes the name of multi--lens--plane algorithm \citep{RayTracingJain,RayTracingHartlap}: the solving procedure is equivalent to considering a discrete set of trajectory deflections $\palpha_k$ caused by a discrete set of two dimensional lens planes, each described by a lensing potential which is essentially the three dimensional gravitational potential $\Phi$ projected along the longitudinal direction. We observe that equation (\ref{eq:3:alphak}) is essentially the longitudinal integral of $\Phi$ performed with one discrete step of size $\Delta$. Using the initial conditions
+Note that equations (\ref{eq:3:betakp1}) and (\ref{eq:3:betakp1-2}) are equivalent if the steps are equally spaced, which is the case in our integration scheme defined by $\chi_k=k\Delta$. This equivalence tells us that the quantity $\palpha_k$, which is proportional to the gradient of the potential as stated in (\ref{eq:3:alphak}), is the deflection angle that a light ray experiences upon impact with a two dimensional lens plane of thickness $\Delta$ positioned at a longitudinal distance $\chi_k$. This is why the procedure of solving (\ref{eq:3:geodesic-fo-beta-2}) in discrete $\chi$ steps takes the name of multi--lens--plane algorithm \citep{RayTracingJain,RayTracingHartlap}. The solution is obtained by summing up a discrete set of trajectory deflections $\palpha_k$ which are caused by a discrete set of two dimensional lens planes. Each plane is characterized by a lensing potential which is the three dimensional gravitational potential $\Phi$ projected along the longitudinal direction. We observe that equation (\ref{eq:3:alphak}) is essentially the discrete longitudinal integral of $\nabla_\perp\Phi$ performed with a step of size $\Delta$. Using the initial conditions
 
 \begin{equation}
 \label{eq:3:initcond}
 \pbeta_0 = \pbeta_1 = \pt 
 \end{equation}    
 %
-we can use the recurrence relation (\ref{eq:3:betakp1}) to compute the full light ray trajectory until the arrival point $\pbeta_s$. It turns out that, because the coefficient that multiplies $\pbeta_k$ in (\ref{eq:3:betakp1}), $2\chi_k/(\chi_k+\Delta)$ is usually bigger than 1, this explicit method of solution leads to roundoff errors which blow up exponentially in $k$. To keep the accuracy of the geodesic solver under control we recast (\ref{eq:3:betakp1}) in a slightly different form by defining $\delta\pbeta_k \equiv \pbeta_k-\pbeta_{k-1}$. It is straightforward to show
+we can use the recurrence relation (\ref{eq:3:betakp1}) to compute the light ray trajectory from the observed to the starting angle $\pbeta_s$. It turns out that, because the coefficient that multiplies $\pbeta_k$ in (\ref{eq:3:betakp1}), $2\chi_k/(\chi_k+\Delta)$ is usually bigger than 1, this explicit method of solution leads to roundoff errors which blow up exponentially in $k$. To keep the accuracy of the geodesic solver under control we recast (\ref{eq:3:betakp1}) in a slightly different form by defining $\delta\pbeta_k \equiv \pbeta_k-\pbeta_{k-1}$. It is straightforward to show that
 
 \begin{equation}
 \label{eq:3:betak-sum}
@@ -198,21 +198,21 @@ we can use the recurrence relation (\ref{eq:3:betakp1}) to compute the full ligh
 \delta\pbeta_{k+1} = \left(\frac{\chi_k-\Delta}{\chi_k+\Delta}\right)\delta\pbeta_k + \left(\frac{\Delta}{\chi_k+\Delta}\right)\palpha_k
 \end{equation} 
 %
-It turns out that, because the coefficients that multiply $\delta\pbeta,\palpha$ are smaller than 1, (\ref{eq:3:betak-sum}) and (\ref{eq:3:betakp1-delta}) offer a more accurate numerical solution to the geodesic equation (\ref{eq:3:geodesic-fo-beta-2}). We can solve the geodesic equation for light rays with different initial conditions $\pt$, and study how the solution varies with $\pt$. This allows to translate the recurrence relations (\ref{eq:3:betak-sum}), (\ref{eq:3:betakp1-delta}) into recurrence relations for the lensing Jacobian $\bb{A}$. Noting that 
+It turns out that, because the coefficients that multiply $\delta\pbeta,\palpha$ are smaller than 1, (\ref{eq:3:betak-sum}) and (\ref{eq:3:betakp1-delta}) offer a more accurate numerical solution to the geodesic equation (\ref{eq:3:geodesic-fo-beta-2}). We can solve the geodesic equation for light rays with different initial conditions $\pt$, and study how the solution varies with $\pt$. This allows to translate the recurrence relations (\ref{eq:3:betak-sum}), (\ref{eq:3:betakp1-delta}) into recurrence relations for the lensing Jacobian $\bb{A}$. Observing that 
 
 \begin{equation}
 \label{eq:3:Tk}
-\frac{\partial (\alpha_i)_k}{\partial \theta_j} = \frac{2\Delta}{\chi_k}\partial_{\beta_i}\partial_{\beta_l}\Phi(\chi_k,\pbeta_k)\frac{\partial (\beta_l)_k}{\partial\theta_j}
+\frac{\partial (\alpha_i)_k}{\partial \theta_j} = \frac{2\Delta}{\chi_k}\partial_{\beta_i}\partial_{\beta_l}\Phi(\chi_k,\pbeta_k)\frac{\partial (\beta_l)_k}{\partial\theta_j},
 \end{equation}
 %
-we can define the projected tidal field 
+we define the projected tidal field 
 
 \begin{equation}
 \label{eq:3:tidal-proj}
-\bb{T}_k = 2\chi_k\Delta\bb{T}^\Phi(\chi_k,\pbeta_k) 
+\bb{T}_k = 2\chi_k\Delta\bb{T}^\Phi(\chi_k,\pbeta_k). 
 \end{equation}
 %
-and define the recurrence relations for the Jacobian $\bb{A}$
+The recurrence relations for the Jacobian $\bb{A}$ can then be written as
 
 \begin{equation}
 \label{eq:3:jack-sum}
@@ -224,17 +224,17 @@ and define the recurrence relations for the Jacobian $\bb{A}$
 \delta\bb{A}_{k+1} = \left(\frac{\chi_k-\Delta}{\chi_k+\Delta}\right)\delta\bb{A}_k + \left(\frac{\Delta}{\chi_k+\Delta}\right)\bb{T}_k\bb{A}_k
 \end{equation} 
 %
-The recurrence relations (\ref{eq:3:jack-sum}),(\ref{eq:3:jackp1-delta}) can be used to estimate the WL quantities $\kappa_s,\pmb{\gamma}_s$ at an arbitrary angle in the sky $\pt$ in $O(N_l)$ time, given a set of discrete deflections $\palpha_k$ and tidal distortions $\bb{T}_k$, which can be computed from the potential $\Phi$. In the next section we will review the numerical methods necessary to solve the Poisson equation (\ref{eq:2:poisson}) that connects the potential $\Phi$ to the matter density contrast $\delta$. 
+The recurrence relations (\ref{eq:3:jack-sum}),(\ref{eq:3:jackp1-delta}) are used to estimate the WL quantities $\kappa_s,\pmb{\gamma}_s$ at an arbitrary angle $\pt$ on the sky in $O(N_l)$ time. The set of discrete deflections $\palpha_k$ and tidal distortions $\bb{T}_k$ are calculated from the potential $\Phi$. In the next sub--section we will describe the numerical methods necessary to solve the Poisson equation (\ref{eq:2:poisson}) that relates the potential $\Phi$ to the matter density contrast $\delta$. 
 
 \subsection{Poisson solver}
-In the previous section we showed that the lensing Jacobian $\bb{A}$ and the corresponding WL observables can be calculated numerically (using the relations \ref{eq:2:dfl-inverse}) once one knows the lens deflections and tidal distortions caused by each lens plane. These are ultimately determined by the matter density fluctuations that are responsible for the lensing effect in the first place. We define the longitudinally projected potential $\psi$ for a lens plane centered at comoving distance $\chi$ with thickness $\Delta$ as follows
+The ray deflections and tidal distortions experienced after each lens crossing are determined by the density fluctuations which are responsible for the WL effect. We define the two--dimensional projected potential $\psi$ for a lens plane centered at comoving distance $\chi$ with thickness $\Delta$ as
 
 \begin{equation}
 \label{eq:3:projected-phi}
 \psi(\chi,\pbeta) = \frac{2}{\chi}\int_{\chi-\Delta/2}^{\chi+\Delta/2}d\chi' \Phi(\chi',\pbeta)
 \end{equation} 
 %
-Now, using the definition of (\ref{eq:3:projected-phi}) we can obtain the relations for the deflections and tidal distortions in terms of $\psi$
+Using the definition in (\ref{eq:3:projected-phi}), we obtain expressions for the deflections and tidal distortions in terms of $\psi$
 
 \begin{equation}
 \label{eq:3:alphak-psi}
@@ -246,14 +246,14 @@ Now, using the definition of (\ref{eq:3:projected-phi}) we can obtain the relati
 \bb{T}_k = \nabla_{\pbeta}\nabla^T_{\pbeta}\psi(\chi_k,\pbeta_k)
 \end{equation}
 %
-Plugging (\ref{eq:3:projected-phi}) into the Poisson equation (\ref{eq:2:poisson}) we obtain that $\psi$ must satisfy a Poisson-like equation itself
+Inserting (\ref{eq:3:projected-phi}) into the Poisson equation (\ref{eq:2:poisson}) we observe that $\psi$ itself satisfies a Poisson--like equation
 
 \begin{equation}
 \label{eq:3:poisson-psi-1}
 \nabla^2_{\pbeta}\psi(\chi,\pbeta) = \frac{2}{\chi}\int_{\chi-\Delta/2}^{\chi+\Delta/2}d\chi' \chi'^2\left(\nabla^2-\frac{\partial^2}{\partial \chi'^2}\right)\Phi(\chi',\chi'\pbeta)
 \end{equation}
 %
-We made an assumption of $\Delta$ being small in approximating $\nabla^2_{\pbeta}\approx \chi^2(\nabla^2-\partial_\chi^2)$, so that we can neglect the time evolution of $\Phi$ within the lens. If $\Delta$ is small we can also treat the $\partial^2_\chi$ integrated term as a boundary term which vanishes when appropriate boundary conditions for the Poisson equation are chosen (for example periodic boundary conditions). With the help of (\ref{eq:2:poisson}) in the end we obtain
+In approximating $\nabla^2_{\pbeta}\approx \chi^2(\nabla^2-\partial_\chi^2)$ we made an assumption of small $\Delta$, so that we can neglect the time evolution of $\Phi$ within the lens. If $\Delta$ is small we can also treat the $\partial^2_\chi$ term in the integral as a boundary term, which vanishes when appropriate boundary conditions for the Poisson equation are imposed (we can choose periodic boundary conditions as an example). With the help of (\ref{eq:2:poisson}) we obtain
 
 \begin{equation}
 \label{eq:3:poisson-psi-2}
@@ -265,39 +265,39 @@ We made an assumption of $\Delta$ being small in approximating $\nabla^2_{\pbeta
 \sigma(\chi,\pbeta) = \frac{8\pi G \chi a(\chi)^2\Delta}{c^2}\bar{\rho}_m(\chi)\delta(\chi,\chi\pbeta) = \frac{3H_0^2\Omega_m\chi\Delta}{c^2 a(\chi)}\delta(\chi,\chi\pbeta)
 \end{equation}
 %
-The dimensionless surface density $\sigma$ in (\ref{eq:3:lens-sigma}) for a lens plane can be estimated directly from the outputs of $N$--body simulations using a particle number count histogram to measure the density contrast $\delta$. Suppose we have a list of $N_p$ particle positions $\{(x_p,y_p,z_p)\}$ computed at time $\chi$, and let's assume without loss of generality that $z$ is the longitudinal direction and $(x,y)$ are the transverse coordinates. We consider a two dimensional regularly spaced transverse grid $\{(x_i,y_i)\}$ with $L_P$ pixels per side, each of size $L_b/L_P$. We assign to each pixel a particle number count
+The dimensionless surface density $\sigma$ which appears in (\ref{eq:3:lens-sigma}) can be estimated from the outputs of $N$--body simulations using a particle number count histogram which measures the density contrast $\delta$. The $N$--body outputs consist in a list of $N_p$ particle positions $\{(x_p,y_p,z_p)\}$ computed at times $t(\chi_k)$. Let us assume without loss of generality that $z$ is the longitudinal direction and $(x,y)$ are the transverse coordinates. We divide the lens plane in a two--dimensional regularly spaced grid $\{(x_i,y_i)\}$ in the transverse direction. The grid has $L_P$ pixels per side, each of comoving size size $L_b/L_P$. We assign to each pixel on the grid a particle number count
 
 \begin{equation}
 \label{eq:3:number-hist}
-n(\chi, \pbeta_i) = \sum_{p=1}^{N_p}w(\bb{x}_p,\chi,\pbeta_i)
+n(\chi, \pbeta_i) = \sum_{p=1}^{N_p}w_n(\bb{x}_p,\chi,\pbeta_i)
 \end{equation}  
 %
 where 
 
 \begin{equation}
 \label{eq:3:number-kernel}
-w(\bb{x}_p,\chi,\pbeta_i) = 
+w_n(\bb{x}_p,\chi,\pbeta_i) = 
 \begin{cases}
 1 \,\,\,\, {\rm if} \,\,\,\, (x_p,y_p) \,\, {\rm in} \,\, \chi\pbeta_i \, , \, z_p\in [\chi-\Delta/2,\chi+\Delta/2] \\
 0 \,\,\,\, {\rm otherwise}
 \end{cases}
 \end{equation}
 %
-We can then estimate the density contrast $\delta$ at each pixel from the histogram, assuming that all the simulation particles have the same mass
+We then estimate the density contrast $\delta$ at each grid pixel from the histogram as
 
 \begin{equation}
 \label{eq:3:delta-hist}
 \delta(\chi,\chi\pbeta_i) = \frac{n(\chi,\pbeta_i)L_bL_P^2 }{\Delta N_p} - 1
 \end{equation}
 %
-Once the density contrast is estimated from the $N$--body outputs, the two dimensional Poisson equation (\ref{eq:3:poisson-psi-2}) can be solved on the regular transverse grid, at each of the discrete steps $\chi_k$. If we impose periodic boundary conditions on the edges of the lens plane, an efficient solution to (\ref{eq:3:poisson-psi-2}) can be calculated using the FFT of $\psi,\sigma$. Note that, because both these quantities are real, a real FFT is sufficient. Inverting the laplacian operator in Fourier space yields
+We assigned the same mass $m=\Omega_m\rho_cL_b^3/N_p$ to all the particles in the simulation. Once the density contrast is estimated from the $N$--body outputs, the two dimensional Poisson equation (\ref{eq:3:poisson-psi-2}) can be solved on the regular transverse grid, at each of the discrete time steps $\chi_k$. If we impose periodic boundary conditions on the edges of the lens plane, an efficient solution to (\ref{eq:3:poisson-psi-2}) can be obtained using the FFTs of $\psi$ and $\sigma$. Note that, because both of these quantities are real, a real FFT is sufficient. Inverting the laplacian operator in Fourier space yields the relation
 
 \begin{equation}
 \label{eq:3:poisson-sol-fft}
 \tilde{\psi}(\chi_k,\pell) = \tilde{\sigma}(\chi_k,\pell)\frac{e^{-\ell^2\theta_G^2}}{\ell^2}
 \end{equation} 
 %
-We decided to apply a Gaussian smoothing with scale $\theta_G$ to the solution (\ref{eq:3:poisson-sol-fft}) to get rid of sub-pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$. Figure \ref{fig:3:lens} shows an example lens (density and potential) plane based on equations (\ref{eq:3:delta-hist}), (\ref{eq:3:poisson-sol-fft}). 
+We applied a Gaussian smoothing smoothing factor $e^{-\ell^2\theta_G^2/2}$ to the solution (\ref{eq:3:poisson-sol-fft}) in order to suppress sub--pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$. Figure \ref{fig:3:lens} shows an example lens (density and potential) plane based on equations (\ref{eq:3:delta-hist}), (\ref{eq:3:poisson-sol-fft}). 
 
 \begin{figure}
 \begin{center}
@@ -309,50 +309,51 @@ We decided to apply a Gaussian smoothing with scale $\theta_G$ to the solution (
 
 \subsection{Cosmic variance sampling}
 \label{sec:3:sampling}
-The multi--lens--plane integration of (\ref{eq:2:geosol-jac}) suggests a way of producing multiple WL image realizations from a single $N$--body simulation. This is essentially due to the fact that the field of view spanned by the observed ray positions $\pt$, when projected at redshift $z>0$, usually covers the simulation box only partially since $L_b$ can be chosen so that $\chi_k\theta<L_b$. Periodic shifts of the lens planes along directions perpendicular to the line of sight yield lenses with identical statistical properties, but lead to different realizations of $\kappa,\pmb{\gamma}$ images. We can summarize the procedure of constructing the lens system as follows:
+The multi--lens--plane integration scheme for equation (\ref{eq:2:geosol-jac}) suggests a way of producing multiple WL image realizations starting from a single $N$--body simulation. This is possible thanks to the fact that the size of the box $L_b$ can be chosen to be big enough so that the field of view spanned by the observed ray positions $\pt$ covers the simulation box only partially, $\chi_k\theta<L_b$. Periodic shifts of the lens planes along directions perpendicular to the line of sight yield different lenses with identical statistical properties, and lead to different realizations of $\kappa,\pmb{\gamma}$ images. For each realization, the lens system is constructed according to the following procedure:
 
 \begin{itemize}
-\item For a lens plane at distance $\chi_k$, choose a random $N$--body simulation among a set of $N_s$ independent simulations ($N_s=1$ if only one full simulation has been run)
+\item Consider a discrete step $\chi_k$ and choose a random $N$--body simulation among a set of $N_s$ independent simulations ($N_s=1$ if only one $N$--body simulation has been run)
 \item Choose a random direction between $(\h{x},\h{y},\h{z})$ to be the longitudinal direction. The other two directions will be the transverse coordinates $\xp$
-\item Cut a random slice of size $\Delta$ from the $N$--body output at $t_k$, along the chosen longitudinal direction
+\item Cut a random slice of size $\Delta$ from the $N$--body output at $t(\chi_k)$, along the chosen longitudinal direction
+\item Calculate the surface density contrast $\sigma_k$ on the slice and solve the Poisson equation (\ref{eq:3:poisson-psi-2})
 \item Periodically shift the lens along the transverse directions by a random amount
-\item Repeat for the next lens plane at distance $\chi_{k+1}$
+\item Repeat the steps for the next lens plane at distance $\chi_{k+1}$
 \end{itemize}
 %
-This procedure produces different realizations of $\{\palpha_k,\bb{T}_k\}$ and hence allows to recycle the outputs of $N_s$ independent $N$--body simulations to produce $N_r\gg N_s$ realizations of WL observables. These simulated ensembles can be used to estimate the scatter in observable estimators coming from cosmic variance, as well as the estimator means. Because $N_r$ is bigger than $N_s$, these realizations will only be pseudo--independent, but can be safely treated as effectively independent if $N_r$ is not too large. This approximate independent issue, along with its implications on WL observation analysis, has been investigated in \citep{PetriVariance}. 
+We follow this prescription to recycle the outputs of $N_s$ independent $N$--body simulations and to produce $N_r\gg N_s$ realizations of WL observables. These simulated WL ensembles can be used to estimate the estimator scatters caused by cosmic variance, as well as estimator means. Because $N_r$ is bigger than $N_s$, these WL realizations are pseudo--independent, but can be treated as effectively independent if $N_r$ is not too large. This approximate independence issue, along with its implications on WL observation analysis, has been investigated in \citep{PetriVariance} and will be one of the topics in Chapter \ref{chp:5}.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Approximate methods}
-In this section we review the numerical implementation of the approximate methods shown in (\ref{eq:2:kappa-1}), (\ref{eq:2:kappa-2-ll}) and (\ref{eq:2:kappa-2-gp}), which allow to compute the Born and first post--Born contributions to the convergence $\kappa$ as line--of--sight integrals on the unperturbed light ray trajectories. 
+In this section we describe the numerical implementation of the approximate methods shown in (\ref{eq:2:kappa-1}), (\ref{eq:2:kappa-2-ll}) and (\ref{eq:2:kappa-2-gp}). These methods provide us with a recipe to compute the Born contribution and first post--Born corrections to the convergence $\kappa$ as line--of--sight integrals on the unperturbed ray trajectories. 
 
 \subsection{Born approximation}
-The computation of the Born contribution to $\kappa$ for sources at distance $\chi_s$ involves a single integral over $\chi$, which can be readily computed using the first order method in (\ref{eq:3:int-fo}). We can write, at $O(\Delta)$ precision 
+The Born contribution to $\kappa$ for sources at distance $\chi_s$ involves a single integral over $\chi$ and can be readily obtained using the first order method in (\ref{eq:3:int-fo}). At $O(\Delta)$ precision we can write 
 
 \begin{equation}
 \label{eq:3:kappa-fo-num-1}
 \kappa^{(1)}_s(\pt) = -\Delta\sum_{k=1}^{N_l} W_{ks}\chi_k\nabla^2_\perp\Phi(\chi_k,\chi_k\pt)
 \end{equation} 
 %
-Where we used the compact notation $W_{kk'}=1-\chi_k/\chi_{k'}$. If we use the relations (\ref{eq:3:projected-phi}) and (\ref{eq:3:poisson-psi-2}) we can relate the first order convergence $\kappa^{(1)}$ to the discrete set of dimensionless lens densities $\{\sigma_k\equiv\sigma(\chi_k,\chi_k\pt)\}$
+where we introduced the compact notation $W_{kk'}=1-\chi_k/\chi_{k'}$. Using the relations (\ref{eq:3:projected-phi}) and (\ref{eq:3:poisson-psi-2}), we can relate the first order convergence $\kappa^{(1)}$ to the discrete set of dimensionless lens densities $\{\sigma_k\equiv\sigma(\chi_k,\chi_k\pt)\}$ as
 
 \begin{equation}
 \label{eq:3:kappa-fo-num-2}
 \kappa^{(1)}_s = \frac{1}{2}\sum_{k=1}^{N_l} \sigma_k W_{ks}
 \end{equation}
 %
-As it is evident from (\ref{eq:3:kappa-fo-num-2}), the Born--approximated convergence can be efficiently calculated in $O(N_l)$ time. Moreover such approximate approach does not require knowledge of the solution to the Poisson equation (\ref{eq:3:poisson-psi-2}). At linear order in the potential $\Phi$, the shear field $\pmb{\gamma}$ can be calculated using the KS relation (\ref{eq:2:gamma-c-ks}).  
+Note that not only the Born--approximated convergence can be efficiently computed in $O(N_l)$ time, but such approximate approach does not even require knowledge of the solution to the Poisson equation (\ref{eq:3:poisson-psi-2}). At linear order in the potential $\Phi$, the shear field $\pmb{\gamma}$ can be calculated from the Born--approximated $\kappa$ via the use of the KS relation (\ref{eq:2:gamma-c-ks}).  
 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/csample.eps}
 \end{center}
-\caption{Sample $\kappa$ reconstruction from one $N$--body simulation with $L_b=260\,{\rm Mpc}/h$ and $N_p=512^3$. The lens planes have a thickness of $\Delta=L_b/3$ and are resolved with $L_P^2=4096^2$ pixels. The $\kappa$ maps are reconstructed with $2048^2$ light rays arranged in a regular grid. The source galaxies were placed at a single redshift $z_s=2$.}
+\caption{Sample $\kappa$ reconstruction from one $N$--body simulation with $L_b=260\,{\rm Mpc}/h$ and $N_p=512^3$. The lens planes have a thickness of $\Delta=L_b/3$ and are resolved with $L_P^2=4096^2$ pixels. The $\kappa$ maps are reconstructed with $2048^2$ light rays arranged in a regular grid. The source galaxies are placed at redshift $z_s=2$. The residuals $\kappa-\kappa^{(1)}$ are dominated by the geodesic term $\kappa^{(2-{\rm gp})}$.}
 \label{fig:3:csample}
 \end{figure}
 
 \subsection{Post--Born corrections}
-The evaluation of the second order corrections to $\kappa$ in equations (\ref{eq:2:kappa-2-ll}) and (\ref{eq:2:kappa-2-gp}) involve double integrals over $\chi$ which, if naively implemented, lead to an $O(N_l^2)$ runtime algorithm. Applying the first order method in (\ref{eq:3:int-fo}) twice we obtain
+The evaluation of the second order corrections to $\kappa$ that appear in equations (\ref{eq:2:kappa-2-ll}) and (\ref{eq:2:kappa-2-gp}) involve two integrals over $\chi$. This computation, if implemented naively, leads to an $O(N_l^2)$ runtime algorithm. When we apply the first order method in (\ref{eq:3:int-fo}) twice we obtain
 
 \begin{equation}
 \label{eq:3:kappa-ll-num}
@@ -364,7 +365,7 @@ The evaluation of the second order corrections to $\kappa$ in equations (\ref{eq
 \kappa_s^{(2-{\rm gp})} = \frac{1}{2}\sum_{k=1}^{N_l}\sum_{m=1}^k W_{ks}W_{mk} (\palpha_m\cdot\nabla\sigma_k)
 \end{equation}
 %
-Note that, since we are performing the integrals along unperturbed trajectories, the angular arguments of $\sigma_k,\palpha_k,\bb{T}_k$ have been fixed to $\pbeta_k\equiv\pt$ (for a single light ray). Note also that the gradient in (\ref{eq:3:kappa-gp-num}) is to be intended as with respect to the angular argument of $\sigma_k$. As previously noted, the naive implementation explained in (\ref{eq:3:kappa-ll-num}) and (\ref{eq:3:kappa-gp-num}) leads to an $O(N_l^2)$ runtime, which can be quite inefficient for a large number of lenses and light rays. A more efficient $O(N_l)$ algorithm can be employed noting that, as we compute the partial sums, we can cache the quantities 
+Note that, since we are performing the integrals along unperturbed trajectories, the angular arguments of $\sigma_k,\palpha_k,\bb{T}_k$ are fixed to be $\pbeta_k\equiv\pt$ for each light ray. Note also that the gradient in (\ref{eq:3:kappa-gp-num}) is taken in the angular coordinates. As previously stated, the naive implementation defined by (\ref{eq:3:kappa-ll-num}) and (\ref{eq:3:kappa-gp-num}) leads to an $O(N_l^2)$ runtime, which can be quite inefficient if the number of lenses and light rays is large. We can design a more efficient algorithm, which runs in linear time, if we cache the partial sums 
 
 \begin{equation}
 \label{eq:3:cache}
@@ -374,7 +375,7 @@ I^{\bb{T},0}_k = \sum_{m=1}^k \bb{T}_m & ; & I^{\bb{T},1}_k = \sum_{m=1}^k \chi_
 \end{matrix} 
 \end{equation} 
 %
-With the definitions (\ref{eq:3:cache}), the second order post--Born corrections to $\kappa$ can be computed in linear time as  
+The cached algorithm runs in linear time, as can be seen in the following relations   
 
 \begin{equation}
 \label{eq:3:kappa-ll-num-lin}
@@ -392,19 +393,19 @@ Figure \ref{fig:3:csample} shows a sample $\kappa$ reconstruction from one $N$--
 
 \section{The \LT\, software package}
 \label{sec:3:lt}
-In this section we present \LT \citep{lenstools}, a {\sc python} software package that we developed to handle the numerical operations exposed in this Chapter in an efficient fashion. As its main purpose, \LT\, serves as a pipeline of operations that allow to produce simulated $\kappa,\pmb{\gamma}$ images starting from a set of parameters that define a $\Lambda$CDM cosmological model described in Chapter 1. The sequence of operations is described by the diagram in Figure \ref{fig:3:lt-flow}  
+In this section we present \LT \citep{lenstools}, a {\sc python} software package that we developed in order to efficiently handle the WL operations discussed in this Chapter. \LT\, implements pipeline of operations which allow to produce simulated $\kappa,\pmb{\gamma}$ images starting from a set of $\Lambda$CDM parameters (see Chapter \ref{chp:1}). The sequence of operations in the pipeline is described by the diagram in Figure \ref{fig:3:lt-flow}  
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/lt_flow.eps}
 \end{center}
-\caption{Schematic of the \LT\, pipeline flow. Vertical arrows are directed from a particular application to its input. Horizontal arrows are directed from the input to the output products.}
+\caption{Scheme of the \LT\, pipeline flow. Vertical arrows are directed from a particular application to its input. Horizontal arrows are directed from the input to the output products.}
 \label{fig:3:lt-flow}
 \end{figure}
 %
-The \LT\, pipeline glues together the \ttt{CAMB}, \ttt{N-GenIC} and \ttt{Gadget2} public codes, used for the $N$--body simulations, with {\sc python} code for the $\Phi$ calculations and ray--tracing operations. The solution to the Poisson equation (\ref{eq:3:poisson-psi-2}) can be efficiently found via FFT, which \LT\, performs via the {\sc numpy} FFTPack \citep{scipy}. The ray--tracing operations (\ref{eq:3:betak-sum}), (\ref{eq:3:betakp1-delta}), (\ref{eq:3:jack-sum}), (\ref{eq:3:jackp1-delta}) can also be performed efficiently in {\sc numpy} using vectorized linear algebra routines. \LT\, also provides efficient implementations of the approximate methods for computing $\kappa$ shown in equations (\ref{eq:3:kappa-fo-num-2}), (\ref{eq:3:kappa-ll-num-lin}) and (\ref{eq:3:kappa-gp-num-lin}). 
+The \LT\, pipeline glues together the \ttt{CAMB}, \ttt{N-GenIC} and \ttt{Gadget2} public codes, used in the $N$--body simulations, with {\sc python} code. The $\Phi$ calculations and ray--tracing operations are also implemented in {\sc python}. The solution to the Poisson equation (\ref{eq:3:poisson-psi-2}) can be efficiently found via FFT, which \LT\, performs using the {\sc numpy} FFTPack \citep{scipy}. The ray--tracing operations (\ref{eq:3:betak-sum}), (\ref{eq:3:betakp1-delta}), (\ref{eq:3:jack-sum}), (\ref{eq:3:jackp1-delta}) are also efficiently implemented with {\sc numpy} taking advantage of vectorized linear algebra routines. \LT\, also provides efficient implementations of the second order approximate methods for $\kappa$, which are defined by equations (\ref{eq:3:kappa-fo-num-2}), (\ref{eq:3:kappa-ll-num-lin}) and (\ref{eq:3:kappa-gp-num-lin}). 
 
-Table \ref{tbl:3:lt-benchmark} shows CPU time benchmarks for a test run performed on the XSEDE Stampede computer cluster (see \url{https://portal.xsede.org/tacc-stampede}). Each the $N_p$ particles in each snapshot are divided in $N_t$ files, which are read in parallel by $N_t$ independent tasks. After the gridding procedure (\ref{eq:3:number-hist}) is performed by each task, the total surface density (computed for a plane of $L_P^2$ pixels) is collected by the master task, which then proceeds in solving the Poisson equation via FFT according to (\ref{eq:3:poisson-sol-fft}) and saves the output to disk. In a subsequent step, the lens potential files are read from disk, and the geodesic equation (\ref{eq:3:geodesic-fo-beta-2}) is solved for $N_R$ different observed ray positions $\pt$. This allows to reconstruct the shear and convergence $\kappa,\pmb{\gamma}$ over the field of view spanned by $\pt$. Multiple $\kappa,\pmb{\gamma}$ realizations can be obtained with the sampling procedure described in \S~\ref{sec:3:sampling}. 
+Table \ref{tbl:3:lt-benchmark} shows CPU time benchmarks for a test run performed on the XSEDE Stampede computer cluster (see \url{https://portal.xsede.org/tacc-stampede}). The $N_p$ particles in each snapshot are divided between $N_t$ files, which are read in parallel by $N_t$ independent tasks. After the particle counting procedure (\ref{eq:3:number-hist}) is performed by each task on the regular grid, the total surface density (calculated on a plane of $L_P^2$ pixels) is assembled by the master task, which then proceeds with the solution the Poisson equation via FFT according to (\ref{eq:3:poisson-sol-fft}). The $\psi$ outputs are then saved to disk. In a subsequent step, the lensing potential files are read from disk, and the geodesic equation (\ref{eq:3:geodesic-fo-beta-2}) is solved for $N_R$ different observed ray positions $\pt$. This leads to the reconstruction of the WL shear $\pmb{\gamma}$ and convergence $\kappa$ profiles in the field of view spanned by $\pt$. Multiple $\kappa,\pmb{\gamma}$ realizations can be obtained with the sampling procedure described in \S~\ref{sec:3:sampling}. 
 %
 \begin{table}
 \begin{center}
@@ -432,9 +433,9 @@ Tensor products $\bb{T}_k\bb{A}_k$ in (\ref{eq:3:jackp1-delta}) &  $O(N_R)$ & $N
 \end{center}
 \end{table}
 %
-Figure \ref{fig:3:lt-memory} shows the memory load as a function of the runtime for the plane generation and ray--tracing operations for the same test case shown in Table \ref{tbl:3:lt-benchmark}. The Figure shows that, for the considered test case, computer clusters with at least 2\,GB of memory per core are suitable for safely handling the \LT\, operations without exhausting the resources. 
+Figure \ref{fig:3:lt-memory} shows the memory load as a function of the runtime for the plane generation and ray--tracing operations for the same test case shown in Table \ref{tbl:3:lt-benchmark}. The plot shows that, for the considered test case, computer clusters with at least 2\,GB of memory per core are suitable for safely handling the \LT\, operations (for this test case) without exhausting the resources. 
 
-The pipeline products are organized in a hierarchical directory structure whose levels correspond to specifications of $\Lambda$CDM cosmological parameters, choices of $L_b,N_p$, random seeds for the initial conditions $\tilde{\delta}(\bb{k})$ and choices of the lens plane parameters $L_P,\Delta$. Separate directory tree levels are dedicated to the WL products $\kappa,\pmb{\gamma}$. Both single redshift images and shear catalogs can be produced. \LT\, provides an API to initialize, navigate and update the pipeline directory tree in an efficient way, allowing easy retrieval of WL simulation products for further post--processing. For a throughout presentation of \LT, we direct the reader to the code documentation at \url{http://lenstools.rtfd.io}. 
+The pipeline products are organized in a hierarchical directory structure whose levels correspond to specifications of $\Lambda$CDM cosmological parameters, choices of $L_b,N_p$, random seeds for the initial conditions $\tilde{\delta}(\bb{k})$ and choices of the lens plane parameters $L_P,\Delta$. Separate directory tree levels are dedicated to the WL products $\kappa,\pmb{\gamma}$. Both single redshift images and shear catalogs can be produced. \LT\, provides an API to initialize, navigate and update the pipeline directory tree in a clean and efficient way, thus allowing easy retrieval of WL simulation products for further post--processing. For a throughout presentation of \LT, we direct the reader to the code documentation at \url{http://lenstools.rtfd.io}. 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/lt_memory_usage.eps}
