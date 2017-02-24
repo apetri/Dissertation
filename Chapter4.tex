@@ -1,57 +1,57 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Analysis of shear images}
+\chapter{Shear image features}
 \lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
  \thispagestyle{plain}
 \setlength{\parindent}{10mm}
 \label{chp:4}
 
-In this Chapter we describe how we can compress the hight dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work), that hopefully contain information about $\Lambda$CDM cosmological parameters. We will focus our analysis on pixelized $\kappa$ images, which are the output of the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and are independent from each other, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}. Because of the stochastic nature of the convergence profile in the field of view (which ultimately originates from cosmic variance), cosmological information is contained in statistically averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$. For a Gaussian field, all the statistical information is contained in image features $f$ which are quadratic in $\kappa$, such as the angular power spectrum. Since $\kappa$ traces the non--linear density contrast $\delta$, cosmological information leaks from quadratic features into higher order descriptors. In this work we consider two types of features: we make use of real space features, which have to do with the morphology of the image and can be expressed in terms of expectation values of local estimators. We also consider the angular $\kappa$ power spectrum, which is a non--local feature that encodes spatial quadratic correlations of $\kappa$. In the remainder of the Chapter we examine the most important properties, advantages and drawbacks of these image features. 
+In this Chapter we describe how we can compress the high dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work). These image features will then be used to infer the values of the $\Lambda$CDM parameters which describe our Universe. We focus our analysis on the two--dimensional $\kappa$ images which can generated with the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}, are independent from each other. Because of the stochastic nature of WL observables (which is due to cosmic variance), information on cosmology is inferred from ensemble averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$ and the expectation value $\langle\rangle$ is taken over independent WL realizations. A two--dimensional Gaussian field is completely characterized, from a statistical point of view, in terms of quadratic image features, such as the field two--point correlation function or the its angular power spectrum. Since WL traces the statistical properties of the density contrast $\delta$, whose evolution is controlled by non--linear equations, WL observables cannot be modeled as Gaussian random fields. There is hence a possibility that cosmological information leaks from quadratic features into higher order statistics. In this work we consider two types of image features. One possibility consists of real space features, which have to do with the morphology of the image and can be expressed in terms of expectation values of local estimators. The second type of features are defined in Fourier space. We focus on the angular $\kappa$ power spectrum, a non--local feature that encodes quadratic spatial correlations of the $\kappa$ profile. In this Chapter we examine the relevant properties, advantages and drawbacks of these image features. 
 
-\section{Real space local expectation values}
-Our knowledge of the angular profiles $\h{\kappa}(\pt)$, combined with the isotropy assumption, allows to estimate the ensemble averages $\langle\rangle$ as spatial averages in real space as 
+\section{Local expectation values in real space}
+Knowledge of the angular profile $\h{\kappa}(\pt)$, combined with the statistical isotropy assumption, allows us to estimate ensemble averages $\langle\rangle$ as real space spatial averages according to 
 
 \begin{equation}
 \label{eq:4:average-real}
 \langle f(\h{\kappa})\rangle = \frac{1}{\theta^2_{\rm FOV}}\int_{\rm FOV}d\pt f(\h{\kappa})(\pt) 
 \end{equation}
 %
-In this section we will describe a systematic way to relate expectation values of local estimators to the connected moments of $\kappa$, following the derivation given in \citep{MatsubaraLong}. Since the estimators considered in this Chapter will contain at most second spatial derivatives in $\kappa$, we can consider the most general one of them to be some function of the $N$--dimensional vector $\bb{K}$, defined formally by
+In this section we describe a systematic way to relate expectation values of local estimators to the connected moments of $\kappa$, following the derivation given in \citep{MatsubaraLong}. Since the estimators considered in this Chapter contain at most second order spatial derivatives in $\kappa$, we can assume the most general one of them to be a function of the $N$--dimensional vector $\bb{K}$, formally defined by
 
 \begin{equation}
 \label{eq:4:lcl-vec}
 \bb{K} = (\alpha,\pmb{\eta},\pmb{\zeta}) = \frac{1}{\sigma_0}(\kappa,\nabla \kappa,\partial^2_x\kappa,\partial^2_y\kappa,\partial_x\partial_y\kappa)
 \end{equation}
 %
-Where we indicated as $\pmb{\eta},\pmb{\zeta}$ respectively the first and second derivative of the $\kappa$ field, in units of its variance $\sigma_0^2=\langle\kappa^2\rangle$. Assuming $\langle\kappa\rangle=0$ without loss of generality, we can consider its probability distribution $\mathcal{L}(\bb{K})$ and its characteristic function $Z(\bb{J})$, defined as 
+We indicated the first and second derivative of the $\kappa$ field as $\pmb{\eta}$ and $\pmb{\zeta}$ respectively. $\pmb{\eta},\pmb{\zeta}$ are expressed in units of the variance of $\kappa$, $\sigma_0^2=\langle\kappa^2\rangle$. We assume $\langle\kappa\rangle=0$ without loss of generality. The probability distribution of $\bb{K}$, $\mathcal{L}(\bb{K})$, and its characteristic function $Z(\bb{J})$ are related according to 
 
 \begin{equation}
 \label{eq:4:characteristic}
 Z(\bb{J}) = \left\langle e^{i\bb{J}\cdot\bb{K}}\right\rangle = \int d\bb{K}\mathcal{L}(\bb{K})e^{i\bb{J}\cdot\bb{K}}
 \end{equation} 
 %
-Note that, with the definition (\ref{eq:4:characteristic}), the expectation value of any polynomial $K_{i_1}...K_{i_n}$ can be calculated in terms of derivatives of $Z$
+Note that, using the definition (\ref{eq:4:characteristic}), the expectation value of any polynomial $K_{i_1}...K_{i_n}$ can be calculated in terms of derivatives of $Z$ using the expression
 
 \begin{equation}
 \label{eq:4:exp-poly}
 \left\langle K_{i_1}...K_{i_n}\right\rangle = \left[\left(-i\frac{\partial}{\partial J_{i_i}}\right)...\left(-i\frac{\partial}{\partial J_{i_n}}\right)Z(\bb{J})\right]_{\bb{J}=0}
 \end{equation}
 %
-Writing $Z$ as an exponential of connected terms in the usual way
+Writing $Z$ as an exponential of connected terms
 
 \begin{equation}
 \label{eq:4:gen-connected}
-Z(\bb{J}) = \exp\left(\sum_{n=2}^\infty\frac{i^n}{n!}M^{(n)}_{i_1...i_n}J_{i_1}...J_{i_n}\right)
+Z(\bb{J}) = \exp\left(\sum_{n=2}^\infty\frac{i^n}{n!}M^{(n)}_{i_1...i_n}J_{i_1}...J_{i_n}\right),
 \end{equation}
 %
-we can immediately identify $M^{(2)}$ as the $\bb{K}$ covariance matrix as $\bb{M}^{(2)}=\langle\bb{K}\bb{K}^T\rangle$. For a Gaussian field, all $M^{(n)}$ with $n>2$ vanish, and the correlations (\ref{eq:4:exp-poly}) are easy to compute because the exponential in (\ref{eq:4:gen-connected}) has only one term. If $\bb{K}$ is non--Gaussian, such in our case, perturbative approaches to the calculation of (\ref{eq:4:exp-poly}) can be attempted if the connected moments $\bb{M}^{(n)}$ do not grow too fast in $n$. These approaches are based on the inverse Fourier transform of $Z$, once the $\bb{M}^{(2)}$ term has been factored out
+we can readily identify $M^{(2)}$ as the covariance matrix of $\bb{K}$, because $\bb{M}^{(2)}=\langle\bb{K}\bb{K}^T\rangle$. For a Gaussian field, all $M^{(n)}$ with $n>2$ vanish, and the correlations (\ref{eq:4:exp-poly}) are easy to compute because the argument of the exponential in (\ref{eq:4:gen-connected}) has only one term. If $\bb{K}$ is non--Gaussian, like in the WL case, perturbative approaches to the calculation of (\ref{eq:4:exp-poly}) can be attempted if the connected moments $\bb{M}^{(n)}$ do not grow too fast with $n$. The perturbative series is obtained from the inverse Fourier transform of $Z$ after the $\bb{M}^{(2)}$ term has been factored out: 
 
 \begin{equation}
 \label{eq:4:characteristic-inverse}
 \mathcal{L}(\bb{K}) = \int \frac{d\bb{J}}{(2\pi)^N}\exp\left(-\frac{1}{2}\bb{J}^T\bb{M}^{(2)}\bb{J}-i\bb{J}\cdot\bb{K}\right)\exp\left(\sum_{n=3}^\infty\frac{i^n}{n!}M^{(n)}_{i_1...i_n}J_{i_1}...J_{i_n}\right)
 \end{equation} 
 %
-Since we know that multiplications in $\bb{J}$ space act as gradients in $\bb{K}$ space, and since we know how to perform Gaussian integrals analytically, we can convert (\ref{eq:4:characteristic-inverse}) into  
+Because multiplications in $\bb{J}$ space act as gradients in $\bb{K}$ space, and since we know how to perform Gaussian integrals analytically, we can convert (\ref{eq:4:characteristic-inverse}) into  
 
 \begin{equation}
 \label{eq:4:characteristic-inverse-2}
@@ -63,14 +63,14 @@ Since we know that multiplications in $\bb{J}$ space act as gradients in $\bb{K}
 \mathcal{L}_G(\bb{K}) = \frac{1}{\sqrt{(2\pi)^N\vert\bb{M}^{(2)}\vert}}\exp\left(-\frac{1}{2}\bb{K}^T(\bb{M}^{(2)})^{-1}\bb{K}\right)
 \end{equation}
 %
-The form (\ref{eq:4:characteristic-inverse-2}) of the $\bb{K}$ likelihood in term of its connected moments also suggests that, in order to compute the expectation value of a generic function $f(\bb{K})$, we can take advantage of integration by parts and write
+The expression (\ref{eq:4:characteristic-inverse-2}) of the $\bb{K}$ likelihood in term of its connected moments also suggests that, in order to calculate the expectation value of a generic function $f(\bb{K})$, we can take advantage of integration by parts and write
 
 \begin{equation}
 \label{eq:4:exp-formal}
 \langle f(\bb{K})\rangle = \left\langle\exp\left(\sum_{n=3}^\infty\frac{M^{(n)}_{i_1...i_n}}{n!}\partial_{K_{i_1}}...\partial_{K_{i_n}}\right)f(\bb{K})\right\rangle_G
 \end{equation}
 %
-Where the expectation values $\langle\rangle_G$ are computed with the Gaussian likelihood (\ref{eq:4:gaussian-lik}). Expanding the exponential in (\ref{eq:4:exp-formal}) in a power series yields a perturbative expansion for the expectation value $\langle f(\bb{K})\rangle$ in terms of the connected moments $M^{(n)}$. The series is expected to converge if $\bb{M}^{(n)}\rightarrow 0$ as $n$ grows, which might or might not be the case for the $\kappa$ maps under our investigation. Symmetry under rotations assures that the covariance matrix $\bb{M}^{(2)}$ can be parametrized in terms of two parameters $\sigma^2_\eta=\langle\eta^2\rangle,\sigma^2_\zeta=\langle(\zeta_{xx}+\zeta_{yy})^2\rangle$, which constrain the form of $\bb{M}^{(2)}$ as 
+where the expectation values $\langle\rangle_G$ are computed with the Gaussian probability distribution (\ref{eq:4:gaussian-lik}). Expanding the exponential in (\ref{eq:4:exp-formal}) in a power series leads to a perturbative expansion for the expectation value $\langle f(\bb{K})\rangle$ in terms of the connected moments $M^{(n)}$. The series has a chance to converge if $\bb{M}^{(n)}\rightarrow 0$ as $n$ grows, which could be the case for the $\kappa$ maps examined in this work. Symmetry under rotations suggests that the covariance matrix $\bb{M}^{(2)}$ can be parametrized in terms of two parameters $\sigma^2_\eta=\langle\eta^2\rangle,\sigma^2_\zeta=\langle(\zeta_{xx}+\zeta_{yy})^2\rangle$ which appear in $\bb{M}^{(2)}$ according to the expression 
 
 \begin{equation}
 \label{eq:4:cov-rotinv}
@@ -80,7 +80,7 @@ Where the expectation values $\langle\rangle_G$ are computed with the Gaussian l
 \end{matrix}
 \end{equation}
 %
-A perturbative expansion for local expectation values can be built from (\ref{eq:4:exp-formal}) once an assumption is made on the magnitude of the connected moments $\bb{M}^{(n)}$. We will assume, following \citep{MatsubaraLong}, that $\bb{M}^{(n)}=O(\lambda^{n-2})$, where $\lambda$ is a dimensionless parameter which describes small departures from Gaussianity. Note that in order for the perturbation series to converge, $\lambda$ needs to be small. Under this assumption, we can write the expansion for $\langle f \rangle$ up to $O(\lambda^2)$ as 
+A series expansion for local expectation values can be built from (\ref{eq:4:exp-formal}) once an assumption is made about the magnitude of the connected moments $\bb{M}^{(n)}$. Following \citep{MatsubaraLong}, we will assume that $\bb{M}^{(n)}=O(\lambda^{n-2})$, where $\lambda$ is a dimensionless parameter which describes small departures from Gaussianity. Note that, in order for the perturbation series to converge, $\lambda$ needs to be small. Under this assumption, we can write the first few terms in the $\langle f \rangle$ expansion as 
 
 \begin{equation}
 \label{eq:4:pert-quad}
@@ -99,19 +99,19 @@ with
 \langle f(\bb{K})\rangle_4 = \frac{1}{24}\bb{M}^{(4)}_{\bb{i}}\left\langle\frac{\partial f(\bb{K})}{\partial K_{\bb{i}}}\right\rangle_G+ \frac{1}{12}\bb{M}^{(3)}_{\bb{i}}\bb{M}^{(3)}_{\bb{j}}\left\langle\frac{\partial^2 f(\bb{K})}{\partial K_{\bb{i}}\partial K_{\bb{j}}}\right\rangle_G
 \end{equation}
 %
-In equations (\ref{eq:4:3-contribution}), (\ref{eq:4:4-contribution}) we grouped individual $\bb{K}$ vector indexes in the multi--indexes $\bb{i},\bb{j}$. Note that the quartic perturbation term (\ref{eq:4:4-contribution}) picks up disconnected contributions $(\bb{M}^{(3)})^2$ which are of the same order as $\bb{M}^{(4)}$. In the next paragraph we will apply this perturbative approach to morphological descriptors of simulated $\kappa$ images, and test its validity.   
+In equations (\ref{eq:4:3-contribution}), (\ref{eq:4:4-contribution}) we grouped individual $\bb{K}$ vector indexes in the multi--indexes $\bb{i},\bb{j}$. Note that the quartic perturbation term (\ref{eq:4:4-contribution}) includes disconnected contributions $(\bb{M}^{(3)})^2$ which are of the same order as $\bb{M}^{(4)}$. In the next section we test the validity of this perturbative approach on morphological features of simulated $\kappa$ images.   
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Minkowski Functionals}
 \label{sec:4:mink}
-The Large Scale Structure of the Universe at non--linear stage is known to be characterized by prominent morphological features such as one dimensional filaments (see the structure in Figure \ref{fig:3:lens} as an example). In the hope that a morphological description of $\kappa$ contains valuable information about cosmology, we considered a type of two dimensional morphological descriptors known as Minkowski functionals (MFs) \citep{Tomita,MatsubaraLong,PetriMink,MinkJan,MinkShirasaki}. MFs of $\kappa$ images are based on the construction of the excursion sets, which are spatial partitions of the map based on the value of $\kappa$. A $\kappa_0$--excursion set $\Sigma(\kappa_0)$ is defined to be the set of angular positions $\pt$ for which $\kappa(\pt)>\kappa_0$, as shown in Figure \ref{fig:4:excursion}. The only three morphological descriptors that can be measured from $\kappa$--excursion sets which are invariant under translations and rotations are the area $V_0$ of $\Sigma(\kappa_0)$, the length $V_1$ of its boundary $\partial\Sigma(\kappa_0)$, and its Euler characteristic $V_2$ \citep{MatsubaraLong}. For computational convenience, $V_2$ can be related to the geodesic curvature $\mathcal{K}$ of the excursion set boundary by the Gauss--Bonnet theorem. We can formally define the three MFs $V_k(\kappa_0)$ as 
+The Large Scale Structure of the cosmic density fluctuations is known to display prominent morphological features such as one dimensional filaments (see the structure in Figure \ref{fig:3:lens} as an example). In the hope that a morphological description of $\kappa$ contains valuable information about cosmology, we considered a class of two dimensional morphological descriptors known as Minkowski functionals (MFs) \citep{Tomita,MatsubaraLong,PetriMink,MinkJan,MinkShirasaki}. MFs of $\kappa$ images are defined on the value--based spatial partitions of the image, commonly known as \textit{excursion sets}. A $\kappa_0$--excursion set $\Sigma(\kappa_0)$ is defined to be the set of angular positions $\pt$ for which $\kappa(\pt)>\kappa_0$, as shown in Figure \ref{fig:4:excursion}. The only three translation and rotation invariant morphological descriptors that can be measured from $\kappa$--excursion sets are the area $V_0$ of $\Sigma(\kappa_0)$, the length $V_1$ of its boundary $\partial\Sigma(\kappa_0)$, and its Euler characteristic $V_2$ \citep{MatsubaraLong}. For computational convenience, $V_2$ can be related to the geodesic curvature $\mathcal{K}$ of the excursion set boundary by the Gauss--Bonnet theorem. We can formally define the three MFs $V_k(\kappa_0)$ as 
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/png/excursion.png}
 \end{center}
-\caption{Example of a $\kappa$--excursion set (black, right panel) for a simulated field of view of size $\theta_{\rm FOV}=3.5\,{\rm deg}$, with $\kappa_0=0.02$, referred to the image on the left panel. The $\kappa=0.02$ iso--contours have been indicated in red. The sources have been placed at a single redshift $z_s=2$. The image has been smoothed with a Gaussian kernel of size $\theta_G=0.5'$.}
+\caption{Example of a $\kappa$--excursion set (black, right panel) for a simulated field of view of size $\theta_{\rm FOV}=3.5\,{\rm deg}$, with $\kappa_0=0.02$, referred to the image on the left panel. The $\kappa=0.02$ iso--contours have been indicated in red. The sources have been placed at a constant redshift $z_s=2$. The image has been convolved with a Gaussian kernel of size $\theta_G=0.5'$.}
 \label{fig:4:excursion}
 \end{figure}
 %
@@ -122,14 +122,14 @@ The Large Scale Structure of the Universe at non--linear stage is known to be ch
 \end{matrix}
 \end{equation}   
 %
-Where $dl$ is the line element on the boundary. The definitions (\ref{eq:4:formal-mf}) emphasize the symmetry of the MFs under rotations, but do not offer a computationally convenient method to measure them. With a little bit of work, these definitions can be re--arranged in the form (\ref{eq:4:average-real}) as integrals of local quantities over the area of the field of view. The area functional $V_0$ can easily be measured by thresholding the pixels in the $\kappa$ map, namely
+In equation (\ref{eq:4:formal-mf}), we indicated the line element on the boundary as $dl$. The definitions (\ref{eq:4:formal-mf}) emphasize the symmetry of the MFs under rotations, but do not offer a computationally convenient method to measure them. These definitions can be re--expressed, with some algebra, as area integrals of local quantities in the same form as equation (\ref{eq:4:average-real}). The area functional $V_0$ can be conveniently measured by thresholding the pixel values in the $\kappa$ map:
 
 \begin{equation}
 \label{eq:4:mf0-estimator}
-V_0(\kappa_0) = \int d\pt \Theta(\kappa(\pt)-\kappa_0)
+V_0(\kappa_0) = \int d\pt \Theta(\kappa(\pt)-\kappa_0).
 \end{equation} 
 %
-The perimeter functional can be expressed as an area integral with the help of an integration by parts. The boundary of the excursion set $\partial \Sigma(\kappa_0)$, by definition, is the $\kappa\equiv\kappa_0$ set, which is orthogonal to the gradient $\nabla \kappa$. This helps us in finding tangent and normal unit vectors to the boundary, which we call $\bb{t},\bb{n}$. We have
+The perimeter functional can be expressed as an area integral with the help of integration by parts. The boundary of the excursion set $\partial \Sigma(\kappa_0)$, corresponds by definition to the set of points $\kappa\equiv\kappa_0$, which is orthogonal to the gradient $\nabla \kappa$. The normality condition allows us to find unit vectors which are tangent and normal to the boundary, which we call $\bb{t},\bb{n}$. We can write
 
 \begin{equation}
 \label{eq:4:tn-vectors}
@@ -138,39 +138,39 @@ The perimeter functional can be expressed as an area integral with the help of a
 \end{matrix}
 \end{equation} 
 %
-It is easy to show, with the definitions (\ref{eq:4:tn-vectors}), that $\bb{t}\cdot\bb{n}=0$ and that $\bb{n}$ points to the exterior of the excursion set. Now, with a double integration by parts we can show
+It is easy to show, with the help of (\ref{eq:4:tn-vectors}), that $\bb{t}\cdot\bb{n}=0$ and that $\bb{n}$ points to the exterior of the excursion set. With a double integration by parts we can also show that
 
 \begin{equation}
 \label{eq:4:mf1-estimator}
 V_1(\kappa_0) = \int_{\partial\Sigma(\kappa_0)}\bb{n}\cdot\bb{n}dl = \int d\pt \Theta(\kappa-\kappa_0) \nabla\cdot \bb{n} = \int d\pt \delta^D(\kappa-\kappa_0)\vert\nabla\kappa\vert
 \end{equation}
 %
-Which yields a local estimator of the boundary perimeter, in terms of the gradient of $\kappa$. A similar trick can be employed to compute the Euler functional $V_2$, taking advantage of the definition of the geodesic curvature $\mathcal{K}$ as variation of the tangent $\bb{t}$ across the boundary
+Equation (\ref{eq:4:mf1-estimator}) yields a local estimator of the excursion boundary perimeter in terms of the gradient of $\kappa$. A similar procedure can be employed to compute the Euler functional $V_2$, taking advantage of the definition of the geodesic curvature $\mathcal{K}$ as the variation of the tangent direction $\bb{t}$ across the boundary:
 
 \begin{equation}
 \label{eq:4:geocurv}
-\frac{d\bb{t}}{dl} = \mathcal{K}\bb{n}
+\frac{d\bb{t}}{dl} = \mathcal{K}\bb{n}.
 \end{equation}
 %
-which leads to 
+Equation (\ref{eq:4:geocurv}) leads to 
 
 \begin{equation}
 \label{eq:4:geocurv-2}
 \mathcal{K} = \frac{t_it_j\partial_i\partial_j\kappa}{\vert\nabla\kappa\vert}
 \end{equation}
 %
-We can now perform the double integration by parts in a similar way as we did for (\ref{eq:4:mf1-estimator}) to get
+We now perform the double integration by parts, much like we did for (\ref{eq:4:mf1-estimator}), to get
 
 \begin{equation}
 \label{eq:4:mf2-estimator}
 V_2(\kappa_0) = \int d\pt \delta^D(\kappa-\kappa_0)\left(\frac{2\partial_x\partial_y\kappa\partial_x\kappa\partial_y\kappa-\partial^2_x\kappa(\partial_y\kappa)^2-\partial_y^2\kappa(\partial_x\kappa)^2}{\vert\nabla\kappa\vert^2}\right)
 \end{equation}
 %
-Equations (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) provide practical estimators for measuring the morphological features $V_k$ from an image by thresholding the pixel values and measuring local $\kappa$ gradients. In the next section we will present a relation between $V_k$ and the real space moments of $\kappa$.  
+Equations (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) provide practical estimators for measuring the morphological features $V_k$ from an image by thresholding pixel values and measuring local $\kappa$ gradients. In the next sub--section we will derive a relation between $V_k$ and the real space moments of $\kappa$.  
 
 \subsection{Relation with the moments of $\kappa$}
 \label{sec:4:mink-mom}
-The expectation value of estimators (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) can be expressed as ensemble expectation values of functions of $\h{\kappa}$ via (\ref{eq:4:average-real}). We can write
+The expectation value of the estimators defined in (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator}) can be expressed as ensemble expectation values of functions of $\h{\kappa}$ using equation (\ref{eq:4:average-real}). We can write
 
 \begin{equation}
 \label{eq:4:mf-expectation}
@@ -181,16 +181,16 @@ V_1(\kappa_0) = \theta_{\rm FOV}^2\langle\delta^D(\h{\kappa}-\kappa_0)\vert\nabl
 \end{matrix}
 \end{equation}
 %
-Taking advantage of the isotropy assumption and noting that, for statistically isotropic two dimensional vector fields $\bbh{u},\bbh{v}$ one use the identities
+Taking advantage of statistical isotropy one can show that, for generic two--dimensional vector fields $\bbh{u},\bbh{v}$ consistent with this assumption, the following identities hold
 
 \begin{equation}
 \label{eq:4:iso-vectors}
 \begin{matrix}
-\displaystyle \langle\h{u}\rangle = \frac{\pi}{2}\langle\vert\h{u}_x\vert\rangle & ; & \displaystyle \langle\bbh{u}\cdot\bbh{v}\rangle = \pi\langle\vert \h{u}_x\vert\delta^D (\h{u}_y)\bbh{u}\cdot\bbh{v}\rangle
+\displaystyle \langle\h{u}\rangle = \frac{\pi}{2}\langle\vert\h{u}_x\vert\rangle & ; & \displaystyle \langle\bbh{u}\cdot\bbh{v}\rangle = \pi\langle\vert \h{u}_x\vert\delta^D (\h{u}_y)\bbh{u}\cdot\bbh{v}\rangle,
 \end{matrix}
 \end{equation}
 %
-which, applied to (\ref{eq:4:mf-expectation}) with $\bb{u}=\nabla\kappa$ and $v_i=\partial_i\partial_j\kappa\partial_j\kappa/\vert\nabla\kappa\vert^2$, give the expressions
+The relations (\ref{eq:4:iso-vectors}), applied to (\ref{eq:4:mf-expectation}) with $\bb{u}=\nabla\kappa$ and $v_i=\partial_i\partial_j\kappa\partial_j\kappa/\vert\nabla\kappa\vert^2$, lead to the expressions
 
 \begin{equation}
 \label{eq:4:mf0-expectation}
@@ -207,7 +207,7 @@ V_1(\kappa_0) = \frac{\pi}{2}\theta_{\rm FOV}^2\langle\delta^D(\h{\kappa}-\kappa
 V_2(\kappa_0) = -\pi\theta_{\rm FOV}^2\langle\delta^D(\h{\kappa}-\kappa_0)\delta^D(\partial_y\h{\kappa})\vert\partial_x\h{\kappa}\vert\partial^2_y\h{\kappa}\rangle
 \end{equation}
 %
-The parametrization of the covariance matrix (\ref{eq:4:cov-rotinv}) allows to calculate explicitly expectation values of particular classes of estimators $f$ which are local in the convergence, such as (\ref{eq:4:mf0-expectation}), (\ref{eq:4:mf1-expectation}) and (\ref{eq:4:mf2-expectation}). Per equation (\ref{eq:4:exp-formal}), we need to calculate Gaussian expectation values of arbitrary $\alpha,\pmb{\eta},\pmb{\zeta}$ derivatives of the local estimator. After some Gaussian integral algebra we obtain
+The parametrization (\ref{eq:4:cov-rotinv}) of the $\bb{K}$ covariance matrix allows to explicitly calculate expectation values of estimators $f$ which are local in $\kappa$, such as (\ref{eq:4:mf0-expectation}), (\ref{eq:4:mf1-expectation}) and (\ref{eq:4:mf2-expectation}). As required in the series expansion (\ref{eq:4:exp-formal}), we need to calculate Gaussian expectation values of arbitrary $\alpha,\pmb{\eta},\pmb{\zeta}$ derivatives of the particular local estimator we are considering. Algebra on Gaussian integration leads to
 
 \begin{equation}
 \label{eq:4:Rv0}
@@ -228,7 +228,7 @@ The parametrization of the covariance matrix (\ref{eq:4:cov-rotinv}) allows to c
 \end{gathered} 
 \end{equation} 
 %
-Where the Hermite polynomials $H_n$ are defined as 
+We defined the Hermite polynomials $H_n$ as 
 
 \begin{equation}
 \label{eq:4:hermite}
@@ -237,14 +237,14 @@ Where the Hermite polynomials $H_n$ are defined as
 \end{matrix}
 \end{equation}
 %
-These expressions, after some tedious algebra, lead to the connection between the MFs and the moments of $\kappa$ via the perturbative approach (\ref{eq:4:pert-quad})
+Expressions (\ref{eq:4:Rv0}), (\ref{eq:4:Rv1}) and (\ref{eq:4:Rv2}, after some tedious algebra, lead to the perturbative relation between MFs and moments of $\kappa$
 
 \begin{equation}
 \label{eq:4:Vk-pert}
 V_k(\kappa_0=\sigma_0\nu) = A_k e^{-\nu^2/2}\left[V_k^G(\nu)+\delta V^1_k(\nu) + \delta V^2_k(\nu) + O(\lambda^3)\right] 
 \end{equation}
 %
-In this notation, $V_k^G=H_{k-1}$ is the Gaussian contribution to the $k$--th MF and $\delta V^1_k,\delta V^2_k$ are the corrections coming respectively from $O(\lambda)$, $O(\lambda^2)$ non--Gaussianity in $\kappa$. For reference, the amplitudes $A_k$ are defined as 
+In the notation introduced in equation (\ref{eq:4:Vk-pert}, $V_k^G=H_{k-1}$ is the Gaussian contribution to the $k$--th MF and $\delta V^1_k,\delta V^2_k$ are the corrections coming respectively from the $O(\lambda)$, $O(\lambda^2)$ non--Gaussianity in $\kappa$. For reference, the amplitudes $A_k$ are given by 
 
 \begin{equation}
 \label{eq:4:amplitude}
@@ -258,7 +258,7 @@ In this notation, $V_k^G=H_{k-1}$ is the Gaussian contribution to the $k$--th MF
 \includegraphics[scale=0.4]{Figures/eps/minkPerturbation0-1.eps}
 \includegraphics[scale=0.4]{Figures/eps/minkPerturbation2.eps}
 \end{center}
-\caption{Comparison between the MFs measured from a sample of our simulated fiducial $\kappa$ maps and the approximation based on perturbation theory up to order $O(\bb{M}^{(4)})$ (or $O(\lambda^2)$). We show the mean of the measured MFs calculated over 1000 $\kappa$ realizations (single redshift $z_s=1$, smoothed with $\theta_G=0.5'$) and the perturbative approach at Gaussian $O(\bb{M}^{(2)})$ order (blue) and including skewness $O(\bb{M}^{(3)})$ (green) and kurtosis $O(\bb{M}^{(4)})$ corrections. The moments $\pmb{\mu}$ have also been measured from the mean of the same 1000 $\kappa$ realizations}
+\caption{Comparison between the MFs measured from a sample of simulated fiducial $\kappa$ maps and the approximation based on perturbation theory up to order $O(\bb{M}^{(4)})$ (or $O(\lambda^2)$). We show the mean of the measured MFs calculated over 1000 $\kappa$ realizations (simulated with constant source redshift $z_s=1$ and smoothed with $\theta_G=0.5'$) and the perturbative approach at Gaussian $O(\bb{M}^{(2)})$ order (blue) and including skewness $O(\bb{M}^{(3)})$ (green) and kurtosis $O(\bb{M}^{(4)})$ corrections. The moments $\pmb{\mu}$ have also been measured from the mean of the same 1000 $\kappa$ realizations.}
 \label{fig:4:minkpert}
 \end{figure}
 %
@@ -266,11 +266,11 @@ In this notation, $V_k^G=H_{k-1}$ is the Gaussian contribution to the $k$--th MF
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/minkConvergence.eps}
 \end{center}
-\caption{Study of the convergence of the perturbative approach based on equation (\ref{eq:4:Vk-pert}). We measure the degree of convergence using a $\Delta\chi^2$ metric defined as $\Delta\chi^2=(V_k^{\rm meas}-V_k^{\rm pert})^T\bb{C}_{kk}^{-1}(V_k^{\rm meas}-V_k^{\rm pert})$, where $V_k^{\rm meas}$ are the measured MFs, $V_k^{\rm pert}$ are the approximated MFs at different orders in perturbation theory and $\bb{C}_{kk}$ is the covariance between different thresholds, measured from simulations. We show results for the area $V_0$ (blue), perimeter $V_1$ (green) and the Euler characteristic $V_2$ (red) of the excursion sets. Different line styles correspond to the different sized of the Gaussian smoothing windows $\theta_G$ applied to the images.}
+\caption{Study of the convergence of the perturbation series based on equation (\ref{eq:4:Vk-pert}). We measure the degree of convergence using a $\Delta\chi^2$ metric defined as $\Delta\chi^2=(V_k^{\rm meas}-V_k^{\rm pert})^T\bb{C}_{kk}^{-1}(V_k^{\rm meas}-V_k^{\rm pert})$, where $V_k^{\rm meas}$ are the measured MFs, $V_k^{\rm pert}$ are the approximated MFs at different orders in perturbation theory and $\bb{C}_{kk}$ is the $V_k-V_k$ covariance between different thresholds $\kappa_0$, measured from simulations. We show results for the area $V_0$ (blue), perimeter $V_1$ (green) and the Euler characteristic $V_2$ (red) of the excursion sets. Different line styles correspond to the different sized of the Gaussian smoothing windows $\theta_G$ applied to the images.}
 \label{fig:4:minkconv}
 \end{figure}
 %
-\citep{Munshi12} performed the calculations up to perturbative order $O(\lambda^2)$ and found that the knowledge of seven independent higher moments of $\kappa$ is sufficient to calculate the corrections. 
+\citep{Munshi12} performed the calculations up to order $O(\lambda^2)$ and found that the knowledge of seven higher moments of $\kappa$ is sufficient to calculate the corrections. 
 
 \begin{equation}
 \label{eq:4:skew-dimensionless}
@@ -299,30 +299,31 @@ We use the subscript $c$ to indicate the connected component of the quartic mome
 \begin{gathered}
 \displaystyle \delta V^2_0 = \frac{\mu_{30}^2}{72}H_5 + \frac{\mu_{40}}{24}H_3 \\
 \displaystyle \delta V^2_1 = \frac{\mu_{30}^2}{72}H_6 + \left(\frac{\mu_{40}-\mu_{30}\mu_{31}}{24}\right)H_4 - \frac{1}{12}\left(\mu_{41}+\frac{3}{8}\mu_{31}^2\right)H_2 - \frac{\mu_{43}}{8}  \\ 
-\displaystyle \delta V^2_2 = \frac{\mu_{30}^2}{72}H_7 + \left(\frac{\mu_{40}-\mu_{30}\mu_{31}}{24}\right)H_5 - \frac{1}{6}\left(\mu_{41}+\frac{\mu_{30}\mu_{32}}{2}\right)H_3 - \frac{1}{2}\left(\mu_{42}+2\mu_{43}+\frac{\mu_{31}\mu_{32}}{2}\right)H_1 
+\displaystyle \delta V^2_2 = \frac{\mu_{30}^2}{72}H_7 + \left(\frac{\mu_{40}-\mu_{30}\mu_{31}}{24}\right)H_5 
+\\ - \frac{1}{6}\left(\mu_{41}+\frac{\mu_{30}\mu_{32}}{2}\right)H_3 - \frac{1}{2}\left(\mu_{42}+2\mu_{43}+\frac{\mu_{31}\mu_{32}}{2}\right)H_1 
 \end{gathered}
 \end{equation}
 %
-Figures \ref{fig:4:minkpert},\ref{fig:4:minkconv} show comparisons between measured MFs from our simulated $\kappa$ images (using estimators (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator})) and the $O(\lambda^2)$ perturbative approach based on equations (\ref{eq:4:Vk-pert-skew}), (\ref{eq:4:Vk-pert-kurt}). We can clearly observe a departure between the measured MFs profile and the moment--based approximation, even when non--Gaussian corrections up to $O(\lambda^2)$ are taken into account. Figure \ref{fig:4:minkconv} clearly shows that the $\lambda$ power series converges faster when a large smoothing kernel is applied to the $\kappa$ images, because of the mitigating effect that smoothing has on non--Gaussianity. As we are going to see in Chapter \ref{chp:5}, however, large smoothing kernels cause loss of cosmological information loss WL data because they erase meaningful features from which $\Lambda$CDM parameters can be extracted. Because for small smoothing scales MFs and the first few moments of $\kappa$ are not equivalent, morphological descriptors might contain information on cosmology that moments by themselves are missing. This issue will be investigated in Chapter \ref{chp:5}.    
+Figures \ref{fig:4:minkpert},\ref{fig:4:minkconv} show comparisons between measured MFs from our simulated $\kappa$ images (using estimators (\ref{eq:4:mf0-estimator}), (\ref{eq:4:mf1-estimator}) and (\ref{eq:4:mf2-estimator})) and the $O(\lambda^2)$ perturbation series based on equations (\ref{eq:4:Vk-pert-skew}), (\ref{eq:4:Vk-pert-kurt}). We can clearly observe a departure between the measured MFs profile and the moment--based approximation, even when non--Gaussian corrections up to $O(\lambda^2)$ are taken into account. Figure \ref{fig:4:minkconv} clearly shows that the $\lambda$ power series converges faster when a larger smoothing kernel is applied to the $\kappa$ images, because of the mitigating effect because of the reduced non--Gaussianity that results from the smoothing procedure. Large smoothing kernels, however, reduce the amount of information contained in WL data because they erase meaningful characteristics in the image features from which $\Lambda$CDM parameters are inferred. Because MFs and the first few moments of $\kappa$ are not equivalent for small smoothing scales, morphological descriptors have the potential to carry cosmological information that moments, by themselves, are missing. This issue will be investigated further in Chapter \ref{chp:5}.    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Peak counts}
-In the previous section we showed how morphological features in $\kappa$ maps are approximately related to quadratic and higher--than--quadratic local moments of $\kappa$. In the case of Gaussian fields, MFs are completely characterized in terms of the two quadratic moments $\sigma_0,\sigma_\eta$ but, if non--Gaussianity is present, they contain information on arbitrarily high order $\kappa$ local correlators. A similar argument can be carried out for a different type of local feature in $\kappa$ maps, such as the statistical properties of local maxima (which we will call \textit{peaks} from now on). In this section we will explore the usage peak counts $N_{\rm pk}$ as a function of their height $\kappa_0$, as an image feature. A $\kappa$ peak can be identified at a location $\pt_p$ if the image gradient $\pmb{\eta}$ vanishes at this location and the Hessian matrix $\pmb{\zeta}$ is positive definite. Following \citep{BondCMB}, we can define the peak angular density at a location $\pt$ as 
+In the previous section we showed how morphological features in $\kappa$ maps are related to quadratic and higher--than--quadratic local moments of $\kappa$. In the limit of Gaussian fields, MFs are completely characterized in terms of the two quadratic moments $\sigma_0,\sigma_\eta$. If non--Gaussianity is present, on the other hand, MFs contain information on arbitrarily high order $\kappa$ correlations. A similar reasonment can be applied to a different type of local $\kappa$ feature, such as the statistics of local maxima (which we will call \textit{peaks} from now on) counts. In this section we explore the usage of peak counts $N_{\rm pk}$ as an image feature. A $\kappa$ peak of height $\kappa_0$ can be identified at a location $\pt_p$ if the image gradient $\pmb{\eta}$ vanishes and the Hessian matrix $\pmb{\zeta}$ is positive definite at this location. Following \citep{BondCMB}, we define the peak angular density at an angular position $\pt$ as 
 
 \begin{equation}
 \label{eq:4:peak-density}
 n_{\rm pk}(\pt) = \sum_p \delta^D(\pt-\pt_p) = \vert\pmb{\zeta}(\pt)\vert\delta^D(\pmb{\eta}(\pt))
 \end{equation}
 %
-Where the sum extends over all peaks in the map and the Jacobian determinant is defined as $\vert\pmb{\zeta}\vert=\zeta_{xx}\zeta_{yy}-\zeta_{xy}^2$. If we are interested in computing the expected number of peaks of a certain height $\kappa_0=\sigma_0\nu$ in a $\kappa$ image, we have to calculate the expectation value of the local estimator
+In equation (\ref{eq:4:peak-density}), the sum extends over all peaks in the map and the Jacobian determinant is defined as $\vert\pmb{\zeta}\vert=\zeta_{xx}\zeta_{yy}-\zeta_{xy}^2$. If we are interested in knowing the expected number of peaks of a certain height $\kappa_0=\sigma_0\nu$ in a $\kappa$ image, we have to calculate the expectation value of the local estimator
 
 \begin{equation}
 \label{eq:4:peak-estimator}
 \frac{dN_{\rm pk}}{d\nu} = \theta^2_{\rm FOV}\left\langle\delta^D(\alpha-\nu)\delta^D(\pmb{\eta})\vert\pmb{\zeta}\vert\Theta(\vert\pmb{\zeta}\vert)\Theta(\Tr\pmb{\zeta})\right\rangle
 \end{equation}
 %
-The product of $\Theta$ functions in (\ref{eq:4:peak-estimator}) ensures that the extremum of $\kappa$ is actually a maximum and not a minimum or a saddle point. Note that we related the peak histogram to the expectation value of a local estimator, which can be calculated in perturbation series using (\ref{eq:4:exp-formal}) in the same fashion as the MFs, although the calculation is more involved. In this paragraph, we will limit ourselves to giving an expression for $\frac{dN_{\rm pk}}{d\nu}$ at Gaussian order. In order to ease the calculations, it is useful to introduce a parametrization for $\pmb{\zeta}$ in terms of three parameters $t,u,\phi$
+The product of $\Theta$ functions in (\ref{eq:4:peak-estimator}) ensures that the extremum of $\kappa$ is actually a maximum and not a minimum or a saddle point. Note that we related the peak histogram to the expectation value of a local estimator, which can be calculated in perturbation series using (\ref{eq:4:exp-formal}) in the same fashion as we did for the MFs, although the calculation is more complicated. In this section, we will limit ourselves to finding an expression for $\frac{dN_{\rm pk}}{d\nu}$ at Gaussian order. For the sake of simplifying the calculations, it is useful to introduce a parametrization for $\pmb{\zeta}$ in terms of three parameters $t,u,\phi$ as
 
 \begin{equation}
 \label{eq:4:hess-param}
@@ -333,23 +334,23 @@ x\epsilon\sin(2\phi) & \displaystyle \frac{x}{2}-x\epsilon\cos(2\phi)
 \end{pmatrix}
 \end{equation}  
 %
-In this parametrization $x,\epsilon$ are scalars under rotations because $\sigma_\zeta x=-\Tr\pmb{\zeta}, \sigma_\zeta^2x^2(1-4\epsilon^2)/4=\vert\pmb{\zeta}\vert$, and $\phi$ transforms as an angle shift. With the help of the rotational symmetry, and the change of variable
+In this parametrization $x,\epsilon$ are scalars under rotations (because $\sigma_\zeta x=-\Tr\pmb{\zeta}, \sigma_\zeta^2x^2(1-4\epsilon^2)/4=\vert\pmb{\zeta}\vert$) and $\phi$ transforms as an angle shift. With the help of rotational symmetry and with the change of variable
 
 \begin{equation}
 \label{eq:4:wx}
 \begin{matrix}
-\displaystyle u = \frac{\alpha-\gamma x}{\sqrt{1-\gamma^2}} & ; & \displaystyle \gamma = \frac{\sigma_\eta^2}{\sigma_\zeta}
+\displaystyle u = \frac{\alpha-\gamma x}{\sqrt{1-\gamma^2}} & ; & \displaystyle \gamma = \frac{\sigma_\eta^2}{\sigma_\zeta},
 \end{matrix}
 \end{equation} 
 %
-we can write the Gaussian likelihood (\ref{eq:4:gaussian-lik}) as 
+we can write the Gaussian part of the $\bb{K}$ likelihood (\ref{eq:4:gaussian-lik}) as 
 
 \begin{equation}
 \label{eq:4:gaussian-lik-pk}
 \mathcal{L}_G(\bb{K})d\bb{K} = \frac{8\epsilon x^2}{2\pi^3\sigma_\eta^2}\exp\left(-\frac{u^2+x^2}{2}-\frac{\eta^2}{\sigma_\eta^2}-4x^2\epsilon^2\right)dudxd\pmb{\eta}d\epsilon d\phi
 \end{equation} 
 %
-The expectation value (\ref{eq:4:peak-estimator}) can be expressed in a more friendly way as 
+The expectation value (\ref{eq:4:peak-estimator}) can then be expressed in a more friendly way as 
 
 \begin{equation}
 \label{eq:4:peak-estimator-2}
@@ -375,44 +376,44 @@ G(\gamma,t) = (t^2-\gamma^2)\left[1-\frac{1}{2}{\rm erfc}\left(\frac{t}{\sqrt{2(
 \begin{center}
 \includegraphics[scale=0.4]{Figures/png/convergencePeaks.png}
 \end{center}
-\caption{A sample $\kappa$ map ($\theta_{\rm FOV}=3.5\,{\rm deg}$) with its peak locations (identified by the 8 nearest neighboring pixels) highlighted in red dots. The right panel shows the peak number (blue) as a function of the peak height $\nu\sigma_0$ (blue). The panel also shows the peak histogram for a Gaussian $\kappa$ field with the same power spectrum as the simulated one (green) and the Gaussian prediction for $dN_{\rm pk}/d\nu$ obtained with equation (\ref{eq:4:peaks-gaussian}).}
+\caption{A sample $\kappa$ map ($\theta_{\rm FOV}=3.5\,{\rm deg}$) with the locations of its peaks (identified by the 8 nearest neighboring pixels) highlighted in red dots. The right panel shows the peak number (blue) as a function of the peak height $\nu\sigma_0$. The panel also shows the peak histogram for a Gaussian $\kappa$ field with the same power spectrum as the WL simulated one (green) and the Gaussian prediction (red) for $dN_{\rm pk}/d\nu$ obtained with equation (\ref{eq:4:peaks-gaussian}).}
 \label{fig:4:peaks}
 \end{figure}
 %
-Figure \ref{fig:4:peaks} shows a comparison between the peak histogram measured from one of our simulated $\kappa$ maps and the histogram predicted using the Gaussian approximation (\ref{eq:4:peaks-gaussian}), which makes use of the quadratic $\kappa$ moments $\sigma_0,\sigma_\eta,\sigma_\zeta$. We can clearly see a departure of the measured peak histogram profile from the Gaussian approximated one. The measured peak histogram displays a high $\kappa$ tail that the Gaussian formula (\ref{eq:4:peaks-gaussian}) completely ignores. This could be a hint that the peak histogram profile contains more cosmological information than quadratic $\kappa$ moments alone. This will be matter of investigation in Chapter \ref{chp:5}.    
+Figure \ref{fig:4:peaks} shows a comparison between the peak histogram measured from one of our simulated $\kappa$ maps and the histogram predicted using the Gaussian approximation (\ref{eq:4:peaks-gaussian}), which makes use of the quadratic $\kappa$ moments $\sigma_0,\sigma_\eta,\sigma_\zeta$. We can clearly see a departure of the measured histogram profile from the Gaussian approximation. The measured peak histogram displays a high $\kappa$ tail that the Gaussian formula (\ref{eq:4:peaks-gaussian}) ignores. This could be a hint that the peak histogram profile contains additional cosmological information than quadratic $\kappa$ moments, by themselves, miss. This issue will be investigated in Chapter \ref{chp:5}.    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Angular power spectrum}
 \label{sec:4:power}
-In the previous sections we considered image features which are local, or can be expressed in terms estimators which are local in the convergence $\kappa$. In this section we will deviate from locality and focus on the information contained in larger scale correlations in $\kappa$. The most obvious feature one can consider is the $\kappa$ angular two--point function, defined as 
+In the previous sections we discussed image features which are local, or can be expressed as local estimators in $\kappa$. In this section we go beyond locality and focus on the information contained in larger scale correlations of $\kappa$. The most straightforward non local feature in $\kappa$ one can consider is the angular two--point correlation function defined defined by 
 
 \begin{equation}
 \label{eq:4:kappa-2pt}
 \xi_{\kappa\kappa}(\alpha) = \langle\h{\kappa}(\pt)\h{\kappa}(\pt+\palpha)\rangle 
 \end{equation} 
 %
-In the definition (\ref{eq:4:kappa-2pt}) the correlation function $\xi_{\kappa\kappa}$ is expected to depend only on the magnitude $\alpha=\vert\palpha\vert$ of the angular lag $\palpha$ because of invariance under translations and rotations. Quadratic non--local correlations such as the one defined in (\ref{eq:4:kappa-2pt}) are better expressed in Fourier space as
+In the definition (\ref{eq:4:kappa-2pt}) the correlation function $\xi_{\kappa\kappa}$ depends on the magnitude $\alpha=\vert\palpha\vert$ of the angular lag $\palpha$ only because cosmic WL fields are statistically invariant under translations and rotations. Quadratic non--local correlations, such as the one defined by (\ref{eq:4:kappa-2pt}), are better expressed in terms of the Fourier transform $\tilde{\kappa}(\pell)$ as
 
 \begin{equation}
 \label{eq:4:kappa-power}
 \left\langle\h{\tilde{\kappa}}(\pell)\h{\tilde{\kappa}}(\pell')\right\rangle = (2\pi)^2 \delta^D(\pell+\pell')P_{\kappa\kappa}(\ell)
 \end{equation}
 %
-Where again translational invariance causes the Dirac delta to appear in (\ref{eq:4:kappa-power}) and rotational invariance makes the angular power spectrum $P_{\kappa\kappa}$ depend on $\ell=\vert\pell\vert$ only. Using both (\ref{eq:4:kappa-2pt}) and (\ref{eq:4:kappa-power}) we can relate $\xi_{\kappa\kappa}$ and $P_{\kappa\kappa}$ in the limit of full sky coverage as 
+Translational invariance causes the Dirac delta to appear in (\ref{eq:4:kappa-power}) and rotational invariance makes the angular power spectrum $P_{\kappa\kappa}$ depend on $\ell=\vert\pell\vert$ only. In the limit of full sky coverage, we can relate $\xi_{\kappa\kappa}$ and $P_{\kappa\kappa}$ using both (\ref{eq:4:kappa-2pt}) and (\ref{eq:4:kappa-power}):  
 
 \begin{equation}
 \label{eq:4:xi-pow}
 \xi_{\kappa\kappa}(\alpha) = \int \frac{d\pell}{(2\pi)^2}P_{\kappa\kappa}(\ell)e^{i\pell\cdot\palpha}
 \end{equation}
 %
-The relation (\ref{eq:4:xi-pow}) is valid in the flat sky limit, with spherical harmonic corrections kicking in for large scales and small multipoles.
+The relation (\ref{eq:4:xi-pow}) is valid in the flat sky limit, with spherical harmonic corrections kicking at small $\ell$.
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/powerSample.eps}
 \end{center}
-\caption{$\kappa$ (blue) and $\omega$ (green, see equation (\ref{eq:2:dfl-inverse})) angular power spectra, measured from the average of 1024 realizations of a fiducial cosmology in a field of view of size $\theta_{\rm FOV}=3.5\,{\rm deg}$. The sources were placed on a plane at $z_s=2$. For reference we also show the auto--power spectra of Gaussian white shape noise (black) for three different choices of the angular galaxy density $n_g=15,30,45\,{\rm galaxies}/{\rm arcmin}^2$. We applied a smoothing factor $e^{-\ell^2\theta_G^2}$ to the power spectra, corresponding to a Gaussian window of size $\theta_G=0.5'$.}
+\caption{$\kappa$ (blue) and $\omega$ (green, see equation (\ref{eq:2:dfl-inverse})) angular power spectra, measured from the average of 1024 realizations of a fiducial cosmology in a field of view of size $\theta_{\rm FOV}=3.5\,{\rm deg}$. The source galaxies were placed on a plane at $z_s=2$. For reference we also show the auto--power spectra of Gaussian white shape noise (black) for three different choices of the angular galaxy density $n_g=15,30,45\,{\rm galaxies}/{\rm arcmin}^2$. We applied a smoothing factor $e^{-\ell^2\theta_G^2}$ to the power spectra, corresponding to a Gaussian window of size $\theta_G=0.5'$.}
 \label{fig:4:psample}
 \end{figure}
 %
@@ -420,39 +421,39 @@ The relation (\ref{eq:4:xi-pow}) is valid in the flat sky limit, with spherical 
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/powerCov.eps}
 \end{center}
-\caption{Measured $\kappa$ power spectrum covariance (only diagonal terms) in units of the Gaussian predicted covariance from equation (\ref{eq:4:powercov-gauss-bin}). $N_\ell$ is defined to be $\ell\delta\ell_b\theta_{\rm FOV}^2/4\pi$. We measured the $P_{\kappa\kappa}$ covariance matrix from the same 1024 realizations in Figure \ref{fig:4:psample}, and adopted two different binning choices: 100 uniformly spaced bins between $\ell\in[100,10000]$ and 15 log--spaced bins between $\ell\in[100,6000]$. We show both the noiseless cases for linear (blue) and log (green) and the case in which shape noise has been added (red) to the $\kappa$ images with a galaxy density of $n_g=15\,{\rm galaxies}/{\rm arcmin}^2$.}
+\caption{Measurement of the power spectrum diagonal covariance matrix in units of the Gaussian prediction in equation (\ref{eq:4:powercov-gauss-bin}). $N_\ell$ is defined to be $\ell\delta\ell_b\theta_{\rm FOV}^2/4\pi$. We measured the $P_{\kappa\kappa}$ covariance matrix from the same 1024 realizations we used in Figure \ref{fig:4:psample}, and adopted two different binning choices: 100 uniformly spaced bins between $\ell\in[100,10000]$ and 15 log--spaced bins between $\ell\in[100,6000]$. We show both the noiseless cases for linear (blue) and log (green) and the case in which shape noise has been added (red) to the $\kappa$ images with a galaxy density of $n_g=15\,{\rm galaxies}/{\rm arcmin}^2$.}
 \label{fig:4:pcov}
 \end{figure}
 %
-Under the assumption of statistical isotropy, a practical estimator for $P_{\kappa\kappa}$ can be obtained by replacing the expectation value in (\ref{eq:4:kappa-power}) with a Fourier space integral over the multipoles with constant magnitude $\ell=\vert\pell\vert$. One can show that, if the Fourier transform $\tilde{\kappa}$ is computed in a window of linear size $\theta_{\rm FOV}$, the estimator
+Under the assumption of statistical isotropy, a practical estimator for $P_{\kappa\kappa}$ is obtained by replacing the expectation value in (\ref{eq:4:kappa-power}) with a Fourier space integral over the multipoles with constant magnitude $\ell=\vert\pell\vert$. One can show that, if the Fourier transform $\tilde{\kappa}$ is computed from a field of view of linear size $\theta_{\rm FOV}$, the estimator
 
 \begin{equation}
 \label{eq:4:powerest}
 \h{P}_{\kappa\kappa}(\ell) = \frac{1}{\theta_{\rm FOV}^2}\int\frac{d\pell'}{2\pi\ell'}\left\vert\h{\tilde{\kappa}}(\pell')\right\vert^2\delta^D\left(\vert\pell'\vert-\ell\right)
 \end{equation}
 %
-converges to the real $P_{\kappa\kappa}$ if $\theta_{\rm FOV}$ is sufficiently large compared to the typical $\kappa$ angular correlation scale. In Figure \ref{fig:4:psample} we show sample behaviors of the WL $\kappa$ and $\omega$ power spectra measured from our simulations, and compare them with shape noise power spectra. In the Gaussian limit, we can also quantify the scatter of the estimator (\ref{eq:4:powerest}) by evaluating the $\tilde{\kappa}$ 4--point functions using Wick's theorem. In the limit of $\ell\theta_{\rm FOV}\gg 1$ we can write 
+converges to the real $P_{\kappa\kappa}$ if $\theta_{\rm FOV}$ is sufficiently large compared to the $\kappa$ angular correlation scale. In Figure \ref{fig:4:psample} we show sample behaviors of the WL $\kappa$ and $\omega$ power spectra measured from our simulations, and we compare them with shape noise power spectra. In the Gaussian limit, we can also quantify the scatter of the estimator (\ref{eq:4:powerest}) by evaluating the $\tilde{\kappa}$ 4--point functions with Wick's theorem. In the limit of $\ell\theta_{\rm FOV}\gg 1$ we can write 
 
 \begin{equation}
 \label{eq:4:powercov-gauss}
 \left\langle(\h{P}_{\kappa\kappa}(\ell)-P_{\kappa\kappa}(\ell))(\h{P}_{\kappa\kappa}(\ell')-P_{\kappa\kappa}(\ell'))\right\rangle_G = \frac{4\pi P^2_{\kappa\kappa}(\ell)}{\ell\theta^2_{\rm FOV}}\delta^D(\ell-\ell')
 \end{equation}
 %
-Looking at (\ref{eq:4:powercov-gauss}), we can immediately conclude that, at least in the Gaussian case, the $\kappa$ power spectrum covariance matrix is diagonal in $\ell$ and is inversely proportional to the area of the field of view and to the number of multipoles $\sim\ell$ that fall inside $\theta_{\rm FOV}$. In a more realistic case, in which we measure the value of $P_{\kappa\kappa}$ smeared in a multipole bin of size $\delta\ell_{\rm bin}$ using   
+Looking at (\ref{eq:4:powercov-gauss}), we immediately conclude that, in the Gaussian case, the $\kappa$ power spectrum covariance matrix is diagonal and is inversely proportional to the area of the field of view and to the number of multipoles $\sim\ell$ that fall inside $\theta_{\rm FOV}$. In a more realistic case, in which we measure the value of $P_{\kappa\kappa}$ smeared over a multipole bin of size $\delta\ell_{\rm bin}$ using   
 
 \begin{equation}
 \label{eq:4:powerest-bin}
-\h{P}^{\rm bin}_{\kappa\kappa}(\ell_b) = \frac{1}{\delta\ell_{\rm bin}}\int_{\ell_b-\delta\ell_{\rm bin}/2}^{\ell_b+\delta\ell_{\rm bin}/2} d\ell \h{P}_{\kappa\kappa}(\ell)
+\h{P}^{\rm bin}_{\kappa\kappa}(\ell_b) = \frac{1}{\delta\ell_{\rm bin}}\int_{\ell_b-\delta\ell_{\rm bin}/2}^{\ell_b+\delta\ell_{\rm bin}/2} d\ell \h{P}_{\kappa\kappa}(\ell),
 \end{equation}
 %
-the smeared estimator covariance matrix assumes the familiar form 
+the estimator scatter assumes the familiar form 
 %
 \begin{equation}
 \label{eq:4:powercov-gauss-bin}
 \left\langle\delta\h{P}^{\rm bin}_{\kappa\kappa}(\ell_b)\delta\h{P}^{\rm bin}_{\kappa\kappa}(\ell_{b'})\right\rangle_G = \frac{4\pi [P^{\rm bin}_{\kappa\kappa}(\ell_b)]^2}{\ell_b\delta\ell_{\rm bin}\theta^2_{\rm FOV}}\delta_{bb'}
 \end{equation}
 %
-Figure \ref{fig:4:pcov} shows that (\ref{eq:4:powerest-bin}) is a good approximation to the real power spectrum covariance matrix if one uses linear binning, but large non--Gaussian effects kick in at large $\ell$ when one uses log--spaced multipole bins \citep{Sato12,PetriVariance}. The Figure also shows that the approximation is exact when shape noise is added to the $\kappa$ images, because the Gaussian shape noise covariance tends to dominate the WL non--Gaussian covariance on small scales. In the next paragraph we investigate the validity of the Born approximation (\ref{eq:2:kappa-1}) in predicting $P_{\kappa\kappa}$. 
+Figure \ref{fig:4:pcov} shows that (\ref{eq:4:powerest-bin}) is a good approximation to the real power spectrum covariance matrix if one uses linear $\ell$ binning, but large non--Gaussian effects dominate at large $\ell$ when one uses log--spaced multipole bands \citep{Sato12,PetriVariance}. Figure \ref{fig:4:pcov} also shows that the Gaussian approximation is exact when shape noise is added to the $\kappa$ images. This is reasonable since the shape noise we introduce is Gaussian distributed and its large covariance tends to dominate the WL signal on small scales. In the next sub--section we investigate the validity of the Born approximation (\ref{eq:2:kappa-1}) in predicting $P_{\kappa\kappa}$. 
 
 \subsection{Born approximation}
 \label{sec:4:bornpower}
@@ -465,27 +466,27 @@ Figure \ref{fig:4:pcov} shows that (\ref{eq:4:powerest-bin}) is a good approxima
 \label{fig:4:powerRes}
 \end{figure}
 %
-Since quadratic features, both in real and Fourier space, are the primary investigation tools for inferring cosmological parameters from WL data, we investigated how accurately the Born approximation (\ref{eq:2:kappa-1}) can predict the $\kappa$ power spectrum. The Born contribution to $P_{\kappa\kappa}$ is the lowest in terms of the gravitational potential $\Phi$. If we define 
+Since quadratic features, both in real and Fourier space, are the primary investigation tools for cosmological parameter inference in WL, we investigated how accurately the Born approximation (\ref{eq:2:kappa-1}) predicts the $\kappa$ power spectrum. If we define 
 
 \begin{equation}
 \label{eq:4:power-cross}
 \left\langle\h{\tilde{\kappa}}^{(i)}(\pell)\h{\tilde{\kappa}}^{(j)}(\pell')\right\rangle = (2\pi)^2\delta^D(\pell+\pell')P^{i,j}_{\kappa\kappa}(\ell)
 \end{equation}
 %
-where $\kappa^{(i)}$ is an $O(\Phi^i)$ contribution to $\kappa$, we can express the full $\kappa$ power spectrum in a power series in $\Phi$, whose first few terms look like 
+where $\kappa^{(i)}$ is an $O(\Phi^i)$ contribution to $\kappa$, we can express the $\kappa$ power spectrum in a power series in $\Phi$. The first few terms of this series are 
 
 \begin{equation}
 \label{eq:4:power-pert}
 P_{\kappa\kappa} = P_{\kappa\kappa}^{1,1} + 2\Re (P^{1,2-{\rm ll}}_{\kappa\kappa}+P^{1,2-{\rm gp}}_{\kappa\kappa}) + O(\Phi^4) 
 \end{equation}
 %
-The first corrections to the Born approximated power spectrum are of $O(\Phi^3)$ and, as Figure \ref{fig:4:powerRes} shows, they can account for the residuals $P_{\kappa\kappa}-P^{1,1}_{\kappa\kappa}$. The Born--geodesic cross terms, which trace local gradients in the cosmic density field, dominate over the Born--lens--lens ones, which are proportional to the non--local couplings of the tidal field. Depending in how big the statistical error on the measured $\h{P}_{\kappa\kappa}$ is, the Born approximation can induce biases when used in the inference of cosmological parameters. This could be an issue for large scale surveys because, as seen in (\ref{eq:4:powercov-gauss-bin}), the variance in the power spectrum measurement is inversely proportional to the sky coverage. We will investigate cosmological parameter constraints in Chapter \ref{chp:5}.    
+The first non--trivial corrections to the Born approximated power spectrum are of $O(\Phi^3)$ and, as Figure \ref{fig:4:powerRes} shows, they can account for the residuals $P_{\kappa\kappa}-P^{1,1}_{\kappa\kappa}$. The Born--geodesic cross terms, which trace local gradients in the cosmic density field, dominate over the Born--lens--lens terms, which are proportional to the non--local couplings of the tidal field. Depending in how big the statistical error on the measured $\h{P}_{\kappa\kappa}$ is, the Born approximation may induce biases when used in the inference of cosmological parameters. This could in principle be an issue for large scale surveys since, as seen in (\ref{eq:4:powercov-gauss-bin}), the variance in the power spectrum measurement is inversely proportional to the sky area covered by the survey. We will investigate WL constraints on $\Lambda$CDM parameters in Chapters \ref{chp:5},\ref{chp:6} and \ref{chp:7}.    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Convergence moments}
 \label{sec:4:moments}
-Because the $\kappa$ field in general is non--Gaussian, higher order Fourier statistics might contain cosmological information that the power spectrum, described in \S~\ref{sec:4:power}, misses. In general we can define a $n$--point correlation function of $\kappa$, both in real and Fourier space, as
+Because the WL $\kappa$ field is non--Gaussian, higher order Fourier statistics contain statistical information that the power spectrum ignores. We can define a $n$--point correlation function of $\kappa$, both in real and Fourier space, as
 
 \begin{equation}
 \label{eq:4:npoint-real}
@@ -497,14 +498,14 @@ Because the $\kappa$ field in general is non--Gaussian, higher order Fourier sta
 \left\langle\tilde{\kappa}(\pell_1)...\tilde{\kappa}(\pell_n)\right\rangle_c = (2\pi)^{2n} \delta^D(\pell_1+...+\pell_n)P_\kappa^{(n)}(\pell_1,...,\pell_n)
 \end{equation}
 %
-As usual, the Dirac delta function appears in (\ref{eq:4:npoint-fourier}) because of invariance under translations. The full profile of the multi--spectra $P^{(n)}_\kappa$ can be computationally expensive to measure from high resolution $\kappa$ images (the computational cost scales roughly as $O(N_R^n)$, where $N_R$ is the number of pixels in the image) but, if we are interested only in selected multipole features in the multi--spectra, we might be able to measure a finite, small number of kernel projections of $P^{(n)}_\kappa$ and still get some insight about the cosmological information contained in the $\kappa$ non--Gaussianity. To perform the projection, we smooth the $\kappa$ image with a Gaussian window of size $\theta_G$ and choose an arbitrary function $\tilde{\mu}$ of the multipoles. We define
+As previously noted, the Dirac delta function appears in (\ref{eq:4:npoint-fourier}) because of invariance under translations. The complete Fourier profile of the multi--spectra $P^{(n)}_\kappa$ can be computationally expensive to measure from high resolution $\kappa$ images (the computational cost scales roughly as $O(N_R^n)$, where $N_R$ is the number of pixels in the image) but, if we are interested in selected multipole features only, we might be able to measure a finite, small number of kernel projections of $P^{(n)}_\kappa$ and still get some insight on the cosmological information carried by the $\kappa$ non--Gaussianity. In order to perform the projection, we smooth the $\kappa$ image with a Gaussian window of size $\theta_G$ and choose an arbitrary function of the multipoles $\tilde{\mu}$. We define
 
 \begin{equation}
 \label{eq:4:npoint-projection}
 \mu^{(n)}_i(\theta_G) = \int d\pell_1...d\pell_n \delta^D(\pell_1+...+\pell_n)\left[\tilde{\mu}^{(n)}_iP_\kappa^{(n)}\right](\pell_1,...,\pell_n)e^{-\theta_G^2(\ell_1^2+...+\ell_n^2)/2}
 \end{equation}
 %
-If $\tilde{\mu}^{(n)}_i$ is polynomial in the multipoles, $\mu^{(n)}_i$ is a local connected moment of the convergence field smoothed on a scale $\theta_G$. Different choices of $\theta_G$, $\mu^{(n)}_i$ allow to probe different features in the $\kappa$ multi--spectra by simply smoothing the images and measuring local expectation values, which are both computationally cheap operations which scale respectively as $O(N_R), O(N_R\log N_R)$. Following the discussion in \S~\ref{sec:4:mink-mom} about the relation between morphological features and $\kappa$ moments, in this work we focus our attention on the projections defined by the following nine polynomials
+If $\tilde{\mu}^{(n)}_i$ is polynomial in the multipoles, $\mu^{(n)}_i$ is a connected local moment of the $\theta_G$--smoothed convergence. Different choices of $\theta_G$, $\mu^{(n)}_i$ probe different features in the $\kappa$ multi--spectra at low computational cost. The only operations that need to be performed are the smoothing convolution and the measurement of local expectation values, which cheap operations with complexity $O(N_R\log N_R), O(N_R)$ respectively. Motivated by the discussion in \S~\ref{sec:4:mink-mom} about the relation between morphological features and $\kappa$ moments, in this work we focus our attention on the multi--spectra projections defined by the following nine polynomials
 
 \begin{equation}
 \label{eq:4:poly-quad}
@@ -527,7 +528,7 @@ If $\tilde{\mu}^{(n)}_i$ is polynomial in the multipoles, $\mu^{(n)}_i$ is a loc
 \end{matrix}
 \end{equation}
 %
-Note that, with these choices, the quadratic projections defined by (\ref{eq:4:poly-quad}) correspond respectively to $\sigma_0^2$ and $\sigma_0^2\sigma_\eta^2$. The cubic and quartic projections defined by (\ref{eq:4:poly-cubic}), (\ref{eq:4:poly-quartic}), on the other hand, are equivalent to the local $\kappa$ moments defined in (\ref{eq:4:skew-dimensionless}), (\ref{eq:4:kurt-dimensionless}) modulo normalization factors that contain $\sigma_0, \sigma_\eta$. Because of the polynomial nature of the chosen kernels $\tilde{\mu}^{(n)}_i$, $\mu^{(n)}_i$ capture local features in the convergence images. Varying and combining different smoothing scales $\theta_G$, one can hope to probe different multipole scales in the multi--spectra and hence recover sensitivity to large scale angular correlations.     
+Note that, with these choices, the quadratic projections defined by (\ref{eq:4:poly-quad}) correspond to $\sigma_0^2$ and $\sigma_0^2\sigma_\eta^2$ respectively. The cubic and quartic projections defined by (\ref{eq:4:poly-cubic}), (\ref{eq:4:poly-quartic}), on the other hand, are equivalent to the local $\kappa$ moments defined in (\ref{eq:4:skew-dimensionless}), (\ref{eq:4:kurt-dimensionless}) modulo normalization factors. The polynomial nature of the kernels $\tilde{\mu}^{(n)}_i$, make it so $\mu^{(n)}_i$ capture local features in the convergence maps. By varying and combining different smoothing scales $\theta_G$, one can hope to probe different angular scales in the multi--spectra, hence gaining sensitivity to large scale angular correlations.     
 
 \subsection{Born approximation}
 %
@@ -540,7 +541,7 @@ Note that, with these choices, the quadratic projections defined by (\ref{eq:4:p
 \label{fig:4:momRes}
 \end{figure}
 %
-In the same flavor as \S~\ref{sec:4:bornpower}, in this paragraph we investigate the accuracy of the Born approximation (\ref{eq:2:kappa-1}) in predicting the first few moments of $\kappa$, defined by the projections in (\ref{eq:4:poly-quad}), (\ref{eq:4:poly-cubic}) and (\ref{eq:4:poly-quartic}). Since these features are polynomial in $\Phi$, it is easy to isolate the main contribution to $\mu^{(n)}_i$ as $O(\Phi^n)$, and the first correction as $O(\Phi^{n+1})$. For the $\kappa$ skewness and kurtosis we have 
+In the same flavor as \S~\ref{sec:4:bornpower}, in this sub--section we study the accuracy of the Born approximation (\ref{eq:2:kappa-1}) in predicting the first few moments of $\kappa$, defined by the projections in (\ref{eq:4:poly-quad}), (\ref{eq:4:poly-cubic}) and (\ref{eq:4:poly-quartic}). Since these features are polynomial in $\Phi$, it is easy to isolate the main contribution to $\mu^{(n)}_i$ as $O(\Phi^n)$. The first non trivial correction is of order $O(\Phi^{n+1})$. For the $\kappa$ skewness and kurtosis we have 
 
 \begin{equation}
 \label{eq:4:skew-pert}
@@ -552,11 +553,11 @@ In the same flavor as \S~\ref{sec:4:bornpower}, in this paragraph we investigate
 \kappa^4 = \left(\kappa^{(1)}\right)^4 + 4\left[\left(\kappa^{(1)}\right)^3\kappa^{(2-{\rm ll})} + \left(\kappa^{(1)}\right)^3\kappa^{(2-{\rm gp})} \right] + O(\Phi^6)
 \end{equation}
 %
-We show the residuals between the full ray--tracing results and the Born approximated ones in Figure \ref{fig:4:momRes}, which compares the difference $\delta{\kappa}^n=\kappa^n - \left(\kappa^{(1)}\right)^n$ to the lowest order post--Born corrections contained in (\ref{eq:4:skew-pert}), (\ref{eq:4:kurt-pert}). The Figure shows that the first post--Born corrections can fully account for the residuals and, contrary to the power spectrum case, for higher $\kappa$ moments the Born--geodesic and Born--lens--lens terms are comparable in magnitude. The Figure also shows that, in order to calculate $\kappa$ moments, it is not a good idea to truncate the $\kappa$ power series in $\Phi$ at any finite order beyond Born. The reason is that, by doing so, large numerical contributions to the moments, coming from $O\left(\left(\kappa^{(2-{\rm gp})}\right)^2\right)$ terms and higher will not be canceled by terms of order $O\left(\kappa^{(3)}\kappa^{(1)}\right)$, which have the same magnitude \citep{HirataKrause}. This effect can clearly be seen, for the geodesic term, in Figure \ref{fig:4:momRes}. The issue whether the Born approximation to the moments leads to biased inferences about $\Lambda$CDM will be investigated in Chapter \ref{chp:5}. 
+We show the residuals between the results obtained with ray--tracing and the Born approximation in Figure \ref{fig:4:momRes}, which compares the difference $\delta{\kappa}^n=\kappa^n - \left(\kappa^{(1)}\right)^n$ to the largest non trivial post--Born corrections contained in (\ref{eq:4:skew-pert}), (\ref{eq:4:kurt-pert}). The Figure shows that the first post--Born corrections can fully account for the residuals and, contrary to the power spectrum case, for higher $\kappa$ moments the Born--geodesic and Born--lens--lens terms are comparable in magnitude. Figure \ref{fig:4:momRes} also shows that, for the sake of predicting $\kappa$ moments, it is not advisable to truncate the $\kappa$ power series in $\Phi$ at $O(\Phi^2)$. The reason is that, by doing so, large numerical contributions to the moments, coming from $O\left(\left(\kappa^{(2-{\rm gp})}\right)^2\right)$ terms and higher are not canceled by terms of order $O\left(\kappa^{(3)}\kappa^{(1)}\right)$, which have the same magnitude \citep{HirataKrause}. Ray--tracing is hence required to accurately improve the Born approximation. The issue whether the Born--approximated $\kappa$ moments leads to biased inferences on $\Lambda$CDM parameters will be investigated in Chapter \ref{chp:7}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Summary}
-In this Chapter we gave an overview of a list of features (which is by no means exhaustive) that can be measured from $\kappa$ pixelized images. We considered features which are local (such as moments) or that can be expressed as expectation values of local estimators. We have also considered Fourier space features, such as the $\kappa$ angular power spectrum, which are non--local and require knowledge of the entire $\kappa$ profile in order to be measured. This can pose an issue when analyzing real WL data, as we can see in Chapter \ref{chp:6}: masked regions in the field of view can lead to biased measurements of the power spectrum, which can in principle lead to biased parameter constraints if not taken into account in the modeling. Local estimators, on the other hand, are well behaved even in the presence of masks, provided that one excludes regions nearby the mask boundaries to compute the expectation values. Following previous work found in the literature, we examined classes of features which are not polynomial in $\kappa$, such as MFs and peak histograms, showing that in both cases a relationship with $\kappa$ higher moments can be established via perturbation theory. The fact that the first few perturbative orders do not reproduce well the features profile lead us to the claim that the angular power spectrum, $\kappa$ moments (which probe selected polygon shapes in $\kappa$ multi--spectra), morphological descriptors and peak counts contain complementary information about cosmology. In the next Chapter we will focus on how to use these measured $\kappa$ features to infer $\Lambda$CDM parameter values and confidence intervals.       
+In this Chapter we gave an overview of image features (which is by no means exhaustive) that can be measured from $\kappa$ pixelated images. We considered features which are local in $\kappa$ (such as moments) or that can be expressed as expectation values of local $\kappa$ estimators. We have also considered Fourier space features, such as the $\kappa$ angular power spectrum, that are non--local and require knowledge of $\kappa$ over the entire field of view to be measured. This can cause issues in WL analyses, as we will see in Chapter \ref{chp:6}: masked regions in the field of view lead to biased measurements of the power spectrum, which can produce biases in parameter inferences if accounted for in feature forward models. Local estimators, on the other hand, are well behaved even in the presence of masks, provided that one excludes regions nearby the mask boundaries when calculating the expectation values. Following the literature, we examined classes of features which are not polynomial in $\kappa$, such as MFs and peak count histograms, showing in both cases that a relationship with $\kappa$ local moments can be established via perturbation theory. The fact that the first few perturbative orders do not reproduce the features well lead us to claim that the angular power spectrum, $\kappa$ moments (which probe selected polygon shapes in $\kappa$ multi--spectra), morphological descriptors and peak counts contain complementary information about cosmology. In the next Chapter we will focus on how these $\kappa$ features can be used to infer the values of $\Lambda$CDM parameters, as well as their confidence intervals.
 
 %\bibliography{ref}
