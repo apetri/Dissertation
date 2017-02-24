@@ -8,57 +8,57 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this Chapter we give an overview and discuss the cosmological parameter inference techniques used in this work. Inferring $\Lambda$CDM parameters from observations requires the construction of $\kappa$ images from $\pmb{\gamma}$ catalogs and the measurement of a feature $\bb{d}$ from the reconstructed image. When a forward model $\bb{d}(\bb{p})$ that connects features to cosmological parameters $\bb{p}$ is available, an estimate of the parameters $\bbh{p}$ can be derived from an estimate of the feature $\bbh{d}$ in a Bayesian framework. In this Chapter we review the probabilistic framework and we study WL parameter constraining capabilities using the features discussed in Chapter \ref{chp:4}. We also discuss a variety of constraint degradation sources and propose possible remedies.    
+In this Chapter we introduce the Standard Model parameter inference techniques used in this work. The parameter inference procedure from WL observations starts with the construction of $\kappa$ images from galaxy shear catalogs. Image features $\bb{d}$ are then extracted from the reconstructed images. When a forward model $\bb{d}(\bb{p})$ that relates features to $\Lambda$CDM parameters $\bb{p}$ is specified, an estimate of the parameters $\bbh{p}$ can be derived from the measured feature $\bbh{d}$ in a Bayesian fashion. In this Chapter we review the Bayesian probabilistic framework and we study parameter constraints from WL using the image features discussed in Chapter \ref{chp:4}. We also discuss some of the numerical and physical effects that lead to the degradation of confidence intervals, suggesting possible mitigation techniques.    
 
 \section{Bayesian formalism}
 \label{sec:5:bayes}
-In this paragraph we review the Bayesian probabilistic framework that we base the parameter inference on. We denote with $\bb{d}$ an $N_d$--dimensional image feature and with $\bb{p}$ a $N_\pi$ dimensional tuple of $\Lambda$CDM cosmological parameters (see Table \ref{tab:1:cosmopar}). We also indicate as $\bbh{d}$ an estimate of a feature from a simulated $\kappa$ field of view, as $\dobs$ a measured feature from an actual observation and as $\bbh{p}$ the deriving parameter estimate. We assume the existence of a forward model $\bb{d}(\bb{p})$ which can be obtained using our WL simulation pipeline or, in special cases such as for the $\kappa$ power spectrum, using analytical codes such as NICAEA \citep{Nicaea}. Using Bayes theorem, the likelihood $\lik{\bbh{p}}{\dobs}$ of an estimate $\bbh{p}$ given an observation $\dobs$ is given by
+In this section we describe the Bayesian probabilistic framework on which we base the $\Lambda$CDM parameter inference. We indicate a $N_d$--dimensional image feature as $\bb{d}$ and a $N_\pi$--dimensional tuple of $\Lambda$CDM parameters (see Table \ref{tab:1:cosmopar}) as $\bb{p}$. We also denote feature estimates from a simulated $\kappa$ field of view as $\bbh{d}$, feature measurements from an actual observation as $\dobs$ and the resulting parameter estimates as $\bbh{p}$. We assume the existence of a forward model $\bb{d}(\bb{p})$, which can be calculated using our WL simulation pipeline described in \S~\ref{sec:3:lt} or, in special cases such as for the $\kappa$ power spectrum, using analytical codes like NICAEA \citep{Nicaea,Nicaea17}. According to Bayes theorem, the likelihood $\lik{\bbh{p}}{\dobs}$ of a parameter estimate $\bbh{p}$ given an observation $\dobs$ is given by
 
 \begin{equation}
 \label{eq:5:bayesthm}
 \lik{\bbh{p}}{\dobs,\bb{d}(\bb{p})} = \frac{\lik{\dobs}{\bbh{p},\bb{d}(\bb{p})}\Pi(\bbh{p})}{\mathcal{L}(\dobs)}
 \end{equation}
 %
-In the notation of equation (\ref{eq:5:bayesthm}) $\Pi$ encodes prior information on the parameters coming from WL independent probes (such as CMB experiments for example) and $\mathcal{L}(\dobs)$ is the overall observation likelihood, which acts as a $\bb{p}$--independent normalization factor in the parameter likelihood, which we will ignore in the prosecution of this work. We make a Gaussian assumption for the feature likelihood 
+In equation (\ref{eq:5:bayesthm}), $\Pi$ encodes prior information on the parameters coming from independent probes independent from WL (such as CMB experiments) and $\mathcal{L}(\dobs)$ is the overall likelihood of the observation, which plays the simple role of a $\bb{p}$--independent normalization factor in the parameter likelihood (\ref{eq:5:bayesthm}). In the prosecution of this work this normalization factor will be ignored. We assume a Gaussian feature likelihood 
 
 \begin{equation}
 \label{eq:5:gaussfeatlik}
-\lik{\dobs}{\bbh{p},\bb{d}(\bb{p})} = \frac{1}{(2\pi)^{N_d/2}\vert\bb{C}\vert^{1/2}}\exp\left(-\frac{1}{2}(\dobs-\bb{d}(\bb{p}))^T\bb{C}^{-1}(\dobs-\bb{d}(\bb{p}))\right) 
+\lik{\dobs}{\bbh{p},\bb{d}(\bb{p})} = \frac{1}{(2\pi)^{N_d/2}\vert\bb{C}\vert^{1/2}}\exp\left(-\frac{1}{2}(\dobs-\bb{d}(\bb{p}))^T\bb{C}^{-1}(\dobs-\bb{d}(\bb{p}))\right), 
 \end{equation}
 %
-where $\bb{C}$ is a $\bb{p}$--independent feature--feature covariance matrix. The Gaussian assumption for the data likelihood is justified by the Central Limit Theorem applied to feature averaging over a large number of fields of view, which can be as high as $O(10^3)$ for a $\theta_{\rm FOV}=3.5\,{\rm deg}$ sized tiling of a modern galaxy survey such as LSST. The independence of the covariance matrix $\bb{C}$ on the cosmological parameters is not justified in the present work. The drawbacks of such assumption will be reserved for future investigation. 
+where $\bb{C}$ is the $\bb{p}$--independent feature--feature covariance matrix. The Gaussian assumption for the data likelihood is justified by the Central Limit Theorem because measured image features are averaged over a large number of $\theta_{\rm FOV}=3.5\,{\rm deg}$ fields of view (13 for CFHTLenS and over 1000 for LSST). We do not discuss covariance matrix dependence on $\bb{p}$ in this work, reserving the topic for future investigation. 
 
-Once the parameter likelihood is known, parameter confidence intervals can be obtained looking at surfaces with constant $\mathcal{L}$ in $\bb{p}$ space. We define an $N\sigma$ parameter confidence interval as the $\bb{p}$ space region with $\mathcal{L}>\mathcal{L}_N$. The likelihood confidence levels are defined as 
+Parameter confidence intervals can be obtained looking at surfaces in $\bb{p}$ space with constant $\mathcal{L}(\bbh{p})$. We define an $N\sigma$ confidence interval to be the region in $\bb{p}$ space in which $\mathcal{L}>\mathcal{L}_N$. The likelihood confidence levels are defined as 
 
 \begin{equation}
 \label{eq:5:liklevel}
 \int_{\mathcal{L}>\mathcal{L}_N}\lik{\bbh{p}}{\dobs,\bb{d}(\bb{p})} d\bbh{p} = \frac{1}{\sqrt{2\pi}}\int_{-N}^Ne^{-x^2/2}dx
 \end{equation}  
 %
-Note that this definition of $N\sigma$ confidence intervals (see Figure \ref{fig:5:contsample} for a visual example) corresponds to the commonly accepted one when $\mathcal{L}(\bbh{p})$ is a Gaussian in $\bbh{p}$. If this is the case, calling $\bbh{p}_0$ the location of the likelihood peak, the matrix $\bb{\Sigma}$, defined by
+Note that this definition of $N\sigma$ confidence intervals (see Figure \ref{fig:5:contsample} for a visual example) corresponds to the commonly accepted one when $\mathcal{L}(\bbh{p})$ is a multivariate Gaussian in $\bbh{p}$. In this case, calling $\bbh{p}_0$ the location of the likelihood peak, the matrix $\bb{\Sigma}$ defined by
 
 \begin{equation}
 \label{eq:5:parcov}
-\left(\Sigma^{-1}\right)_{\alpha\beta} = -\left(\frac{\partial^2\log\mathcal{L}(\bbh{p})}{\partial\h{p}_\alpha\partial\h{p}_\beta}\right)_{\bbh{p}=\bbh{p}_0}
+\left(\Sigma^{-1}\right)_{\alpha\beta} = -\left(\frac{\partial^2\log\mathcal{L}(\bbh{p})}{\partial\h{p}_\alpha\partial\h{p}_\beta}\right)_{\bbh{p}=\bbh{p}_0},
 \end{equation}
 %
-is the parameter estimate covariance matrix. We observe that, even if the parameter likelihood is not Gaussian, we can use the peak location $\bbh{p}_0$ and the matrix (\ref{eq:5:parcov}) as an estimate of the parameters and their covariance, although a complete characterization of the parameter space through the confidence intervals defined in (\ref{eq:5:liklevel}) is preferred. The confidence intervals can be calculated by drawing samples from $\mathcal{L}(\bbh{p})$ using Markov Chain Monte Carlo (MCMC) techniques, which are implemented by many convenient software packages (see for example \citep{emcee}). The boundaries of sample 1,2 and 3$\sigma$ confidence contours on the parameter doublet $(\Omega_m,\sigma_8)$ are shown in Figure \ref{fig:5:contsample}.
+is the covariance of the parameter estimate. If the parameter likelihood is not a multivariate Gaussian, we can still use the peak location $\bbh{p}_0$ and the matrix (\ref{eq:5:parcov}) as estimates of the parameters and of their covariance matrix, although a complete characterization of the parameter space through the confidence intervals defined in (\ref{eq:5:liklevel}) is preferred. Confidence intervals can be calculated by drawing samples from $\mathcal{L}(\bbh{p})$ using Markov Chain Monte Carlo (MCMC) techniques, which are implemented by many user--friendly software packages, such as \ttt{emcee} \citep{emcee}. An example of 1,2 and 3$\sigma$ confidence contours on the parameter doublet $(\Omega_m,\sigma_8)$ is shown in Figure \ref{fig:5:contsample}.
 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.6]{Figures/png/cfht_contoursOmega_m-sigma8_sample.png}
 \end{center}
-\caption{Sample 1 (blue), 2 (green) and 3$\sigma$ (red) example confidence contours on $(\Omega_m,\sigma_8)$. The gray scale refers to the value of the parameter likelihood $\mathcal{L}$.}
+\caption{Sample 1 (blue), 2 (green) and 3$\sigma$ (red) example confidence contours on $(\Omega_m,\sigma_8)$. The gray scale refers to the value of the parameter likelihood $\mathcal{L}(\bbh{p})$.}
 \label{fig:5:contsample}
 \end{figure}
 
 \subsection{Fisher matrix approximation}
 \label{sec:5:fisher}
-Parameter inference becomes simpler if the forward model $\bb{d}(\bb{p})$ is linear in the parameters. Linearity can be safely assumed in the limit in which confidence intervals are expected to be localized around the peak of the likelihood, which is the case for large scale WL surveys. We can write 
+Parameter inference becomes simpler if the forward model $\bb{d}(\bb{p})$ is linear. Linearity can be safely assumed if confidence intervals are localized around the peak of the likelihood, which is the case for large scale surveys. Under the linearity assumption, we can write 
 
 \begin{equation}
 \label{eq:5:linapprox}
-\bb{d}(\bb{p}) = \bb{d}_0 + \bb{M}(\bb{p}-\bb{p}_0) + O(\vert\bb{p}-\bb{p}_0\vert^2)
+\bb{d}(\bb{p}) = \bb{d}_0 + \bb{M}(\bb{p}-\bb{p}_0) + O(\vert\bb{p}-\bb{p}_0\vert^2).
 \end{equation}          
 %
 Assuming a flat prior $\Pi(\bbh{p})$ and plugging (\ref{eq:5:linapprox}) into (\ref{eq:5:gaussfeatlik}) we get, for the $\bb{p}$--dependent part of the likelihood
@@ -68,7 +68,7 @@ Assuming a flat prior $\Pi(\bbh{p})$ and plugging (\ref{eq:5:linapprox}) into (\
 -2\log\mathcal{L}(\bb{p}) = \left[\dobs-\bb{d}_0-\bb{M}(\bb{p}-\bb{p}_0)\right]^T\bb{\Psi}\left[\dobs-\bb{d}_0-\bb{M}(\bb{p}-\bb{p}_0)\right]
 \end{equation}
 %
-From (\ref{eq:5:linapprox-lik}) we can immediately get an estimate for the peak of the likelihood $\bbh{p}_0$ and for the parameter covariance $\bb{\Sigma}$ using (\ref{eq:5:parcov})
+We used the notation $\bb{\Psi}=\bb{C}^{-1}$. We can estimate the peak location of the likelihood $\bbh{p}_0$ and its covariance $\bb{\Sigma}$ from (\ref{eq:5:linapprox-lik}) using (\ref{eq:5:parcov}):
 
 \begin{equation}
 \label{eq:5:linapprox-peak}
@@ -80,14 +80,14 @@ From (\ref{eq:5:linapprox-lik}) we can immediately get an estimate for the peak 
 \bb{\Sigma} = \bb{F}^{-1} \equiv \left(\bb{M}^T\bb{\Psi}\bb{M}\right)^{-1} 
 \end{equation}
 %
-Equations (\ref{eq:5:linapprox-peak}), (\ref{eq:5:linapprox-cov}) constitute an important result which takes the name of Fisher matrix approximation, and $\bb{F}\equiv\bb{M}^T\bb{\Psi}\bb{M}$ takes the name of Fisher information matrix. In the case where prior information on the parameters is available, the estimates for the likelihood peak and parameter covariance are modified. For a Gaussian prior with distribution
+Equations (\ref{eq:5:linapprox-peak}), (\ref{eq:5:linapprox-cov}) take the name of \textit{Fisher matrix} approximation and $\bb{F}\equiv\bb{M}^T\bb{\Psi}\bb{M}$ is usually referred to as \textit{Fisher information matrix}. When prior information on the parameters is available, the estimates for the likelihood peak and covariance matrix have to be modified. If the prior is a multivariate Gaussian with distribution
 
 \begin{equation}
 \label{eq:5:gaussprior}
-\Pi(\bb{p}) = \frac{\vert\bb{F}_\Pi\vert^{1/2}}{(2\pi)^{N_\pi/2}}\exp\left(-\frac{1}{2}(\bb{p}-\bb{p}_\Pi)^T\bb{F}_\Pi(\bb{p}-\bb{p}_\Pi)\right)
+\Pi(\bb{p}) = \sqrt{\frac{\vert\bb{F}_\Pi\vert}{(2\pi)^{N_\pi}}}\exp\left(-\frac{1}{2}(\bb{p}-\bb{p}_\Pi)^T\bb{F}_\Pi(\bb{p}-\bb{p}_\Pi)\right),
 \end{equation}
 %
-we have 
+we can write
 
 \begin{equation}
 \label{eq:5:linapprox-peak-prior}
@@ -99,42 +99,42 @@ we have
 \bb{\Sigma} = \left(\bb{F}+\bb{F}_\Pi\right)^{-1} 
 \end{equation}
 %
-Equation (\ref{eq:5:linapprox-cov-prior}) simply states that, because the parameter prior is independent from the WL observation, parameter error bars add as their inverse squared weight. In the case in which the parameter likelihood and prior peak at the same location $\bb{p}_0=\bb{p}_\Pi$, equation (\ref{eq:5:linapprox-peak-prior}) reduces to (\ref{eq:5:linapprox-peak}) with a modified Fisher information $\bb{F}+\bb{F}_\Pi$.    
+Equation (\ref{eq:5:linapprox-cov-prior}) states that, if the parameter prior is independent from the WL observation, inverse parameter covariances have to be added in quadrature. If the parameter likelihood and prior peak at the same location $\bb{p}_0=\bb{p}_\Pi$, equation (\ref{eq:5:linapprox-peak-prior}) reduces to (\ref{eq:5:linapprox-peak}) with a modified Fisher information matrix $\bb{F}+\bb{F}_\Pi$.    
 
-\section{Error degradation induced by noisy covariance}
+\section{Error degradation induced by noisy feature covariance}
 \label{sec:5:degrade}
-In the previous derivation of parameter estimates (\ref{eq:5:linapprox-peak}) and error bars based on the covariance (\ref{eq:5:linapprox-cov}) we have assumed perfect knowledge of the feature--feature covariance matrix $\bb{C}$ and its inverse $\bb{\Psi}$. Although smooth models exist for covariances of power spectra (see (\ref{eq:4:powercov-gauss}) for an example in the Gaussian case), the same is not true for more complicated features, such as the ones described in Chapter \ref{chp:4}. What we are forced to do, in practice, is to obtain an estimate $\bbh{C}$ of $\bb{C}$ from our simulations and to plug the estimate this estimate feature likelihood (\ref{eq:5:gaussfeatlik}). The uncertainties in $\bbh{C},\bbh{\Psi}$ carry over all the way to the parameter estimate $\bbh{p}_0$ and covariance $\bb{\Sigma}$, of which we are left with a noisy estimate $\bbh{\Sigma}$. If simulations and observations are uncorrelated, the parameter estimate $\bbh{p}_0$ is unbiased (within the limits of the linear approximation (\ref{eq:5:linapprox})). The parameter covariance estimator
+In the previous derivation of parameter estimates (\ref{eq:5:linapprox-peak}) and covariances (\ref{eq:5:linapprox-cov}), we have assumed perfect knowledge of the feature--feature covariance matrix $\bb{C}$ and of its inverse $\bb{\Psi}$. Although smooth models exist for the covariance matrix of the $\kappa$ power spectrum (see (\ref{eq:4:powercov-gauss}) for example), the same is not true for the higher order features described in Chapter \ref{chp:4}. When such smooth models are not readily available one can obtain an estimate $\bbh{C}$ of $\bb{C}$ from simulations. The estimate can then be used to calculate an approximate feature likelihood (\ref{eq:5:gaussfeatlik}). If one choses this way to proceed, the noise in the estimator $\bbh{C},\bbh{\Psi}$ carries over to the parameter estimate $\bbh{p}_0$ and covariance $\bb{\Sigma}$, which is then only available as a noisy estimate $\bbh{\Sigma}$. If simulations and observations are independent from each other, the parameter estimate $\bbh{p}_0$ is unbiased (within the limits of the linear approximation (\ref{eq:5:linapprox})). The parameter covariance estimator defined by
 
 \begin{equation}
 \label{eq:5:pcov-est-1}
-\bbh{\Sigma}_1 = \bbh{F}^{-1}
+\bbh{\Sigma}_1 = \bbh{F}^{-1},
 \end{equation}
 %
-is a biased estimate of $\bb{\Sigma}$ as we will see later in the Chapter. The unbiased version of (\ref{eq:5:pcov-est-1}) is the correct error--bar to assign to $\bbh{p}_0$ if the scatter of the estimator (\ref{eq:5:linapprox-peak}) corresponds to $\Sigma$. Unfortunately we are going to see that this is not true. The real scatter of (\ref{eq:5:linapprox-peak}), assuming $\langle\dobs-\bb{d}_0\rangle=0$ for simplicity, is given by
+on the other hand, is a biased estimate of $\bb{\Sigma}$, as we will see later in the Chapter. The unbiased version of (\ref{eq:5:pcov-est-1}) is the correct estimation of the error--bar to assign to $\bbh{p}_0$ only if the scatter of the estimator (\ref{eq:5:linapprox-peak}) is equal to $\Sigma$. We will see, unfortunately, that this is not true. With the simplifying assumption that $\langle\dobs-\bb{d}_0\rangle=0$, the scatter of (\ref{eq:5:linapprox-peak}) is given by
 
 \begin{equation}
 \label{eq:5:peak-scatter}
-\left\langle\delta\bbh{p}_0\delta\bbh{p}_0^T\right\rangle = \left\langle\bbh{F}^{-1}\bb{M}^T\bbh{\Psi}(\dobs-\bb{d}_0)(\dobs-\bb{d}_0)^T\bbh{\Psi}\bb{M}\bbh{F}^{-1}\right\rangle
+\left\langle\delta\bbh{p}_0\delta\bbh{p}_0^T\right\rangle = \left\langle\bbh{F}^{-1}\bb{M}^T\bbh{\Psi}(\dobs-\bb{d}_0)(\dobs-\bb{d}_0)^T\bbh{\Psi}\bb{M}\bbh{F}^{-1}\right\rangle.
 \end{equation}
 %
-where the expectation value has to be taken both with respect to the observations and the simulations, both affected by noise, but assumed uncorrelated. To have an idea of the magnitude of (\ref{eq:5:peak-scatter}), we can take the expectation value over the observation and focus ourselves on the uncertainty introduced by the noise in the simulations only. We will use 
+In equation (\ref{eq:5:peak-scatter}), the expectation value has to be taken with respect of both the observations and the simulations, which are both affected by noise but are uncorrelated. To have an idea of the magnitude of (\ref{eq:5:peak-scatter}), we can take the expectation value over the observation and focus ourselves on the the noise introduced exclusively by the simulations. We will use the fact
 
 \begin{equation}
 \label{eq:5:expobs}
 \left\langle(\dobs-\bb{d}_0)(\dobs-\bb{d}_0)^T\right\rangle = \bb{C}
 \end{equation}
 %
-to produce a noisy estimate of the $\bbh{p}_0$ scatter $\bbh{\Sigma}_2$, defined as 
+to produce a noisy estimator of the $\bbh{p}_0$ scatter, which we call $\bbh{\Sigma}_2$. The latter quantity is defined as 
 
 \begin{equation}
 \label{eq:5:pcov-est-2}
 \bbh{\Sigma}_2 = \bbh{F}^{-1}\bb{M}^T\bbh{\Psi}\bb{C}\bbh{\Psi}\bb{M}\bbh{F}^{-1} 
 \end{equation} 
 %
-In the next section we are going to show how expectation values of (\ref{eq:5:pcov-est-1}), (\ref{eq:5:pcov-est-2}) over simulations can be calculated under a Gaussian assumption.    
+In the next sub--section we are going to show how the expectation values of (\ref{eq:5:pcov-est-1}) and (\ref{eq:5:pcov-est-2}) over the simulations can be calculated explicitly under a Gaussianity assumption.    
 
 \subsection{Covariance matrix estimation}
-To produce estimates of the feature--feature covariance matrix $\bb{C}$, we use our simulation pipeline, described in Chapter \ref{chp:3}, to produce multiple pseudo--independent realizations of a $\kappa$ field of view. We measure the feature $\bbh{d}_r$ from each image using the techniques exposed in Chapter \ref{chp:4} and we produce a covariance estimator $\bbh{C}$ based on ensembles made of a high number $N_r$ of image realizations
+In order to produce estimates of the feature--feature covariance matrix $\bb{C}$, we use our WL simulation pipeline (described in Chapter \ref{sec:3:lt}), whose products are pseudo--independent realizations of $\kappa$ in a WL field of view. We measure the feature $\bbh{d}_r$ from each simulated image using the techniques described in Chapter \ref{chp:4} and we produce an estimator for the covariance matrix $\bbh{C}$ based on simulated ensembles of $N_r$ image realizations:
 
 \begin{equation}
 \label{eq:5:meanest-sim}
@@ -146,94 +146,94 @@ To produce estimates of the feature--feature covariance matrix $\bb{C}$, we use 
 \bbh{C} = \frac{1}{n}\sum_{r=1}^{N_r}\left(\bbh{d}_r-\bbh{d}_{\rm mean}\right)^T\left(\bbh{d}_r-\bbh{d}_{\rm mean}\right) 
 \end{equation}
 %
-We indicated as $n=N_r-1$ the effective number of degrees of freedom in the ensemble, which is smaller than $N_r$ because the mean feature $\bbh{d}_{\rm mean}$ is not known and has to be estimated from the ensemble itself. If the feature estimate $\bbh{d}_r$ is drawn from a Gaussian distribution with covariance $\bb{C}$, the covariance estimate $\bbh{C}$ is distributed according to the Wishart probability distribution \citep{Taylor12,Taylor14,MasumotoWishart}. A functional form for the Wishart distribution $\lik{\bbh{C}}{\bb{C},n}$ can be obtained from its characteristic function 
+We indicated the effective number of degrees of freedom in the ensemble as $n=N_r-1$. This effective number is smaller than $N_r$ because the mean feature $\bbh{d}_{\rm mean}$ is not known and has to be estimated from the ensembles themselves. If the feature estimate $\bbh{d}_r$ is drawn from a multivariate Gaussian distribution with covariance matrix $\bb{C}$, the covariance estimate $\bbh{C}$ is distributed according to the Wishart probability density \citep{Taylor12,Taylor14,MasumotoWishart}. A functional form for the Wishart density function, $\lik{\bbh{C}}{\bb{C},n}$, can be obtained from its characteristic function 
 
 \begin{equation}
 \label{eq:5:chardef}
 \phi(\bb{J}) = \left\langle e^{i\Tr(\bb{J}\bbh{C})}\right\rangle
 \end{equation}
 %
-Performing an inverse Fourier transform in matrix space (much like the one in (\ref{eq:4:characteristic-inverse})), we can reconstruct $\lik{\bbh{C}}{\bb{C},n}$ from $\phi(\bb{J})$. The characteristic function $\phi$ can be evaluated from the moments of the Wishart distribution which are easily expressed in terms of $\bb{C}$ and $n$ via a straightforward though tedious procedure based on Wick's theorem. The final result is (see \citep{Taylor12} for the details)
+We can derive an expression of $\lik{\bbh{C}}{\bb{C},n}$ from $\phi(\bb{J})$ performing an inverse Fourier transform in matrix space (much like the inversion described in (\ref{eq:4:characteristic-inverse})). The characteristic function $\phi$ can be evaluated from the moments of the Wishart distribution, which are easily expressed in terms of $\bb{C}$ and $n$ via a straightforward though tedious procedure based on Wick's theorem. After the smoke clears we get (see \citep{Taylor12} for the details)
 
 \begin{equation}
 \label{eq:5:charw}
 \phi(\bb{J}) = \left\vert\mathds{1}_{N_d\times N_d}-\frac{2i\bb{JC}}{n}\right\vert^{-n/2}
 \end{equation}
 %
-The inverse Fourier transform leads to the functional form of the Wishart distribution $\lik{\bbh{C}}{\bb{C},n} = \mathcal{W}(\bb{C},\bbh{C},n)$ with
+The inverse Fourier transform leads to the functional form of the Wishart density function $\lik{\bbh{C}}{\bb{C},n} = \mathcal{W}(\bb{C},\bbh{C},n)$, with
 
 \begin{equation}
 \label{eq:5:wishart}
 \mathcal{W}(\bb{C},\bbh{C},n) =  \left(\frac{n^{nN_d/2}\vert \bb{C}\vert^{-n/2}\vert\bbh{C}\vert^{(n-N_d-1)/2}}{2^{nN_d/2}\Gamma_{N_d}(n/2)}\right)\exp\left(-\frac{n}{2}\Tr(\bbh{C}\bb{C}^{-1})\right)
 \end{equation}
 %
-where the generalized gamma function $\Gamma_N$ is defined as an integral over the positive semidefinite $N\times N$ symmetric matrices 
+The generalized gamma function $\Gamma_N$ is defined via an integral over the positive semidefinite $N\times N$ symmetric matrices as 
 
 \begin{equation}
 \label{eq:5:gengamma}
 \Gamma_N(x) = \int_{\bb{X}>0}d\bb{X}\vert\bb{X}\vert^{x-(N+1)/2}e^{-\Tr\bb{X}}
 \end{equation}
 %
-We can use the functional form of the Wishart distribution (\ref{eq:5:wishart}) to derive a closed formula for the distribution of the inverse estimate $\bbh{\Psi}=\bbh{C}^{-1}$, which can be done with a change of variables in matrix space. Following \citep{Taylor12} we get $\lik{\bbh{\Psi}}{\bb{\Psi},n} = \mathcal{W}^{-1}(\bbh{\Psi},\bb{\Psi},n)$ with 
+We can use the functional form of the Wishart density (\ref{eq:5:wishart}) to derive a closed formula for the distribution of the estimate of the inverse $\bbh{\Psi}=\bbh{C}^{-1}$. This can be done by means of a change of variables in matrix space. Following \citep{Taylor12}, we obtain the result $\lik{\bbh{\Psi}}{\bb{\Psi},n} = \mathcal{W}^{-1}(\bbh{\Psi},\bb{\Psi},n)$, with 
 
 \begin{equation}
 \label{eq:5:wishart-inv}
 \mathcal{W}^{-1}(\bbh{\Psi},\bb{\Psi},n) = \left(\frac{n^{nN_d/2}\vert \bb{\Psi}\vert^{n/2}\vert\bbh{\Psi}\vert^{-(n+N_d+1)/2}}{2^{nN_d/2}\Gamma_{N_d}(n/2)}\right)\exp\left(-\frac{n}{2}\Tr(\bb{\Psi}\bbh{\Psi}^{-1})\right)
 \end{equation}
 %
-Using (\ref{eq:5:wishart-inv}), it can be shown (see \citep{MasumotoWishart}) that the estimate of the inverse covariance $\bbh{\Psi}$ is biased because
+Using the expression (\ref{eq:5:wishart-inv}), it can be shown (see \citep{MasumotoWishart}) that the estimate of the inverse covariance $\bbh{\Psi}$ is biased according to
 
 \begin{equation}
 \label{eq:5:inv-bias}
 \left\langle\bbh{\Psi}\right\rangle = \frac{n\bb{\Psi}}{n-N_d-1}
 \end{equation} 
 %
-Because the moments of any square sub--matrix of $\bbh{\Psi}$ can be expressed in terms of the relevant elements of $\bb{\Psi}$, $n$ and the combination $\gamma=(n-N_d-1)/2$ (see again \citep{MasumotoWishart}) it can be shown that the rescaled Fisher information estimate $\bbh{F}'$ defined as 
+Because the moments of the probability distribution of any square sub--matrix of $\bbh{\Psi}$ can be expressed in terms of the relevant elements of $\bb{\Psi}$, $n$ and the combination $\gamma=(n-N_d-1)/2$ (see again \citep{MasumotoWishart}), it can be shown that the rescaled Fisher information estimate $\bbh{F}'$, defined by 
 
 \begin{equation}
 \label{eq:5:rescaledF}
-\bbh{F}' = \frac{(n+N_\pi-N_d)\bbh{F}}{n}
+\bbh{F}' = \frac{(n+N_\pi-N_d)\bbh{F}}{n},
 \end{equation}
 %
-is distributed as $\lik{\bbh{F}'}{\bb{F}',n,N_\pi,N_d} = \mathcal{W}^{-1}(\bbh{F}',\bb{F}',n+N_\pi-N_d)$. This observation leads immediately to the conclusion that the parameter error estimate based on (\ref{eq:5:pcov-est-1}) is biased low
+is distributed as $\lik{\bbh{F}'}{\bb{F}',n,N_\pi,N_d} = \mathcal{W}^{-1}(\bbh{F}',\bb{F}',n+N_\pi-N_d)$. This fact leads immediately to the conclusion that parameter error bar estimates based on (\ref{eq:5:pcov-est-1}) are biased according to 
 
 \begin{equation}
 \label{eq:5:pcov-est-1-bias}
 \left\langle\bbh{\Sigma}_1\right\rangle = \left(1+\frac{N_\pi-N_d}{n}\right)\bb{\Sigma}
 \end{equation}
 %
-This bias can easily be accounted for by applying the correction factor suggested by equation (\ref{eq:5:pcov-est-1-bias}) to the parameter covariance estimator (\ref{eq:5:pcov-est-1}). This procedure allows to estimate the parameter error bars in an unbiased fashion purely relying on simulations, and hence can be used for obtaining approximate parameter contour forecasts. When analyzing a real observation, though, we are left with a parameter estimate $\bbh{p}_0$, obtained from the peak of the likelihood which, as we will see, is drawn from a distribution with a width larger than $\bb{\Sigma}$. This larger scatter originates from the fact that the feature--feature covariance estimate $\bbh{C}$ is noisy and, although $\bbh{C}$ is unbiased, the peak scatter estimator $\bbh{\Sigma}_2$ in (\ref{eq:5:pcov-est-2}) is not. Unfortunately, unlike the case for $\bbh{\Sigma}_1$, the expectation value of $\bbh{\Sigma}_2$ cannot be calculated exactly and needs to be approximated. We will tackle this issue in the following paragraph.  
+This bias can easily be easily mitigated by applying a suitable correction factor (suggested in equation (\ref{eq:5:pcov-est-1-bias})) to the parameter covariance estimator (\ref{eq:5:pcov-est-1}). This procedure can be used to estimate parameter error bars in an unbiased fashion by relying only on the simulations, can hence be used to obtain approximate forecasts for parameter contours. When analyzing a real observation, however, we are left with a parameter estimate $\bbh{p}_0$ which obtained from the peak of the likelihood. As we are going to see, $\bbh{p}_0$ is drawn from a distribution whose width is larger than $\bb{\Sigma}$. This increased scatter originates from the fact that the feature--feature covariance estimate is noisy: even if the $\bbh{C}$ estimator is unbiased, the estimate of the peak scatter $\bbh{\Sigma}_2$, defined in (\ref{eq:5:pcov-est-2}), is not. Unlike the case for $\bbh{\Sigma}_1$, the expectation value of $\bbh{\Sigma}_2$ cannot be calculated exactly and needs to be approximated. We tackle this issue in the next sub--section.  
 
 \subsection{Perturbative calculation of the estimate scatter}
-The expectation value of (\ref{eq:5:pcov-est-2}) is not easily calculable analytically because both $\bbh{\Psi},\bbh{F}^{-1}$ appear in the expression. In order to evaluate the behavior of the scatter $\bbh{\Sigma}_2$ with $N_d,N_r$, we proceed with a perturbative approach in the quantity $\delta\bbh{\Psi}$, defined by
+It is not possible to calculate the expectation value of (\ref{eq:5:pcov-est-2}) analytically because the expression contains both $\bbh{\Psi}$ and $\bbh{F}^{-1}$. In order to evaluate the behavior of the scatter $\bbh{\Sigma}_2$ with $N_d,N_r$, we adopt a perturbative approach in the quantity $\delta\bbh{\Psi}$, defined by
 
 \begin{equation}
 \label{eq:5:deltapsi}
 \bbh{\Psi} = \bb{\Psi} + \delta\bbh{\Psi}
 \end{equation}
 %
-With this definition, the expression (\ref{eq:5:pcov-est-2}) can be expanded in a power series in $\delta\bbh{\Psi}$. If the moments of the inverse Wishart distribution are known, we can use them to calculate $\langle\bbh{\Sigma}_2\rangle$ at arbitrary perturbative orders. Using the definition
+With this definition, the expression (\ref{eq:5:pcov-est-2}) can be expanded in a power series in $\delta\bbh{\Psi}$. If the moments of the inverse Wishart distribution are known, we can use them to calculate $\langle\bbh{\Sigma}_2\rangle$ at arbitrary orders in $\delta\bbh{\Psi}$. Using the notation
 
 \begin{equation}
 \label{eq:5:deltaF}
-\delta\bbh{F} = \bb{M}^T\delta\bbh{\Psi}\bb{M}
+\delta\bbh{F} = \bb{M}^T\delta\bbh{\Psi}\bb{M},
 \end{equation}
 %
-we obtain
+we can write
 
 \begin{equation}
 \label{eq:5:pcov-est-2-pert}
 \bbh{\Sigma}_2 = (\bb{F}+\delta\bbh{F})^{-1}\bb{M}^T(\bb{\Psi}+\delta\bbh{\Psi})\bb{C}(\bb{\Psi}+\delta\bbh{\Psi})\bb{M}(\bb{F}+\delta\bbh{F})^{-1}
 \end{equation}
 %
-The series expansion for $(\bb{F}+\delta\bbh{F})^{-1}$, given by
+The series expansion for $(\bb{F}+\delta\bbh{F})^{-1}$, which is given by
 
 \begin{equation}
 \label{eq:5:seriesdF}
-(\bb{F}+\delta\bbh{F})^{-1} = \sum_{k=0}^\infty (-1)^k(\bb{F}^{-1}\delta\bbh{F})^k\bb{F}^{-1}
+(\bb{F}+\delta\bbh{F})^{-1} = \sum_{k=0}^\infty (-1)^k(\bb{F}^{-1}\delta\bbh{F})^k\bb{F}^{-1},
 \end{equation}
 %
-provides a straightforward, although computationally tedious way to express (\ref{eq:5:pcov-est-2-pert}) at the desired order in $\delta\bbh{\Psi}$. \citep{MasumotoWishart} showed that a perturbation expansion in $\delta\bbh{\Psi}$ is roughly equivalent to a perturbation series in $1/N_r$, where higher connected moments of the inverse Wishart distribution give rise to higher powers in $1/N_r$. In order to express the expectation value of (\ref{eq:5:pcov-est-2-pert}) at $O(1/N_r^2)$, we need to know the moments of $\mathcal{W}^{-1}$ up to quartic order \citep{PetriVariance}. Following \citep{MasumotoWishart}, we have
+provides a straightforward, although algebraically tedious, way to express (\ref{eq:5:pcov-est-2-pert}) at the desired order in $\delta\bbh{\Psi}$. \citep{MasumotoWishart} showed that a series expansion in $\delta\bbh{\Psi}$ is roughly equivalent to a perturbation series in $1/N_r$, with higher connected moments of the inverse Wishart distribution corresponding to higher powers in $1/N_r$. We need to know the moments of $\mathcal{W}^{-1}$ up to quartic order \citep{PetriVariance} to express the expectation value of (\ref{eq:5:pcov-est-2-pert}) at $O(1/N_r^2)$. We quote the expressions for the $\mathcal{W}^{-1}$ moments from \citep{MasumotoWishart}:
 
 \begin{equation}
 \label{eq:5:inv-wishart-moments-2}
@@ -250,14 +250,14 @@ provides a straightforward, although computationally tedious way to express (\re
 \left\langle\delta\h{\Psi}_I\delta\h{\Psi}_J\delta\h{\Psi}_K\delta\h{\Psi}_L\right\rangle = \frac{\gamma^3(2\gamma^2-5\gamma+9)\Psi_{\{ I}\Psi_{J\}}\Psi_{\{ K}\Psi_{L\}}}{(\gamma-1)(\gamma-2)(\gamma-3)(2\gamma-1)(\gamma+1)(2\gamma+1)(2\gamma+3)}
 \end{equation}
 %
-We adopted the following notation: we indicated with a capital letter $I=(i_1,i_2)$ a pair of indices $i_1,i_2$. We also used the curly brace notation for a symmetrization of indices
+The adopted notation is the following: we use a capital letter $I=(i_1,i_2)$ to indicate a pair of indexes $i_1,i_2$, and we use curly braces to indicate a symmetrization in the indexes
 
 \begin{equation}
 \label{eq:5:symmind}
 \Psi_{\{ I}\Psi_{J\}} = \Psi_{i_1j_1}\Psi_{i_2j_2} + \Psi_{i_1j_2}\Psi_{i_2j_1}
 \end{equation}  
 %
-In equations (\ref{eq:5:inv-wishart-moments-2}), (\ref{eq:5:inv-wishart-moments-3}), (\ref{eq:5:inv-wishart-moments-4}) we kept only the terms which are of order up to $O(1/N_r^2)$. The structure of the expression (\ref{eq:5:pcov-est-2-pert}), coupled to the one of the inverse Wishart moments causes the expectation value $\langle\bbh{\Sigma}_2\rangle$ to be the sum of a series of terms of the form $f_a(N_d,N_\pi)\bb{\Sigma}/N_r^a$, with $f_a$ a polynomial in $N_d,N_\pi$. Each of these polynomials must contain at least one factor proportional to $N_d-N_\pi$ since, for $N_d=N_\pi$, $\langle\bbh{\Sigma}_2\rangle$ must be identically $\bb{\Sigma}$. Expanding (\ref{eq:5:pcov-est-2-pert}) at quadratic, cubic and quartic order in $\delta\bbh{\Psi}$, and after carrying out the tedious calculations, one gets the contributions
+In equations (\ref{eq:5:inv-wishart-moments-2}), (\ref{eq:5:inv-wishart-moments-3}) and (\ref{eq:5:inv-wishart-moments-4}), we kept only the terms which are of order $O(1/N_r^2)$. Looking at the structure of the expression (\ref{eq:5:pcov-est-2-pert}) and at the expressions for the inverse Wishart moments, we conclude that the expectation value $\langle\bbh{\Sigma}_2\rangle$ must be be the sum of terms in the form $f_a(N_d,N_\pi)\bb{\Sigma}/N_r^a$, where $f_a$ a polynomial of $N_d,N_\pi$. Each of these polynomials contains at least one factor proportional to $N_d-N_\pi$ since, if $N_d=N_\pi$, $\langle\bbh{\Sigma}_2\rangle=\bb{\Sigma}$. After expanding (\ref{eq:5:pcov-est-2-pert}) at quadratic, cubic and quartic order in $\delta\bbh{\Psi}$ and  carrying out the calculations, we can separate the contributions to $\langle\bbh{\Sigma}_2\rangle$ due to $O(\delta\bbh{\Psi}^n)$ terms as
 
 \begin{equation}
 \label{eq:5:contr-2}
@@ -281,34 +281,34 @@ Combining (\ref{eq:5:contr-2}), (\ref{eq:5:contr-3}) and (\ref{eq:5:contr-4}) we
 \left\langle\bbh{\Sigma}_2\right\rangle = \left(1+\frac{N_d-N_\pi}{N_r}+\frac{(N_d-N_\pi)(N_d-N_\pi+2)}{N_r^2}\right)\bb{\Sigma} + O\left(\frac{1}{N_r^3}\right)
 \end{equation} 
 %
-The result (\ref{eq:5:pcov-est-2-exp}) has an important consequence: although we are able to forecast parameter error bars from simulations in an unbiased way via (\ref{eq:5:pcov-est-1-bias}), when analyzing a real observation the scatter of the likelihood peak $\bbh{p}_0$ will be larger than $\bb{\Sigma}$ by a factor of $\sim 1+N_d/N_r$, when the feature covariance matrix is estimated from an ensemble of $N_r$ realizations. This means that, for high dimensional image features, noise in the covariance matrix will severely degrade the parameter estimate, and the unbiased errorbar forecasted from simulations will be an under--estimate of the real errorbar. \citep{Taylor14} found an empirical formula for $\langle\bbh{\Sigma}_2\rangle$ which is able to accurately reproduce numerical investigations of the parameter degradation
+The result (\ref{eq:5:pcov-est-2-exp}) has an important consequence: although parameter error bars forecast from simulations via (\ref{eq:5:pcov-est-1-bias}) are unbiased, the scatter of the likelihood peak $\bbh{p}_0$ is larger than $\bb{\Sigma}$ by a factor of $\sim 1+N_d/N_r$. This is always the case when we use a noisy estimate of feature covariance matrix obtained with (\ref{eq:5:covestest-sim}). This means that, for high dimensional image features, estimation noise in the covariance matrix severely degrades parameter estimates, and the error bar forecast from simulations is an under--estimate. \citep{Taylor14} proposed an empirical formula for $\langle\bbh{\Sigma}_2\rangle$ which accurately reproduces numerical estimates of the parameter degradation:
 
 \begin{equation}
 \label{eq:5:pcov-ext-2-emp}
 \left\langle\bbh{\Sigma}_2\right\rangle_{\rm empirical} = \left(\frac{N_r-2}{N_r+N_\pi-N_d-2}\right)\bb{\Sigma}
 \end{equation}
 %
-Note that (\ref{eq:5:pcov-ext-2-emp}) reduces to (\ref{eq:5:pcov-est-2-exp}) when expanded to order $O(1/N_r^2)$. 
+Note that (\ref{eq:5:pcov-ext-2-emp}) reduces to (\ref{eq:5:pcov-est-2-exp}) when expanded up to order $O(1/N_r^2)$. 
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/curving_nb.eps}
 \end{center}
-\caption{Expectation value of the $w$ estimate scatter $\h{\Sigma}_{w_0w_0}$ as a function of the number of pseudo--independent realizations $N_r$ used to measure the feture covariance matrix. We show a variety of features with different dimensionalities, which include $\kappa$ power spectra and peak counts. We show the numerically bootstrapped results from our ensembles as points, the $O(1/N_r),O(1/N_r^2)$ perturbative predictions from equation (\ref{eq:5:pcov-est-2-exp}) as dashed and thin solid lines respectively and the empirical result from equation (\ref{eq:5:pcov-ext-2-emp}) as thick solid lines. The asymptotic parameter covariance $\bb{\Sigma}_\infty$, which coincides with the true covariance $\bb{\Sigma}$, has been estimated with a linear regression of $\langle\bbh{\Sigma}\rangle_2$ versus $1/N_r$ using the large $N_r$ tail.} 
+\caption{Expectation value of the $w_0$ peak scatter $\h{\Sigma}_{w_0w_0}$ as a function of the number of pseudo--independent realizations $N_r$ used to measure the feature covariance matrix. We consider a variety of features with different dimensionality, including the $\kappa$ power spectrum and peak counts. We show the numerical results obtained with a bootstrapping procedure (points), the $O(1/N_r),O(1/N_r^2)$ perturbation theory predictions from equation (\ref{eq:5:pcov-est-2-exp}) (dashed and thin solid lines respectively) and the empirical result from equation (\ref{eq:5:pcov-ext-2-emp}) (thick solid lines). The asymptotic parameter covariance $\bb{\Sigma}_\infty$, which coincides with the true covariance $\bb{\Sigma}$, has been estimated with a linear regression of $\langle\bbh{\Sigma}\rangle_2$ versus $1/N_r$ using the large $N_r$ tail.} 
 \label{fig:5:curvenb}
 \end{figure}
 %
-Figure \ref{fig:5:curvenb} shows a numerical experiment we performed using ensemble bootstrapping in order to measure the constraint degradation of the Dark Energy equation of state parameter $w_0$. The Figure show that, for ratios $N_d/N_r$ close to unity, the scatter of the $w_0$ estimate can be significantly bigger than the forecasted parameter covariance $\bb{\Sigma}$ (see \citep{DodelsonSchneider13,PetriVariance}). This numerical degradation brings up the necessity of dimensionality reduction: high dimensional features might contain more information about cosmology but, since in general their covariance matrix has to measured from simulations, this will induce constraint degradations that increase the size of the errorbars. A good compromise is to find low dimensional features that retain as much of the cosmological information as possible. This is not an easy task, and some possibilities will be illustrated later in the Chapter.  
+Figure \ref{fig:5:curvenb} shows the results of a numerical experiment we performed using ensemble bootstrapping. We measured the constraint degradation of the Dark Energy equation of state parameter $w_0$. The Figure shows that, for ratios $N_d/N_r$ close to unity, the scatter of the $w_0$ estimate is be significantly bigger than the forecast covariance $\bb{\Sigma}$ (see \citep{DodelsonSchneider13,PetriVariance}). This numerical degradation brings up the necessity of dimensionality reduction: high dimensional features likely contain more information about cosmology but, since their covariance matrix has to measured from simulations, constraint degradation results in larger error bars. A good compromise is to find a way to construct low dimensional features which retain as much information on cosmology as possible. We propose some possible recipes for this non trivial task later in the Chapter.  
 
 \section{Pseudo--independence of realizations}
 \label{sec:5:pseudo}
-The analytical results illustrated in \S~\ref{sec:5:bayes}, \S~\ref{sec:5:degrade} depend on the assumption that the image realizations that make up the $\kappa$ ensembles are independent. Because these ensembles are built with the sampling procedure described in \S~\ref{sec:3:sampling}, which uses $N_s$ independent $N$--body simulations to construct a large number $N_r\gg N_s$ of image realizations, these realizations are not guaranteed to be all independent. If $N_s$ is small, on the other hand, it is not guaranteed that $N_s$ simulations with a box size of $L_b=240\,{\rm Mpc}/h$ (such as the ones used in this work) are able to sample cosmic variance in an unbiased way, given the size $\sim 3\,{\rm Gpc}$ of the present Hubble horizon. 
+The analytical results illustrated in \S~\ref{sec:5:bayes}, \S~\ref{sec:5:degrade} are based on the assumption that the realizations in the $\kappa$ ensembles are independent. Because these ensembles are built with the sampling procedure described in \S~\ref{sec:3:sampling}, which makes use of $N_s$ independent $N$--body simulations to construct a large number $N_r\gg N_s$ of WL fields, the realizations are all independent. Moreover, if $N_s$ is small, it is not guaranteed that cosmic variance is sampled in an unbiased way. Given the size ($c/H_0\sim 3\,{\rm Gpc}$) of the present Hubble horizon, this might be an issue for our simulations, which have a box size of $L_b\approx 250\,{\rm Mpc}/h$. 
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.35]{Figures/eps/ps_pdf.eps}
 \end{center}
-\caption{Distribution of the $\kappa$ power spectrum at four distinct multipoles. We show the distribution of $P_{\kappa\kappa}$ over 1000 realization ensembles constructed with different $N_s$ (solid colored lines). We also show the distribution of $P_{\kappa\kappa}$ over an ensemble built from a single $N$--body box, from which a large number of realizations $N_r\sim 10^5$ has been drawn (dashed black line).}
+\caption{Distribution of the $\kappa$ power spectrum at four distinct values of $\ell$. We plot the histogram of 1000 $P_{\kappa\kappa}$ realizations in ensembles built with different $N_s$ (solid colored lines). We also show the distribution of $\sim 10^5$ $P_{\kappa\kappa}$ realizations in an ensemble built from a single $N$--body simulation ($L_b=240\,{\rm Mpc}/h$) (dashed black line).}
 \label{fig:5:pspdf}
 \end{figure}
 %
@@ -316,22 +316,23 @@ The analytical results illustrated in \S~\ref{sec:5:bayes}, \S~\ref{sec:5:degrad
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/means_ns.eps} \includegraphics[scale=0.4]{Figures/eps/scaling_ns.eps}
 \end{center}
-\caption{Top panel: mean feature measured from $N_r=1000$ realization ensembles build with varying $N_s$. We show the $\kappa$ power spectrum measured at three selected mmultipoles $\ell$ and the peak counts at three different thresholds $\kappa_0$ (colored lines). The mean feature is plotted in units of the statistical error measured from the ensemble variance. We also show as a dashed black line the tolerance level corresponding to 10\% of the statistical error. Bottom panel: asymptotic parameter variance on $w_0$ plotted against the number of independent simulations $N_s$ used to construct the ensembles. The asymptotic variance has been obtained linearly regressing the boostrapped $\langle\bbh{\Sigma}_2\rangle$ against $1/N_r$ for large $N_r$. The trends are shown in units of the mean over $N_s$ for two different binning choices of the power spectrum (black, red) and for the peak counts (green).}
+\caption{Top panel: mean feature measured from $N_r=1000$ realizations drawn from ensembles build with varying $N_s$. We show the $\kappa$ power spectrum measured at three selected $\ell$ values and the peak counts of three different heights $\kappa_0$ (colored lines). The mean feature is plotted in units of the statistical error measured from the ensemble variance. We also draw a dashed black line which shows the tolerance of 10\% of the statistical error. Bottom panel: asymptotic parameter variance on $w_0$ plotted against the number of independent simulations $N_s$ used to construct the WL ensembles. The asymptotic variance has been obtained with a linear regression of the bootstrapped $\langle\bbh{\Sigma}_2\rangle$ versus $1/N_r$ for large $N_r$. The trends are shown in units of the mean over $N_s$ for two different binning choices of the power spectrum (black, red) and for the peak counts (green).}
 \label{fig:5:mcns}
 \end{figure}
 %
-One of the effects of this biased sampling is evident in Figure \ref{fig:5:pspdf}, which shows the distribution of the $\kappa$ power spectrum in selected multipoles among the different realizations that populate the ensemble. In particular we can see that, when the sampling is based on a single simulation ($N_s=1$), the peak location of the distribution of $P_{\kappa\kappa}(\ell)$ depends on which particular ensemble is selected. Ensembles constructed from different $N$--body boxes sample the small scale power spectrum ($\ell\gtrsim 1000$) differently, while the distinction is not evident on larger scales ($\ell\lesssim 400$). Figure \ref{fig:5:pspdf} also shows that, with our chosen box size, $N_s=5$ is sufficient to obtain an unbiased sampling of the power spectrum up to $\ell\approx5000$. Another representation of biased sampling of image features is shown in the top panel of Figure \ref{fig:5:mcns}, which shows the mean of selected elements of the feature vectors as a function of the number of simulations used in the sampling. The plot shows that for features that are sensitive to $\delta$ fluctuations in the linear regime, such as large scale power spectra and low threshold peak counts, as few as $N_s=2$ simulations (with $L_b=240\,{\rm Mpc}/h$) are sufficient for the sampling bias to be smaller than 10\% of the statistical error. For more non--linear features, such as small scale power spectra and high threshold peak counts the required number of $N$--body simulations is of the order of 10, referred to the same 10\% tolerance mentioned before.    
+The effect of biased sampling is evident in Figure \ref{fig:5:pspdf}, which shows the distribution of the $\kappa$ power spectrum at selected $\ell$ values over different realizations. We can clearly see that, if the WL sampling is based on a single $N$--body simulation ($N_s=1$), the peak of the distribution of $P_{\kappa\kappa}$ varies among ensembles. Different initial conditions  for the $N$--body simulation lead to different estimates of the small scale power spectrum ($\ell\gtrsim 1000$). The same distinction is not evident on larger scales ($\ell\lesssim 400$). Figure \ref{fig:5:pspdf} also shows that, with the chosen box size, $N_s=5$ is sufficient to obtain an unbiased sample of the $\kappa$ power spectrum up to $\ell\approx5000$. Another aspect of biased feature sampling is shown in the top panel of Figure \ref{fig:5:mcns}, which shows the mean of selected features as a function of the number of independent simulations $N_s$. The plot shows that for features that trace density fluctuations in the linear regime, such as power spectra at small $\ell$ and low height peaks, as few as $N_s=2$ simulations (with $L_b=240\,{\rm Mpc}/h$) are sufficient for the bias to be within 10\% of the statistical error. On the contrary, for features that trace the non--linear cosmic density such as power spectra at high $\ell$ and high peaks, the required number of $N$--body simulations (for the same $0.1\sigma$ reference tolerance) is of the order of 10.    
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.6]{Figures/eps/scaling_nr.eps}
 \end{center}
-\caption{$w_0$ constraint degradation as a function of $N_r$ for different feature choices, measured from ensembles buit with $N_s=1$. The asymptotic variance $\bb{\Sigma}_{w_0w_0,\infty}$ has been estimated as the ensemble variance calculated at $N_r=128,000$. We show the trends for small (black) and large (blue) scale power spectra and large threshold peak counts for unsmoothed (green) and $1'$ smoothed (red) $\kappa$ images.}
+\caption{Degradation in the $w_0$ constraint as a function of $N_r$ for different choice of features. The features measured from ensembles built with $N_s=1$. The asymptotic variance $\bb{\Sigma}_{w_0w_0,\infty}$ was estimated using the value of $\langle\bbh{\Sigma}_2\rangle$ at $N_r=128,000$. We show the trends for small (black) and large (blue) scale power spectra and large threshold peak counts for non--smoothed (green) and $1'$ smoothed (red) $\kappa$ images.}
 \label{fig:5:pseudonr}
 \end{figure}
 %
-Figure \ref{fig:5:mcns} also shows, in the lower panel, that the pseudo--independence of $\kappa$ realizations caused by small $N_s$ does not affect the sampling of the asymptotic parameter variance $\bb{\Sigma}$, which is already obtained correctly calculated for $N_s=2$ (modulo statistical fluctuations). This is true even if, for large $N_r$, the image realizations cannot be considered all independent, as Figure \ref{fig:5:pseudonr} shows. The Figure highlights the fact that, when the sampling procedure is based on a single $N$--body simulations, image features measured from the resulting $\kappa$ ensemble start to be correlated for large $N_r$. Depending on which feature we consider, when we look at the error bar  degradation $\langle\bbh{\Sigma}_2\rangle-\bb{\Sigma}$, in the case of perfect independence we should observe a $1/N_r$ asymptotic behavior. What we measure, on the other hand, is a flattening of the degradation trend at high $N_r$, hinting that the realizations that make up the ensemble are correlated. This flattening manifests itself at different $N_r$ depending on which feature we are looking at. Large scale $\kappa$ power spectra drawn from a single box are independent for $N_r<{\rm few}\times 10^3$, while smaller scale statistics like small scale power spectra and peak counts are independent for $N_r<{\rm few}\times 10^4$. These numbers shoule be interpreted as orders of magnitude, and are referred to the size of the boxes $L_b=240\,{\rm Mpc}/h$ used in this work. Different box sizes will likely modify the scale $N_r$ on which deviations from perfect independence start to appear.   
+The lower panel of Figure \ref{fig:5:mcns} shows that the pseudo--independence of $\kappa$ realizations at small $N_s$ does not affect the estimation of the asymptotic parameter variance $\bb{\Sigma}$, which is correctly obtained at $N_s=2$ already (modulo statistical fluctuations). 
 
+If $N_s=1$, the WL realizations cannot be considered all independent, as Figure \ref{fig:5:pseudonr} shows. The Figure highlights the fact that, when the WL sampling is based on a single $N$--body simulation, features measured from the $\kappa$ ensemble start to be correlated for large $N_r$. Regardless of which feature one considers, the error bar degradation $\langle\bbh{\Sigma}_2\rangle-\bb{\Sigma}$ behaves asymptotically as $1/N_r$ in the limit of independent realizations. What our numerical experiment shows, on the other hand, is a flattening of the trend at high $N_r$, hinting to correlations among the realizations in the ensemble. The $1/N_r$ behavior is broken at different $N_r$ depending on which feature we are looking at. Large scale $\kappa$ power spectra drawn from a single box can be considered independent for $N_r<{\rm few}\times 10^3$, while non--linear statistics, such power spectra at high $\ell$ and peak counts, are independent up to $N_r<{\rm few}\times 10^4$. These numbers should be interpreted as orders of magnitude and are referred to the size of the boxes $L_b=240\,{\rm Mpc}/h$ used in this work. Different box sizes will likely modify the scale $N_r$ on which deviations from the $1/N_r$ behavior start to appear \citep{NbodyLB,PetriVariance}.
 
 \section{Dimensionality reduction}
 \label{sec:5:dimred}
@@ -365,9 +366,9 @@ In equation (\ref{eq:5:whitening}) we introduced $N_d$ arbitrary location and sc
 \bb{d}_{\rm PCA}(N_c) = \bb{R}(N_c)\left(\frac{\bb{d}-\pmb{\mu}}{\pmb{\sigma}}\right)
 \end{equation}
 %
-Because the PCA projection depends on the specification of external parameters $\mu_d,\sigma_d$, this type of dimensionality reduction technique is not scale invariant. Nevertheless, we will see it will prove useful in dealing with parameter inferences in WL. Modern surveys, such as LSST \citep{LSST}, plan to use redshift tomography of image features in order to get more precise constraints on cosmology. Tomography greatly increases the dimensionality of the feature space. If tracer galaxies are divided in $N_z$ redshift bins, the feature dimensionality increases at least by a factor of $N_z$, which can become $N_z^2$ in the case we consider $\kappa$ cross power spectra across different bins. Figure \ref{fig:5:pca} shows an application of PCA to forecasts of cosmological constraints obtained from redshift tomography of an LSST--like survey \citep{PetriPhotoZ}. The Figure shows that this particular projection technique shows that, in this particular case, the feature dimensionality can be halved and one still gets a $w_0$ constraint which is within $\sim 15-20\%$ of un--projected case for the case of single redshift bins, with even better performance for the tomography case. A wide variety of dimensionality reduction techiques have been proposed in the literature (see \citep{astroMLText} for a non--comprehensive list), and their application to WL cosmology will be investigated in future work.  
+Because the PCA projection depends on the specification of external parameters $\mu_d,\sigma_d$, this type of dimensionality reduction technique is not scale invariant. Nevertheless, we will see it will prove useful in dealing with parameter inferences in WL. Modern surveys, such as LSST \citep{LSST}, plan to use redshift tomography of image features in order to get more precise constraints on cosmology. Tomography greatly increases the dimensionality of the feature space. If tracer galaxies are divided in $N_z$ redshift bins, the feature dimensionality increases at least by a factor of $N_z$, which can become $N_z^2$ in the case we consider $\kappa$ cross power spectra across different bins. Figure \ref{fig:5:pca} shows an application of PCA to forecasts of cosmological constraints obtained from redshift tomography of an LSST--like survey \citep{PetriPhotoZ}. The Figure shows that this particular projection technique shows that, in this particular case, the feature dimensionality can be halved and one still gets a $w_0$ constraint which is within $\sim 15-20\%$ of un--projected case for the case of single redshift bins, with even better performance for the tomography case. A wide variety of dimensionality reduction techniques have been proposed in the literature (see \citep{astroMLText} for a non--comprehensive list), and their application to WL cosmology will be investigated in future work.  
 
-\section{Weak Lensing constraining power}
+\section{Constraints from Weak Lensing}
 \label{sec:5:constraints}
 %
 \begin{figure}
@@ -383,4 +384,4 @@ In this section we want to give a first flavor of the constraining power of WL p
 Regarding the $\kappa$ moments, we can see that most of the cosmological information comes from moments that contain $\kappa$ gradients (i.e. $\mu_{m}^{(n)}$ with $m>0$) which, in addition to the PDF of $\kappa$, contain information about spatial correlations. 
 From the bottom panel of Figure \ref{fig:5:wlconstraints} we can observe that all higher order features considered in this work contain complementary information to the one contained in $P_{\kappa\kappa}$.    
 
-%\bibliography{ref}
+\bibliography{ref}
