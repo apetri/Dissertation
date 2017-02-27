@@ -47,12 +47,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \definecolor{U}{rgb}{1,.7,.1}
+\def\thesistitle{Non--Gaussian information in Cosmology with Weak Gravitational Lensing}
 
 %\doublespacing
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\includeonly{Chapter7}
+%\includeonly{Abstract,Chapter1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -78,7 +79,9 @@
 % Prefatory pages                                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\pagenumbering{gobble}
 \include{Abstract}
+\pagenumbering{arabic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -140,13 +143,13 @@
 \include{Chapter7}
 \include{Chapter8}
 
+\bibliography{ref}
+
 \begin{appendices}
 \include{AppendixA}
 \end{appendices}
 
 %%only include if needed
-
-\bibliography{ref}
 
 %\include{Glossary}
 
