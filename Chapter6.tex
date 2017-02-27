@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{An application to real data: the CFHTLenS galaxy survey}
+\chapter{An application to data: the CFHTLenS galaxy survey}
 \lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
  \thispagestyle{plain}
 \setlength{\parindent}{10mm}
@@ -8,50 +8,50 @@
 \label{chp:6}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this Chapter we present an application of the techniques presented so far to real data, contained in the publicly available Canada France Hawaii Telescope LenS survey catalogs \citep{cfht1,cfht2,CFHTKilbinger} (CFHTLenS in the remainder of this work). We start by reviewing the data reduction procedure that bridges the gap between the row--ordered data to the reconstructed $\kappa$ maps. We then present a set of cosmological simulations tailored to the CFHTLenS catalogs, which allow us to build the feature emulator used to produce $\Lambda$CDM parameter inferences.   
+In this Chapter we discuss the application of WL analysis to the data contained in the Canada France Hawaii Telescope LenS survey catalogs \citep{cfht1,cfht2,CFHTKilbinger} (CFHTLenS in the remainder of this work). The catalogs are publicly available. We start by reviewing the reduction procedure we used to convert row--ordered data to $\kappa$ maps. A a next step, we present a set of cosmological simulations tailored to the CFHTLenS catalogs, which are then used to build a feature emulator. We use this emulator as a forward model to produce $\Lambda$CDM parameter inferences.   
 
 \section{Catalogs}
-The CFHTLenS survey covers an area of 154\,${\rm deg}^2$, divided in four sub--patches of size 64,23,44 and 23\,${\rm deg}^2$. The publicly released catalogs, created with the SExtractor software \citep{SExtractor}, contain information on  galaxy photometric redshifts (see \citep{cfhtPhoto} for a detail on the estimation procedure) and shapes extracted with \ttt{lensfit} \citep{cfht1,cfht2}. After applying a redshift cut $0.2<z<1.3$ on the galaxies, and after considering only the ones with positive weight w (larger w indicates smaller shape measurement uncertainty), we are left with roughly $N_g=4.2$\,million objects distributed over an area of 124.7\,${\rm deg}^2$. This corresponds to an average galaxy density of $n_g\approx 9.3\,{\rm galaxies/arcmin}^2$. The catalog size is further reduced by $25\%$ if sub--patches with non negligible star--galaxy correlations are rejected \citep{CFHTFu}. These correlations are caused by imperfect Point Spread Function (PSF) removal procedures. With the information contained in the publicly available catalogs, we can construct the CFHTLenS $\kappa$ maps using the KS procedure (\ref{eq:2:kappa-ks}) applied to the ellipticity estimated shear data. We create smooth ellipticity maps according to \citep{PetriCFHTMink,PetriCFHTPeaks}
+The CFHTLenS galaxy survey covers an area of 154\,${\rm deg}^2$, which divided in four patches of size 64,23,44 and 23\,${\rm deg}^2$ respectively. The publicly released catalogs, created with the SExtractor software \citep{SExtractor}, contain information on galaxy photometric redshifts (see \citep{cfhtPhoto} for a detail on the estimation procedure) and shapes extracted with \ttt{lensfit} \citep{cfht1,cfht2}. After applying a redshift cut $0.2<z<1.3$ to the source galaxies, and after considering only the ones with positive weight w (larger w indicates smaller shape measurement uncertainty), we are left with roughly $N_g=4.2$\,million objects, which are distributed over an area of 124.7\,${\rm deg}^2$. This corresponds to an average galaxy density of $n_g\approx 9.3\,{\rm galaxies/arcmin}^2$. The catalog size is further reduced by $25\%$ if sub--patches with non negligible star--galaxy correlations are rejected \citep{CFHTFu}. These correlations are introduced by imperfect Point Spread Function (PSF) removal procedures. Using the information contained in the publicly available catalogs, we can estimate the corresponding $\kappa$ profile making use of the KS procedure (\ref{eq:2:kappa-ks}) applied to the cosmic shear estimated from ellipticity measurements. We create smooth ellipticity maps using an histogram approach (see \citep{PetriCFHTMink,PetriCFHTPeaks})
 
 \begin{equation}
 \label{eq:6:ellip-smooth}
 \bar{\bb{e}}(\pt) = \frac{\sum_{i=1}^{N_g}W(\vert\pt-\pt_i\vert){\rm w}_i(\bb{e}_i -\bb{c}_i)}{\sum_{i=1}^{N_g}W(\vert\pt-\pt_i\vert){\rm w}_i(1+m_i)}
 \end{equation}
 %
-In equation (\ref{eq:6:ellip-smooth}), $\pt_i,{\rm w}_i,\bb{e}_i,\bb{c}_i,m_i$ refer, respectively, to the sky position, weight, observed ellipticity, additive and multiplicative ellipticity correction of the $i$--th galaxy as read from the catalog. A Gaussian smoothing window
+In equation (\ref{eq:6:ellip-smooth}), $\pt_i,{\rm w}_i,\bb{e}_i,\bb{c}_i,m_i$ refer to the sky position, weight, observed ellipticity, additive and multiplicative ellipticity correction of the $i$--th galaxy. The reconstructed images have been convolved with a Gaussian window 
 
 \begin{equation}
 \label{eq:6:gausswin}
 W(\pt) = \frac{1}{2\pi\theta_G^2}\exp\left(-\frac{\theta^2}{2\theta_G^2}\right)
 \end{equation}
 %
-has been applied to the reconstructed images. The window size $\theta_G$ has been fixed to 1$'$, and occasionally varied to 1.8$'$ and 3.5$'$ for testing purposes, described later in the Chapter. We then set $\pmb{\gamma}(\pt)=\bar{\bb{e}}(\pt)$ and use equation (\ref{eq:2:kappa-ks}) to construct the $\kappa$ images which will then be used for the parameter inferences. We divide the survey area in 13 square sub--fields of area $12\,{\rm deg}^2$. We sample each subfield with $512^2$ evenly spaced square pixels. The reduced data undergoes a feature extraction step (see Chapter \ref{chp:4}): the individual features are measured from each sub--field and then averaged over the 13 sub--fields. The masked pixels in the maps are not an issue when measuring $\kappa$ moments and Minkowski functionals, as both statistics can be evaluated from local estimators (see \S~\ref{sec:4:mink}, \S~\ref{sec:4:moments}). The matter is different for the power spectrum, which requires non--local operations such as FFTs: we solve this by filling the masked pixels with $\kappa=0$ and restricting the multipole range to exclude the typical size of the masks. In any case, when analyzing observations, masking effects are included in our forward models in order to avoid possible biases in the parameter constraint. The extracted features are then compared to the simulated ones in a Bayesian fashion (see Chapter \ref{chp:5}) to obtain $\Lambda$CDM parameter posterior distributions. In the next section we describe the simulations used for the construction of the CFHTLenS feature emulator.      
+with size $\theta_G=1'$. We vary the size of the smoothing window to 1.8$'$ and 3.5$'$ for testing purposes. We use the estimate $\pmb{\gamma}(\pt)=\bar{\bb{e}}(\pt)$ apply equation (\ref{eq:2:kappa-ks}) to construct the $\kappa$ images which will be used in the inference of parameters. We divide the survey area in 13 square sub--fields of $12\,{\rm deg}^2$ angular size. We sample each subfield with $512^2$ evenly spaced square pixels. The reduced data undergoes further compression: image features (see Chapter \ref{chp:4}) are measured from each sub--field and then averaged over the 13 sub--fields. Masked pixels in the maps are not an issue when measuring $\kappa$ moments and Minkowski functionals, as both statistics can be evaluated with local estimators in real space (see \S~\ref{sec:4:mink}, \S~\ref{sec:4:moments}). Masking is an issue for the power spectrum, which requires non--local operations such as FFTs. We deal with this by filling the masked pixels with $\kappa=0$ and restricting the $\ell$ range in the analysis to exclude multipoles which correspond to the typical size of the masks. In any case, when analyzing observations, masking effects are included in the forward model in order to minimize bias in the parameter constraint. The extracted features are then compared to the simulated ones in a Bayesian fashion (see Chapter \ref{chp:5}) to obtain posterior distributions for the $\Lambda$CDM parameter triplet $(\Omega_m,w_0,\sigma_8)$. In the next section we describe the simulations used for constructing of the CFHTLenS feature emulator.      
 
 \section{Emulator}
-In order to build a feature emulator for CFHTLenS, we need to know how the particular feature depends on the cosmological parameters. We sample the $\Lambda$CDM parameter space using $N_M$ points and we ran the simulation pipeline described in \S~\ref{sec:3:lt} on each of the sampled points. We then measure the mean feature in each sampled cosmology and we infer the mean feature for arbitrary cosmologies (not included in the $N_M$ samples) using a suitable interpolation procedure. 
+Emulators encode the relation between image features and cosmological parameters. We sampled the $\Lambda$CDM parameter space using $N_M$ points and we ran the simulation pipeline described in \S~\ref{sec:3:lt} on each combination of parameters. We then measure the mean feature in each cosmology and we infer the mean feature for an arbitrary set of parameters (not included in the $N_M$ samples) using interpolation. 
 
 \subsection{Cosmological parameter sampling}
 \label{sec:6:sampling}
-We describe the procedure we used to sample the $\Lambda$CDM parameter space. We consider a subset of $N_\pi=3$ parameters $\bb{p}=(\Omega_m,w_0,\sigma_8)$ and we seek a way to uniformly sample it so that no parameter is repeated twice. This sampling scheme takes the name of \textit{latin hypercube} \citep{Coyote2}. One way to implement the latin hypercube sample in practice is to set a $N_\pi$--dimensional bounding box that will contain all the sampled points, and normalize it to $[0,1]^{N_\pi}$ for simplicity. We can then set the number $N_M$ of cosmological models (we chose $N_M=91$) we wish to sample and distribute in an uniform latin hypercube scheme. Following \citep{Coyote2,PetriCFHTMink} we define a cost function 
+We consider a subset of $N_\pi=3$ parameters $\bb{p}=(\Omega_m,w_0,\sigma_8)$, seeking a way to uniformly sample it with the constraint that no parameter is repeated twice. This scheme takes the name of \textit{latin hypercube} \citep{Coyote2}. One way to implement the latin hypercube scheme is to build a $N_\pi$--dimensional rectangular box that contains the sampled points and normalize it to $[0,1]^{N_\pi}$ for simplicity. We set the number $N_M$ of cosmological models in the box to 91. Following \citep{Coyote2,PetriCFHTMink}, we define a cost function 
 
 \begin{equation}
 \label{eq:6:cost}
 \mathcal{C}(\bb{P}) = \frac{2{N_\pi}^{1/2}}{N_M(N_M-1)}\sum_{i<j} \frac{1}{\vert \bb{P}_i-\bb{P}_j \vert}
 \end{equation} 
 %
-where $\bb{P}$ is a $N_M\times N_\pi$ matrix that contains the information on the sampled points and the sum runs over all pair of points. In order to sample the hypercube uniformly, we seek a configuration $\bb{P}$ that minimizes the cost function (\ref{eq:6:cost}) while enforcing the latin hypercube constraint. Because $\mathcal{C}$ is effectively the Coulomb potential energy of $N_M$ unit point charges confined in a box, its minimum leads to a uniform configuration. The simplest latin hypercube arrangement corresponds to the diagonal design $\bb{P}^0$, in which the points are arranged on the diagonal of the hypercube
+where $\bb{P}$ is a $N_M\times N_\pi$ matrix that contains information on the sample points in $[0,1]^{N_\pi}$. The sum runs over all $N_M(N_M-1)/2$ sample pairs. In order to sample the hypercube uniformly, we seek a configuration $\bb{P}$ that minimizes the cost function (\ref{eq:6:cost}) with the latin hypercube constraint. Because $\mathcal{C}$ is proportional the Coulomb potential energy of $N_M$ unit point charges confined in a box, its minimum leads to a statistically isotropic configuration. The simplest latin hypercube arrangement is the design $\bb{P}^0$, in which the points are arranged on the diagonal of the hypercube
 
 \begin{equation}
 \label{eq:6:diagonal}
 \bb{P}^0_{i} = \frac{i}{N_M}\underbrace{(1,1,...,1)}_{N_\pi}
 \end{equation}
 %  
-Of course this trivial arrangement is far from optimal. A possible heuristic method to find out a configuration $\bb{P}$ that minimizes (\ref{eq:6:cost}) is simulated annealing \citep{Skiena}, which however is too computationally expensive for our purposes. We resort on this less accurate, but faster, heuristic scheme instead: 
+This trivial arrangement is far from optimal. A possible heuristic method to find out the optimal configuration $\bb{P}$ which minimizes (\ref{eq:6:cost}) is simulated annealing \citep{Skiena}. Since this algorithm is too computationally expensive for our purposes, we resort on a less accurate but faster heuristic scheme, consisting in the following steps: 
 \begin{enumerate}
 \item Start from the diagonal design $\bb{P}^0$
 \item Pick a random pair of points $(i,j)$ among the $N_M(N_M-1)/2$ available, pick a random parameter $p$ among the $N_\pi$ available
-\item Swap $P_{ip}$ with $P_{jp}$ (the swap preserves the latin hypercube property), recompute the cost function $\mathcal{C}$
-\item If the cost decreases, keep the swap, otherwise revert to the previous configuration
+\item Swap $P_{ip}$ with $P_{jp}$ (the swap preserves the latin hypercube property), recompute the cost function $\mathcal{C}$ (this is done in $O(1)$ time taking advantage of the separability of (\ref{eq:6:cost}))
+\item If the cost is lower, keep the swap, otherwise undo it, reverting to the previous configuration
 \item Re--iterate the procedure starting from point 2. 
 \end{enumerate}
 %
@@ -59,81 +59,81 @@ Of course this trivial arrangement is far from optimal. A possible heuristic met
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/cfht_design.eps}
 \end{center}
-\caption{Distribution of the $(\Omega_m,w_0,\sigma_8)$ sampled triplets in the parameter prior box. We show both the $(\Omega_m,w_0)$ (left) and the $(\Omega_m,\sigma_8)$ (right) projections. The black points correspond to the $N_M=91$ latin hypercube models, and the red cross correspond to the fiducial $\Lambda$CDM parameters shown in Table \ref{tab:1:cosmopar}. The design is the result of $10^5$ iterations of the heuristic procedure described in \S~\ref{sec:6:sampling}.}
+\caption{Distribution of the $(\Omega_m,w_0,\sigma_8)$ sample triplets. We show both the $(\Omega_m,w_0)$ (left) and the $(\Omega_m,\sigma_8)$ (right) projections. The black points correspond to the $N_M=91$ latin hypercube models, and the red cross correspond to the fiducial $\Lambda$CDM parameters read from Table \ref{tab:1:cosmopar}. The design results from $10^5$ iterations of the heuristic procedure described in \S~\ref{sec:6:sampling}.}
 \label{fig:6:sampling}
 \end{figure}
 %
-After several iterations, we are left with a latin hypercube design which samples the parameter space approximately uniformly. The last step is to rescale the parameter coordinates from the $[0,1]$ bounds to their originally intended values. The latin hypercube design we use for the present analysis is shown in Figure \ref{fig:6:sampling}. 
+After several iterations, we are left with a latin hypercube design which samples the parameter space approximately uniformly. The last step is to rescale the parameter coordinates from the $[0,1]^{N_\pi}$ bounds to their originally intended values. The design we used in the present analysis is shown in Figure \ref{fig:6:sampling}. 
 
 \subsection{Simulations}
-We run one $N$--body simulation with $N_p=512^3$, $L_b=240\,{\rm Mpc}/h$ for each of the cosmologies shown in Figure \ref{fig:6:sampling}. All these simulations (referred to as \ttt{CFHTemu1} in the remainder of this work) share the seed used to generate the initial conditions. In addition we run 50 independent $N$--body simulations (referred to as \ttt{CFHTcov} in the remainder of this work) for the fiducial cosmology indicated by the red cross in Figure \ref{fig:6:sampling}. This fiducial dataset will be used to estimate feature covariance matrices. We generate WL shear catalogs using the \LT\, software, performing ray--tracing from the galaxy sky positions and to the galaxy redshifts contained in the CFHTLenS catalog. In order to forward model the observations correctly, we need to add the intrinsic galaxy ellipticity to the WL signal obtained from ray--tracing. This can be done looking at the CFHTLenS catalog itself, assuming that the WL signal contained in the observations is much smaller than the intrinsic ellipticity noise. We take the catalog complex ellipticity $e$ of each galaxy and we rotate it by a random angle $\phi$ by performing the substitution
+We run one $N$--body simulation with $N_p=512^3$, $L_b=240\,{\rm Mpc}/h$ for each of the cosmologies shown in Figure \ref{fig:6:sampling}. These simulations (referred to as \ttt{CFHTemu1}) share the random seed used to generate the initial conditions. We also run 50 independent $N$--body simulations (referred to as \ttt{CFHTcov}) for the fiducial cosmology indicated as a red cross in Figure \ref{fig:6:sampling}. We used the fiducial dataset to estimate feature covariance matrices. We generate WL shear catalogs by ray--tracing from the observed galaxy sky positions and to the real ones at the redshifts read from in the CFHTLenS catalog. In order to correctly forward model observations, we add the intrinsic galaxy ellipticity to the WL signal obtained from ray--tracing. This is done by looking at the CFHTLenS catalog itself, assuming that the WL signal contained in the observations is much smaller than the intrinsic ellipticity noise. We take the catalog complex ellipticity $e$ of each galaxy and we rotate it by a random angle $\phi$ by performing the substitution
 
 \begin{equation}
 \label{eq:6:randrot}
 e \rightarrow e\exp(2i\phi)
 \end{equation} 
 %
-We then add this intrinsic ellipticity to the simulated WL shear. The random rotation prevents the double counting of the WL signal, whose spatial coherence is destroyed by the rotation. We use the forward modeled catalogs 
+We then add this intrinsic ellipticity to the simulated WL shear. The random rotation prevents a double counting of the WL signal, whose spatial coherence is destroyed by the rotation. The forward modeled catalogs are defined by
 
 \begin{equation}
 \label{eq:6:forwardcatalog}
 e(\bb{p}) = \gamma(\bb{p}) + e\exp(2i\phi)
 \end{equation}
 %
-to perform the KS inversion and the consequent feature extraction.      
+We then performed the KS inversion and consequent feature extraction steps.      
 
 \subsection{Interpolation}
-The \LT\, simulation pipeline described in \S~\ref{sec:3:lt}, coupled with the parameter sampling heuristic described in \S~\ref{sec:6:sampling}, allows us to construct the $N_M\times N_d$ feature matrix $\bb{D}$ (introduced in \S~\ref{sec:5:dimred}), which contains information about the mean feature in each of the $N_M$ sampled cosmologies. 
+Using the \LT\, feature extraction routines, we construct the $N_M\times N_d$ feature matrix $\bb{D}$ (defined in \S~\ref{sec:5:dimred}), which contains information on the mean feature in each of the $N_M$ cosmologies. 
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/cfht_emulator_accuracy.eps}
 \end{center}
-\caption{Emulator accuracy test for the CFHTLenS $\kappa$ power spectrum $P_{\kappa\kappa}$ (red) and Minkowski functionals $V_k$ (green, blue, black). We use the \ttt{CFHTemu1} simulations to produce a feature emulator that is then tested against the mean feature measured in the \ttt{CFHTcov} simulations (solid lines). We also compare the mean \ttt{CFHTcov} feature to an emulated feature with $(\Omega_m,w_0,\sigma_8)=(0.8,-1.0,0.5)$ (dashed lines). The differences are plotted in units of the statistical error on each feature bin.}
+\caption{Test of the emulator accuracy for the CFHTLenS $\kappa$ power spectrum $P_{\kappa\kappa}$ (red) and Minkowski functionals $V_k$ (green, blue, black). We use the \ttt{CFHTemu1} simulations to produce a feature emulator which is then tested against the mean feature measured in the \ttt{CFHTcov} simulations (solid lines). We also compare the mean \ttt{CFHTcov} feature to an emulated feature with $(\Omega_m,w_0,\sigma_8)=(0.8,-1.0,0.5)$ (dashed lines). The differences are plotted in units of the statistical error in each of the $N_d$ feature dimensions.}
 \label{fig:6:interpolation}
 \end{figure}
 %
-We can use the information contained in $\bb{D}$ to infer the mean feature in an arbitrary cosmology, not necessarily included in the $N_M$ samples. Although several sophisticated procedures can be adopted (see \citep{Coyote2}), for the purpose of this analysis we found it convenient to adopt a Radial Basis Functions (RBF) interpolation scheme. We model the cosmology dependence of the feature $\bb{d}$ as
+We used $\bb{D}$ to infer the mean feature in arbitrary cosmologies not necessarily included in the $N_M$ samples. Although we could adopt sophisticated approaches based on Gaussian Processes (see \citep{Coyote2}), for the purpose of this analysis we found it convenient to use a Radial Basis Functions (RBF) interpolation scheme. We model the cosmology dependence of feature $\bb{d}$ as
 
 \begin{equation}
 \label{eq:6:rbf}
 d_i(\bb{p}) = \sum_{j=1}^{N_M} \lambda_{ij}f(\vert\bb{p}-\bb{p}_j\vert;R)
 \end{equation}  
 %
-where $\bb{p}_i$ is the $i$--th sampled $\Lambda$CDM parameter tuple and $f$ is the multiquadric function
+where $\bb{p}_i$ is the $i$--th sampled $\Lambda$CDM parameter triplet and $f$ is the multiquadric function
 
 \begin{equation}
 \label{eq:6:multiquadric}
 f(x;R) = \sqrt{1+\left(\frac{x}{R}\right)^2}
 \end{equation}
 %
-We chose the smoothing scale $R$ as the average distance between sample parameters
+We chose the smoothing parameter $R$ as the average distance between the \ttt{CFHTemu1} points
 
 \begin{equation}
 \label{eq:6:scale}
 R = \frac{2}{N_M(N_M-1)}\sum_{i<j}\vert\bb{p}_i-\bb{p}_j\vert
 \end{equation} 
 %
-The interpolation can be performed for an arbitrary cosmology $\bb{p}$ once the weights $\lambda_{ij}$ are specified. This can be done by enforcing the constraint $d_i(\bb{p}_j) = D_{ji}$ for each index pair $(i,j)$. This leads to 
+The interpolation to an arbitrary cosmology $\bb{p}$ can be performed once the weights $\lambda_{ij}$ are known. The weights must obey the constraint $d_i(\bb{p}_j) = D_{ji}$ for each index pair $(i,j)$. This leads to the expression  
 
 \begin{equation}
 \label{eq:6:weights}
 \pmb{\lambda} = [\bb{f}(R)^{-1}\bb{D}]^T
 \end{equation} 
 %
-where we defined the $N_M\times N_M$ matrix $f_{ij}(R) \equiv f(\vert\bb{p}_i-\bb{p}_j\vert;R)$. A test on the accuracy of the so obtained feature emulator $\bb{d}(\bb{p})$ is displayed in Figure \ref{fig:6:interpolation}, which shows that we can emulate the features in the fiducial cosmology with an accuracy that is within $10\%$ of the corresponding statistical error. We use the emulated feature $\bb{d}(\bb{p})$ as the forward model that enters the Bayesian parameter inference defined by equation (\ref{eq:5:bayesthm}). 
+where we defined the $N_M\times N_M$ matrix $f_{ij}(R) \equiv f(\vert\bb{p}_i-\bb{p}_j\vert;R)$. A test on the accuracy of the feature emulator $\bb{d}(\bb{p})$ is displayed in Figure \ref{fig:6:interpolation}: the plot shows that features in the fiducial cosmology can be emulated with an accuracy that is within $10\%$ of the corresponding statistical error. We used the emulated feature $\bb{d}(\bb{p})$ as the forward model in Bayesian parameter inference defined by equation (\ref{eq:5:bayesthm}). 
 
-\section{$\Lambda$CDM parameter inference}
-In this section we describe the main results of this investigation, which focuses on constraining the $\Lambda$CDM parameter triplet $(\Omega_m,w_0,\sigma_8)$ with the CFHTLenS data and the image features described in Chapter \ref{chp:4}. For the feature extraction we focused on the $\kappa$ power spectrum $P_{\kappa\kappa}$, the Minkowski functionals $V_k$ of the excursion sets and the $\kappa$ moments defined in (\ref{eq:4:poly-quad}), (\ref{eq:4:poly-cubic}) and (\ref{eq:4:poly-quartic}), while \citep{PetriCFHTPeaks} considered the $\kappa$ local maxima counts. The feature space we consider consists in $N_d=50$ linearly spaced multipoles $\ell\in[300,5000]$ for the power spectrum and $N_d=50$ linearly spaced thresholds $\kappa_0\in[-0.04,0.12]$ for the excursion sets. Because of the low dimensionality of the parameter space ($N_\pi=3$), we are able to compute the parameter likelihood $\lik{\bb{p}}{\bb{d}}$ explicitly, using equation (\ref{eq:5:bayesthm}), on a regularly spaced three dimensional grid of parameters. Once the values of $\mathcal{L}$ are known for every point in the grid, we can use equation (\ref{eq:5:liklevel}) to find the parameter confidence levels $\mathcal{L}_N$ (we are mostly interested in the $1\sigma$ level $\mathcal{L}_1$). These confidence levels will be the end results of this investigation.  
+\section{Parameter inference}
+In this section we present the main results of this investigation, which consist in the constraints on the $(\Omega_m,w_0,\sigma_8)$ parameter triplet  from CFHTLenS data using higher order statistics. The features used include the $\kappa$ power spectrum $P_{\kappa\kappa}$, the Minkowski functionals $V_k$ of the excursion sets and the $\kappa$ moments defined in (\ref{eq:4:poly-quad}), (\ref{eq:4:poly-cubic}) and (\ref{eq:4:poly-quartic}). \citep{PetriCFHTPeaks}, on the other hand, focused on the $\kappa$ peak counts. We built the feature space with $N_d=50$ linearly spaced multipoles $\ell\in[300,5000]$ for the power spectrum and $N_d=50$ linearly spaced thresholds $\kappa_0\in[-0.04,0.12]$ for the excursion sets. Taking advantage of the low dimensionality of the parameter space ($N_\pi=3$), we were able to compute the parameter likelihood $\lik{\bb{p}}{\bb{d}}$ explicitly, using equation (\ref{eq:5:bayesthm}), on a regularly spaced three dimensional grid of parameters. Using the grid values of $\mathcal{L}$, we found the parameter confidence levels $\mathcal{L}_N$ using equation (\ref{eq:5:liklevel}) in a binary search algorithm. We were mostly interested in the $1\sigma$ level $\mathcal{L}_1$.  
 
 \subsection{PCA projection}
-In order to avoid the constraint degradation issues discussed in \S~\ref{sec:5:degrade}, we performed a feature dimensionality reduction via PCA following the lines of \S~\ref{sec:5:dimred}, taking advantage of the $N_M=91$ cosmologies that make up the \ttt{CFHTemu1} simulation suite. 
+In order to avoid constraint degradation issues, as discussed in \S~\ref{sec:5:degrade}, we performed a PCA projection on the feature space following the guidelines of \S~\ref{sec:5:dimred}. We used the information contained in the $N_M=91$ cosmologies that make up the \ttt{CFHTemu1} simulation suite. 
 %
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/cfht_pca_components.eps}
 \end{center}
-\caption{Singular values $\Lambda_i$ coming from the SVD (left panel) and their cumulative sums (right panel) in units of the total variance, as a function of the component number. We show the cases for the $\kappa$ power spectrum (red), Minkowski functionals $V_k$ (green, blue, black) and $\kappa$ moments (orange). A vertical black dashed line in correspondence of $N_c=3$ has been drawn for reference. The whitening factors $\mu_d,\sigma_d$ have been chosen respectively as the mean and standard deviation of the feature matrix $\bb{D}$ along its first dimension.}
+\caption{Singular values $\Lambda_i$ from the SVD of $\bb{D}$ (left panel) and their cumulative sums in units of the total variance (right panel), as a function of the component number. We show the cases for the $\kappa$ power spectrum (red), Minkowski functionals $V_k$ (green, blue, black) and $\kappa$ moments (orange). A vertical black dashed line in correspondence of $N_c=3$ has been drawn for reference. The whitening factors $\mu_d,\sigma_d$ have been chosen as the mean and standard deviation of the feature matrix $\bb{D}$ across the $N_M$ models.}
 \label{fig:6:pcacomp}
 \end{figure} 
 %
@@ -141,11 +141,11 @@ In order to avoid the constraint degradation issues discussed in \S~\ref{sec:5:d
 \begin{center}
 \includegraphics[scale=0.3]{Figures/eps/cfht_robustness_pca_Omega_m-sigma8.eps}
 \end{center}
-\caption{Robustness test for the number of PCA components $N_c$ necessary to constrain the $(\Omega_m,\sigma_8)$ parameter space. We show the cases for the $\kappa$ power spectrum, PDF, Minkowski functionals and moments (left to right, top to bottom) and we denote different values of $N_c$ with different colors. The confidence contours are referred to the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\sigma_8)$ marginalized over $w_0$.}
+\caption{Robustness test on the number of PCA components $N_c$ necessary to constrain the $(\Omega_m,\sigma_8)$ doublet. We show the cases for the $\kappa$ power spectrum, PDF, Minkowski functionals and moments (left to right, top to bottom) and denote different values of $N_c$ with different colors. Confidence contours are calculated from the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\sigma_8)$ marginalized over $w_0$.}
 \label{fig:6:robustness}
 \end{figure}
 %
-Figure \ref{fig:6:pcacomp} shows the singular values $\Lambda_i$ obtained from the SVD procedure (\ref{eq:5:svd}) applied to the $\kappa$ power spectrum, Minkowski functionals and moments. From the right panel we can clearly see that the first few components ($N_c\sim 3$) are already able to capture more than 99.5\% of the feature variance across the $N_M$ cosmologies, hence suggesting the possibility of an efficient dimensionality reduction. Because the optimal number of components $N_c$ is not known a priori, we performed a robustness test on the $(\Omega_m,\sigma_8)$ parameter space by varying $N_c$ and observing how the $1\sigma$ confidence contours vary in response. We use this test (which is confined to our simulation suite and does not include the cataloged observations) as a way to select the correct number $N_c$ for which the contour size stop varying. The results of such a test can be seen in Figure \ref{fig:6:robustness}, which shows that the optimal number of principal components depends on the image feature one considers. The number of components we chose ranges from $N_c=3$ for $P_{\kappa\kappa}$ to $N_c=5$ for $V_0$ and $N_c=20$ for $V_{1,2}$. We keep the full feature space with $N_c=9$ for the $\kappa$ moments. 
+Figure \ref{fig:6:pcacomp} shows the singular values $\Lambda_i$ obtained from the SVD procedure (\ref{eq:5:svd}) applied to the $\kappa$ power spectrum, Minkowski functionals and moments. In the right panel we can clearly see that the first few components ($N_c\sim 3$) are already able to capture more than 99.5\% of the feature variance across the $N_M$ cosmologies, hence suggesting the possibility of an efficient compression of the feature space. Because the optimal number of components $N_c$ is not known a priori, we performed a robustness test on the $(\Omega_m,\sigma_8)$ constraint by varying $N_c$ and observing how the $1\sigma$ confidence contour varies in response. We used this test (which is confined to the simulations and does not include CFHTLenS observations) as a way to select the smallest $N_c$ for which the contour size stabilizes. The results of this test can be seen in Figure \ref{fig:6:robustness}, which shows the optimal number of principal components for different features. $N_c$ ranges from 3 for $P_{\kappa\kappa}$ to 5 for $V_0$ and 20 for $V_{1,2}$. For the moments of $\kappa$, we keep the full feature space with $N_c=9$. 
 
 \subsection{Density fluctuations}
 \label{sec:6:omsi8}
@@ -154,7 +154,7 @@ Figure \ref{fig:6:pcacomp} shows the singular values $\Lambda_i$ obtained from t
 \begin{center}
 \includegraphics[scale=0.5]{Figures/eps/cfht_contoursOmega_m-sigma8_single.eps}
 \end{center}
-\caption{$1\sigma$ (68\% confidence level) constraints on $(\Omega_m,\sigma_8)$ from CFHTLenS using the $\kappa$ power spectrum (red), Minkowski functionals (green, blue, black) and $\kappa$ moments (orange). The number $N_c$ of principal components is indicated in parentheses. The confidence contours are referred to the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\sigma_8)$ marginalized over $w_0$.}
+\caption{$1\sigma$ (68\% confidence level) constraints on $(\Omega_m,\sigma_8)$ from CFHTLenS using the $\kappa$ power spectrum (red), Minkowski functionals (green, blue, black) and $\kappa$ moments (orange). The number $N_c$ of principal components is indicated in parentheses. Confidence contours are calculated from the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\sigma_8)$ marginalized over $w_0$.}
 \label{fig:6:cOmSisingle}
 \end{figure}
 %
@@ -162,7 +162,7 @@ Figure \ref{fig:6:pcacomp} shows the singular values $\Lambda_i$ obtained from t
 \begin{center}
 \includegraphics[scale=0.4]{Figures/eps/cfht_contours_momentsOmega_m-sigma8.eps} \includegraphics[scale=0.4]{Figures/eps/cfht_contours_momentsOmega_m-sigma8smooth.eps}
 \end{center}
-\caption{Breakdown of the $1\sigma$ constraint on $(\Omega_m,\sigma_8)$ using the CFHTLenS $\kappa$ moments. We show different combinations of moments measured from $\kappa$ maps smoothed with $\theta_G=1'$ (left panel) and combination of single point moments $\mu_0^{(n)}$ measured from $\kappa$ maps smoothed with different smoothing scales $\theta_G=1',1.8',3.5'$ (right panel). The definitions of the moments $\mu_m^{(n)}$ are the same as the ones contained in \S~\ref{sec:4:moments}.}
+\caption{Breakdown of the $1\sigma$ constraint on $(\Omega_m,\sigma_8)$ using the CFHTLenS $\kappa$ moments. We show different combinations of moments measured from $\kappa$ maps smoothed with $\theta_G=1'$ (left panel) and combination of single point moments $\mu_0^{(n)}$ measured from $\kappa$ maps smoothed with different smoothing scales $\theta_G=1',1.8',3.5'$ (right panel). The definitions of the moments $\mu_m^{(n)}$ are contained in \S~\ref{sec:4:moments}.}
 \label{fig:6:cOmSimoments}
 \end{figure}
 %
@@ -170,15 +170,15 @@ Figure \ref{fig:6:pcacomp} shows the singular values $\Lambda_i$ obtained from t
 \begin{center}
 \includegraphics[scale=0.5]{Figures/png/cfht_contoursSigma8Om055_single.png}
 \end{center}
-\caption{$\Sigma_8$ likelihood (marginalized over $(\Omega_m,w_0)$) obtained from CFHTLenS observations using the $\kappa$ power spectrum (red), Minkowski functionals $V_k$ (green, blue, black) and $\kappa$ moments (orange). The number $N_c$ of principal components used is indicated in parentheses in the legend. We also indicate as a gray band the $1\sigma$ constraint on $\Sigma_8$ found by Planck \citep{Planck15}, as a consistency check.}
+\caption{$\Sigma_8$ likelihood (marginalized over $(\Omega_m,w_0)$) obtained from CFHTLenS observations using the $\kappa$ power spectrum (red), Minkowski functionals $V_k$ (green, blue, black) and $\kappa$ moments (orange). The number $N_c$ of principal components is indicated in parentheses in the legend. We also denote, with a gray band, the $1\sigma$ constraint on $\Sigma_8$ found by Planck \citep{Planck15} as a consistency check.}
 \label{fig:6:cSi855}
 \end{figure}
 %
-In this section we discuss the constraints on the Dark Matter density parameter $\Omega_m$ and the amplitude of the initial density fluctuations $\sigma_8$ from CFHTLenS data. It is immediately evident from Figure \ref{fig:6:cOmSisingle} that the $\kappa$ moments are the most efficient in constraining $(\Omega_m,\sigma_8)$, because of both the precision and the un--biased fashion in which the constraint is delivered. The constraint from the power spectrum suffers from a well known degeneracy between $\Omega_m$ and $\sigma_8$, which prevents tight bounds on these parameters to be obtained. Finally, the Minkowski functionals seem to suffer from uncorrected residual systematics in the CFHTLenS catalogs, which tend to shift the constraint towards the unphysical large $\Omega_m$, low $\sigma_8$ region. 
+In this section we discuss how CFHTLenS constrains the Dark Matter density parameter $\Omega_m$ and the amplitude of the initial density fluctuations $\sigma_8$. It is evident from Figure \ref{fig:6:cOmSisingle} that the $\kappa$ moments are the most efficient in constraining $(\Omega_m,\sigma_8)$ because of both precision and absence of bias. The power spectrum constraint is degraded by a well known degeneracy between $\Omega_m$ and $\sigma_8$, evident in the definition of the lensing density (\ref{eq:3:lens-sigma}). We can also say that the constraint from Minkowski functionals is affected from uncorrected residual systematics in the CFHTLenS catalogs. These residuals, combined with the degeneracy, shift the peak of the parameter likelihood towards the unphysical large $\Omega_m$, low $\sigma_8$ region. 
 
-Figure \ref{fig:6:cOmSimoments} shows the breakdown of the $(\Omega_m,\sigma_8)$ constraint when different sets of $\kappa$ moments are considered. In agreement with what stated in \S~\ref{sec:5:constraints}, we find that most of the constraining power comes from moments which include gradients of $\kappa$ ($\mu_{m}^{(n)}$ with $m>0$). Moreover we see that a significant amount of cosmological information is carried by moments which are quartic in $\kappa$, as can be also seen in \citep{JainKurt}. The right panel of Figure \ref{fig:6:cOmSimoments} also shows that, for the sake of constraining $\Omega_m,\sigma_8$, combining one point moments $\mu_0^{(n)}$ with different smoothing scales is not as effective as considering gradient moments.  
+Figure \ref{fig:6:cOmSimoments} shows the breakdown of the $(\Omega_m,\sigma_8)$ constraint obtained from different sets of $\kappa$ moments. In agreement with what stated in \S~\ref{sec:5:constraints}, we find that most of the constraining power comes from moments which include gradients of $\kappa$ ($\mu_{m}^{(n)}$ with $m>0$). We also observe that a significant amount of cosmological information is carried by moments which are quartic in $\kappa$, as \citep{JainKurt} also conclude. The right panel of Figure \ref{fig:6:cOmSimoments} shows that, for the sake of constraining $\Omega_m,\sigma_8$, combining one point moments $\mu_0^{(n)}$ with different smoothing scales is not as effective as using gradient moments.  
 
-In order to break the degeneracy between $\Omega_m$ and $\sigma_8$, we focus on the parameter combination $\Sigma_8=\sigma_8(\Omega_m/0.27)^\alpha$, which can be better constrained upon a suitable choice for the exponent $\alpha$. Different values of $\alpha$ map to different directions in the $(\Omega_m,\sigma_8)$ plane. From the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\sigma_8)$, we can easily compute the expectation value $\mathds{E}$ and variance $\mathds{V}$ of $\Sigma_8$. $\alpha$ is then obtained by minimizing $\mathds{V}/\sqrt{\mathds{E}}$, which yields an approximate value of $\alpha=0.55$, with slight variations across different features. The marginalized constraint on $\Sigma_8$ is shown in Figure \ref{fig:6:cSi855} and Table \ref{tab:6:Si8}
+Although there is a degeneracy between $\Omega_m$ and $\sigma_8$, the combination of parameters $\Sigma_8=\sigma_8(\Omega_m/0.27)^\alpha$ can be tightly constrained upon a suitable choice for the exponent $\alpha$, as different values of $\alpha$ map to different directions in the $(\Omega_m,\sigma_8)$ plane. Using the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\sigma_8)$, we can compute the expectation value $\mathds{E}$ and variance $\mathds{V}$ of $\Sigma_8$. The optimal $\alpha$ is computed by minimizing $\mathds{V}/\sqrt{\mathds{E}}$. The optimization procedure yields an approximate value of $\alpha=0.55$, with slight variations across features. The marginalized constraint on $\Sigma_8$ is shown in Figure \ref{fig:6:cSi855} and Table \ref{tab:6:Si8}
 %
 \begin{table}
 \begin{center}
@@ -191,14 +191,14 @@ $P_{\kappa\kappa}$(3) $+ V_0(10)+ V_1(10) + V_2(10)$ & $0.76^{+0.04}_{-0.05}$ \\
 $P_{\kappa\kappa}$(3) $+ V_0(10)+ V_1(10) + V_2(10) +$ Moments(9) & $0.76^{+0.06}_{-0.04}$ \\ \hline
 \end{tabular}
 \end{center}
-\caption{Tabulated values of $1\sigma$ constraints on $\Sigma_8$}
+\caption{Tabulated values of $1\sigma$ constraints on $\Sigma_8$ from CFHTLenS using different features}
 \label{tab:6:Si8}
 \end{table}
 %
-We can clearly see that, while the $\kappa$ power spectrum and the moments deliver a $\Sigma_8$ constraint that is consistent with the one from Planck \citep{Planck15} (although with a bigger error bar), the same is not true for the Minkowski functionals. These morphological descriptors seem to be affected to a greater extent by uncorrected systematics in the CFHTLenS catalogs.     
+We clearly see that the $\kappa$ power spectrum and the moments deliver a $\Sigma_8$ constraint consistent with the one from Planck \citep{Planck15} (although with a larger error bar). The same conclusion does not hold for the Minkowski functionals, which seem to be affected by uncorrected systematics in the CFHTLenS catalogs to a greater extent than the power spectrum and the moments.     
 
 \subsection{Dark Energy}
-Constraints on the physical nature of Dark Energy, unfortunately, are still elusive when using CFHTLenS data, because of the small size of the survey. Figure \ref{fig:6:cwSi855signle} shows the Dark Energy equation of state constraint we can obtain from the data using a variety of features. We can clearly conclude that the CFHT survey leaves $w_0$ essentially unconstrained. With bigger surveys coming up in the future one can hope to reduce the statistical error on measurements, taking advantage of the increased sky coverage. Reduced statistical errors, on the other hand, require throughout investigations of systematics, in order to avoid biases in the constraints. Some of these issues will be object of the next Chapter. 
+Constraining on the physical nature of Dark Energy, unfortunately, is not possible using CFHTLenS data alone, mainly because of the small size of the survey. Looking at Figure \ref{fig:6:cwSi855signle}, which shows constraints on Dark Energy equation of state $w_0$, we can conclude that the CFHT survey this parameter unconstrained. With bigger surveys coming up in the future one can hope to reduce statistical errors on feature measurements and to obtain smaller confidence contours as a consequence. Reduced statistical errors, on the other hand, require throughout knowledge of systematic effects, which have to be included in forward models in order to avoid bias in the parameters. The treatment of some of these systematic challenges will be the object of the next Chapter. 
 %
 \begin{figure}[h!]
 \begin{center}
@@ -209,4 +209,4 @@ Constraints on the physical nature of Dark Energy, unfortunately, are still elus
 \end{figure}
 
 
-%\bibliography{ref}
+\bibliography{ref}
