@@ -101,7 +101,7 @@ we can write
 %
 Equation (\ref{eq:5:linapprox-cov-prior}) states that, if the parameter prior is independent from the WL observation, inverse parameter covariances have to be added in quadrature. If the parameter likelihood and prior peak at the same location $\bb{p}_0=\bb{p}_\Pi$, equation (\ref{eq:5:linapprox-peak-prior}) reduces to (\ref{eq:5:linapprox-peak}) with a modified Fisher information matrix $\bb{F}+\bb{F}_\Pi$.    
 
-\section{Error degradation induced by noisy feature covariance}
+\section{Error degradation induced by noise in the covariance matrix}
 \label{sec:5:degrade}
 In the previous derivation of parameter estimates (\ref{eq:5:linapprox-peak}) and covariances (\ref{eq:5:linapprox-cov}), we have assumed perfect knowledge of the feature--feature covariance matrix $\bb{C}$ and of its inverse $\bb{\Psi}$. Although smooth models exist for the covariance matrix of the $\kappa$ power spectrum (see (\ref{eq:4:powercov-gauss}) for example), the same is not true for the higher order features described in Chapter \ref{chp:4}. When such smooth models are not readily available one can obtain an estimate $\bbh{C}$ of $\bb{C}$ from simulations. The estimate can then be used to calculate an approximate feature likelihood (\ref{eq:5:gaussfeatlik}). If one choses this way to proceed, the noise in the estimator $\bbh{C},\bbh{\Psi}$ carries over to the parameter estimate $\bbh{p}_0$ and covariance $\bb{\Sigma}$, which is then only available as a noisy estimate $\bbh{\Sigma}$. If simulations and observations are independent from each other, the parameter estimate $\bbh{p}_0$ is unbiased (within the limits of the linear approximation (\ref{eq:5:linapprox})). The parameter covariance estimator defined by
 
