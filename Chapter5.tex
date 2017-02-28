@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Cosmological parameter inference}
-\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
+%\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
  \thispagestyle{plain}
 \setlength{\parindent}{10mm}
 \label{chp:5}
@@ -359,7 +359,7 @@ where $\bb{L}$ is $N_M\times K$, $\bb{R}$ is $K\times N_d$ and $\bb{\Lambda}$ is
 D^W_{md} = \frac{D_{md}-\mu_d}{\sigma_d}
 \end{equation}
 %
-In equation (\ref{eq:5:whitening}), we introduced $N_d$ arbitrary location and scale parameters $\mu_d,\sigma_d$, which re--center and normalize $\bb{D}$ so that each dimension has the same magnitude. Popular choices for $\mu_d,\sigma_d$ are, respectively, the mean and standard deviation of the rows of \citep{astroMLText}. After the whitening operation, we perform the SVD of $\bb{D}^W$ and calculate the singular values $\bb{\Lambda}$ and the basis vectors $\bb{R}$. We then select the $N_c$ biggest singular values and define $\bb{R}(N_c)$ as the matrix made by the first $N_c$ rows of $\bb{R}$. We project the image feature $\bb{d}$ from the high dimensional space to the lower dimensional space using PCA via a matrix multiplication: 
+In equation (\ref{eq:5:whitening}), we introduced $N_d$ arbitrary location and scale parameters $\mu_d,\sigma_d$, which re--center and normalize $\bb{D}$ so that each dimension has the same magnitude. Popular choices for $\mu_d,\sigma_d$ are, respectively, the mean and standard deviation of the rows of $\bb{D}$ \citep{astroMLText}. After the whitening operation, we perform the SVD of $\bb{D}^W$ and calculate the singular values $\bb{\Lambda}$ and the basis vectors $\bb{R}$. We then select the $N_c$ biggest singular values and define $\bb{R}(N_c)$ as the matrix made by the first $N_c$ rows of $\bb{R}$. We project the image feature $\bb{d}$ from the high dimensional space to the lower dimensional space using PCA via a matrix multiplication: 
 
 \begin{equation}
 \label{eq:5:pca-projection}

@@ -19,6 +19,7 @@
 \usepackage{hyperref}
 \usepackage{nomencl}
 \usepackage[titletoc]{appendix}
+\usepackage{times}
 
 %\usepackage{caption2}
 \usepackage[table]{xcolor}
@@ -113,25 +114,28 @@
 
 %%%%%%%%%%%%%%%%%for two-sided book%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\pagestyle{fancyplain}
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+%\pagestyle{fancyplain}
+%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
 
 
 
-\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
-\rhead[\fancyplain{}{\leftmark}]{\fancyplain{\thepage}{\thepage}}
-\cfoot{\empty}
+%\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
+%\rhead[\fancyplain{}{\leftmark}]{\fancyplain{\thepage}{\thepage}}
+%\cfoot{\empty}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%for one-sided university deposit%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\pagestyle{fancyplain}
+\pagestyle{fancyplain}
 %\renewcommand{\chaptermark}[1]{\markboth{\chaptername~\thechapter.\ #1}{}}
 
+\lhead[\fancyplain{}\leftmark]{\fancyplain{}{\rightmark}}
+%\rhead{\fancyplain{\thepage}{\thepage}}
+\rhead{\empty}
 
-%\lhead{\fancyplain{}{\leftmark}}
-%\rhead{\fancyplain{\thepage}{\thepage}} \cfoot{\empty}
+\cfoot{\thepage}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \include{Chapter1}
