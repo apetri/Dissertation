@@ -1,12 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Numerical Weak Lensing}
-\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
+%\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
  \thispagestyle{plain}
 \setlength{\parindent}{10mm}
 
 \label{chp:3}
-In this Chapter we describe the relevant numerical methods for performing simulations of WL observations. We use publicly available software to trace the non--linear time evolution of the matter density contrast $\delta(t)$. The geodesic equation can then be solved numerically adding the multiple deflections which light experiences traveling from sources to observers. The solution of the geodesic equation for a sufficient number of light rays allows to reconstruct the spatial profiles of the WL observables $\kappa,\pmb{\gamma},\omega$. We conclude the Chapter by presenting our ray--tracing software \LT, which we have publicly released for the use of the WL community.
+In this Chapter we describe the relevant numerical methods for simulating WL observations. We use publicly available software to trace the non--linear time evolution of the matter density contrast $\delta(t)$. We then solve the geodesic equation numerically by adding the multiple deflections which light experiences when traveling from sources to observers. The solution of the geodesic equation for a sufficient number of light rays allows to reconstruct the spatial profiles of the WL observables $\kappa,\pmb{\gamma},\omega$. We conclude the Chapter by presenting our ray--tracing software \LT, which we have publicly released for the use of the WL community.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -14,14 +14,14 @@ In this Chapter we describe the relevant numerical methods for performing simula
 The evolution of the matter density contrast $\delta$ is controlled, at linear stage, by equation (\ref{eq:1:delta-lin}). For WL studies, however, $\delta$ becomes too big at the redshifts of interest ($z\sim 1$) for the linear approximation to still be valid and exact solutions of (\ref{eq:1:b-monopole}), (\ref{eq:1:b-dipole}) and (\ref{eq:1:einstein-full}) are required. A popular approach to solve Boltzmann's equation (\ref{eq:1:boltzmann}) for collision--free Dark Matter is the $N$--body method, which proceeds in a discretization of phase space using a large but finite number $N_p$ of particle tracers (see \citep{gadget2}). The particles are placed in a cubical periodic box of comoving size $L_b$ and are assigned initial conditions which correspond to the density contrast at high $z$, for which the linear approximation is still valid. The particle system is then evolved with a Hamiltonian that mimics Newtonian gravitational interactions (PN corrections are neglected under the assumption $L_b\ll c/H$), described by the potential $\Phi$.  
 
 \subsection{Initial conditions}
-The starting step of an $N$--body simulation is a configuration of particle positions $\{\bb{x}_i\}$ and velocities $\{\bb{v}_i\}$ at some initial high redshift $z_{\rm in}\gg 1$. The starting particle configuration traces the linear density contrast $\delta$. The particles are initially are arranged in a \textit{glass} pattern and are given positions $\{\bb{x}_i^g\}$ which correspond to a uniform density profile ($\delta\approx0$). The particles are displaced from their position in the glass by a small amount $\bb{d}(\bb{x}_i^g)$, which is chosen so that the new density profile matches an input $\delta$ profile, which we can be arbitrarily varied. Because mass is conserved by the displacement transformation we can impose the condition
+The starting step of an $N$--body simulation is a configuration of particle positions $\{\bb{x}_i\}$ and velocities $\{\bb{v}_i\}$ at some initial high redshift $z_{\rm in}\gg 1$. The starting particle configuration traces the linear density contrast $\delta$. The particles are initially are arranged in a \textit{glass} pattern and are given positions $\{\bb{x}_i^g\}$ which correspond to a uniform density profile ($\delta\approx0$). The particles are displaced from their position in the glass by a small amount $\bb{d}(\bb{x}_i^g)$, which is chosen so that the new density profile matches an arbitrary input $\delta$ profile. Because mass is conserved by the displacement transformation, we can impose the condition
 
 \begin{equation}
 \label{eq:3:masscons}
 \rho_m d^3 x^g = \rho_m(1+\delta)d^3x,
 \end{equation} 
 %
-which relates the density contrast $\delta$ to the Jacobian of the displacement transformation ($\bb{x}(\bb{d}) = \bb{x}^g+\bb{d}$) as 
+which relates the density contrast $\delta$ to the Jacobian of the displacement transformation, $\bb{x}(\bb{d}) = \bb{x}^g+\bb{d}$, as 
 
 \begin{equation}
 \label{eq:3:delta-displ}
@@ -42,7 +42,7 @@ for a generic square matrix $\bb{M}$ and real $\lambda$, and noting that at high
 \delta = -\nabla\cdot\bb{d}
 \end{equation}
 %
-A possible solution to equation (\ref{eq:3:delta-displ-real}) is best expressed in Fourier space if we assume the displacement field to be longitudinal (which is a good assumption since the peculiar velocity field is approximately curl--free)
+A possible solution to equation (\ref{eq:3:delta-displ-real}) is best expressed in Fourier space if we assume the displacement to be longitudinal (which is a good assumption since the peculiar velocity field is approximately curl--free)
 
 \begin{equation}
 \label{eq:3:delta-displ-fourier}
@@ -56,7 +56,7 @@ Equation (\ref{eq:3:delta-displ-fourier}) takes the name of Zel'dovich approxima
 P_\delta(\bb{k},z_{\rm in}) = P^{\rm lin}_\delta(\bb{k},0)\left(\frac{D(z_{\rm in})}{D(0)}\right)^2 
 \end{equation}
 %
-This initial condition (which includes baryon effects) is then evolved according to Dark Matter only collision--free dynamics. Random realizations of $\tilde{\delta}$ are drawn from $\mathcal{N}(0,P_\delta(\bb{k},z_{\rm in}))$ and the peculiar particle velocities $\bb{v}$ are assigned according to 
+This initial condition (which includes baryon effects) is then evolved according to Dark Matter only collision--free dynamics. Random realizations of $\tilde{\delta}$ are drawn from a normal distribution with variance $P_\delta^{\rm lin}$ and the peculiar particle velocities $\bb{v}$ are assigned according to 
 
 \begin{equation}
 \label{eq:3:peculiar-initv}
@@ -80,7 +80,7 @@ We denoted the particle masses as $m_i$, the particle momenta conjugated to the 
 \nabla^2\varphi(\bb{x}) = \frac{4\pi G}{a}\left(\sum_{\bb{n}\in\mathds{Z}^3}\delta_{r_s}(\bb{x}-\bb{n}L_b)-\frac{1}{L_b^3}\right) 
 \end{equation}
 %
-where $\delta_{r_s}$ is the Dirac delta function $\delta^D$ convolved with a softening kernel of scale $r_s$. The softening is introduced because the $N$--body particles are in reality extended objects and the Newtonian interaction potential needs to be smoothed out on interaction scales smaller than $r_s$. In our simulations $r_s$ has been fixed to $r_s\approx 10\,{\rm kpc}/h$. Note that the summation term can be dropped if we restrict $\bb{x}$ to be inside the box, but it is important to enforce the periodic boundary conditions. We can relate $\varphi$ to the gravitational potential in (\ref{eq:1:poisson}) by    
+where $\delta_{r_s}$ is the Dirac delta function $\delta^D$ convolved with a softening kernel of scale $r_s$. The softening is introduced because the $N$--body particles are in reality extended objects and the Newtonian interaction potential needs to be smoothed out on interaction scales smaller than $r_s$. In our simulations $r_s$ has been fixed to $r_s\approx 10\,{\rm kpc}/h$. Note that the summation can be dropped if we restrict $\bb{x}$ to be inside the box, but is important in order to enforce the periodic boundary conditions. We can relate $\varphi$ to the gravitational potential in (\ref{eq:1:poisson}) by    
 
 \begin{equation}
 \label{eq:3:macro-potential}
@@ -393,7 +393,7 @@ Figure \ref{fig:3:csample} shows a sample $\kappa$ reconstruction from one $N$--
 
 \section{The \LT\, software package}
 \label{sec:3:lt}
-In this section we present \LT \citep{lenstools}, a {\sc python} software package that we developed in order to efficiently handle the WL operations discussed in this Chapter. \LT\, implements pipeline of operations which allow to produce simulated $\kappa,\pmb{\gamma}$ images starting from a set of $\Lambda$CDM parameters (see Chapter \ref{chp:1}). The sequence of operations in the pipeline is described by the diagram in Figure \ref{fig:3:lt-flow}  
+In this section we present \LT \citep{lenstools}, a {\sc python} software package that we developed in order to efficiently handle the WL operations discussed in this Chapter. \\ \LT\, implements pipeline of operations which allow to produce simulated $\kappa,\pmb{\gamma}$ images starting from a set of $\Lambda$CDM parameters (see Chapter \ref{chp:1}). The sequence of operations in the pipeline is described by the diagram in Figure \ref{fig:3:lt-flow}  
 %
 \begin{figure}
 \begin{center}
