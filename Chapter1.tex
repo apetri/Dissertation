@@ -38,7 +38,7 @@ The contents of the FRW universe are assumed to be perfect fluids, described by 
 \mathcal{T}_{(i)}^{\mu\nu} = \left(\rho_{(i)}c^2+\mathcal{P}_{(i)}\right)U^\mu U^\nu + \mathcal{P}_{(i)}g^{\mu\nu}
 \end{equation} 
 %
-Here $U^\mu$ is the 4--velocity of a fluid element centered at $x^\mu$. Note that, for a fundamental observer, in absence of perturbations the fluid elements 4--velocity must be consistent the homogeneity assumption 
+Here $U^\mu$ is the 4--velocity of a fluid element centered at $x^\mu$. Note that, for a fundamental observer, in absence of perturbations the fluid elements 4--velocity must be consistent with the homogeneity assumption 
 
 \begin{equation}
 \label{eq:1:4-momentum-unif}
@@ -145,7 +145,7 @@ In this work we model Dark Matter at late times as a non--relativistic species o
 \rho_m(a) = \rho_m(a_0)\left(\frac{a(t_0)}{a}\right)^3 = \rho_m(a_0)(1+z)^3 
 \end{equation} 
 %
-Substituting (\ref{eq:1:matter-scaling}) in the Friedmann equation (\ref{eq:1:friedmann-1}) we can get the time dependence of $a$ form a pure Dark Matter Universe
+Substituting (\ref{eq:1:matter-scaling}) in the Friedmann equation (\ref{eq:1:friedmann-1}) we can get the time dependence of $a$ for a pure Dark Matter Universe
 
 \begin{equation}
 \label{eq:1:matter-only-a}
@@ -424,7 +424,7 @@ which admits a solution $D(z)\propto (1+z)^{-1}=a$. Figure \ref{fig:1:growth} sh
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{$\Lambda$CDM cosmological parameters}
-One of the main goals of the research presented in this work is to study how WL observations can be used to constrain some of the free parameters that describe the $\Lambda$CDM universe. In the conclusion of this Chapter we present a parametrization will be used consistently throughout the dissertation writeup. The present day Hubble parameter $H_0\equiv H(t_0)$ is expressed in terms of the dimensionless number $h$ as
+One of the main goals of the research presented in this work is to study how WL observations can be used to constrain some of the free parameters that describe the $\Lambda$CDM universe. In the conclusion of this Chapter we present a parametrization which will be consistently used throughout the dissertation writeup. The present day Hubble parameter $H_0\equiv H(t_0)$ is expressed in terms of the dimensionless number $h$ as
 
 \begin{equation}
 \label{eq:1:hubble-present}
@@ -454,10 +454,18 @@ In this notation, $n_s=d\log (k^3P_\delta)/d\log k$ is a parameter that describe
 
 \begin{equation}
 \label{eq:1:sigma8}
-\sigma_8 = \int \frac{d^3k}{(2\pi)^3} P^{\rm lin}_\delta(k,z=0)e^{-k^2 r_8^2}
+\sigma_8 = \int \frac{d^3k}{(2\pi)^3} P^{\rm lin}_\delta(k,z=0)\left\vert\tilde{W}_{\rm TH}(kr_8)\right\vert^2
 \end{equation} 
 %
-The meaning if the notation in equation (\ref{eq:1:sigma8}) is that $P_\delta^{\rm lin}$ is obtained from $\tilde{\delta}(\bb{k},z=0)$ calculated with the linear evolution equation (\ref{eq:1:delta-lin}). $\sigma_8$ is defined as the spatial variance of the present linearly evolved density contrast smoothed with a Gaussian window of size $r_8=8\,{\rm Mpc}/h$. The randomness of the initial conditions, which is a consequence of the quantum mechanical nature of inflation, is at the base of a phenomenon called \textit{cosmic variance}, which states that cosmological observable quantities are essentially random variables. As a consequence, $\Lambda$CDM parameter inferences from observations have to be related to the statistical properties of the observables (i.e. ensemble averages), rather than to the observables themselves. 
+The meaning if the notation in equation (\ref{eq:1:sigma8}) is that $P_\delta^{\rm lin}$ is obtained from $\tilde{\delta}(\bb{k},z=0)$ calculated with the linear evolution equation (\ref{eq:1:delta-lin}). $\sigma_8$ is defined as the spatial 
+variance of the present linearly evolved density contrast smoothed with a top hat window of size $r_8=8\,{\rm Mpc}/h$. In equation (\ref{eq:1:sigma8}), $\tilde{W}_{\rm TH}$ is the Fourier Transform of the real space top hat window
+
+\begin{equation}
+\label{eq:1:tophat}
+W_{\rm TH}(\bb{x}) = \frac{3}{4\pi}\Theta(1-\vert\bb{x}\vert)
+\end{equation}
+%
+The randomness of the initial conditions, which is a consequence of the quantum mechanical nature of inflation, is at the base of a phenomenon called \textit{cosmic variance}, which states that cosmological observable quantities are essentially random variables. As a consequence, $\Lambda$CDM parameter inferences from observations have to be related to the statistical properties of the observables (i.e. ensemble averages), rather than to the observables themselves. 
 %
 \begin{table}
 \begin{center}

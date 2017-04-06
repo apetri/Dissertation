@@ -6,7 +6,7 @@
 \setlength{\parindent}{10mm}
 \label{chp:4}
 
-In this Chapter we describe how we can compress the high dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work). These image features will then be used to infer the values of the $\Lambda$CDM parameters which describe our Universe. We focus our analysis on the two--dimensional $\kappa$ images which can generated with the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}, are independent from each other. Because of the stochastic nature of WL observables (which is due to cosmic variance), information on cosmology is inferred from ensemble averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$ and the expectation value $\langle\rangle$ is taken over independent WL realizations. A two--dimensional Gaussian field is completely characterized, from a statistical point of view, in terms of quadratic image features, such as the field two--point correlation function or the its angular power spectrum. Since WL traces the statistical properties of the density contrast $\delta$, whose evolution is controlled by non--linear equations, WL observables cannot be modeled as Gaussian random fields. There is hence a possibility that cosmological information leaks from quadratic features into higher order statistics. In this work we consider two types of image features. One possibility consists of real space features, which have to do with the morphology of the image and can be expressed in terms of expectation values of local estimators. The second type of features are defined in Fourier space. We focus on the angular $\kappa$ power spectrum, a non--local feature that encodes quadratic spatial correlations of the $\kappa$ profile. In this Chapter we examine the relevant properties, advantages and drawbacks of these image features. 
+In this Chapter we describe how we can compress the high dimensional information contained in shear and convergence images into lower dimensional summary statistics (which we call \textit{features} throughout the remainder of this work). These image features will then be used to infer the values of the $\Lambda$CDM parameters which describe our Universe. We focus our analysis on the two--dimensional $\kappa$ images which can be generated with the ray--tracing simulations described in Chapter \ref{chp:3}. The images span a square field of view of size $\theta_{\rm FOV}^2$ and, within the limits of the sampling procedure described in \S~\ref{sec:3:sampling}, are independent from each other. Because of the stochastic nature of WL observables (which is due to cosmic variance), information on cosmology is inferred from ensemble averaged quantities $\langle f(\h{\kappa})\rangle$, where $f$ is a generic function of $\kappa$ and the expectation value $\langle\rangle$ is taken over independent WL realizations. A two--dimensional Gaussian field is completely characterized, from a statistical point of view, in terms of quadratic image features, such as the field two--point correlation function or the its angular power spectrum. Since WL traces the statistical properties of the density contrast $\delta$, whose evolution is controlled by non--linear equations, WL observables cannot be modeled as Gaussian random fields. There is hence a possibility that cosmological information leaks from quadratic features into higher order statistics. In this work we consider two types of image features. One possibility consists of real space features, which have to do with the morphology of the image and can be expressed in terms of expectation values of local estimators. The second type of features are defined in Fourier space. We focus on the angular $\kappa$ power spectrum, a non--local feature that encodes quadratic spatial correlations of the $\kappa$ profile. In this Chapter we examine the relevant properties, advantages and drawbacks of these image features. 
 
 \section{Local expectation values in real space}
 Knowledge of the angular profile $\h{\kappa}(\pt)$, combined with the statistical isotropy assumption, allows us to estimate ensemble averages $\langle\rangle$ as real space spatial averages according to 
@@ -237,14 +237,14 @@ We defined the Hermite polynomials $H_n$ as
 \end{matrix}
 \end{equation}
 %
-Expressions (\ref{eq:4:Rv0}), (\ref{eq:4:Rv1}) and (\ref{eq:4:Rv2}, after some tedious algebra, lead to the perturbative relation between MFs and moments of $\kappa$
+Expressions (\ref{eq:4:Rv0}), (\ref{eq:4:Rv1}) and (\ref{eq:4:Rv2}), after some tedious algebra, lead to the perturbative relation between MFs and moments of $\kappa$
 
 \begin{equation}
 \label{eq:4:Vk-pert}
 V_k(\kappa_0=\sigma_0\nu) = A_k e^{-\nu^2/2}\left[V_k^G(\nu)+\delta V^1_k(\nu) + \delta V^2_k(\nu) + O(\lambda^3)\right] 
 \end{equation}
 %
-In the notation introduced in equation (\ref{eq:4:Vk-pert}, $V_k^G=H_{k-1}$ is the Gaussian contribution to the $k$--th MF and $\delta V^1_k,\delta V^2_k$ are the corrections coming respectively from the $O(\lambda)$, $O(\lambda^2)$ non--Gaussianity in $\kappa$. For reference, the amplitudes $A_k$ are given by 
+In the notation introduced in equation (\ref{eq:4:Vk-pert}), $V_k^G=H_{k-1}$ is the Gaussian contribution to the $k$--th MF and $\delta V^1_k,\delta V^2_k$ are the corrections coming respectively from the $O(\lambda)$, $O(\lambda^2)$ non--Gaussianity in $\kappa$. For reference, the amplitudes $A_k$ are given by 
 
 \begin{equation}
 \label{eq:4:amplitude}
@@ -407,7 +407,7 @@ Translational invariance causes the Dirac delta to appear in (\ref{eq:4:kappa-po
 \xi_{\kappa\kappa}(\alpha) = \int \frac{d\pell}{(2\pi)^2}P_{\kappa\kappa}(\ell)e^{i\pell\cdot\palpha}
 \end{equation}
 %
-The relation (\ref{eq:4:xi-pow}) is valid in the flat sky limit, with spherical harmonic corrections kicking at small $\ell$.
+The relation (\ref{eq:4:xi-pow}) is valid in the flat sky limit, with spherical harmonic corrections kicking in at small $\ell$.
 %
 \begin{figure}
 \begin{center}
@@ -505,7 +505,7 @@ As previously noted, the Dirac delta function appears in (\ref{eq:4:npoint-fouri
 \mu^{(n)}_i(\theta_G) = \int d\pell_1...d\pell_n \delta^D(\pell_1+...+\pell_n)\left[\tilde{\mu}^{(n)}_iP_\kappa^{(n)}\right](\pell_1,...,\pell_n)e^{-\theta_G^2(\ell_1^2+...+\ell_n^2)/2}
 \end{equation}
 %
-If $\tilde{\mu}^{(n)}_i$ is polynomial in the multipoles, $\mu^{(n)}_i$ is a connected local moment of the $\theta_G$--smoothed convergence. Different choices of $\theta_G$, $\mu^{(n)}_i$ probe different features in the $\kappa$ multi--spectra at low computational cost. The only operations that need to be performed are the smoothing convolution and the measurement of local expectation values, which cheap operations with complexity $O(N_R\log N_R), O(N_R)$ respectively. Motivated by the discussion in \S~\ref{sec:4:mink-mom} about the relation between morphological features and $\kappa$ moments, in this work we focus our attention on the multi--spectra projections defined by the following nine polynomials
+If $\tilde{\mu}^{(n)}_i$ is polynomial in the multipoles, $\mu^{(n)}_i$ is a connected local moment of the $\theta_G$--smoothed convergence. Different choices of $\theta_G$, $\mu^{(n)}_i$ probe different features in the $\kappa$ multi--spectra at low computational cost. The only operations that need to be performed are the smoothing convolution and the measurement of local expectation values, which are cheap operations with complexity $O(N_R\log N_R), O(N_R)$ respectively. Motivated by the discussion in \S~\ref{sec:4:mink-mom} about the relation between morphological features and $\kappa$ moments, in this work we focus our attention on the multi--spectra projections defined by the following nine polynomials
 
 \begin{equation}
 \label{eq:4:poly-quad}
