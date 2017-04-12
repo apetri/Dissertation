@@ -294,7 +294,7 @@ We assigned the same mass $m=\Omega_m\rho_cL_b^3/N_p$ to all the particles in th
 
 \begin{equation}
 \label{eq:3:poisson-sol-fft}
-\tilde{\psi}(\chi_k,\pell) = \tilde{\sigma}(\chi_k,\pell)\frac{e^{-\ell^2\theta_G^2}}{\ell^2}
+\tilde{\psi}(\chi_k,\pell) = \tilde{\sigma}(\chi_k,\pell)\frac{e^{-\ell^2\theta_G^2/2}}{\ell^2}
 \end{equation} 
 %
 We applied a Gaussian smoothing smoothing factor $e^{-\ell^2\theta_G^2/2}$ to the solution (\ref{eq:3:poisson-sol-fft}) in order to suppress sub--pixel particle shot noise. We chose $\theta_G$ to be the angular size of one lens pixel in real space. The time complexity of the potential calculation from the $N$--body outputs is dominated by the Poisson solver \citep{lenstools}, which has a runtime of $O(L_P^2\log L_P)$. Figure \ref{fig:3:lens} shows an example lens (density and potential) plane based on equations (\ref{eq:3:delta-hist}), (\ref{eq:3:poisson-sol-fft}). 
