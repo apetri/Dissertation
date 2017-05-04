@@ -95,7 +95,7 @@ def galdistr(cmd_args,fontsize=22):
 def pca_components(cmd_args,db_name="constraints_combine.sqlite",feature_label="power_spectrum_pca",parameter="w",fontsize=20):
 
 	#Query database
-	with FisherDatabase(os.path.join(data_home,db_name)) as db:
+	with FisherDatabase(os.path.join(data_home,"fisher",db_name)) as db:
 
 		fig,ax = plt.subplots()
 
