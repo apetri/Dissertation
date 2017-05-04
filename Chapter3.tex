@@ -301,7 +301,7 @@ We applied a Gaussian smoothing smoothing factor $e^{-\ell^2\theta_G^2/2}$ to th
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/lens_plane.eps}
+\includegraphics[scale=0.4]{Figures/pdf/lens_plane.pdf}
 \end{center}
 \caption{Dimensionless density $\sigma$ (left) and corresponding potential $\psi$ for a lens plane at $z_l=0.7$, cut from a $N_p=512^3, L_b=240\,{\rm Mpc}/h$ $N$--body simulation.}
 \label{fig:3:lens}
@@ -346,7 +346,7 @@ Note that not only the Born--approximated convergence can be efficiently compute
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/csample.eps}
+\includegraphics[scale=0.4]{Figures/pdf/csample.pdf}
 \end{center}
 \caption{Sample $\kappa$ reconstruction from one $N$--body simulation with $L_b=260\,{\rm Mpc}/h$ and $N_p=512^3$. The lens planes have a thickness of $\Delta=L_b/3$ and are resolved with $L_P^2=4096^2$ pixels. The $\kappa$ maps are reconstructed with $2048^2$ light rays arranged in a regular grid. The source galaxies are placed at redshift $z_s=2$. The residuals $\kappa-\kappa^{(1)}$ are dominated by the geodesic term $\kappa^{(2-{\rm gp})}$.}
 \label{fig:3:csample}
@@ -397,7 +397,7 @@ In this section we present \LT \citep{lenstools}, a {\sc python} software packag
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/eps/lt_flow.eps}
+\includegraphics[scale=0.5]{Figures/pdf/lt_flow.pdf}
 \end{center}
 \caption{Scheme of the \LT\, pipeline flow. Vertical arrows are directed from a particular application to its input. Horizontal arrows are directed from the input to the output products.}
 \label{fig:3:lt-flow}
@@ -438,7 +438,7 @@ Figure \ref{fig:3:lt-memory} shows the memory load as a function of the runtime 
 The pipeline products are organized in a hierarchical directory structure whose levels correspond to specifications of $\Lambda$CDM cosmological parameters, choices of $L_b,N_p$, random seeds for the initial conditions $\tilde{\delta}(\bb{k})$ and choices of the lens plane parameters $L_P,\Delta$. Separate directory tree levels are dedicated to the WL products $\kappa,\pmb{\gamma}$. Both single redshift images and shear catalogs can be produced. \LT\, provides an API to initialize, navigate and update the pipeline directory tree in a clean and efficient way, thus allowing easy retrieval of WL simulation products for further post--processing. For a throughout presentation of \LT, we direct the reader to the code documentation at \url{http://lenstools.rtfd.io}. 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/eps/lt_memory_usage.eps}
+\includegraphics[scale=0.5]{Figures/pdf/lt_memory_usage.pdf}
 \end{center}
 \caption{Memory load as a function of runtime for plane generation (black) and ray--tracing operations (red). Each vertical line corresponds to the completion of a $\psi$ plane calculation (black) and a lens crossing during ray--tracing (red).}
 \label{fig:3:lt-memory}

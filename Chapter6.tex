@@ -57,7 +57,7 @@ This trivial arrangement is far from optimal. A possible heuristic method to fin
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/cfht_design.eps}
+\includegraphics[scale=0.4]{Figures/pdf/cfht_design.pdf}
 \end{center}
 \caption{Distribution of the $(\Omega_m,w_0,\sigma_8)$ sample triplets. We show both the $(\Omega_m,w_0)$ (left) and the $(\Omega_m,\sigma_8)$ (right) projections. The black points correspond to the $N_M=91$ latin hypercube models (\ttt{CFHTEmu1} simulations), and the red cross correspond to the fiducial $\Lambda$CDM parameters read from Table \ref{tab:1:cosmopar} (\ttt{CFHTcov} simulations). The design results from $10^5$ iterations of the heuristic procedure described in \S~\ref{sec:6:sampling}.}
 \label{fig:6:sampling}
@@ -87,7 +87,7 @@ Using the \LT\, feature extraction routines, we construct the $N_M\times N_d$ fe
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/cfht_emulator_accuracy.eps}
+\includegraphics[scale=0.4]{Figures/pdf/cfht_emulator_accuracy.pdf}
 \end{center}
 \caption{Test of the emulator accuracy for the CFHTLenS $\kappa$ power spectrum $P_{\kappa\kappa}$ (red) and Minkowski functionals $V_k$ (green, blue, black). We use the \ttt{CFHTemu1} simulations to produce a feature emulator which is then tested against the mean feature measured in the \ttt{CFHTcov} simulations (solid lines). We also compare the mean \ttt{CFHTcov} feature to an emulated feature with $(\Omega_m,w_0,\sigma_8)=(0.8,-1.0,0.5)$ (dashed lines). The differences are plotted in units of the statistical error in each of the $N_d$ feature dimensions.}
 \label{fig:6:interpolation}
@@ -131,7 +131,7 @@ In order to avoid constraint degradation issues, as discussed in \S~\ref{sec:5:d
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/cfht_pca_components.eps}
+\includegraphics[scale=0.4]{Figures/pdf/cfht_pca_components.pdf}
 \end{center}
 \caption{Singular values $\Lambda_i$ from the SVD of $\bb{D}$ (left panel) and their cumulative sums in units of the total variance (right panel), as a function of the component number. We show the cases for the $\kappa$ power spectrum (red), Minkowski functionals $V_k$ (green, blue, black) and $\kappa$ moments (orange). A vertical black dashed line in correspondence of $N_c=3$ has been drawn for reference. The whitening factors $\mu_d,\sigma_d$ have been chosen as the mean and standard deviation of the feature matrix $\bb{D}$ across the $N_M$ models.}
 \label{fig:6:pcacomp}
@@ -139,7 +139,7 @@ In order to avoid constraint degradation issues, as discussed in \S~\ref{sec:5:d
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.3]{Figures/eps/cfht_robustness_pca_Omega_m-sigma8.eps}
+\includegraphics[scale=0.3]{Figures/pdf/cfht_robustness_pca_Omega_m-sigma8.pdf}
 \end{center}
 \caption{Robustness test on the number of PCA components $N_c$ necessary to constrain the $(\Omega_m,\sigma_8)$ doublet. We show the cases for the $\kappa$ power spectrum, PDF, Minkowski functionals and moments (left to right, top to bottom) and denote different values of $N_c$ with different colors. Confidence contours are calculated from the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\sigma_8)$ marginalized over $w_0$.}
 \label{fig:6:robustness}
@@ -152,7 +152,7 @@ Figure \ref{fig:6:pcacomp} shows the singular values $\Lambda_i$ obtained from t
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/eps/cfht_contoursOmega_m-sigma8_single.eps}
+\includegraphics[scale=0.5]{Figures/pdf/cfht_contoursOmega_m-sigma8_single.pdf}
 \end{center}
 \caption{$1\sigma$ (68\% confidence level) constraints on $(\Omega_m,\sigma_8)$ from CFHTLenS using the $\kappa$ power spectrum (red), Minkowski functionals (green, blue, black) and $\kappa$ moments (orange). The number $N_c$ of principal components is indicated in parentheses. Confidence contours are calculated from the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\sigma_8)$ marginalized over $w_0$.}
 \label{fig:6:cOmSisingle}
@@ -160,7 +160,7 @@ Figure \ref{fig:6:pcacomp} shows the singular values $\Lambda_i$ obtained from t
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/cfht_contours_momentsOmega_m-sigma8.eps} \includegraphics[scale=0.4]{Figures/eps/cfht_contours_momentsOmega_m-sigma8smooth.eps}
+\includegraphics[scale=0.4]{Figures/pdf/cfht_contours_momentsOmega_m-sigma8.pdf} \includegraphics[scale=0.4]{Figures/pdf/cfht_contours_momentsOmega_m-sigma8smooth.pdf}
 \end{center}
 \caption{Breakdown of the $1\sigma$ constraint on $(\Omega_m,\sigma_8)$ using the CFHTLenS $\kappa$ moments. We show different combinations of moments measured from $\kappa$ maps smoothed with $\theta_G=1'$ (left panel) and combination of single point moments $\mu_0^{(n)}$ measured from $\kappa$ maps smoothed with different smoothing scales $\theta_G=1',1.8',3.5'$ (right panel). The definitions of the moments $\mu_m^{(n)}$ are contained in \S~\ref{sec:4:moments}.}
 \label{fig:6:cOmSimoments}
@@ -168,7 +168,7 @@ Figure \ref{fig:6:pcacomp} shows the singular values $\Lambda_i$ obtained from t
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/png/cfht_contoursSigma8Om055_single.png}
+\includegraphics[scale=0.5]{Figures/pdf/cfht_contoursSigma8Om055_single.pdf}
 \end{center}
 \caption{$\Sigma_8$ likelihood (marginalized over $(\Omega_m,w_0)$) obtained from CFHTLenS observations using the $\kappa$ power spectrum (red), Minkowski functionals $V_k$ (green, blue, black) and $\kappa$ moments (orange). The number $N_c$ of principal components is indicated in parentheses in the legend. We also denote, with a gray band, the $1\sigma$ constraint on $\Sigma_8$ found by Planck \citep{Planck15} as a consistency check.}
 \label{fig:6:cSi855}
@@ -202,7 +202,7 @@ Constraining on the physical nature of Dark Energy, unfortunately, is not possib
 %
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[scale=0.5]{Figures/eps/cfht_contoursw-Sigma8Om055_single.eps}
+\includegraphics[scale=0.5]{Figures/pdf/cfht_contoursw-Sigma8Om055_single.pdf}
 \end{center}
 \caption{$1\sigma$ (68\% confidence level) constraints on $(w_0,\Sigma_8)$ from CFHTLenS using the $\kappa$ power spectrum (red), Minkowski functionals (green, blue, black) and $\kappa$ moments (orange). The number $N_c$ of principal components is indicated in parentheses. The confidence contours are referred to the parameter likelihood $\mathcal{L}(\Omega_m,w_0,\Sigma_8)$ marginalized over $\Omega_m$.}
 \label{fig:6:cwSi855signle}

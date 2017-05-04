@@ -15,7 +15,7 @@ The first systematic issue we investigate is the contamination of source galaxy 
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/spurious_visualize.eps}
+\includegraphics[scale=0.4]{Figures/pdf/spurious_visualize.pdf}
 \end{center}
 \caption{4 independent realizations of the residual spurious $\kappa$ after subtractions performed with polynomial fits to the PSF \citep{ChangLSST}. We show the reconstructed $\kappa$ profiles obtained via the KS inversion procedure in (\ref{eq:2:kappa-ks}). A Gaussian smoothing window with scale $\theta_G=1'$ has been convolved with the images.}
 \label{fig:7:spvisualize}
@@ -43,7 +43,7 @@ As we can see from Figure \ref{fig:7:eb2d}, we are allowed assume statistical is
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.75]{Figures/eps/spurious_eb2D.eps}
+\includegraphics[scale=0.75]{Figures/pdf/spurious_eb2D.pdf}
 \end{center}
 \caption{Two dimensional profiles of the power spectra measured from the spurious shear $E$ (left panel) and $B$ (middle panel) modes. We also measure the cross $EB$ term $\langle\tilde{\gamma}^E\tilde{\gamma}^B\rangle$ (right panel). The quantities shown are the average of 20 independent residual spurious shear realizations. The statistical isotropy of the patterns is evident, as well as the fact that $S^{EE}$ and $S^{BB}$, unlike the case for the WL signal, are comparable in magnitude.}
 \label{fig:7:eb2d}
@@ -59,7 +59,7 @@ where $A,n,\ell_0$ refer to the spurious shear amplitude, spectral index and $\e
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.6]{Figures/eps/spurious_fit.eps}
+\includegraphics[scale=0.6]{Figures/pdf/spurious_fit.pdf}
 \end{center}
 \caption{$\ell$ dependence of the residual spurious shear power spectra $S^{EE}$ (blue), $S^{BB}$ (green) and $S^{EB}$ (red). The mid points and error bars refer respectively to the mean and standard deviation of the power spectra measured from the 20 spurious shear realizations. The dashed black line shows the best fit to the $EE$ power spectrum performed with the empirical model in equation (\ref{eq:7:empmodel}).}
 \label{fig:7:spfit}
@@ -139,7 +139,7 @@ A visualization of the tree ring effect is shown in the left panel of Figure \re
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/sensors_visualize.eps}
+\includegraphics[scale=0.4]{Figures/pdf/sensors_visualize.pdf}
 \end{center}
 \caption{Spatial profiles of the additive contaminations to $\kappa$ due to the tree ring (left) and pixel size variations (right) effects. The images cover a field of view of $(0.2\,{\rm deg})^2$. In order to extend the mapping of the systematics to the entire LSST field of view of $(3.5\,{\rm deg})^2$, we repeated the patterns seen in this Figure across the whole field of view, applying random $90^\circ$ rotations at each replication.}
 \label{fig:7:sensvis}
@@ -168,7 +168,7 @@ following the notation of \S~\ref{sec:5:fisher}, in which $\bb{M},\bb{\Psi}$ are
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.6]{Figures/eps/sensors_power.eps}
+\includegraphics[scale=0.6]{Figures/pdf/sensors_power.pdf}
 \end{center}
 \caption{Power spectral density of the additive $\kappa$ contamination due to the tree ring (blue) and pixel size variation (green) effects. The power spectra were measured from one realization of a $(3.5\,{\rm deg})^2$ field of view obtained repeating the patterns in Figure \ref{fig:7:sensvis} with random $90^\circ$ rotations.}
 \label{fig:7:ccdpow}
@@ -243,7 +243,7 @@ b_{\rm ph}(z_s) = 0.003(1+z_s)
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.6]{Figures/png/lsst_galdistr.png}
+\includegraphics[scale=0.6]{Figures/pdf/lsst_galdistr.pdf}
 \end{center}
 \caption{Redshift distribution of $10^6$ source galaxies arranged uniformly in a $(3.5\,{\rm deg})^2$ field of view (which corresponds to a density of $n_g=22\,{\rm galaxies/arcmin}^2$). The distribution follows the law $n(z_s)\propto (z_s/z_0)^2\exp(-z_s/z_0)$ with $z_0=0.3$. For the purpose of this study (which makes use of the \ttt{LSST100Parameters} simulation suite, see Appendix) the galaxies have been divided in 5 redshift bins, chosen such that each bin contains the same number of galaxies.}
 \label{fig:7:galdistr}
@@ -253,7 +253,7 @@ We simulated an LSST--like galaxy survey by drawing the redshift $z_s$ of $N_g=1
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/eps/photoz_bias_Om-w.eps}\includegraphics[scale=0.4]{Figures/eps/photoz_constraints_Om-w_lensing_cmb.eps}
+\includegraphics[scale=0.4]{Figures/pdf/photoz_bias_Om-w.pdf}\includegraphics[scale=0.4]{Figures/pdf/photoz_constraints_Om-w_lensing_cmb.pdf}
 \end{center}
 \caption{Left panel: bias on $(\Omega_m,w_0)$ induced by photometric redshift errors, obtained using the $\kappa$ tomographic power spectrum (red), peak counts (green) and moments (blue). We show the bias values for 20 independent LSST--like survey realizations (crosses) and indicate the mean of $\h{p}^{\rm ph}-\h{p}$ as a square. For reference, we draw the $1\sigma$ (68\% confidence level) ellipses on the bias $\h{p}^{\rm ph}-\h{p}$ assuming its distribution is Gaussian. Right panel: $1\sigma$ confidence ellipses on $(\Omega_m,w_0)$ obtained from tomographic features (color coded in the legend). We the constraints without (thin lines) and with (thick lines) Planck \citep{Planck15} priors included via equation (\ref{eq:5:linapprox-cov-prior}). Feature covariance matrices have been measured from $N_r=16,000$ realizations of the shear catalogs.}
 \label{fig:7:photoz}
@@ -309,9 +309,9 @@ Born + $O(\Phi^2)$ & 156.7\,s & 1.52\,GB & 44\,hours \\ \hline
 % 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_powerSN30_s0_nb100.eps}
-\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_momentsSN15_s50_nb9.eps}
-\includegraphics[scale=0.255]{Figures/eps/bornBias_convergence_momentsSN30_s50_nb9.eps}
+\includegraphics[scale=0.255]{Figures/pdf/bornBias_convergence_powerSN30_s0_nb100.pdf}
+\includegraphics[scale=0.255]{Figures/pdf/bornBias_convergence_momentsSN15_s50_nb9.pdf}
+\includegraphics[scale=0.255]{Figures/pdf/bornBias_convergence_momentsSN30_s50_nb9.pdf}
 \end{center}
 \caption{Distribution of parameter estimates for the triplet $(\Omega_m,w_0,\sigma_8)$, obtained with (\ref{eq:5:linapprox-peak}) using a variety of $\kappa$ features which include the power spectrum and higher moments in real space. The observation to fit has been generated with full ray--tracing and the forward model, based on the feature derivatives $\bb{M}$, has been obtained with both the Born approximation (green bars), and exact ray--tracing (for the sake of null testing, blue bars). Forward models and covariance matrices have been estimated from ensembles of 8192 $\kappa$ realizations, and  mock measured features have been generated averaging over 1000 realizations, to mimic the area of an LSST--like survey. The $\bbh{p}_0$ samples were drawn with a bootstrapping procedure. The WL ensembles on which this study is based are taken from the \ttt{DEBatch} simulation suite (see Appendix).}
 \label{fig:7:biasfeat}
@@ -319,7 +319,7 @@ Born + $O(\Phi^2)$ & 156.7\,s & 1.52\,GB & 44\,hours \\ \hline
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.6]{Figures/eps/bornBias_ngal_convergence_powerSN_s0_nb100.eps}
+\includegraphics[scale=0.6]{Figures/pdf/bornBias_ngal_convergence_powerSN_s0_nb100.pdf}
 \end{center}
 \caption{Statistical significance of the bias induced by the Born approximation on the $\Omega_m$(blue), $w_0$(red) and  $\sigma_8$ (green) inferences obtained from the $\kappa$ power spectrum, as a function of the survey galaxy angular density $n_g$. The averaged results refer to an ensemble of 1000 bootstrapped realizations of an LSST--like galaxy survey.}
 \label{fig:7:biasbornngal}
