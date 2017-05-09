@@ -198,7 +198,7 @@ font.sans-serif     : Helvetica, Bitstream Vera Sans, Lucida Grande, Verdana, Ge
 #mathtext.it  : serif:italic
 #mathtext.bf  : serif:bold
 #mathtext.sf  : sans
-#mathtext.fontset : cm 
+mathtext.fontset : cm 
 # Should be 'cm' (Computer Modern), 'stix',
                        # 'stixsans' or 'custom'
 #mathtext.fallback_to_cm : True  # When True, use symbols from the Computer Modern

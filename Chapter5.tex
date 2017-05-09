@@ -46,7 +46,7 @@ is the covariance of the parameter estimate. If the parameter likelihood is not 
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.6]{Figures/pdf/cfht_contoursOmega_m-sigma8_sample.pdf}
+\includegraphics[scale=0.6]{Figures/png/cfht_contoursOmega_m-sigma8_sample.png}
 \end{center}
 \caption{Sample 1 (blue), 2 (green) and 3$\sigma$ (red) example confidence contours on $(\Omega_m,\sigma_8)$. The gray scale refers to the value of the parameter likelihood $\mathcal{L}(\bbh{p})$.}
 \label{fig:5:contsample}
@@ -292,7 +292,7 @@ Note that (\ref{eq:5:pcov-ext-2-emp}) reduces to (\ref{eq:5:pcov-est-2-exp}) whe
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/pdf/curving_nb.pdf}
+\includegraphics[scale=0.5]{Figures/png/curving_nb.png}
 \end{center}
 \caption{Expectation value of the $w_0$ peak scatter $\h{\Sigma}_{w_0w_0}$ as a function of the number of pseudo--independent realizations $N_r$ used to measure the feature covariance matrix. We consider a variety of features with different dimensionality, including the $\kappa$ power spectrum and peak counts. We show the numerical results obtained with a bootstrapping procedure (points), the $O(1/N_r),O(1/N_r^2)$ perturbation theory predictions from equation (\ref{eq:5:pcov-est-2-exp}) (dashed and thin solid lines respectively) and the empirical result from equation (\ref{eq:5:pcov-ext-2-emp}) (thick solid lines). The asymptotic parameter covariance $\bb{\Sigma}_\infty$, which coincides with the true covariance $\bb{\Sigma}$, has been estimated with a linear regression of $\langle\bbh{\Sigma}\rangle_2$ versus $1/N_r$ using the large $N_r$ tail.} 
 \label{fig:5:curvenb}
@@ -306,7 +306,7 @@ The analytical results illustrated in \S~\ref{sec:5:bayes}, \S~\ref{sec:5:degrad
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.35]{Figures/pdf/ps_pdf.pdf}
+\includegraphics[scale=0.35]{Figures/png/ps_pdf.png}
 \end{center}
 \caption{Distribution of the $\kappa$ power spectrum at four distinct values of $\ell$. We plot the histogram of 1000 $P_{\kappa\kappa}$ realizations in ensembles built with different $N_s$ (solid colored lines). We also show the distribution of $\sim 10^5$ $P_{\kappa\kappa}$ realizations in an ensemble built from a single $N$--body simulation ($L_b=240\,{\rm Mpc}/h$) (dashed black line). The simulations on which this Figure is based are taken from the \ttt{CovarianceBatch} set (see Appendix).}
 \label{fig:5:pspdf}
@@ -314,7 +314,7 @@ The analytical results illustrated in \S~\ref{sec:5:bayes}, \S~\ref{sec:5:degrad
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.35]{Figures/pdf/means_ns.pdf} \includegraphics[scale=0.35]{Figures/pdf/scaling_ns.pdf}
+\includegraphics[scale=0.35]{Figures/png/means_ns.png} \includegraphics[scale=0.35]{Figures/png/scaling_ns.png}
 \end{center}
 \caption{Top panel: mean feature measured from $N_r=1000$ realizations drawn from ensembles build with varying $N_s$. We show the $\kappa$ power spectrum measured at three selected $\ell$ values and the peak counts of three different heights $\kappa_0$ (colored lines). The mean feature is plotted in units of the statistical error measured from the ensemble variance. We also draw a dashed black line which shows the tolerance of 10\% of the statistical error. Bottom panel: asymptotic parameter variance on $w_0$ plotted against the number of independent simulations $N_s$ used to construct the WL ensembles. The asymptotic variance has been obtained with a linear regression of the bootstrapped $\langle\bbh{\Sigma}_2\rangle$ versus $1/N_r$ for large $N_r$. The trends are shown in units of the mean over $N_s$ for two different binning choices of the power spectrum (black, red) and for the peak counts (green). The simulations on which this Figure is based are taken from the \ttt{CovarianceBatch} set (see Appendix).}
 \label{fig:5:mcns}
@@ -324,7 +324,7 @@ The effect of biased sampling is evident in Figure \ref{fig:5:pspdf}, which show
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.6]{Figures/pdf/scaling_nr.pdf}
+\includegraphics[scale=0.6]{Figures/png/scaling_nr.png}
 \end{center}
 \caption{Degradation in the $w_0$ constraint as a function of $N_r$ for different choice of features. The features measured from ensembles built with $N_s=1$. The asymptotic variance $\bb{\Sigma}_{w_0w_0,\infty}$ was estimated using the value of $\langle\bbh{\Sigma}_2\rangle$ at $N_r=128,000$. We show the trends for small (black) and large (blue) scale power spectra and large threshold peak counts for non--smoothed (green) and $1'$ smoothed (red) $\kappa$ images. The simulations on which this Figure is based are taken from the \ttt{CovarianceBatch} set (see Appendix).}
 \label{fig:5:pseudonr}
@@ -345,8 +345,8 @@ In the previous sections we discussed how noise in the feature covariance matrix
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.35]{Figures/pdf/w_power_spectrum_pca.pdf} \includegraphics[scale=0.35]{Figures/pdf/w_peaks_pca.pdf}
-\includegraphics[scale=0.35]{Figures/pdf/w_moments_pca.pdf}
+\includegraphics[scale=0.35]{Figures/png/w_power_spectrum_pca.png} \includegraphics[scale=0.35]{Figures/png/w_peaks_pca.png}
+\includegraphics[scale=0.35]{Figures/png/w_moments_pca.png}
 \end{center}
 \caption{$1\sigma$ constraint on $w_0$ as function of the number of PCA components $N_c$ used in the projection. We show the case for the $\kappa$ power spectrum (top left) binned with 15 $\ell$ bins per redshift, the $\kappa$ peak counts (top right) binned in 45 $\kappa$ height bins per redshift, and the 9 moments (bottom) defined in (\ref{eq:4:poly-quad}), (\ref{eq:4:poly-cubic}) and (\ref{eq:4:poly-quartic}). We consider the single redshift case (thin lines) and the tomographic case (thick line). The constraints are plotted in units of the non--projected constraint, obtained from the full feature space. The feature covariance matrix has been measured from an ensemble made of $N_r=16,000$ realizations in order to ignore constraint degradation effects. We use $N_M=100$ different choices of $(\Omega_m,w_0,\sigma_8)$ to perform the PCA \citep{PetriPhotoZ}, and we choose the whitening parameters as $\mu_d=\sigma_d=\sum_p D_{pd}/N_M$.}
 \label{fig:5:pca}
@@ -373,8 +373,8 @@ Because the PCA projection changes with different specifications of the external
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.35]{Figures/pdf/wl_constraints_single_Om0-sigma8.pdf} \includegraphics[scale=0.35]{Figures/pdf/wl_constraints_single_Om0-w0.pdf}
-\includegraphics[scale=0.35]{Figures/pdf/wl_constraints_combine_Om0-sigma8.pdf} \includegraphics[scale=0.35]{Figures/pdf/wl_constraints_combine_Om0-w0.pdf}
+\includegraphics[scale=0.35]{Figures/png/wl_constraints_single_Om0-sigma8.png} \includegraphics[scale=0.35]{Figures/png/wl_constraints_single_Om0-w0.png}
+\includegraphics[scale=0.35]{Figures/png/wl_constraints_combine_Om0-sigma8.png} \includegraphics[scale=0.35]{Figures/png/wl_constraints_combine_Om0-w0.png}
 \end{center}
 \caption{$1\sigma$ (68\% confidence level) constraints on $(\Omega_m,\sigma_8)$ (left) and $(\Omega_m,w_0)$ (right) from a single $(3.5\,{\rm deg})^2$ WL field of view. The elliptical contours are based on the parameter covariance matrix (\ref{eq:5:linapprox-cov}). The feature covariance matrix $\bbh{C}$ has been estimated from 1000 realizations of the fiducial cosmology and has been corrected for the bias in (\ref{eq:5:pcov-est-1-bias}). In the top panels we show the constraints obtained using the following features: $P_{\kappa\kappa}$ ($\ell \in [10^2,10^5],N_d=100$), the 9 $\kappa$ moments described in \S~\ref{sec:4:moments}, Minkowski functionals ($\kappa_0\in[-2\sigma,2\sigma], N_d=100$) and peak counts ($\kappa_0\in[-2\sigma,5\sigma], N_d=100$). In the bottom panels we show constraints obtained by combining $P_{\kappa\kappa}$ with each of the other three features. Shape noise for a constant source redshift $z_s=2$ with $n_g=15\,{\rm galaxies/arcmin}^2$ has been included.}
 \label{fig:5:wlconstraints}

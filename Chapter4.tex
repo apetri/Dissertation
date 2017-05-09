@@ -109,7 +109,7 @@ The Large Scale Structure of the cosmic density fluctuations is known to display
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/pdf/excursion.pdf}
+\includegraphics[scale=0.4]{Figures/png/excursion.png}
 \end{center}
 \caption{Example of a $\kappa$--excursion set (black, right panel) for a simulated field of view of size $\theta_{\rm FOV}=3.5\,{\rm deg}$, with $\kappa_0=0.02$, referred to the image on the left panel. The $\kappa=0.02$ iso--contours have been indicated in red. The sources have been placed at a constant redshift $z_s=2$. The image has been convolved with a Gaussian kernel of size $\theta_G=0.5'$.}
 \label{fig:4:excursion}
@@ -255,8 +255,8 @@ In the notation introduced in equation (\ref{eq:4:Vk-pert}), $V_k^G=H_{k-1}$ is 
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/pdf/minkPerturbation0-1.pdf}
-\includegraphics[scale=0.4]{Figures/pdf/minkPerturbation2.pdf}
+\includegraphics[scale=0.4]{Figures/png/minkPerturbation0-1.png}
+\includegraphics[scale=0.4]{Figures/png/minkPerturbation2.png}
 \end{center}
 \caption{Comparison between the MFs measured from a sample of simulated fiducial $\kappa$ maps (from the \ttt{IGS1} simulations, see Appendix) and the approximation based on perturbation theory up to order $O(\bb{M}^{(4)})$ (or $O(\lambda^2)$). We show the mean of the measured MFs calculated over 1000 $\kappa$ realizations (simulated with constant source redshift $z_s=1$ and smoothed with $\theta_G=0.5'$) and the perturbative approach at Gaussian $O(\bb{M}^{(2)})$ order (blue) and including skewness $O(\bb{M}^{(3)})$ (green) and kurtosis $O(\bb{M}^{(4)})$ corrections. The moments $\pmb{\mu}$ have also been measured from the mean of the same 1000 $\kappa$ realizations.}
 \label{fig:4:minkpert}
@@ -264,7 +264,7 @@ In the notation introduced in equation (\ref{eq:4:Vk-pert}), $V_k^G=H_{k-1}$ is 
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/pdf/minkConvergence.pdf}
+\includegraphics[scale=0.5]{Figures/png/minkConvergence.png}
 \end{center}
 \caption{Study of the convergence of the perturbation series based on equation (\ref{eq:4:Vk-pert}). We measure the degree of convergence using a $\Delta\chi^2$ metric defined as $\Delta\chi^2=(V_k^{\rm meas}-V_k^{\rm pert})^T\bb{C}_{kk}^{-1}(V_k^{\rm meas}-V_k^{\rm pert})$, where $V_k^{\rm meas}$ are the measured MFs, $V_k^{\rm pert}$ are the approximated MFs at different orders in perturbation theory and $\bb{C}_{kk}$ is the $V_k-V_k$ covariance between different thresholds $\kappa_0$, measured from simulations. We show results for the area $V_0$ (blue), perimeter $V_1$ (green) and the Euler characteristic $V_2$ (red) of the excursion sets. Different line styles correspond to the different sized of the Gaussian smoothing windows $\theta_G$ applied to the images.}
 \label{fig:4:minkconv}
@@ -374,7 +374,7 @@ G(\gamma,t) = (t^2-\gamma^2)\left[1-\frac{1}{2}{\rm erfc}\left(\frac{t}{\sqrt{2(
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/pdf/convergencePeaks.pdf}
+\includegraphics[scale=0.4]{Figures/png/convergencePeaks.png}
 \end{center}
 \caption{A sample $\kappa$ map ($\theta_{\rm FOV}=3.5\,{\rm deg}$) with the locations of its peaks (identified by the 8 nearest neighboring pixels) highlighted in red dots. The right panel shows the peak number (blue) as a function of the peak height $\nu\sigma_0$. The panel also shows the peak histogram for a Gaussian $\kappa$ field with the same power spectrum as the WL simulated one (green) and the Gaussian prediction (red) for $dN_{\rm pk}/d\nu$ obtained with equation (\ref{eq:4:peaks-gaussian}).}
 \label{fig:4:peaks}
@@ -411,7 +411,7 @@ The relation (\ref{eq:4:xi-pow}) is valid in the flat sky limit, with spherical 
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/pdf/powerSample.pdf}
+\includegraphics[scale=0.5]{Figures/png/powerSample.png}
 \end{center}
 \caption{$\kappa$ (blue) and $\omega$ (green, see equation (\ref{eq:2:dfl-inverse})) angular power spectra, measured from the average of 1024 realizations of a fiducial cosmology in a field of view of size $\theta_{\rm FOV}=3.5\,{\rm deg}$. The source galaxies were placed on a plane at $z_s=2$. For reference we also show the auto--power spectra of Gaussian white shape noise (black) for three different choices of the angular galaxy density $n_g=15,30,45\,{\rm galaxies}/{\rm arcmin}^2$. We applied a smoothing factor $e^{-\ell^2\theta_G^2}$ to the power spectra, corresponding to a Gaussian window of size $\theta_G=0.5'$.}
 \label{fig:4:psample}
@@ -419,7 +419,7 @@ The relation (\ref{eq:4:xi-pow}) is valid in the flat sky limit, with spherical 
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/pdf/powerCov.pdf}
+\includegraphics[scale=0.5]{Figures/png/powerCov.png}
 \end{center}
 \caption{Measurement of the power spectrum diagonal covariance matrix in units of the Gaussian prediction in equation (\ref{eq:4:powercov-gauss-bin}). $N_\ell$ is defined to be $\ell\delta\ell_b\theta_{\rm FOV}^2/4\pi$. We measured the $P_{\kappa\kappa}$ covariance matrix from the same 1024 realizations we used in Figure \ref{fig:4:psample}, and adopted two different binning choices: 100 uniformly spaced bins between $\ell\in[100,10000]$ and 15 log--spaced bins between $\ell\in[100,6000]$. We show both the noiseless cases for linear (blue) and log (green) and the case in which shape noise has been added (red) to the $\kappa$ images with a galaxy density of $n_g=15\,{\rm galaxies}/{\rm arcmin}^2$.}
 \label{fig:4:pcov}
@@ -460,7 +460,7 @@ Figure \ref{fig:4:pcov} shows that (\ref{eq:4:powerest-bin}) is a good approxima
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/pdf/powerResiduals.pdf}
+\includegraphics[scale=0.5]{Figures/png/powerResiduals.png}
 \end{center}
 \caption{Difference between the full $\kappa$ power spectrum, obtained from ray--tracing, and its Born approximated version. We show the measured power residuals (blue), and the Born--geodesic (green), Born--lens--lens (red) cross spectra averaged over 8192 field of view realizations ($z_s=2, \theta_{\rm FOV}=3.5\,{\rm deg}$) of a fiducial $\Lambda$CDM model.}
 \label{fig:4:powerRes}
@@ -534,8 +534,8 @@ Note that, with these choices, the quadratic projections defined by (\ref{eq:4:p
 %
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.45]{Figures/pdf/delta_m2.pdf}
-\includegraphics[scale=0.45]{Figures/pdf/delta_m5.pdf}
+\includegraphics[scale=0.45]{Figures/png/delta_m2.png}
+\includegraphics[scale=0.45]{Figures/png/delta_m5.png}
 \end{center}
 \caption{Comparison between the $\kappa$ skewness and kurtosis obtained with full ray--tracing and with the Born approximation. With the solid lines we show the residuals between the Born result and the ray--tracing (blue), the geodesic truncated (green) and the lens--lens truncated (red) kappa. The dashed line show the first post--Born corrections in equations (\ref{eq:4:skew-pert}), (\ref{eq:4:kurt-pert}) for the geodesic (green), lens--lens (red) cross terms, and the sum of the two (blue). We plot the results as a function of the smoothing scales $\theta_G$, averaging over 8192 realizations of the field of view in a fiducial $\Lambda$CDM model.}
 \label{fig:4:momRes}
